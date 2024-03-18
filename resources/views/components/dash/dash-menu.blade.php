@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li>
-                <a href="'/views/admin/departments'">
+                <a href="/department">
                     <i class="flaticon-381-umbrella"></i>
                     <span class="nav-text">Departments</span>
                 </a>
