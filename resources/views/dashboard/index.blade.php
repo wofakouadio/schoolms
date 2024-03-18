@@ -4,6 +4,12 @@
     <title>Dashboard | School Mgt Sys</title>
 @endpush
 
+@push('page_name')
+<div class="dashboard_bar" id="dash_page_name">
+    Dashboard
+</div>
+@endpush
+
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
