@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,10 @@ Route::controller(AuthController::class)->group(function(){
 // Dashboard Controller Group route
 Route::controller(DashboardController::class)->group(function(){
     Route::get("/dashboard","index");
+});
+
+// Departments Controller Group route
+Route::controller(DepartmentsController::class)->group(function(){
+    Route::get("/department","index");
+    Route::get("/department/create", "create");
 });
