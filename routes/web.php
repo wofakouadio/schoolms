@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,9 @@ use App\Http\Controllers\AuthController;
 Route::controller(AuthController::class)->group(function(){
     Route::get("/", "index")->name("login");
     Route::get("/forgot-password","forgotPasswordPage");
+});
+
+// Dashboard Controller Group route
+Route::controller(DashboardController::class)->group(function(){
+    Route::get("/dashboard","index");
 });
