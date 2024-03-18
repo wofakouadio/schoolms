@@ -53,7 +53,7 @@
                                             </div>
                                         </div> -->
                                         <div class="mb-3">
-                                            <a href="forgot-password">Forgot Password?</a>
+                                            <a href="/forgot-password">Forgot Password?</a>
                                         </div>
                                     </div>
                                     <div class="text-center">

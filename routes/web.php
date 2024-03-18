@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
+// Authentication Controller group route
+Route::controller(AuthController::class)->group(function(){
+    Route::get("/", "index")->name("login");
+    Route::get("/forgot-password","forgotPasswordPage");
 });
