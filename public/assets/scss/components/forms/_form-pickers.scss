@@ -1,0 +1,179 @@
+
+
+.asColorPicker-dropdown {
+    max-width: 26rem;
+}
+.asColorPicker-trigger {
+    overflow: hidden;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+.asColorPicker-trigger {
+    border  : 0 none;
+    height  : 100%;
+    position: absolute;
+    right: -8px;
+    top     : 0;
+    width   : 2.1875rem;
+}
+[direction="rtl"] .asColorPicker-trigger{
+	left: 0;
+	right: auto;
+}
+.asColorPicker-clear {
+    display        : none;
+    position       : absolute;
+    right          : 1rem;
+    text-decoration: none;
+    top            : .5rem;
+}
+
+
+
+.daterangepicker {
+    td.active {
+        background-color: var(--primary);
+		color:$white!important;
+
+        &:hover {
+            background-color: var(--primary);
+        }
+    }
+
+    button.applyBtn {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+}
+
+.datepicker {
+    &.datepicker-dropdown {
+		padding:1rem;
+        border-radius: 0.0625rem;
+        border: 0.0625rem solid $gallery;
+		cursor:pointer;
+
+        td.day, th.next, th.prev {
+            height: 33px;
+            width: 33px !important;
+            //padding: 0;
+            text-align: center;
+            font-weight: 300;
+			//font-size:12px;
+            border-radius: $radius-sm;
+
+            &:hover {
+                @extend %gradient-9;
+				//font-size:12px;
+				
+                color: var(--primary);
+				background:linear-gradient(to right, #f9f9f9 0%, #f9f9f9 100%) !important;
+            }
+        }
+
+        th.datepicker-switch, th.next, th.prev {
+            font-weight: 500;
+			font-size:14px;
+            color: $heading;
+			text-align:center;
+        }
+
+        th.dow {
+            font-weight: 300;
+        }
+    }
+    table {
+
+        
+
+        tr td.selected, tr td.active.active {
+            @extend %gradient-9;
+            //box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+            border: 0;
+			background:linear-gradient(to right, #f93a0b 0%, #f93a0b 100%) !important;
+			color:$white;
+        }
+
+        tr {
+            td.today {
+                @extend %gradient-9;
+                box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                color     : #ffffff;
+
+                &:hover {
+                    @extend %gradient-9;
+                    box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                    color     : #ffffff;
+                }
+            }
+
+            td.today.disabled {
+                @extend %gradient-9;
+                box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                color     : #ffffff;
+
+                &:hover {
+                    @extend %gradient-9;
+                    box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                    color     : #ffffff;
+                }
+            }
+        }
+    }
+}
+
+
+.picker {
+    &__select--month, &__select--year {
+        height: 2.5em;
+    }
+
+    &__input {
+        background-color: transparent !important;
+
+        @at-root [data-theme-version="dark"] & {
+            background-color: transparent !important;
+            border: 0.0625rem solid $d-border;
+        }
+    }
+}
+
+.asColorPicker-wrap{
+	.form-control{
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}
+.daterangepicker td.available:hover, .daterangepicker th.available:hover{
+		color:var(--primary);
+		background-color:#f9f9f9;
+}
+.daterangepicker .drp-calendar.left{
+		padding:1rem 1rem;
+}
+.daterangepicker .calendar-table th, .daterangepicker .calendar-table td{
+	width:33px;
+	height:33px;
+	border-radius:$radius-sm!important;
+	color:#B5B5C3;
+}
+.daterangepicker td.in-range{
+	background-color:transparent;
+	color:#5E6278!important;
+}
+.daterangepicker .calendar-table th{
+	font-size:14px;
+	font-weight:500;
+	color:#3F4254;
+}
+button.cancelBtn.btn.btn-sm.btn-inverse{
+	background-color:#f9f9f9;
+}
+.daterangepicker{
+	box-shadow:0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+	border:0;
+}
+.daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span{
+	border-width:0 1.9px 1.9px 0;
+	border-color:$light;
+}

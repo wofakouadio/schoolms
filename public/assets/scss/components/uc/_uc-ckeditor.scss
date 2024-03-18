@@ -1,0 +1,95 @@
+// Ckeditor
+.ck.ck-editor{
+	.ck.ck-button{
+		padding: 8px 12px;
+		background-color: rgba($primary,0.1);
+		color: var(--primary);
+		font-weight: 700;
+		border-radius: $radius;	
+		cursor: pointer;
+		
+	}
+	.ck.ck-toolbar{
+		background-color: var(--bs-card-bg);
+		border: 0;
+		padding: 5px 10px;
+		@at-root [data-theme-version="dark"] & {
+			background-color: $dark-card;
+		}
+		.ck.ck-button{
+			&:hover{
+				background-color: $primary;
+				span{
+					color: #fff;
+				}
+				svg{
+					color: #fff;
+				}
+			}
+		}
+	}
+	.ck.ck-toolbar__separator{
+		display: none !important;
+	}
+	.ck-content{
+		background-color: #f7f7f7;
+		border-width: 1px 0 0;
+		border-color: #e7e5ef;
+	}
+	.ck-reset.ck-list {
+		.ck-list__item{
+			.ck.ck-button{
+				border-radius: 0;
+				
+			}
+			.ck-button.ck-on {
+				background: $primary;
+				
+			}
+		}
+	}
+}
+.ck-editor__editable{
+	background :$body-bg !important;
+	@at-root [data-theme-version="dark"] & {
+		background-color:$d-bg!important;
+	}	
+}
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+    border-color: $border-color;
+	padding: 0.865rem var(--ck-spacing-standard);
+}
+.ck.ck-toolbar .ck-toolbar__items .ck.ck-toolbar__separator {
+    background: $border-color;
+}
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+	min-height: 12.375rem;
+	background: $body-bg ;
+	@at-root [data-theme-version="dark"] & {
+		border-color: $d-border;
+		background: $d-bg;
+	}
+}
+button.ck.ck-button.ck-off:hover {
+    background-color: $border-color;
+}
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused{
+	min-height: 9.375rem;
+}
+
+.ck.ck-button.ck-on:not(.ck-disabled):hover, 
+a.ck.ck-button.ck-on:not(.ck-disabled):hover {
+    background-color: $primary ;
+}
+.ck.ck-reset.ck-dropdown__panel.ck-dropdown__panel_se.ck-dropdown__panel-visible {
+    box-shadow: none;
+    border: 0;
+}
+.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:first-child .ck-button {
+    border-top-left-radius: 0 !important;
+	border-top-right-radius: $radius !important;
+}
+.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:last-child .ck-button {
+    border-bottom-left-radius: $radius !important;
+	border-bottom-right-radius: $radius !important;
+}

@@ -1,0 +1,227 @@
+.badge{
+    line-height: 1.5;
+    border-radius: 0.5rem;
+    // font-size: 0.75rem;
+    // font-weight: normal;
+    padding: 0.25rem 0.625rem;
+	border:0.0625rem solid transparent;
+	min-width: 23px;
+    min-height: 23px;
+	font-weight:600;
+}
+
+.badge-rounded{
+    border-radius: 1.25rem;
+    padding:0.1875rem 0.8125rem ;
+}
+.badge-circle{
+    border-radius: 6.25rem;
+    padding: 0.1875rem 0.4375rem;
+}
+
+
+
+
+
+.badge-outline-primary{
+    border: 0.0625rem solid var(--primary);
+    color: var(--primary);
+}
+.badge-outline-secondary{
+    border: 0.0625rem solid $secondary;
+    color: $secondary;
+	@at-root [data-theme-version="dark"] & {
+		color:$body-color;
+	}
+}
+.badge-outline-success{
+    border: 0.0625rem solid $success;
+    color: $success;
+}
+.badge-outline-info{
+    border: 0.0625rem solid $info;
+    color: $info;
+}
+.badge-outline-warning{
+    border: 0.0625rem solid $warning;
+    color: $warning;
+}
+.badge-outline-danger{
+    border: 0.0625rem solid $danger;
+    color: $danger;
+}
+.badge-outline-light{
+    border: 0.0625rem solid $border;
+    color: $dark;
+	@at-root [data-theme-version="dark"] & {
+		color:$body-color;
+	}
+}
+.badge-outline-dark{
+    border: 0.0625rem solid $dark;
+    color: $dark;
+	@at-root [data-theme-version="dark"] & {
+		color:$body-color;
+	}
+}
+
+
+
+.badge-xs {
+	padding:0px 8px;
+	line-height:20px;
+	border-radius:$radius-sm;
+	font-weight:500;
+	
+	&.style-1{
+		margin-left:16px;
+	}
+}
+
+.badge-sm {
+	font-size: 0.6875rem;
+    padding: 0.3125rem 0.5rem;
+    line-height: 0.6875rem;
+}
+
+.badge-lg {
+    font-size: 0.875rem;
+    padding: 0rem 0.625rem;
+    line-height: 1.875rem;
+}
+
+
+.badge-xl {
+    font-size: 1rem;
+    padding: 0rem 0.9375rem;
+    line-height: 2.1875rem;
+}
+.badge-default{
+    background: #ADB6C7;
+}
+.badge-success {
+    background-color: $success;
+}
+.badge-secondary {
+    background-color: $secondary;
+}
+.badge-info {
+    background-color: $info;
+}
+.badge-primary {
+    background-color: var(--primary);
+}
+.badge-warning {
+    background-color: $warning;
+}
+.badge-danger {
+    background-color: $danger;
+}
+.badge-dark {
+    background-color: $dark;
+}
+.badge-light {
+    background-color: $light;
+}
+
+
+
+.light.badge-default{
+    background: #ADB6C7;
+}
+.light.badge-success {
+    background-color: lighten($success, 25%);
+	color:$success;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($success, 25%);
+	}
+}
+.light.badge-info {
+    background-color: lighten($info, 25%);
+	color:$info;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($info, 25%);
+	}
+}
+.light.badge-primary {
+    background-color: lighten($primary, 45%);
+	color:var(--primary);
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($primary, 45%);
+	}
+}
+.light.badge-secondary {
+    background-color: $secondary-light;
+	color:$secondary;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($primary, 45%);
+		
+	}
+}
+.light.badge-warning {
+    background-color: $warning-light;
+	color:$warning;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($primary, 45%);
+	}
+}
+.light.badge-danger {
+    background-color: $danger-light;
+	color:$danger;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($primary, 45%);
+	}
+}
+.light.badge-dark {
+    background-color: $dark-light;
+	color:$dark;
+	@at-root [data-theme-version="dark"] & {
+		background-color: lighten($primary, 45%);
+		color:$body-color;
+	}
+}
+.light.badge-light {
+    background-color:  lighten($light, 20%);
+	color:$light;
+}
+
+
+
+
+
+//
+
+.bootstrap-label{
+    .label{
+        display: inline-block;
+        margin-right: 1rem;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+.badge-demo{
+
+    .badge{
+        margin-right: 0.3125rem;
+        margin-bottom: 0.3125rem;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+.bootstrap-badge-buttons{
+
+    button{
+        margin-right: .2rem;
+        margin-bottom: 1rem;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}

@@ -1,0 +1,252 @@
+.profile-back{
+	position:relative;
+	img{
+		width:100%;
+		height:25rem;
+		object-fit: cover;
+		border-radius: 1.25rem;
+		@include respond ('phone'){
+			height:20rem;
+		}
+	}	
+	.social-btn{
+		position:absolute;
+		bottom: 3rem;
+		right: 2rem;
+		z-index:1;
+		.social{
+			background:rgba(239, 239, 239, 0.22);	
+			border:0;
+			margin-right:1rem;
+			
+			
+		}
+		.btn{
+			font-size:1.125rem;
+			font-weight:600;	
+			&:hover{
+				color:$white;	
+			}
+			
+			&.btn-light{
+				&:focus{
+					color:$white;
+				}
+			}
+			
+		}
+		@include respond ('laptop'){
+			.btn{
+				font-size:0.7rem;	
+			}	
+		}
+		@include respond ('tab-port'){
+			bottom:unset;
+			top:3rem;
+		}
+		@include respond ('phone'){
+			right:0;
+			padding:0 15px;
+			.social{
+				margin-right:0.2rem;
+				margin-bottom:0.5rem;
+			}
+		}
+		.btn.btn-primary{
+			@include respond ('phone'){
+				margin-bottom:0.5rem;
+			}
+		}
+			
+	}
+	&:after{
+		position:absolute;
+		content:"";
+		height:100%;
+		width:100%;
+		top:0;
+		left:0;
+		border-radius:1.25rem;
+		/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+39,000000+86&0.7+18,0.5+100 */
+		background: -moz-linear-gradient(top,  rgba(0,0,0,0.7) 18%, rgba(0,0,0,0.65) 39%, rgba(0,0,0,0.53) 86%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  rgba(0,0,0,0.7) 18%,rgba(0,0,0,0.65) 39%,rgba(0,0,0,0.53) 86%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  rgba(0,0,0,0.7) 18%,rgba(0,0,0,0.65) 39%,rgba(0,0,0,0.53) 86%,rgba(0,0,0,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3000000', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
+	}
+	
+}
+.profile-pic{
+		margin-top: -9rem;
+		position: relative;
+		padding-left:6rem;
+	img{
+		height:13.688rem;
+		width:13.688rem;
+		border-radius:1.25rem;
+		border:0.5rem solid $white;
+		margin-right:2rem;
+	}
+	.profile-info2{
+		color:$white;
+		h2{
+			font-size:2.5rem;
+			font-weight:600;
+			color:$white;
+		}
+		h4{
+			font-size:1.5rem;
+			font-weight:500;
+			color:#B1C1C8;
+		}
+	}
+	@include respond ('laptop'){
+		img{
+			height:7.688rem;
+			width:7.688rem;	
+		}
+		h2{
+			font-size:1.5rem!important;	
+		}
+		h4{
+			font-size:1rem!important;	
+		}
+		margin-top:-6rem;
+		padding-left:1rem;
+	}
+	@include respond ('tab-port'){
+		margin-top:-8rem;
+		align-items:center;
+		img{
+			height:6.688rem;
+			width:6.688rem;	
+			margin-right:1rem;
+			border-width:3px;
+		}
+		h4{
+			font-size:0.7rem!important;	
+		}
+		padding-left:1rem;
+		padding-right:1rem;
+	}
+	
+}
+.contacts-social{
+	span{
+		i{
+			height:3.563rem;
+			width:3.563rem;
+			background:var(--primary);
+			color:$white;
+			border-radius:3.563rem;
+			text-align: center;
+			line-height: 3.563rem;
+			font-size: 1.5rem;
+			display: block;
+		}	
+	}	
+}
+.bg-facebook{
+	&.light{
+		background:rgba(71,113,213,0.15);	
+		
+		&:hover{
+			background-color:#3d6adc;
+			color:$white;
+			
+			.text-facebook{
+				color:$white;
+			}
+		}
+	}
+}
+.bg-linkedin{
+	&.light{
+		background:rgba(14,121,179,0.15);		
+		
+		&:hover{
+			background-color:#0073b1;
+			color:$white;
+			
+			.text-linkedin{
+				color:$white;
+			}
+			
+		}
+	}
+}	
+.bg-dribble{
+	&.light{
+		background:rgba(231,85,141,0.15);	
+
+			&:hover{
+				background-color:#EA4C89;
+				color:$white;
+				.text-dribble{
+					color:$white;
+				}
+				
+			}
+	}
+}
+.bg-youtube{
+	&.light{
+		background:rgba(251,14,14,0.15);	
+
+		&:hover{
+			background-color:#FF0000;
+			color:$white;
+
+				.text-youtube{
+					color:$white;
+				}
+		}
+	}
+}
+.text-facebook{
+	color:#3D6AD6;	
+	
+	
+}
+.text-linkedin{
+	color:#0073B1;	
+}
+.text-dribble{
+	color:#EA4C89;	
+}
+.text-youtube{
+	color:#FF0000;	
+}
+.text-youtube,
+.text-linkedin,
+.text-facebook,
+.text-dribble{
+	position:relative;
+	margin-right:35px;
+	
+	&:after{
+		
+		position: absolute;
+		content: "";
+		background-color: rgba(255, 255, 255, 0.7);
+		top: -7px;
+		left: 22px;
+		width: 1px;
+		height: 31px;
+
+
+	}
+}
+
+.upload{
+	a{
+		height:4.313rem;
+		width:4.313rem;
+		border-radius:4.313rem;
+		background:rgba(255,255,255,0.20);
+		display: block;
+		text-align: center;
+		line-height: 4.313rem;
+		font-size: 2rem;
+		color: $white;
+	}	
+}

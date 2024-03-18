@@ -1,0 +1,77 @@
+.static-icon{
+	text-align:center;
+	
+	span{
+		i{
+			height:3.813rem;
+			width:3.813rem;
+			background:var(--rgba-primary-1);
+			text-align:center;
+			line-height:3.813rem;
+			color:var(--primary);
+			border-radius: 3.813rem;
+			font-size:1.7rem;
+			margin-bottom:1rem;
+			
+			@include respond ('phone'){
+				font-size:1.3rem;
+			}
+			
+		}	
+	}
+	@include respond('tab-port'){
+		margin-bottom:1.5rem;	
+	}
+}
+.shapreter-row{
+	&>div{
+		border-right:1px solid #eee;	
+		&:last-child{
+			border-right:0;	
+		}
+	} 
+	@include respond ('tab-port'){
+		&>div{
+			&:nth-child(-n+3){
+				border-bottom:1px solid #eee;
+			}
+			&:nth-child(n+4){
+				padding-top:1.5rem;
+			}
+			&:nth-child(3){
+				border-right:0;
+			}
+		}
+	}
+	@include respond ('phone'){
+		&>div{
+			border:0;
+			&:nth-child(odd){
+				border-right:1px solid #eee;
+			}
+			&:nth-child(-n+4){
+				border-bottom:1px solid #eee;
+			}
+			&:nth-child(n+3){
+				padding-top:1.5rem;
+			}
+		}
+	}
+	
+}
+.bg-vigit{
+	background:#F6AD2E;	
+}
+.bg-contact{
+	background:var(--primary);	
+}
+.bg-follow{
+	background:#412EFF;	
+}
+#chartBar{
+	svg{
+		text tspan {
+			fill: #828690;
+		}
+	}
+}

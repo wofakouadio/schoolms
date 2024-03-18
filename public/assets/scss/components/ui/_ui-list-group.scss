@@ -1,0 +1,35 @@
+.list-group-item {
+    background-color: rgba(255,255,255,0);
+    border: 1px solid $border;
+	padding: 1rem 1.5rem;
+	border-top-left-radius:$radius-sm!important;
+	border-top-right-radius:$radius-sm!important;
+	&.active{
+		background-color :var(--primary);
+		border-color :var(--primary);
+	}
+    @at-root [data-theme-version="dark"] & {
+        border-color: $d-border;
+		color:$body-bg;
+    }
+}
+
+.list-group-item.disabled, .list-group-item:disabled {
+    color: #fff;
+    background-color: $secondary;
+    border-color: $secondary;
+}
+[class*="bg-"]{
+	.list-group-item{
+		border-color:rgba($white, 0.05);
+		//color:$white;
+	}
+}
+.bg-warning{
+	.list-group-item{
+		border-color:rgba($black, 0.05);
+	}
+}
+// .list-group-item-action {
+//     color: #fff;
+// }

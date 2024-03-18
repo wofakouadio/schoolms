@@ -1,0 +1,56 @@
+.bar-chart{
+	.apexcharts-legend-text{
+		.value{
+			margin-left:1.25rem;
+			font-size:1.25rem;
+			font-weight:700;
+		}
+	}		
+}
+.donut-chart-sale{
+	small i{
+		font-size: 1.75rem;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		display: flex;
+		align-items: center;
+		top: 0;
+		justify-content: center;
+		font-weight: 600;
+		color:var(--primary);
+	}
+}
+.chart-link{
+	span{
+		font-size:0.6875rem;	
+	}	
+}
+.chart-content{
+	@include respond ('phone'){
+		margin-top:1.875rem;	
+	}	
+}
+.form-switch{
+	.form-check-input{
+		width:3em;	
+	}	
+}
+.bar-chart{
+	.apexcharts-bar-series{
+		.apexcharts-series:nth-child(2){
+			path{
+				fill:var(--primary);
+			}
+		}
+	}
+}
+
+.Sales-1{
+	.apexcharts-series{
+		.apexcharts-line{
+			stroke:var(--primary);
+		}
+	}
+}
