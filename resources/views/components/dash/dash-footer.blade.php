@@ -83,3 +83,7 @@ function JobickCarousel()
 		}, 1000);
 	});
 </script>
+
+{{-- custom scripts for datatables --}}
+{{-- departments Table --}}
+<script src="{{asset('assets/tables/departmentsTables.js')}}"></script>
