@@ -5,3 +5,30 @@ student
 teacher
 
 admin will have permissions to assign roles
+
+use the laravel default register page
+
+use spatie framework for admin and teacher
+
+
+try to save data and show response message back to main page and load data in dataTables
+
+getting started
+    school details
+        name
+        location
+        email
+        phone number
+        logo
+    user details [admin details]
+        fname
+        lname
+        email
+        phone number
+        password
+    packages [middleware]
+        then select package to be on
+
+    then after redirect to payment [but not to be active now]
+
+    then
