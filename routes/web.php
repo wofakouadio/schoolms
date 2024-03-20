@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/reg', function () {
+    return view('auth.reg');
+});
+
+Route::post('/get_started',[AdminController::class, 'getStarted']);
+
+Route::get('/login', function(){
+    return view('login');
 });
 
 Route::get('/dashboard', function () {

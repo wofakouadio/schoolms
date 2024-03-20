@@ -32,3 +32,34 @@ getting started
     then after redirect to payment [but not to be active now]
 
     then
+
+
+    after registration, redirect to select package then after selecting package, redirect to dashboard
+
+    download this package laravel mediable
+
+
+    how to implement uuid
+    https://andreapollastri.medium.com/implements-uuids-into-your-laravel-applications-f046e1f71293
+
+
+
+    TEMPLATE FOR SaaS
+    ✅✅✅BASIC✅✅✅
+    https://smsdemo.iwebapps.org/signin
+
+    ADMIN DASHBOARD
+    Staff Id: 127001
+    Password: admin
+
+    TEACHER DASHBOARD
+    Staff Id: 124001
+    Password: teacher
+
+    ACCOUNTANT
+    staff Id: 124002
+    Password: accountant
+
+    STUDENT
+    Student Id: PA/JHS/001
+    Password: prince2008
