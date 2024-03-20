@@ -23,6 +23,7 @@ class AdminController extends Controller
             'admin_phoneNumber' => ['required', 'string', 'max:255'],
             'admin_email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Admin::class],
             'admin_password' => ['required'],
+            'admin_repeat_password' => ['required'|'confirmed'],
             'school_name' => ['required', 'string', 'max:255'],
             'school_location' => ['required', 'string', 'max:255'],
             'school_phoneNumber' => ['required', 'string', 'max:255'],
@@ -33,7 +34,6 @@ class AdminController extends Controller
 
         try{
             $admin = Admin::create([
-                'admin_id' => Str::uuid(),
                 'admin_firstName' => $request->admin_firstName,
                 'admin_lastName' => $request->admin_lastName,
                 'admin_phoneNumber' => $request->admin_phoneNumber,
@@ -42,15 +42,23 @@ class AdminController extends Controller
             ]);
 
             if($admin){
-                $reg_admin = $admin->admin_id;
-                School::create([
-                    'school_id' => Str::uuid(),
+                $reg_admin = $admin->id;
+                $school = School::create([
                     'school_name' => $request->school_name,
                     'school_location' => $request->school_location,
                     'school_phoneNumber' => $request->school_phoneNumber,
                     'school_email' => $request->school_email,
                     'admin_id' => $reg_admin
                 ]);
+
+                $reg_school = $school->id;
+                if($reg_school){
+                    Admin::where('id', $reg_admin)->update([
+                        'school_id' => $reg_school
+                    ]);
+                }
+
+                // dd(['admin id ' => $reg_admin, 'school_id' => $reg_school]);
             }
 
             DB::commit();
@@ -58,9 +66,9 @@ class AdminController extends Controller
             return redirect('/')->with('success', 'Welcome to the new world');
         } catch(\Exception $th){
 
-            dd($th);
+            // dd($th);
             DB::rollBack();
-            return redirect('/reg')->with('error', 'Registration failed. Error:' . $th->getMessage());
+            return redirect('/get-started')->with('error', 'Registration failed. Error:' . $th->getMessage());
         }
 
 

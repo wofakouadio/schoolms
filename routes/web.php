@@ -15,15 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// launch app page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/reg', function () {
-    return view('auth.reg');
+// platform page to login
+Route::get('/platform', function(){
+    return view('platform');
 });
 
-Route::post('/get_started',[AdminController::class, 'getStarted']);
+// get started page
+Route::get('/get-started', function () {
+    return view('get-started.register');
+});
+// register as new school and administrator
+Route::post('/new-account',[AdminController::class, 'getStarted']);
+
 
 Route::get('/login', function(){
     return view('login');
