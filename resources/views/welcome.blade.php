@@ -52,23 +52,27 @@
 
                                         </a> --}}
                                     </div>
-                                    <h4 class="text-center mb-4">Welcome to School Management System</h4>
-                                    <h4>To get started, we would ask you to fill in some information about the school, and the administrator who is to manage. </h4>
-                                    <a class="btn btn-primary" href="/reg">
-                                        <span class="btn-icon-start text-primary">
-                                            <i class="bi bi-arrow-up-right-square-fill text-primary"></i>
-                                        </span>
-                                        Get started
-                                    </a>
-                                    {{-- <form action="index.html">
-                                        <div class="mb-3">
-                                            <label><strong>Password</strong></label>
-                                            <input type="password" class="form-control" value="Password">
+                                    <h2 class="text-center mb-4">Welcome to School Management System</h2>
+                                    <h5>To get started, we would ask you to fill in some information about the school, and the administrator who is to manage. </h5>
+                                    <div class="row justify-content-center h-100 align-items-center mt-5">
+                                        <div class="col-xl-6 col-md-6">
+                                            <a class="btn btn-primary text-center" href="/get-started">
+                                                <span class="btn-icon-start text-primary">
+                                                    <i class="bi bi-arrow-up-right-square-fill text-primary"></i>
+                                                </span>
+                                                Get started
+                                            </a>
                                         </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Unlock</button>
+                                        <div class="col-xl-6 col-md-6">
+                                            <a class="btn btn-primary" href="/platform">
+                                                <span class="btn-icon-start text-primary">
+                                                    <i class="flaticon-381-fingerprint text-primary"></i>
+                                                </span>
+                                                Login
+                                            </a>
                                         </div>
-                                    </form> --}}
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
