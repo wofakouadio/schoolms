@@ -14,13 +14,6 @@
 	<script src="{{asset('assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
     <script src="{{asset('assets/js/dlabnav-init.js')}}"></script>
-
-    <script>
-		$(document).ready(function(){
-			// SmartWizard initialize
-			$('#smartwizard').smartWizard();
-		});
-	</script>
-
+    <script src="{{asset('custom-js/read-upload-img.js')}}"></script>
 </body>
 </html>
