@@ -22,8 +22,7 @@ class AdminController extends Controller
             'admin_lastName' => ['required', 'string', 'max:255'],
             'admin_phoneNumber' => ['required', 'string', 'max:255'],
             'admin_email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Admin::class],
-            'admin_password' => ['required'],
-            'admin_repeat_password' => ['required'|'confirmed'],
+            'admin_password' => ['required','confirmed'],
             'school_name' => ['required', 'string', 'max:255'],
             'school_location' => ['required', 'string', 'max:255'],
             'school_phoneNumber' => ['required', 'string', 'max:255'],
@@ -63,12 +62,14 @@ class AdminController extends Controller
 
             DB::commit();
 
-            return redirect('/')->with('success', 'Welcome to the new world');
+            // return redirect('/')->with('success', 'Welcome to the new world');
+            return redirect('/get-started/select-package')->with('message', 'Welcome to the new World');
+
         } catch(\Exception $th){
 
             // dd($th);
             DB::rollBack();
-            return redirect('/get-started')->with('error', 'Registration failed. Error:' . $th->getMessage());
+            return redirect('/get-started')->with('message', 'Registration failed. Error:' . $th->getMessage());
         }
 
 

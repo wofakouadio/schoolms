@@ -16,6 +16,15 @@
                                     <form action="/new-account" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <h4 class="text-primary text-uppercase text-center mb-4">Register your school</h4>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h5>School Information</h5>
@@ -120,8 +129,8 @@
                                                     <div class="col-lg-6 mb-2">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label">Repeat Password*</label>
-                                                            <input type="password" name="admin_repear_password" class="form-control"
-                                                                required value="{{ old('admin_repear_password') }}">
+                                                            <input type="password" name="admin_password_confirmation" class="form-control"
+                                                                required value="{{ old('admin_password_confirmation') }}">
                                                         </div>
                                                     </div>
                                                 </div>

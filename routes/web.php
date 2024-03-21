@@ -29,6 +29,7 @@ Route::get('/platform', function(){
 Route::get('/get-started', function () {
     return view('get-started.register');
 });
+
 // register as new school and administrator
 Route::post('/new-account',[AdminController::class, 'getStarted']);
 
