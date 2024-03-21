@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 // platform page to login
-Route::get('/platform', function(){
+Route::get('/platform', function () {
     return view('platform');
 });
 
@@ -30,10 +30,10 @@ Route::get('/get-started', function () {
     return view('get-started.register');
 });
 // register as new school and administrator
-Route::post('/new-account',[AdminController::class, 'getStarted']);
+Route::post('/new-account', [AdminController::class, 'getStarted']);
 
 
-Route::get('/login', function(){
+Route::get('/login', function () {
     return view('login');
 });
 
@@ -47,4 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
