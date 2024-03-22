@@ -2,13 +2,13 @@
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
             <li>
-                <a href="/dashboard">
+                <a href="/admin/dashboard">
                     <i class="flaticon-025-dashboard"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/department">
+                <a href="/admin/department">
                     <i class="flaticon-381-umbrella"></i>
                     <span class="nav-text">Departments</span>
                 </a>
@@ -41,6 +41,16 @@
                     <li><a href="#">View Users</a></li>
                     <li><a href="#">Account Settings</a></li>
                     <li><a href="#">Activity Log</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-settings-5"></i>
+                    <span class="nav-text">Portfolio</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="'/views/admin/permissions/add-permission'">Add New</a></li>
+                    <li><a href="#">View Users</a></li>
                 </ul>
             </li>
             <li>
