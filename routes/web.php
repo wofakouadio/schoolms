@@ -1,6 +1,9 @@
 <?php
 
+//use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\OnBoardingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +34,19 @@ Route::get('/get-started', function () {
 });
 
 // register as new school and administrator
+
 Route::post('/new-account', [AdminController::class, 'getStarted']);
+
+Route::post('/new-account',[OnBoardingController::class, 'getStarted']);
+
+//Administrator Controller
+Route::controller(AdminController::class)->group(function (){
+    //admin dash
+    Route::get('/admin/dashboard', 'index');
+    //department Resources
+    Route::get('/admin/department', [DepartmentsController::class, 'index']);
+});
+
 
 
 Route::get('/login', function () {
