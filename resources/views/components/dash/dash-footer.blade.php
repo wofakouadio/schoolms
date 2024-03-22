@@ -86,4 +86,4 @@ function JobickCarousel()
 
 {{-- custom scripts for datatables --}}
 {{-- departments Table --}}
-<script src="{{asset('assets/tables/departmentsTables.js')}}"></script>
+<script src="{{asset('tables/departmentsTables.js')}}" type="text/javascript"></script>
