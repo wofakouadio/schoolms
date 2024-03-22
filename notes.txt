@@ -26,13 +26,11 @@ getting started
         email
         phone number
         password
+        confirm password
     packages [middleware]
         then select package to be on
 
     then after redirect to payment [but not to be active now]
-
-    then
-
 
     after registration, redirect to select package then after selecting package, redirect to dashboard
 
@@ -63,3 +61,32 @@ getting started
     STUDENT
     Student Id: PA/JHS/001
     Password: prince2008
+
+
+    #package model
+    package Id
+    package name
+    package amount
+    is_active
+
+
+[Package ID
+School ID
+Registration date
+Expiration date
+] to be added to the school table
+
+
+admin dashboard menu
+main page dash :
+settings
+teachers
+finance
+students
+assessments
+utilities
+reports
+emails & sms
+e-learning
+Users
+help
