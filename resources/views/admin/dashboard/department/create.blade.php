@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row page-titles">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)" id="breadcrumb-header">Departments</a></li>
+                    <li class="breadcrumb-item active"><a href="/admin/department" id="breadcrumb-header">Departments</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)" id="breadcrumb-title">New</a></li>
                 </ol>
             </div>
@@ -23,6 +23,34 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if(session('message'))
+                                <div class="col-xl-12">
+                                    <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i class="mdi mdi-btn-close"></i></span>
+                                        </button>
+                                        <div class="media">
+                                            <div class="alert-left-icon-big">
+                                                <span><i class="mdi mdi-check-circle-outline"></i></span>
+                                            </div>
+                                            <div class="media-body">
+                                                <h5 class="mt-1 mb-2">Congratulations!</h5>
+                                                <p class="mb-0">{{session('message')}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <form action="/department/store" method="POST" id="new-department-form">
                                 @csrf
                                 <div class="col-xl-12 mb-4">

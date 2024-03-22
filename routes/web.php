@@ -45,6 +45,10 @@ Route::controller(AdminController::class)->group(function (){
     Route::get('/admin/dashboard', 'index');
     //department Resources
     Route::get('/admin/department', [DepartmentsController::class, 'index']);
+    //create new department page
+    Route::get('/admin/department/new', [DepartmentsController::class, 'create'])->name('new-department');
+    //post new department data
+    Route::post('/department/store', [DepartmentsController::class, 'store']);
 });
 
 

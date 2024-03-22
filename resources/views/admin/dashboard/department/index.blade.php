@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="/department/create" class="btn btn-rounded btn-primary">
+                            <a href="/admin/department/new" class="btn btn-rounded btn-primary">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
                                 </span> New Department
