@@ -1,5 +1,6 @@
 <div class="dlabnav">
     <div class="dlabnav-scroll">
+        <x-dash.dash-user-info/>
         <ul class="metismenu" id="menu">
             <li>
                 <a href="/admin/dashboard">
