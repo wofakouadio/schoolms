@@ -18,7 +18,7 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::guard("admin")->check()){
-            return redirect('/platform')->withErrors(['message'=>'You do not have access']);
+            return redirect()->route('platform')->withErrors(['message'=>'You do not have access']);
         }
         return $next($request);
     }
