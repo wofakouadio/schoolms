@@ -19,6 +19,9 @@
         {{-- content --}}
         @yield('content')
 
+        {{-- Modals --}}
+        @stack('modals')
+
         {{-- version control --}}
         <x-dash.dash-version/>
 

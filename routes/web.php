@@ -2,10 +2,9 @@
 
 //use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\OnBoardingController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +31,7 @@ Route::get('/platform', function () {
 // get started page
 Route::get('/get-started', function () {
     return view('get-started.register');
-});
+})->name('onBoarding');
 
 // register as new school and administrator
 
@@ -52,31 +51,13 @@ Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(
     //department Resources
     Route::get('/admin/department', [DepartmentsController::class, 'index']);
     //create new department page
-    Route::get('/admin/department/new', [DepartmentsController::class, 'create'])->name('new-department');
+//    Route::get('/admin/department/new', [DepartmentsController::class, 'create']);
     //post new department data
-    Route::post('/department/store', [DepartmentsController::class, 'store']);
+    Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
     //edit department data
     Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
     //DataTables of Departments
-//    Route::get('/departmentsTables', [DepartmentsController::class, 'DepartmentsDataTables'])->name
-//    ('departmentsTables')  ;
+    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name
+    ('departmentsTables')  ;
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
 });
-//middleware(['auth:admin'])->
-
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__ . '/auth.php';

@@ -23,7 +23,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="/admin/department/new" class="btn btn-rounded btn-primary">
+                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                               data-bs-target="#new-department-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
                                 </span> New Department
@@ -39,7 +40,33 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+{{--                                    @foreach($departmentsDataTableView as $department)--}}
+{{--                                        <tr>--}}
+{{--                                            <td>{{$department->name}}</td>--}}
+{{--                                            <td>--}}
+{{--                                                @if($department->is_active === 0)--}}
+{{--                                                    <span class="badge badge-xl light badge-success text-uppercase">active</span>--}}
+{{--                                                @else--}}
+{{--                                                    <span class="badge badge-xl light badge-danger text-uppercase">disabled</span>--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
+{{--                                            <td>--}}
+{{--                                                <div class="d-flex">--}}
+{{--                                                    <a href="/admin/department/{{$department->id}}/edit" class="btn--}}
+{{--                                                    btn-primary shadow--}}
+{{--                                                    btn-xs--}}
+{{--                                                    sharp--}}
+{{--                                                    me-1"><i--}}
+{{--                                                            class="fas fa-pencil-alt"></i></a>--}}
+{{--                                                    <a href="/admin/department/{{$department->id}}" class="btn--}}
+{{--                                                    btn-danger shadow btn-xs--}}
+{{--                                                    sharp"><i class="fa fa-trash"></i></a>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+                                    </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
@@ -54,4 +81,16 @@
                 </div>
             </div>
         </div>
+        {{--Modals--}}
+        @push('modals')
+            @include('admin/dashboard/department/DepartmentsModals')
+        @endpush
     @endsection
+    {{--page js script--}}
+    @push('page-js')
+        @include('admin/dashboard/department/departmentsJS')
+    @endpush
+    {{--page datatable script--}}
+    @push('datatable')
+        @include('admin/dashboard/department/departmentsDataTables')
+    @endpush
