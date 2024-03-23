@@ -1,4 +1,4 @@
-$(document).ready(()=>{
+// $(document).ready(()=>{
     $("#DepartmentsDataTables").DataTable({
         language: {
             paginate: {
@@ -14,12 +14,17 @@ $(document).ready(()=>{
         // processing: true,
         // serverSide: true,
         // ajax:{
-        //     url:"../../models/department/server/departments-list.php",
-        //     method: "GET"
+        //     url:'/departmentsTables',
+        //     columns: [
+        //         {data: 'name', name: 'name'},
+        //         {data: 'is_active', name: 'is_active'},
+        //         {data: 'action', name: 'action'},
+        //     ]
+        //
         // },
         searching: true,
         paging: true,
         lengthChange: true,
         autoWidth: true
     })
-})
+// })

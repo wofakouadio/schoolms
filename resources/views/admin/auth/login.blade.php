@@ -36,24 +36,47 @@
                                     </a> -->
                                 </div>
                                 <h4 class="text-center mb-4">Sign in your account</h4>
-                                <form action="index.html">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if(session('message'))
+                                    <div class="col-xl-12">
+                                        <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i class="mdi mdi-btn-close"></i></span>
+                                            </button>
+                                            <div class="media">
+                                                <div class="alert-left-icon-big">
+                                                    <span><i class="mdi mdi-check-circle-outline"></i></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="mt-1 mb-2">Congratulations!</h5>
+                                                    <p class="mb-0">{{session('message')}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                <form action="{{route('admin_authentication')}}" method="post">
+                                    @csrf
                                     <div class="mb-3">
                                         <label class="mb-1"><strong>Email</strong></label>
-                                        <input type="email" class="form-control" value="hello@example.com" name="email">
+                                        <input type="email" class="form-control" value="{{old('admin_password')}}"
+                                               name="admin_email">
                                     </div>
                                     <div class="mb-3">
                                         <label class="mb-1"><strong>Password</strong></label>
-                                        <input type="password" class="form-control" value="Password" name="password">
+                                        <input type="password" class="form-control"
+                                               name="admin_password">
                                     </div>
                                     <div class="row d-flex justify-content-between mt-4 mb-2">
-                                        <!-- <div class="mb-3">
-                                           <div class="form-check custom-checkbox ms-1">
-                                                <input type="checkbox" class="form-check-input" id="basic_checkbox_1">
-                                                <label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
-                                            </div>
-                                        </div> -->
                                         <div class="mb-3">
-                                            <a href="/forgot-password">Forgot Password?</a>
+                                            <a href="{{route('forgot_password')}}">Forgot Password?</a>
                                         </div>
                                     </div>
                                     <div class="text-center">

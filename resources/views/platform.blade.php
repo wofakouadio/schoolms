@@ -18,7 +18,7 @@
                                     <div class="row">
                                         <div class="col-xl-4 col-xxl-6 col-lg-6 col-sm-6">
                                             <div class="widget-stat card bg-primary">
-                                                <a href="#">
+                                                <a href="{{route('admin_login')}}">
                                                     <div class="card-body p-4">
                                                         <div class="media">
                                                             <span class="me-3">
