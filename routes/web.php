@@ -1,6 +1,7 @@
 <?php
 
 //use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\OnBoardingController;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 // platform page to login
 Route::get('/platform', function () {
     return view('platform');
-});
+})->name('platform');
 
 // get started page
 Route::get('/get-started', function () {
@@ -35,22 +36,33 @@ Route::get('/get-started', function () {
 
 // register as new school and administrator
 
-Route::post('/new-account', [AdminController::class, 'getStarted']);
+//Route::post('/new-account', [AdminController::class, 'getStarted']);
 
 Route::post('/new-account',[OnBoardingController::class, 'getStarted']);
 
+//Administrator login page
+Route::get('/admin/auth/', [AdminAuthController::class, 'admin_login'])->name('admin_login');
+Route::get('/admin/auth/forgot-password', [AdminAuthController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/admin/auth/login', [AdminAuthController::class, 'admin_authentication'])->name('admin_authentication');
+
 //Administrator Controller
-Route::controller(AdminController::class)->group(function (){
+Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(function (){
     //admin dash
-    Route::get('/admin/dashboard', 'index');
+    Route::get('/admin/dashboard', 'index')->name('admin_dashboard');
     //department Resources
     Route::get('/admin/department', [DepartmentsController::class, 'index']);
     //create new department page
     Route::get('/admin/department/new', [DepartmentsController::class, 'create'])->name('new-department');
     //post new department data
     Route::post('/department/store', [DepartmentsController::class, 'store']);
+    //edit department data
+    Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
+    //DataTables of Departments
+//    Route::get('/departmentsTables', [DepartmentsController::class, 'DepartmentsDataTables'])->name
+//    ('departmentsTables')  ;
+    Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
 });
-
+//middleware(['auth:admin'])->
 
 
 Route::get('/login', function () {
