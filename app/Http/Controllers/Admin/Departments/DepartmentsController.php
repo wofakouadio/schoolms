@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Departments;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -34,24 +35,32 @@ class DepartmentsController extends Controller
 
         try {
 
-            Department::create([
+            $department = Department::create([
                 'name'=> strtoupper($request->name),
                 'description' => $request->description,
-//                'school_id' => $request->school_id,
+                'school_id' => $request->id,
 //                'branch_id' => $request->branch_id
             ]);
 
             DB::commit();
 
-            return redirect()->route('new-department')->with('message','New Department created successfully');
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Category created successfully'
+            ]);
+
+//            return redirect()->route('new-department')->with('message','New Department created successfully');
 
         }catch(\Exception $th){
 
 //            dd($th);
 
             DB::rollBack();
-
-            return back()->withErrors(['message' => $th->getMessage()]);
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+//            return back()->withErrors(['message' => $th->getMessage()]);
 
         }
     }

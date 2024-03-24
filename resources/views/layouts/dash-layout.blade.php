@@ -1,5 +1,7 @@
 <x-dash.dash-header/>
 
+    @include('sweetalert::alert')
+
     <x-dash.dash-preloader/>
 
     <div id="main-wrapper">

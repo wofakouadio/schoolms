@@ -10,17 +10,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-{{--                    @if ($errors->any())--}}
-                        <div class="alert menu-alert">
-
-                        </div>
-{{--                    @endif--}}
+                    <div class="alert menu-alert">
+                        <ul>
+{{--                            <li></li>--}}
+                        </ul>
+                    </div>
                     <div class="col-xl-12 mb-4">
                         <label  class="form-label font-w600">Name<span class="text-danger scale5 ms-2">*</span></label>
                         <input type="text" class="form-control solid" placeholder="Name" aria-label="name" name="name" value="{{old('name')}}">
-                        @error('name')
-                        <span class="text-mute text-danger">{{$message}}</span>
-                        @enderror
+                        <input type="hidden" name="school_id" value="{{Auth::guard('admin')->user()->school_id}}">
                     </div>
                     <div class="col-xl-12 mb-4">
                         <label  class="form-label font-w600">Description</label>
