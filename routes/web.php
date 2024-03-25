@@ -3,6 +3,7 @@
 //use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
 use Illuminate\Support\Facades\Route;
@@ -49,9 +50,7 @@ Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(
     //admin dash
     Route::get('/admin/dashboard', 'index')->name('admin_dashboard');
     //department Resources
-    Route::get('/admin/department', [DepartmentsController::class, 'index']);
-    //create new department page
-//    Route::get('/admin/department/new', [DepartmentsController::class, 'create']);
+    Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
     //post new department data
     Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
     //edit department data
@@ -60,4 +59,13 @@ Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(
     Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name
     ('departmentsTables')  ;
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
+
+    /** Teacher **/
+    Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
+    Route::post('/teacher/store', [TeacherController::class, 'store'])->name('new-teacher');
+    Route::get('/teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
+    ('teachersTables')  ;
+    Route::get("/teacher/edit", [TeacherController::class, 'edit'])->name('edit-teacher');
+    Route::put('/teacher/update', [TeacherController::class, 'update'])->name('update-teacher');
+    Route::delete('/teacher/delete', [TeacherController::class, 'delete'])->name('delete-teacher');
 });
