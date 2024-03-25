@@ -21,10 +21,14 @@
                 </a>
             </li>
             <li>
-                <a href="'/views/admin/subjects'">
+                <a class="has-arrow " href="'/views/admin/subjects'" aria-expanded="false">
                     <i class="flaticon-381-book"></i>
                     <span class="nav-text">Subjects</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="'/views/admin/users/add-subject'">Add New</a></li>
+                    <li><a href="#">View Subjects</a></li>
+                </ul>
             </li>
             <li>
                 <a href="'/views/admin/teachers'">
