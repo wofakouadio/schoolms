@@ -34,45 +34,45 @@
                             <div class="table-responsive">
                                 <table id="DepartmentsDataTables" class="display" style="min-width: 845px">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-{{--                                    @foreach($departmentsDataTableView as $department)--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$department->name}}</td>--}}
-{{--                                            <td>--}}
-{{--                                                @if($department->is_active === 0)--}}
-{{--                                                    <span class="badge badge-xl light badge-success text-uppercase">active</span>--}}
-{{--                                                @else--}}
-{{--                                                    <span class="badge badge-xl light badge-danger text-uppercase">disabled</span>--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
-{{--                                            <td>--}}
-{{--                                                <div class="d-flex">--}}
-{{--                                                    <a href="/admin/department/{{$department->id}}/edit" class="btn--}}
-{{--                                                    btn-primary shadow--}}
-{{--                                                    btn-xs--}}
-{{--                                                    sharp--}}
-{{--                                                    me-1"><i--}}
-{{--                                                            class="fas fa-pencil-alt"></i></a>--}}
-{{--                                                    <a href="/admin/department/{{$department->id}}" class="btn--}}
-{{--                                                    btn-danger shadow btn-xs--}}
-{{--                                                    sharp"><i class="fa fa-trash"></i></a>--}}
-{{--                                                </div>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
+                                    {{--                                    @foreach($departmentsDataTableView as $department)--}}
+                                    {{--                                        <tr>--}}
+                                    {{--                                            <td>{{$department->name}}</td>--}}
+                                    {{--                                            <td>--}}
+                                    {{--                                                @if($department->is_active === 0)--}}
+                                    {{--                                                    <span class="badge badge-xl light badge-success text-uppercase">active</span>--}}
+                                    {{--                                                @else--}}
+                                    {{--                                                    <span class="badge badge-xl light badge-danger text-uppercase">disabled</span>--}}
+                                    {{--                                                @endif--}}
+                                    {{--                                            </td>--}}
+                                    {{--                                            <td>--}}
+                                    {{--                                                <div class="d-flex">--}}
+                                    {{--                                                    <a href="/admin/department/{{$department->id}}/edit" class="btn--}}
+                                    {{--                                                    btn-primary shadow--}}
+                                    {{--                                                    btn-xs--}}
+                                    {{--                                                    sharp--}}
+                                    {{--                                                    me-1"><i--}}
+                                    {{--                                                            class="fas fa-pencil-alt"></i></a>--}}
+                                    {{--                                                    <a href="/admin/department/{{$department->id}}" class="btn--}}
+                                    {{--                                                    btn-danger shadow btn-xs--}}
+                                    {{--                                                    sharp"><i class="fa fa-trash"></i></a>--}}
+                                    {{--                                                </div>--}}
+                                    {{--                                            </td>--}}
+                                    {{--                                        </tr>--}}
+                                    {{--                                    @endforeach--}}
                                     </tbody>
                                     <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -81,16 +81,16 @@
                 </div>
             </div>
         </div>
-        {{--Modals--}}
-        @push('modals')
-            @include('admin/dashboard/department/DepartmentsModals')
-        @endpush
-    @endsection
-    {{--page js script--}}
-    @push('page-js')
-        @include('admin/dashboard/department/departmentsJS')
+    {{--Modals--}}
+    @push('modals')
+        @include('admin/dashboard/department/DepartmentsModals')
     @endpush
-    {{--page datatable script--}}
-    @push('datatable')
-        @include('admin/dashboard/department/departmentsDataTables')
-    @endpush
+@endsection
+{{--page js script--}}
+@push('page-js')
+    @include('admin/dashboard/department/departmentsJS')
+@endpush
+{{--page datatable script--}}
+@push('datatable')
+    @include('admin/dashboard/department/departmentsDataTables')
+@endpush
