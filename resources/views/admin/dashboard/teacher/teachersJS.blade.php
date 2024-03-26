@@ -224,11 +224,11 @@
                     let StringResults = JSON.stringify(Response)
                     let DecodedResults = JSON.parse(StringResults)
                     if(DecodedResults.status === 201){
-                        $("#elete-teacher-modal .menu-alert").removeClass('alert-warning')
-                        $("#elete-teacher-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                        $("#delete-teacher-modal .menu-alert").removeClass('alert-warning')
+                        $("#delete-teacher-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
                     }else{
-                        $("#elete-teacher-modal .menu-alert").removeClass('alert-danger')
-                        $("#elete-teacher-modal .menu-alert").removeClass('alert-warning')
+                        $("#delete-teacher-modal .menu-alert").removeClass('alert-danger')
+                        $("#delete-teacher-modal .menu-alert").removeClass('alert-warning')
 
                         Swal.fire({
                             title: 'Notification',

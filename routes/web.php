@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\School\SchoolController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
@@ -64,13 +65,22 @@ Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
     Route::post('/teacher/store', [TeacherController::class, 'store'])->name('new-teacher');
-    Route::get('/teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
-    ('teachersTables')  ;
     Route::get("/teacher/edit", [TeacherController::class, 'edit'])->name('edit-teacher');
     Route::put('/teacher/update', [TeacherController::class, 'update'])->name('update-teacher');
     Route::delete('/teacher/delete', [TeacherController::class, 'delete'])->name('delete-teacher');
+    Route::get('/teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
+    ('teachersTables');
 
     /**School**/
     Route::get('/admin/school', [SchoolController::class, 'index'])->name('admin_school');
     Route::put('/admin/school/update', [SchoolController::class, 'update'])->name('admin_school_update');
+
+    /**Branch**/
+    Route::get('/admin/school/branch', [BranchController::class, 'index'])->name('admin_school_branch');
+    Route::post('/school/branch', [BranchController::class, 'store'])->name('new-branch');
+    Route::get('/school/branch/edit', [BranchController::class, 'edit'])->name('edit-branch');
+    Route::put('/school/branch/update', [BranchController::class, 'update'])->name('update-branch');
+    Route::delete('/school/branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
+    Route::get('/branchesTables', 'App\Http\Controllers\Admin\Branch\BranchesDatatable')->name
+    ('branchesTables');
 });

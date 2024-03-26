@@ -1,7 +1,7 @@
 <script>
     $(document).ready(()=>{
         // $.noConflict();
-        $("#TeachersDataTables").DataTable({
+        $("#BranchesDataTables").DataTable({
             language: {
                 paginate: {
                     next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -16,16 +16,12 @@
             processing: true,
             serverSide: true,
             ajax:{
-                url:"{{route('teachersTables')}}",
+                url:"{{route('branchesTables')}}",
             },
             columns: [
-                {data: 'profile', name: 'profile', },
                 {data: 'name', name: 'name'},
-                {data: 'gender', name: 'gender'},
                 {data: 'contact', name: 'contact'},
                 {data: 'email', name: 'email'},
-                {data: 'staff_id', name: 'staff_id'},
-                {data: 'rank', name: 'rank'},
                 {data: 'is_active', name: 'is_active'},
                 {data: 'action', name: 'action'},
             ],
