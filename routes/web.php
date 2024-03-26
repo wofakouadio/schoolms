@@ -37,7 +37,7 @@ Route::get('/get-started', function () {
 
 //Route::post('/new-account', [AdminController::class, 'getStarted']);
 
-Route::post('/new-account',[OnBoardingController::class, 'getStarted']);
+Route::post('/new-account', [OnBoardingController::class, 'getStarted']);
 
 //Administrator login page
 Route::get('/admin/auth/', [AdminAuthController::class, 'admin_login'])->name('admin_login');
@@ -45,19 +45,18 @@ Route::get('/admin/auth/forgot-password', [AdminAuthController::class, 'forgot_p
 Route::post('/admin/auth/login', [AdminAuthController::class, 'admin_authentication'])->name('admin_authentication');
 
 //Administrator Controller
-Route::middleware(['auth'=>'admin'])->controller(AdminController::class)->group(function (){
+Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->group(function () {
     //admin dash
     Route::get('/admin/dashboard', 'index')->name('admin_dashboard');
     //department Resources
     Route::get('/admin/department', [DepartmentsController::class, 'index']);
     //create new department page
-//    Route::get('/admin/department/new', [DepartmentsController::class, 'create']);
+    //    Route::get('/admin/department/new', [DepartmentsController::class, 'create']);
     //post new department data
     Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
     //edit department data
     Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
     //DataTables of Departments
-    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name
-    ('departmentsTables')  ;
+    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
 });
