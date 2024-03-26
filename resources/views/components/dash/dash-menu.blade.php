@@ -56,13 +56,16 @@
                     <span class="nav-text">Portfolio</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="javascript:void()">Add New</a></li>
-                    <li><a href="#">View Users</a></li>
+                    <li><a href="{{route('admin_school')}}">Main</a></li>
+                    <li><a href="#">Levels</a></li>
+                    <li><a href="#">Branches</a></li>
+                    <li><a href="#">Houses</a></li>
+                    <li><a href="#">Categories</a></li>
                 </ul>
             </li>
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-settings-5"></i>
+                    <i class="flaticon-381-book"></i>
                     <span class="nav-text">Permissions</span>
                 </a>
                 <ul aria-expanded="false">
