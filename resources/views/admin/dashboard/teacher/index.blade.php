@@ -48,19 +48,6 @@
                                     </thead>
                                     <tbody>
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Profile</th>
-                                        <th>Name</th>
-                                        <th>Gender</th>
-                                        <th>Contact</th>
-                                        <th>Email</th>
-                                        <th>Staff ID</th>
-                                        <th>Rank</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

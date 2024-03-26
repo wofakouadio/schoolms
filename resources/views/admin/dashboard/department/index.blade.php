@@ -67,13 +67,6 @@
                                     {{--                                        </tr>--}}
                                     {{--                                    @endforeach--}}
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

@@ -44,15 +44,6 @@
                                     </thead>
                                     <tbody>
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Contact</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
