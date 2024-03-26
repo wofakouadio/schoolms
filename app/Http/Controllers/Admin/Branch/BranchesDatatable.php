@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Departments;
+namespace App\Http\Controllers\Admin\Branch;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
@@ -9,15 +9,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class DepartmentsDatatable extends Controller
+class BranchesDatatable extends Controller
 {
     public function __invoke(){
-        $data = DB::select('select id, name, is_active FROM departments');
+        $data = DB::select('select * FROM branches');
 
-        return DataTables::of($data[])
-            ->addColumn('name', function($row){
-                $department_name = $row->name;
-                return $department_name ?? '...';
+        return DataTables::of($data)
+
+            ->addColumn('name', function ($row){
+                $name = $row->branch_name ;
+                return $name ?? '...';
+            })
+            ->addColumn('contact', function($row){
+                $contact = $row->branch_contact;
+                return $contact ?? '...';
+            })
+            ->addColumn('email', function($row){
+                $email = $row->branch_email;
+                return $email ?? '...';
             })
             ->addColumn('is_active', function($row){
 //                $department_status =;
@@ -31,21 +40,18 @@ class DepartmentsDatatable extends Controller
 //                return $remodelledStatus ?? '...';
             })
             ->addColumn('action', function($row){
-                $department_id = $row->id;
+                $branch_id = $row->id;
                 return '<div class="d-flex">
-                            <a href="" class="btn btn-primary shadow btn-xs sharp me-1">
+                            <a data-bs-toggle="modal" data-bs-target="#edit-branch-modal" data-id="'.$branch_id.'"
+                            class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="" class="btn btn-danger shadow btn-xs sharp">
+                            <a data-bs-toggle="modal" data-bs-target="#delete-branch-modal" data-id="'.$branch_id
+                    .'" class="btn btn-danger shadow btn-xs sharp">
                                 <i class="fa fa-trash"></i>
                             </a>
-                         </div>';
-//                <a href="/admin/department/{{$department->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
-//                                <i class="fas fa-pencil-alt"></i>
-//                            </a>
-//                            <a href="/admin/department/{{$department->id}}" class="btn btn-danger shadow btn-xs sharp">
-//                                <i class="fa fa-trash"></i>
-//                            </a>
+                         </div>
+                ';
             })
             ->rawColumns(['is_active','action'])
             ->make(true);

@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('branches', function (Blueprint $table) {
-            $table->uuid('branch_id');
+            $table->uuid('id')->primary()->unique()->index();
             $table->string('branch_name');
+            $table->string('branch_description')->nullable();
             $table->string('branch_location');
+            $table->string('branch_email')->nullable();
+            $table->string('branch_contact')->nullable();
             $table->tinyInteger('is_active')->default('0');
-            // $table->string('school_id')->nullable();
+             $table->string('school_id')->nullable();
             // $table->foreign('school_id')->references('school_id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });

@@ -3,42 +3,48 @@
         <x-dash.dash-user-info/>
         <ul class="metismenu" id="menu">
             <li>
-                <a href="/admin/dashboard">
+                <a href="{{route('admin_dashboard')}}">
                     <i class="flaticon-025-dashboard"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="/admin/department">
+                <a href="{{route('admin_teacher')}}">
+                    <i class="flaticon-381-user-9"></i>
+                    <span class="nav-text">Teachers</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('admin_department')}}">
                     <i class="flaticon-381-umbrella"></i>
                     <span class="nav-text">Departments</span>
                 </a>
             </li>
+
             <li>
-                <a href="'/views/admin/classes'">
+                <a href="javascript:void()">
                     <i class="flaticon-381-home"></i>
                     <span class="nav-text">Classes</span>
                 </a>
             </li>
             <li>
-                <a href="'/views/admin/subjects'">
+                <a href="javascript:void()" class="has-arrow" aria-expanded="false">
                     <i class="flaticon-381-book"></i>
                     <span class="nav-text">Subjects</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="#">Add New</a></li>
+                    <li><a href="#">View Subjects</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="'/views/admin/teachers'">
-                    <i class="flaticon-381-user-9"></i>
-                    <span class="nav-text">Teachers</span>
-                </a>
-            </li>
+
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-user-4"></i>
                     <span class="nav-text">Users</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="'/views/admin/users/add-user'">Add New</a></li>
+                    <li><a href="javascript:void()">Add New</a></li>
                     <li><a href="#">View Users</a></li>
                     <li><a href="#">Account Settings</a></li>
                     <li><a href="#">Activity Log</a></li>
@@ -50,17 +56,20 @@
                     <span class="nav-text">Portfolio</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="'/views/admin/permissions/add-permission'">Add New</a></li>
-                    <li><a href="#">View Users</a></li>
+                    <li><a href="{{route('admin_school')}}">Main</a></li>
+                    <li><a href="{{route('admin_school_branch')}}">Branches</a></li>
+                    <li><a href="#">Levels</a></li>
+                    <li><a href="#">Houses</a></li>
+                    <li><a href="#">Categories</a></li>
                 </ul>
             </li>
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-settings-5"></i>
+                    <i class="flaticon-381-book"></i>
                     <span class="nav-text">Permissions</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="'/views/admin/permissions/add-permission'">Add New</a></li>
+                    <li><a href="javascript:void()">Add New</a></li>
                     <li><a href="#">View Users</a></li>
                 </ul>
             </li>

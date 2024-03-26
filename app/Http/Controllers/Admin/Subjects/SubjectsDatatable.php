@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Departments;
+namespace App\Http\Controllers\Admin\Subjects;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Models\Subject;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class DepartmentsDatatable extends Controller
+class SubjectsDatatable extends Controller
 {
     public function __invoke(){
-        $data = DB::select('select id, name, is_active FROM departments');
+        $data = DB::select('select id, subject_name, department, is_active FROM subjects');
 
         return DataTables::of($data[])
             ->addColumn('name', function($row){
-                $department_name = $row->name;
-                return $department_name ?? '...';
+                $subject_name = $row->name;
+                return $subject_name ?? '...';
             })
             ->addColumn('is_active', function($row){
-//                $department_status =;
+//                $subject_status =;
                 if( $row->is_active === 0 ){
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-success text-uppercase">active</span>
@@ -31,7 +31,7 @@ class DepartmentsDatatable extends Controller
 //                return $remodelledStatus ?? '...';
             })
             ->addColumn('action', function($row){
-                $department_id = $row->id;
+                $subject_id = $row->id;
                 return '<div class="d-flex">
                             <a href="" class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-pencil-alt"></i>
@@ -40,10 +40,10 @@ class DepartmentsDatatable extends Controller
                                 <i class="fa fa-trash"></i>
                             </a>
                          </div>';
-//                <a href="/admin/department/{{$department->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
+//                <a href="/admin/subject/{{$subject->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
 //                                <i class="fas fa-pencil-alt"></i>
 //                            </a>
-//                            <a href="/admin/department/{{$department->id}}" class="btn btn-danger shadow btn-xs sharp">
+//                            <a href="/admin/subject/{{$subject->id}}" class="btn btn-danger shadow btn-xs sharp">
 //                                <i class="fa fa-trash"></i>
 //                            </a>
             })

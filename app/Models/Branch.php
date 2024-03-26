@@ -2,22 +2,27 @@
 
 namespace App\Models;
 
+use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
 
     protected $fillable = [
-        'branch_id',
         'branch_name',
+        'branch_description',
         'branch_location',
+        'branch_email',
+        'branch_contact',
         'is_active',
         'school_id'
     ];
 
-    public function branches(){
-        return $this->hasOne(School::class);
-    }
+    protected $table = 'branches';
+
+//    public function branches(){
+//        return $this->hasOne(School::class);
+//    }
 }
