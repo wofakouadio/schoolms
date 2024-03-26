@@ -63,7 +63,8 @@
                                    value="{{old('teacher_date_of_birth')}}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Place of Birth</label>
+                            <label  class="form-label font-w600">Place of Birth<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
                                    name="teacher_place_of_birth"
                                    value="{{old('teacher_place_of_birth')}}">
@@ -183,7 +184,8 @@
                                    value="{{old('teacher_present_school')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Academic Qualification</label>
+                            <label  class="form-label font-w600">Academic Qualification<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_qualification">
                                 <option value="">Choose</option>
                                 <option value="3-Year POSEC">3-Year POSEC</option>
@@ -197,7 +199,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Professional Qualification</label>
+                            <label  class="form-label font-w600">Professional Qualification<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_professional">
                                 <option value="">Choose</option>
                                 <option value="3-Year P/S">3-Year P/S</option>
@@ -209,7 +212,8 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Present Rank</label>
+                            <label  class="form-label font-w600">Present Rank<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_rank">
                                 <option value="">Choose</option>
                                 <option value="SNR SUPT. I">SNR SUPT. I</option>
@@ -221,28 +225,24 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Circuit<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Circuit</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_circuit"
                                    value="{{old('teacher_circuit')}}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Staff ID<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_staff_id"
                                    value="{{old('teacher_staff_id')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Registration Number<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Registration Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_reg_num"
                                    value="{{old('teacher_reg_num')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District File No.<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">District File No.</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                    name="teacher_district_file_number"
                                    value="{{old('teacher_district_file_number')}}">
@@ -361,7 +361,8 @@
                                    value="{{old('teacher_date_of_birth')}}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Place of Birth</label>
+                            <label  class="form-label font-w600">Place of Birth<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
                                    name="teacher_place_of_birth"
                                    value="{{old('teacher_place_of_birth')}}">
@@ -453,8 +454,7 @@
                             {{--                            </select>--}}
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">District</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_district"
                                    value="{{old('teacher_district')}}">
                             {{--                            <select class="form-control solid" name="teacher_district">--}}
@@ -482,7 +482,8 @@
                                    value="{{old('teacher_present_school')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Academic Qualification</label>
+                            <label  class="form-label font-w600">Academic Qualification<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_qualification">
                                 <option value="">Choose</option>
                                 <option value="3-Year POSEC">3-Year POSEC</option>
@@ -496,7 +497,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Professional Qualification</label>
+                            <label  class="form-label font-w600">Professional Qualification<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_professional">
                                 <option value="">Choose</option>
                                 <option value="3-Year P/S">3-Year P/S</option>
@@ -508,7 +510,8 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Present Rank</label>
+                            <label  class="form-label font-w600">Present Rank<span class="text-danger scale5
+                            ms-2">*</span></label>
                             <select class="form-control" name="teacher_rank">
                                 <option value="">Choose</option>
                                 <option value="SNR SUPT. I">SNR SUPT. I</option>
@@ -520,28 +523,24 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Circuit<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Circuit</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_circuit"
                                    value="{{old('teacher_circuit')}}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Staff ID<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_staff_id"
                                    value="{{old('teacher_staff_id')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Registration Number<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">Registration Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_reg_num"
                                    value="{{old('teacher_reg_num')}}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District File No.<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">District File No.</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                    name="teacher_district_file_number"
                                    value="{{old('teacher_district_file_number')}}">
