@@ -58,7 +58,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{route('admin_school')}}">Main</a></li>
                     <li><a href="{{route('admin_school_branch')}}">Branches</a></li>
-                    <li><a href="#">Levels</a></li>
+                    <li><a href="{{route('admin_school_level')}}">Levels</a></li>
                     <li><a href="#">Houses</a></li>
                     <li><a href="#">Categories</a></li>
                 </ul>
