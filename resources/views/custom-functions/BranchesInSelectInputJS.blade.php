@@ -14,7 +14,8 @@
                 data:{school_id: school_id},
                 success:(Response)=>{
                     console.log(Response)
-                    $("#new-level-form").find("select[name=branch_id]").html(Response)
+                    $("#new-level-form").find("select[name=branch]").html(Response)
+                    $("#update-level-form").find("select[name=branch]").html(Response)
                 }
             })
         }
