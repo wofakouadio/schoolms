@@ -78,6 +78,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
     Route::get('/branchesTables', 'App\Http\Controllers\Admin\Branch\BranchesDatatable')->name
     ('branchesTables');
+    Route::get('/getBranchesBySchoolId', [BranchController::class, 'getBranchesBySchoolId'])->name('getBranchesBySchoolId');
 
     /**Level**/
     Route::get('/admin/school/level', [LevelController::class,'index'])->name('admin_school_level');

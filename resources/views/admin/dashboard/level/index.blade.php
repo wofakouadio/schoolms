@@ -36,6 +36,7 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Branch</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -61,4 +62,5 @@
 {{--page datatable script--}}
 @push('datatable')
     @include('admin/dashboard/level/levelsDataTables')
+    @include('custom-functions/BranchesInSelectInputJS')
 @endpush

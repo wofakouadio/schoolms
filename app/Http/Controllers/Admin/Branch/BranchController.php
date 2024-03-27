@@ -107,4 +107,16 @@ class BranchController extends Controller
             ]);
         }
     }
+
+    //get branches based on school id
+    public function getBranchesBySchoolId(Request $request){
+        $school_id = $request->school_id;
+        $output = [];
+        $branches = Branch::select('id', 'branch_name')->where('school_id', $school_id)->where('is_active', 0)->get();
+        $output[] .= "<option value=''>Choose</option>";
+        foreach ($branches as $branch){
+            $output[] .= "<option value='".$branch->id."'>".$branch->branch_name."</option>";
+        }
+        return $output;
+    }
 }
