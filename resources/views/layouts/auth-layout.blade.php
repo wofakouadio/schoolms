@@ -3,3 +3,5 @@
 @yield('content')
 
 <x-auth.auth-footer/>
+
+@stack('package-js')
