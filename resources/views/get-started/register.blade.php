@@ -13,7 +13,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <form action="/new-account" method="POST" enctype="multipart/form-data">
+                                    <form action="{{route('new-account')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <h4 class="text-primary text-uppercase text-center mb-4">Register your school</h4>
                                         @if ($errors->any())
