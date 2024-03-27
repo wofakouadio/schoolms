@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
@@ -88,4 +89,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/level/delete', [LevelController::class, 'delete'])->name('delete-level');
     Route::get('/levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name
     ('levelsTables');
+
+    /**House**/
+    Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');
+    Route::post('/school/house', [HouseController::class, 'store'])->name('new-house');
+    Route::get('/school/house/edit', [HouseController::class, 'edit'])->name('edit-house');
+    Route::put('/school/house/update', [HouseController::class, 'update'])->name('update-house');
+    Route::delete('/school/house/delete', [HouseController::class, 'delete'])->name('delete-house');
+    Route::get('/housesTables', 'App\Http\Controllers\Admin\House\HousesDatatable')->name
+    ('housesTables');
 });

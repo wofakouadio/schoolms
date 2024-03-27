@@ -16,6 +16,8 @@
                     console.log(Response)
                     $("#new-level-form").find("select[name=branch]").html(Response)
                     $("#update-level-form").find("select[name=branch]").html(Response)
+                    $("#new-house-form").find("select[name=branch]").html(Response)
+                    $("#update-house-form").find("select[name=branch]").html(Response)
                 }
             })
         }
