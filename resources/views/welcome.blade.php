@@ -56,7 +56,7 @@
                                     <h5>To get started, we would ask you to fill in some information about the school, and the administrator who is to manage. </h5>
                                     <div class="row justify-content-center h-100 align-items-center mt-5">
                                         <div class="col-xl-6 col-md-6">
-                                            <a class="btn btn-primary text-center" href="/get-started">
+                                            <a class="btn btn-primary text-center" href="{{route('onBoarding')}}">
                                                 <span class="btn-icon-start text-primary">
                                                     <i class="bi bi-arrow-up-right-square-fill text-primary"></i>
                                                 </span>
@@ -64,7 +64,7 @@
                                             </a>
                                         </div>
                                         <div class="col-xl-6 col-md-6">
-                                            <a class="btn btn-primary" href="/platform">
+                                            <a class="btn btn-primary" href="{{route('platform')}}">
                                                 <span class="btn-icon-start text-primary">
                                                     <i class="flaticon-381-fingerprint text-primary"></i>
                                                 </span>
