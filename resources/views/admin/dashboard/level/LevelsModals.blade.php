@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Branch</label>
-                            <select class="form-control" name="branch_id"></select>
+                            <select class="form-control" name="branch"></select>
                         </div>
                     </div>
                 </div>
@@ -69,13 +69,12 @@
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Description</label>
-                            <textarea class="form-control solid" aria-label="name" name="level_description"
-                                      cols="10" rows="5">{{old
+                            <textarea class="form-control solid" aria-label="name" name="level_description" cols="10" rows="5">{{old
                             ('level_description')}}</textarea>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Branch</label>
-                            <select class="form-control" name="branch_id"></select>
+                            <select class="form-control" name="branch"></select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Status</label>

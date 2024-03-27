@@ -82,4 +82,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Level**/
     Route::get('/admin/school/level', [LevelController::class,'index'])->name('admin_school_level');
+    Route::post('/school/level', [LevelController::class, 'store'])->name('new-level');
+    Route::get('/school/level/edit', [LevelController::class, 'edit'])->name('edit-level');
+    Route::put('/school/level/update', [LevelController::class, 'update'])->name('update-level');
+    Route::delete('/school/level/delete', [LevelController::class, 'delete'])->name('delete-level');
+    Route::get('/levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name
+    ('levelsTables');
 });

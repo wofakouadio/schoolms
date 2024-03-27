@@ -1,10 +1,10 @@
-<script>
+ <script>
     $(document).ready(()=>{
         // alert
         $(" .menu-alert").hide()
 
-        //new branch
-        $("#new-branch-form").on("submit", (e)=>{
+        //new level
+        $("#new-level-form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
                 headers: {
@@ -12,9 +12,9 @@
                 }
             });
 
-            let form_data = $("#new-branch-form").serialize()
+            let form_data = $("#new-level-form").serialize()
             $.ajax({
-                url:'{{route('new-branch')}}',
+                url:'{{route('new-level')}}',
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -23,11 +23,11 @@
                     let StringResults = JSON.stringify(Response)
                     let DecodedResults = JSON.parse(StringResults)
                     if(DecodedResults.status === 201){
-                        $("#new-branch-modal .menu-alert").removeClass('alert-warning')
-                        $("#new-branch-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                        $("#new-level-modal .menu-alert").removeClass('alert-warning')
+                        $("#new-level-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
                     }else{
-                        $("#new-branch-modal .menu-alert").removeClass('alert-danger')
-                        $("#new-branch-modal .menu-alert").removeClass('alert-warning')
+                        $("#new-level-modal .menu-alert").removeClass('alert-danger')
+                        $("#new-level-modal .menu-alert").removeClass('alert-warning')
 
                         Swal.fire({
                             title: 'Notification',
@@ -39,11 +39,11 @@
                         }).then((result) => {
                             if (result) {
                                 // window.location.reload()
-                                $("#new-branch-modal").modal('hide')
-                                $("#new-branch-modal .menu-alert").removeClass('alert-danger')
-                                $("#new-branch-modal .menu-alert").removeClass('alert-warning')
-                                $("#new-branch-modal .menu-alert").html('')
-                                $("#BranchesDataTables").DataTable().draw();
+                                $("#new-level-modal").modal('hide')
+                                $("#new-level-modal .menu-alert").removeClass('alert-danger')
+                                $("#new-level-modal .menu-alert").removeClass('alert-warning')
+                                $("#new-level-modal .menu-alert").html('')
+                                $("#LevelsDataTables").DataTable().draw();
                             }
                         })
                     }
@@ -51,7 +51,7 @@
                 error:(Response)=>{
 
                     $.each( Response.responseJSON.errors, function( key, value ) {
-                        $('#new-branch-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        $('#new-level-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
                             .append
                         ('<li>'+value+'</li>');
                     });
@@ -59,36 +59,34 @@
             })
         })
 
-        //show edit branch modal with data
-        $("#edit-branch-modal").on("show.bs.modal", (event)=>{
+        //show edit level modal with data
+        $("#edit-level-modal").on("show.bs.modal", (event)=>{
             let str = $(event.relatedTarget);
-            let branch_id = str.data('id')
+            let level_id = str.data('id')
 
-            let modal = $("#edit-branch-modal")
+            let modal = $("#edit-level-modal")
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                url:'{{route('edit-branch')}}',
+                url:'{{route('edit-level')}}',
                 method:'GET',
                 cache:false,
-                data: {branch_id:branch_id},
+                data: {level_id:level_id},
                 success:(Response)=>{
-                    modal.find("input[name=branch_id]").val(branch_id)
-                    modal.find("input[name=branch_name]").val(Response['branch_name'])
-                    modal.find("textarea[name=branch_description]").val(Response['branch_description'])
-                    modal.find("input[name=branch_address]").val(Response['branch_location'])
-                    modal.find("input[name=branch_email]").val(Response['branch_email'])
-                    modal.find("input[name=branch_contact]").val(Response['branch_contact'])
-                    modal.find("select[name=branch_is_active]").val(Response['is_active'])
+                    modal.find("input[name=level_id]").val(level_id)
+                    modal.find("input[name=level_name]").val(Response['level_name'])
+                    modal.find("textarea[name=level_description]").val(Response['level_description'])
+                    modal.find("select[name=branch]").val(Response['branch_id'])
+                    modal.find("select[name=level_is_active]").val(Response['is_active'])
                 }
             })
         })
 
-        //update branch data
-        $("#update-branch-form").on("submit", (e)=>{
+        //update level data
+        $("#update-level-form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
                 headers: {
@@ -96,9 +94,9 @@
                 }
             });
 
-            let form_data = $("#update-branch-form").serialize()
+            let form_data = $("#update-level-form").serialize()
             $.ajax({
-                url:'{{route('update-branch')}}',
+                url:'{{route('update-level')}}',
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -107,11 +105,11 @@
                     let StringResults = JSON.stringify(Response)
                     let DecodedResults = JSON.parse(StringResults)
                     if(DecodedResults.status === 201){
-                        $("#edit-branch-modal .menu-alert").removeClass('alert-warning')
-                        $("#edit-branch-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                        $("#edit-level-modal .menu-alert").removeClass('alert-warning')
+                        $("#edit-level-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
                     }else{
-                        $("#edit-branch-modal .menu-alert").removeClass('alert-danger')
-                        $("#edit-branch-modal .menu-alert").removeClass('alert-warning')
+                        $("#edit-level-modal .menu-alert").removeClass('alert-danger')
+                        $("#edit-level-modal .menu-alert").removeClass('alert-warning')
 
                         Swal.fire({
                             title: 'Notification',
@@ -123,11 +121,11 @@
                         }).then((result) => {
                             if (result) {
                                 // window.location.reload()
-                                $("#edit-branch-modal").modal('hide')
-                                $("#edit-branch-modal .menu-alert").removeClass('alert-danger')
-                                $("#edit-branch-modal .menu-alert").removeClass('alert-warning')
-                                $("#edit-branch-modal .menu-alert").html('')
-                                $("#BranchesDataTables").DataTable().draw();
+                                $("#edit-level-modal").modal('hide')
+                                $("#edit-level-modal .menu-alert").removeClass('alert-danger')
+                                $("#edit-level-modal .menu-alert").removeClass('alert-warning')
+                                $("#edit-level-modal .menu-alert").html('')
+                                $("#LevelsDataTables").DataTable().draw();
                             }
                         })
                     }
@@ -135,7 +133,7 @@
                 error:(Response)=>{
 
                     $.each( Response.responseJSON.errors, function( key, value ) {
-                        $('#edit-branch-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        $('#edit-level-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
                             .append
                             ('<li>'+value+'</li>');
                     });
@@ -143,32 +141,32 @@
             })
         })
 
-        //show delete branch modal with data
-        $("#delete-branch-modal").on("show.bs.modal", (event)=>{
+        //show delete level modal with data
+        $("#delete-level-modal").on("show.bs.modal", (event)=>{
             let str = $(event.relatedTarget);
-            let branch_id = str.data('id')
+            let level_id = str.data('id')
 
-            let modal = $("#delete-branch-modal")
+            let modal = $("#delete-level-modal")
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                url:'{{route('edit-branch')}}',
+                url:'{{route('edit-level')}}',
                 method:'GET',
                 cache:false,
-                data: {branch_id:branch_id},
+                data: {level_id:level_id},
                 success:(Response)=>{
-                    modal.find("input[name=branch_id]").val(branch_id)
+                    modal.find("input[name=level_id]").val(level_id)
                     modal.find(".delete-notice").html("Are you sure of deleting "
-                        + Response['branch_name'] + " data?")
+                        + Response['level_name'] + " data?")
                 }
             })
         })
 
-        //delete branch data
-        $("#delete-branch-form").on("submit", (e)=>{
+        //delete level data
+        $("#delete-level-form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
                 headers: {
@@ -176,9 +174,9 @@
                 }
             });
 
-            let form_data = $("#delete-branch-form")
+            let form_data = $("#delete-level-form")
             $.ajax({
-                url:'{{route('delete-branch')}}',
+                url:'{{route('delete-level')}}',
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
@@ -187,11 +185,11 @@
                     let StringResults = JSON.stringify(Response)
                     let DecodedResults = JSON.parse(StringResults)
                     if(DecodedResults.status === 201){
-                        $("#delete-branch-modal .menu-alert").removeClass('alert-warning')
-                        $("#delete-branch-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                        $("#delete-level-modal .menu-alert").removeClass('alert-warning')
+                        $("#delete-level-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
                     }else{
-                        $("#delete-branch-modal .menu-alert").removeClass('alert-danger')
-                        $("#delete-branch-modal .menu-alert").removeClass('alert-warning')
+                        $("#delete-level-modal .menu-alert").removeClass('alert-danger')
+                        $("#delete-level-modal .menu-alert").removeClass('alert-warning')
 
                         Swal.fire({
                             title: 'Notification',
@@ -202,11 +200,11 @@
                             confirmButtonText: 'Close',
                         }).then((result) => {
                             if (result) {
-                                $("#delete-branch-modal").modal('hide')
-                                $("#delete-branch-modal .menu-alert").removeClass('alert-danger')
-                                $("#delete-branch-modal .menu-alert").removeClass('alert-warning')
-                                $("#delete-branch-modal .menu-alert").html('')
-                                $("#BranchesDataTables").DataTable().draw();
+                                $("#delete-level-modal").modal('hide')
+                                $("#delete-level-modal .menu-alert").removeClass('alert-danger')
+                                $("#delete-level-modal .menu-alert").removeClass('alert-warning')
+                                $("#delete-level-modal .menu-alert").html('')
+                                $("#LevelsDataTables").DataTable().draw();
                             }
                         })
                     }
@@ -214,7 +212,7 @@
                 error:(Response)=>{
 
                     $.each( Response.responseJSON.errors, function( key, value ) {
-                        $('#delete-branch-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        $('#delete-level-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
                             .append
                             ('<li>'+value+'</li>');
                     });

@@ -57,10 +57,10 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
+    @include('custom-functions/BranchesInSelectInputJS')
     @include('admin/dashboard/level/levelsJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
     @include('admin/dashboard/level/levelsDataTables')
-    @include('custom-functions/BranchesInSelectInputJS')
 @endpush
