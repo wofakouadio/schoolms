@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Branch;
 use App\Models\School;
+use App\Models\SchoolsPackage;
+use \Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class OnBoardingController extends Controller
 {
-    //on-boarding method
-    // store
-    public function getStarted(Request $request){
+    //to launch the on-boarding process
+    public function index()
+    {
+        return view('get-started.register');
+    }
 
-        // dd($request->all());
+    //on-boarding method to store new account user
+    public function getStarted(Request $request){
 
         $request->validate([
             'admin_firstName' => ['required', 'string', 'max:255'],
@@ -42,7 +48,7 @@ class OnBoardingController extends Controller
             if($admin){
                 $reg_admin = $admin->id;
                 $school = School::create([
-                    'school_name' => $request->school_name,
+                    'school_name' => strtoupper($request->school_name),
                     'school_location' => $request->school_location,
                     'school_phoneNumber' => $request->school_phoneNumber,
                     'school_email' => $request->school_email,
@@ -51,28 +57,51 @@ class OnBoardingController extends Controller
 
                 $reg_school = $school->id;
                 if($reg_school){
-                    Admin::where('id', $reg_admin)->update([
+                    $branch = Branch::create([
+                        'branch_name' => strtoupper('HeadQuarters'),
+                        'branch_description' => 'This is the main branch of ' . $school->school_name,
+                        'branch_location' => $request->school_location,
+                        'branch_email' => $request->school_email,
+                        'branch_contact' => $request->school_phoneNumber,
                         'school_id' => $reg_school
                     ]);
+                    Admin::where('id', $reg_admin)->update([
+                        'school_id' => $reg_school,
+                        'branch_id' => $branch->id
+                    ]);
                 }
-
-                // dd(['admin id ' => $reg_admin, 'school_id' => $reg_school]);
             }
 
             DB::commit();
-
-            // return redirect('/')->with('success', 'Welcome to the new world');
-            return redirect('/get-started/select-package')->with('message', 'Welcome to the new World');
-
+                return redirect()->route('package-selection')->with('school', $reg_school);
         } catch(\Exception $th){
 
             // dd($th);
             DB::rollBack();
             return redirect('/get-started')->with('message', 'Registration failed. Error:' . $th->getMessage());
         }
+    }
 
+    public function packageSelection(){
+        return view('get-started.select-package');
+    }
 
-
-
+    public function processPackageSelection(Request $request){
+        DB::beginTransaction();
+        try {
+            SchoolsPackage::create([
+                'school_id' => $request->school_id
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Account created successfully. You will be redirected to the login page'
+            ]);
+        }catch(\Exception $th){
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
     }
 }
