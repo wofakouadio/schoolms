@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
-use Dflydev\DotAccessData\Data;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
