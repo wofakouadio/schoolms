@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\AdminController;
@@ -32,15 +33,10 @@ Route::get('/platform', function () {
 })->name('platform');
 
 // get started page
-Route::get('/get-started', function () {
-    return view('get-started.register');
-})->name('onBoarding');
-
-// register as new school and administrator
-
-//Route::post('/new-account', [AdminController::class, 'getStarted']);
-
-Route::post('/new-account', [OnBoardingController::class, 'getStarted']);
+Route::get('/get-started', [OnBoardingController::class, 'index'])->name('onBoarding');
+Route::post('/new-account', [OnBoardingController::class, 'getStarted'])->name('new-account');
+Route::get('/package-selection', [OnBoardingController::class, 'packageSelection'])->name('package-selection');
+Route::post('/package-selection', [OnBoardingController::class, 'processPackageSelection'])->name('school-package-selection');
 
 //Administrator login page
 Route::get('/admin/auth/', [AdminAuthController::class, 'admin_login'])->name('admin_login');
@@ -82,4 +78,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
     Route::get('/branchesTables', 'App\Http\Controllers\Admin\Branch\BranchesDatatable')->name
     ('branchesTables');
+
+    /**Level**/
+    Route::get('/admin/school/level', [LevelController::class,'index'])->name('admin_school_level');
 });
