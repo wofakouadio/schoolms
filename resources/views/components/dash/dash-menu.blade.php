@@ -60,7 +60,7 @@
                     <li><a href="{{route('admin_school_branch')}}">Branches</a></li>
                     <li><a href="{{route('admin_school_level')}}">Levels</a></li>
                     <li><a href="{{route('admin_school_house')}}">Houses</a></li>
-                    <li><a href="#">Categories</a></li>
+                    <li><a href="{{route('admin_school_category')}}">Categories</a></li>
                 </ul>
             </li>
             <li>

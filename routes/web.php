@@ -3,6 +3,7 @@
 //use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\Branch\BranchController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
@@ -98,4 +99,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/house/delete', [HouseController::class, 'delete'])->name('delete-house');
     Route::get('/housesTables', 'App\Http\Controllers\Admin\House\HousesDatatable')->name
     ('housesTables');
+
+    /**Category**/
+    Route::get('/admin/school/category', [CategoryController::class,'index'])->name('admin_school_category');
+    Route::post('/school/category', [CategoryController::class, 'store'])->name('new-category');
+    Route::get('/school/category/edit', [CategoryController::class, 'edit'])->name('edit-category');
+    Route::put('/school/category/update', [CategoryController::class, 'update'])->name('update-category');
+    Route::delete('/school/category/delete', [CategoryController::class, 'delete'])->name('delete-category');
+    Route::get('/categoriesTables', 'App\Http\Controllers\Admin\Category\CategoriesDatatable')->name
+    ('categoriesTables');
 });
