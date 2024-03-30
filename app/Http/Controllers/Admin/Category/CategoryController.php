@@ -92,4 +92,17 @@ class CategoryController extends Controller
             ]);
         }
     }
+
+    //Category based on school ID
+    public function getCategoriesBySchoolId(Request $request){
+        $school_id = $request->school_id;
+        $output = [];
+        $categories = Category::select('id', 'category_name')->where('school_id', $school_id)->where('is_active', 0)
+            ->get();
+        $output[] .= "<option value=''>Choose</option>";
+        foreach ($categories as $category){
+            $output[] .= "<option value='".$category->id."'>".$category->category_name."</option>";
+        }
+        return $output;
+    }
 }

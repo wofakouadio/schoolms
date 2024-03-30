@@ -99,4 +99,16 @@ class HouseController extends Controller
             ]);
         }
     }
+
+    //houses based on branch id
+    public function getHousesByBranchId(Request $request){
+        $branch_id = $request->branch_id;
+        $output = [];
+        $houses = House::select('id', 'house_name')->where('branch_id', $branch_id)->where('is_active', 0)->get();
+        $output[] .= "<option value=''>Choose</option>";
+        foreach ($houses as $house){
+            $output[] .= "<option value='".$house->id."'>".$house->house_name."</option>";
+        }
+        return $output;
+    }
 }

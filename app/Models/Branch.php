@@ -22,7 +22,7 @@ class Branch extends Model
 
     protected $table = 'branches';
 
-//    public function branches(){
-//        return $this->hasOne(School::class);
-//    }
+    public function school(){
+        return $this->hasOne(School::class);
+    }
 }

@@ -16,4 +16,8 @@ class Category extends Model
         'is_active',
         'school_id'
     ];
+
+    public function school(){
+        return $this->hasMany(School::class, 'school_id', 'id');
+    }
 }

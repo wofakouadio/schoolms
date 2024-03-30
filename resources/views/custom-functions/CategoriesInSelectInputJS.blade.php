@@ -8,17 +8,13 @@
             });
             let school_id = '{{Auth::guard('admin')->user()->school_id}}'
             $.ajax({
-                url:'{{route('getBranchesBySchoolId')}}',
+                url:'{{route('getCategoriesBySchoolId')}}',
                 method:'GET',
                 cache:false,
                 data:{school_id: school_id},
                 success:(Response)=>{
                     // console.log(Response)
-                    $("#new-level-form").find("select[name=branch]").html(Response)
-                    $("#update-level-form").find("select[name=branch]").html(Response)
-                    $("#new-house-form").find("select[name=branch]").html(Response)
-                    $("#update-house-form").find("select[name=branch]").html(Response)
-                    $("#new-student-form").find("select[name=student_branch]").html(Response)
+                    $("#new-student-form").find("select[name=student_category]").html(Response)
                 }
             })
         }

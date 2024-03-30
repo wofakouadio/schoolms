@@ -18,4 +18,12 @@ class House extends Model
         'branch_id',
         'school_id'
     ];
+
+    public function school(){
+        return $this->hasMany(School::class, 'school_id', 'id');
+    }
+
+    public function branches(){
+        return $this->hasMany(Branch::class, 'branch_id', 'id');
+    }
 }

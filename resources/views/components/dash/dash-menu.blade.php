@@ -15,18 +15,28 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('admin_department')}}">
-                    <i class="flaticon-381-umbrella"></i>
-                    <span class="nav-text">Departments</span>
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <i class="fa fa-school"></i>
+                    <span class="nav-text">Students</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_student_admission')}}">Admissions</a></li>
+                    <li><a href="#">Activity Log</a></li>
+                </ul>
             </li>
+{{--            <li>--}}
+{{--                <a href="{{route('admin_department')}}">--}}
+{{--                    <i class="flaticon-381-umbrella"></i>--}}
+{{--                    <span class="nav-text">Departments</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
-            <li>
-                <a href="javascript:void()">
-                    <i class="flaticon-381-home"></i>
-                    <span class="nav-text">Classes</span>
-                </a>
-            </li>
+{{--            <li>--}}
+{{--                <a href="javascript:void()">--}}
+{{--                    <i class="flaticon-381-home"></i>--}}
+{{--                    <span class="nav-text">Classes</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
             <li>
                 <a href="javascript:void()" class="has-arrow" aria-expanded="false">
                     <i class="flaticon-381-book"></i>

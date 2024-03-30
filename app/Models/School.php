@@ -19,11 +19,11 @@ class School extends Model
     ];
 
     public function admin(){
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class, 'school_id', 'id');
     }
 
     public function branches(){
-        return $this->hasMany(Branch::class);
+        return $this->hasMany(Branch::class, 'school_id', 'id');
     }
 
 }

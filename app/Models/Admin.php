@@ -35,10 +35,6 @@ class Admin extends Authenticatable
     }
 
     public function school(){
-        return $this->hasOne(School::class);
-    }
-
-    public function branches(){
-        return $this->hasMany(Branch::class);
+        return $this->hasOne(School::class, 'admin_id', 'id');
     }
 }

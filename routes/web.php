@@ -2,12 +2,14 @@
 
 //use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\Admission\AdmissionController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
+use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
@@ -49,15 +51,13 @@ Route::post('/admin/auth/login', [AdminAuthController::class, 'admin_authenticat
 Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->group(function () {
     //admin dash
     Route::get('/admin/dashboard', 'index')->name('admin_dashboard');
-    //department Resources
-    Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
-    //post new department data
-    Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
-    //edit department data
-    Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
-    //DataTables of Departments
-    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
+
+    /**Department to be removed**/
+//    Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
+//    Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
+//    Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
+//    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
 
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
@@ -90,6 +90,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/level/delete', [LevelController::class, 'delete'])->name('delete-level');
     Route::get('/levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name
     ('levelsTables');
+    Route::get('/getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
 
     /**House**/
     Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');
@@ -99,6 +100,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/house/delete', [HouseController::class, 'delete'])->name('delete-house');
     Route::get('/housesTables', 'App\Http\Controllers\Admin\House\HousesDatatable')->name
     ('housesTables');
+    Route::get('/getHousesByBranchId', [HouseController::class, 'getHousesByBranchId'])->name('getHousesByBranchId');
 
     /**Category**/
     Route::get('/admin/school/category', [CategoryController::class,'index'])->name('admin_school_category');
@@ -108,4 +110,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/school/category/delete', [CategoryController::class, 'delete'])->name('delete-category');
     Route::get('/categoriesTables', 'App\Http\Controllers\Admin\Category\CategoriesDatatable')->name
     ('categoriesTables');
+    Route::get('/getCategoriesBySchoolId', [CategoryController::class, 'getCategoriesBySchoolId'])->name('getCategoriesBySchoolId');
+
+    /**Student**/
+    Route::get('/admin/student/admissions', [StudentController::class, 'index'])->name('admin_student_admission');
+    Route::get('/getStudentIdBySchoolId', [StudentController::class, 'getStudentIdBySchoolId'])->name('getStudentIdBySchoolId');
+    Route::post('/admissions/student', [StudentController::class, 'newStudentAdmission'])->name('new-student-admission');
+
+    /**Admission**/
+//    Route::get('/admin/admission', [AdmissionController::class, 'index'])->name('admin_admission');
 });
