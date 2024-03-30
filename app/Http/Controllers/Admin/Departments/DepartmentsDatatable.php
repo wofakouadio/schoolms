@@ -13,8 +13,11 @@ use Yajra\DataTables\Facades\DataTables;
 class DepartmentsDatatable extends Controller
 {
     public function __invoke(){
-        $data = DB::select('select id, name, is_active FROM departments WHERE school_id = ?', [Auth::guard('admin')
-            ->user()->school_id]);
+
+        $data = Department::where('school_id',Auth::guard('admin')->user()->school_id);
+
+        // $data = DB::select('select id, name, is_active FROM departments WHERE school_id = ?', [Auth::guard('admin')
+        //     ->user()->school_id]);
 
         return DataTables::of($data[])
             ->addColumn('name', function($row){

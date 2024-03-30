@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Admin\Branch;
 
-use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Department;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class BranchesDatatable extends Controller
 {
     public function __invoke(){
-        $data = DB::select('select * FROM branches WHERE school_id = ?', [Auth::guard('admin')
-            ->user()->school_id]);
+        // dd();
+        $data = Branch::where('school_id',Auth::guard('admin')->user()->school_id);
+        // $data = DB::select('select * FROM branches WHERE school_id = ?', [Auth::guard('admin')
+        //     ->user()->school_id]);
 
         return DataTables::of($data)
 
