@@ -20,10 +20,10 @@ class House extends Model
     ];
 
     public function school(){
-        return $this->hasMany(School::class, 'school_id', 'id');
+        return $this->hasOne(School::class, 'id', 'school_id');
     }
 
-    public function branches(){
-        return $this->hasMany(Branch::class, 'branch_id', 'id');
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 }

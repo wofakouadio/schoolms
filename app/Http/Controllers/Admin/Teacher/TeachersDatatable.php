@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Teacher;
 
+use App\Models\Teacher;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class TeachersDatatable extends Controller
 {
     public function __invoke(){
-        $data = DB::select('select * FROM teachers WHERE school_id = ?', [Auth::guard('admin')
-            ->user()->school_id]);
+        $data = Teacher::where('school_id',[Auth::guard('admin')->user()->school_id]);
+        // $data = DB::select('select * FROM teachers WHERE school_id = ?', [Auth::guard('admin')
+        //     ->user()->school_id]);
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){

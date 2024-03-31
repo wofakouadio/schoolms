@@ -12,30 +12,31 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DepartmentsDatatable extends Controller
 {
-    public function __invoke(){
+    public function __invoke()
+    {
 
-        $data = Department::where('school_id',Auth::guard('admin')->user()->school_id);
+        $data = Department::where('school_id', Auth::guard('admin')->user()->school_id);
 
         // $data = DB::select('select id, name, is_active FROM departments WHERE school_id = ?', [Auth::guard('admin')
         //     ->user()->school_id]);
 
         return DataTables::of($data[])
-            ->addColumn('name', function($row){
+            ->addColumn('name', function ($row) {
                 $department_name = $row->name;
                 return $department_name ?? '...';
             })
-            ->addColumn('is_active', function($row){
-//                $department_status =;
-                if( $row->is_active === 0 ){
+            ->addColumn('is_active', function ($row) {
+                //                $department_status =;
+                if ($row->is_active === 0) {
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-success text-uppercase">active</span>
                            </div>';
-                }else{
+                } else {
                     return '<span class="badge badge-xl light badge-danger text-uppercase">disabled</span>';
                 }
-//                return $remodelledStatus ?? '...';
+                //                return $remodelledStatus ?? '...';
             })
-            ->addColumn('action', function($row){
+            ->addColumn('action', function ($row) {
                 $department_id = $row->id;
                 return '<div class="d-flex">
                             <a href="" class="btn btn-primary shadow btn-xs sharp me-1">
@@ -45,14 +46,14 @@ class DepartmentsDatatable extends Controller
                                 <i class="fa fa-trash"></i>
                             </a>
                          </div>';
-//                <a href="/admin/department/{{$department->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
-//                                <i class="fas fa-pencil-alt"></i>
-//                            </a>
-//                            <a href="/admin/department/{{$department->id}}" class="btn btn-danger shadow btn-xs sharp">
-//                                <i class="fa fa-trash"></i>
-//                            </a>
+                //                <a href="/admin/department/{{$department->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
+                //                                <i class="fas fa-pencil-alt"></i>
+                //                            </a>
+                //                            <a href="/admin/department/{{$department->id}}" class="btn btn-danger shadow btn-xs sharp">
+                //                                <i class="fa fa-trash"></i>
+                //                            </a>
             })
-            ->rawColumns(['is_active','action'])
+            ->rawColumns(['is_active', 'action'])
             ->make(true);
     }
 }

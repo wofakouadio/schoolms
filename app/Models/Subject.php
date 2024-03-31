@@ -22,4 +22,12 @@ class Subject extends Model
     protected $table = 'subjects';
 
     protected $primaryKey = 'id';
+
+    public function school(){
+        return $this->hasOne(School::class, 'id', 'school_id');
+    }
+    
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
 }
