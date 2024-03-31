@@ -26,7 +26,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="StudentsDataTables" class="display" style="min-width: 845px">
+                                <table id="StudentsAdmissionsDatatables" class="display" style="min-width: 845px">
                                     <thead>
                                     <tr>
                                         <th>Profile</th>
@@ -65,5 +65,5 @@
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/student/studentsDataTables')
+    @include('admin/dashboard/student/studentsAdmissionsDataTables')
 @endpush

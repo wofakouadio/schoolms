@@ -40,22 +40,22 @@ class Student extends Model implements HasMedia
     ];
 
     public function school(){
-        return $this->hasOne(School::class, 'school_id', 'id');
+        return $this->hasOne(School::class,  'id','school_id');
     }
 
     public function branch(){
-        return $this->hasOne(Branch::class, 'student_branch', 'id');
+        return $this->hasOne(Branch::class,  'id','student_branch');
     }
 
     public function level(){
-        return $this->hasOne(Level::class, 'student_level', 'id');
+        return $this->hasOne(Level::class, 'id','student_level');
     }
 
     public function house(){
-        return $this->hasOne(House::class, 'student_house', 'id');
+        return $this->hasOne(House::class, 'id','student_house');
     }
 
     public function category(){
-        return $this->hasOne(Category::class, 'student_category', 'id');
+        return $this->hasOne(Category::class,'id','student_category');
     }
 }

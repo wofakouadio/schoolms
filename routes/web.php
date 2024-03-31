@@ -116,6 +116,8 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/admin/student/admissions', [StudentController::class, 'index'])->name('admin_student_admission');
     Route::get('/getStudentIdBySchoolId', [StudentController::class, 'getStudentIdBySchoolId'])->name('getStudentIdBySchoolId');
     Route::post('/admissions/student', [StudentController::class, 'newStudentAdmission'])->name('new-student-admission');
+    Route::get('/studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name
+    ('studentsAdmissionsTables');
 
     /**Admission**/
 //    Route::get('/admin/admission', [AdmissionController::class, 'index'])->name('admin_admission');
