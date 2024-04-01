@@ -113,8 +113,9 @@ class HouseController extends Controller
         $output = [];
         $houses = House::select('id', 'house_name')->where('branch_id', $branch_id)->where('is_active', 0)->get();
         $output[] .= "<option value=''>Choose</option>";
-        foreach ($houses as $house) {
-            $output[] .= "<option value='" . $house->id . "'>" . $house->house_name . "</option>";
+        $output[] .= "<option value='N/A'>Not Applicable</option>";
+        foreach ($houses as $house){
+            $output[] .= "<option value='".$house->id."'>".$house->house_name."</option>";
         }
         return $output;
     }
