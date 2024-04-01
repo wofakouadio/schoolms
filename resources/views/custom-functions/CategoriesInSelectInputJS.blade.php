@@ -1,6 +1,6 @@
 <script>
     $(document).ready(()=>{
-        const SchoolBranches = ()=>{
+        const SchoolCategories = ()=>{
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -14,10 +14,11 @@
                 data:{school_id: school_id},
                 success:(Response)=>{
                     // console.log(Response)
-                    $("#new-student-form").find("select[name=student_category]").html(Response)
+                    $("#new-student-admission-form").find("select[name=student_category]").html(Response)
+                    $("#update-student-admission-form").find("select[name=student_category]").html(Response)
                 }
             })
         }
-        SchoolBranches()
+        SchoolCategories()
     });
 </script>
