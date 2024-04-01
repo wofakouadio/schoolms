@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
 use App\Http\Controllers\Admin\Student\StudentController;
+use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
@@ -112,10 +113,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     ('categoriesTables');
     Route::get('/getCategoriesBySchoolId', [CategoryController::class, 'getCategoriesBySchoolId'])->name('getCategoriesBySchoolId');
 
-    /**Student**/
-    Route::get('/admin/student/admissions', [StudentController::class, 'index'])->name('admin_student_admission');
-    Route::get('/getStudentIdBySchoolId', [StudentController::class, 'getStudentIdBySchoolId'])->name('getStudentIdBySchoolId');
-    Route::post('/admissions/student', [StudentController::class, 'newStudentAdmission'])->name('new-student-admission');
+    /**Admissions Student**/
+    Route::get('/admin/student/admissions', [StudentsAdmissionsController::class, 'index'])->name('admin_student_admission');
+//    Route::get('/getStudentIdBySchoolId', [StudentController::class, 'getStudentIdBySchoolId'])->name('getStudentIdBySchoolId');
+    Route::post('/admissions/student', [StudentsAdmissionsController::class, 'store'])->name('new-student-admission');
+    Route::get('/admissions/student/edit', [StudentsAdmissionsController::class, 'edit'])->name('edit-student-admission');
+    Route::put('/admissions/student/update', [StudentsAdmissionsController::class, 'update'])->name('update-student-admission');
     Route::get('/studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name
     ('studentsAdmissionsTables');
 
