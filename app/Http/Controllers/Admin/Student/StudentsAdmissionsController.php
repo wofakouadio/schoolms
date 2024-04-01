@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\Student;
 
 use App\Http\Controllers\Controller;
+use App\Imports\StudentsAdmissionsImport;
 use App\Models\StudentsAdmissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class StudentsAdmissionsController extends Controller
@@ -148,6 +151,27 @@ class StudentsAdmissionsController extends Controller
             return response()->json([
                 'status' => 200,
                 'msg' => 'Admission updated successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+    }
+
+    public function StoreBulk(Request $request){
+        $request->validate([
+            'admission_bulk' => ['required']
+        ]);
+        DB::beginTransaction();
+        try {
+            Excel::import(new StudentsAdmissionsImport, $request->file('admission_bulk'));
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Bulk uploaded successfully'
             ]);
         }catch (\Exception $th){
             DB::rollBack();

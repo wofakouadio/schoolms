@@ -18,12 +18,16 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-student-admission-modal
-
-                               ">
+                               data-bs-target="#new-student-admission-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
                                 </span> New Admission
+                            </a>
+                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                               data-bs-target="#new-student-admission-using-excel-modal">
+                                <span class="btn-icon-start text-primary">
+                                    <i class="fa fa-plus color-primary"></i>
+                                </span> New Admission using Excel/CSV file
                             </a>
                         </div>
                         <div class="card-body">

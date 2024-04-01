@@ -150,6 +150,37 @@
     </form>
 </div>
 
+{{--create new admission using bulk upload in excel/csv--}}
+<div class="modal fade" id="new-student-admission-using-excel-modal">
+    <form method="post" id="new-student-admission-using-excel-form" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Student Admission using Bulk Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <label  class="form-label font-w600">Upload Excel/CVS file<span class="text-danger scale5
+                            ms-2">*</span></label>
+                    <input type="file" class="form-control solid" aria-label="name" name="admission_bulk">
+                    <input type="hidden" name="school_id" value="{{Auth::guard('admin')->user()->school_id}}">
+
+                    <a class="text-success mt-4 mb-4" href="{{asset('sample.xlsx')}}">Download Sample format</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 {{--edit student--}}
 <div class="modal fade" id="edit-student-admission-modal">
     <form method="post" id="update-student-admission-form" enctype="multipart/form-data">

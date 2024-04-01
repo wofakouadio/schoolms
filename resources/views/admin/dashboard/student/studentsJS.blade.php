@@ -67,6 +67,70 @@
             })
         })
 
+        // bulk upload of students admissions
+        $("#new-student-admission-using-excel-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let form_data = $("#new-student-admission-using-excel-form")[0]
+            $.ajax({
+                url:'{{route('new-student-admission-bulk')}}',
+                method:'POST',
+                cache:false,
+                data: new FormData(form_data),
+                processData: false,
+                contentType: false,
+                success:(Response)=>{
+
+                    // console.log(Response)
+
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        // $("#new-student-modal .menu-alert").removeClass('alert-success')
+                        $("#new-student-admission-using-excel-modal .menu-alert").removeClass('alert-warning')
+                        $("#new-student-admission-using-excel-modal .menu-alert").show().addClass('alert-danger').html
+                        (DecodedResults
+                            .msg)
+                    }else{
+                        $("#new-student-admission-using-excel-modal .menu-alert").removeClass('alert-danger')
+                        $("#new-student-admission-using-excel-modal .menu-alert").removeClass('alert-warning')
+
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                // window.location.reload()
+                                $("#new-student-admission-using-excel-modal").modal('hide')
+                                $("#new-student-admission-using-excel-modal .menu-alert").removeClass('alert-danger')
+                                $("#new-student-admission-using-excel-modal .menu-alert").removeClass('alert-warning')
+                                $("#new-student-admission-using-excel-modal .menu-alert").html('')
+                                $("#StudentsAdmissionsDatatables").DataTable().draw();
+                            }
+                        })
+                    }
+                },
+                error:(Response)=>{
+
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#new-student-admission-using-excel-form').find(".menu-alert").show().addClass('alert-warning').find
+                        ("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
+                }
+            })
+        })
+
         //show edit student modal with data
         $("#edit-student-admission-modal").on("show.bs.modal", (event)=>{
             let str = $(event.relatedTarget);
