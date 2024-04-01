@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
-use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -17,7 +18,7 @@ class StudentController extends Controller
 
     //auto generate student ID
     public function getStudentIdBySchoolId(Request $request){
-        $school_id = $request->school_id;
+        $school_id = Auth::guard('admin')->user()->school_id; //$request->school_id;
         return sprintf("%010d",Student::where('id', $school_id)->count() + 1);
     }
 
@@ -65,15 +66,15 @@ class StudentController extends Controller
                 'student_guardian_email' => $request->student_guardian_email,
                 'student_guardian_occupation' => $request->student_guardian_occupation,
                 'student_password' => Hash::make('password'),
-                'school_id' => $request->school_id
+                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id
             ]);
 
             if($request->hasFile('student_profile')){
-                $new_admission->addMedia($request->file('student_profile'))->toMediaCollection('media');
+                $new_admission->addMedia($request->file('student_profile'))->toMediaCollection('student_profile');
             }
 
             if($request->hasFile('student_guardian_id_card')){
-                $new_admission->addMedia($request->file('student_guardian_id_card'))->toMediaCollection('media');
+                $new_admission->addMedia($request->file('student_guardian_id_card'))->toMediaCollection('student_guardian_id_card');
             }
 
             DB::commit();

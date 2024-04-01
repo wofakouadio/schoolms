@@ -38,7 +38,7 @@ class SubjectsController extends Controller
             $subject = Subject::create([
                 'name'=> strtoupper($request->name),
                 'description' => $request->description,
-                'school_id' => $request->id,
+                'school_id' => Auth::guard('admin')->user()->school_id //$request->id,
 //                'branch_id' => $request->branch_id
             ]);
 

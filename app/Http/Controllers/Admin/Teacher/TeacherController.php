@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Teacher;
 
-use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -83,7 +84,7 @@ class TeacherController extends Controller
                 'teacher_ssnit' => $request->teacher_ssnit,
                 'teacher_ntc' => $request->teacher_ntc,
                 'teacher_ghana_card' => $request->teacher_ghana_card,
-                'school_id' => $request->school_id,
+                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id,
             ]);
 
             if ($request->hasFile('teacher_profile')) {
@@ -180,7 +181,7 @@ class TeacherController extends Controller
                 'teacher_ssnit' => $request->teacher_ssnit,
                 'teacher_ntc' => $request->teacher_ntc,
                 'teacher_ghana_card' => $request->teacher_ghana_card,
-                'is_active' => $request->teacher_is_active
+                'is_active' => $request->teacher_is_active ? 1 : 0
             ]);
 
 

@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Admin\Branch;
 
-use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
 {
     //index
-    public function index(){
+    public function index()
+    {
         return view('admin.dashboard.branch.index');
     }
 
     //store
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'branch_name' => 'required',
             'branch_address' => 'required',
@@ -32,14 +35,14 @@ class BranchController extends Controller
                 'branch_location' => $request->branch_address,
                 'branch_email' => $request->branch_email,
                 'branch_contact' => $request->branch_contact,
-                'school_id' => $request->school_id
+                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id
             ]);
             DB::commit();
             return response()->json([
                 'status' => 200,
                 'msg' => 'Branch created successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -49,13 +52,15 @@ class BranchController extends Controller
     }
 
     //fetch branch data
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         $data = Branch::where('id', $request->branch_id)->first();
         return response()->json($data);
     }
 
     //update branch data
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'branch_name' => 'required',
             'branch_address' => 'required',
@@ -72,14 +77,14 @@ class BranchController extends Controller
                 'branch_location' => $request->branch_address,
                 'branch_email' => $request->branch_email,
                 'branch_contact' => $request->branch_contact,
-                'is_active' => $request->branch_is_active
+                'is_active' => $request->branch_is_active ? 1 : 0
             ]);
             DB::commit();
             return response()->json([
                 'status' => 200,
                 'msg' => 'Branch updated successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -89,7 +94,8 @@ class BranchController extends Controller
     }
 
     //delete branch data
-    public function delete (Request $request){
+    public function delete(Request $request)
+    {
         DB::beginTransaction();
 
         try {
@@ -99,7 +105,7 @@ class BranchController extends Controller
                 'status' => 200,
                 'msg' => 'Branch deleted successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -109,13 +115,14 @@ class BranchController extends Controller
     }
 
     //get branches based on school id
-    public function getBranchesBySchoolId(Request $request){
-        $school_id = $request->school_id;
+    public function getBranchesBySchoolId(Request $request)
+    {
+        $school_id = Auth::guard('admin')->user()->school_id; //$request->school_id;
         $output = [];
         $branches = Branch::select('id', 'branch_name')->where('school_id', $school_id)->where('is_active', 0)->get();
         $output[] .= "<option value=''>Choose</option>";
-        foreach ($branches as $branch){
-            $output[] .= "<option value='".$branch->id."'>".$branch->branch_name."</option>";
+        foreach ($branches as $branch) {
+            $output[] .= "<option value='" . $branch->id . "'>" . $branch->branch_name . "</option>";
         }
         return $output;
     }

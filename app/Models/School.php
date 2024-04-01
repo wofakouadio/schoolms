@@ -2,12 +2,15 @@
 
 namespace App\Models;
 use App\Traits\UUID;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class School extends Model
+class School extends Model implements HasMedia
 {
     use HasFactory, UUID;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'school_name',
@@ -26,4 +29,10 @@ class School extends Model
         return $this->hasMany(Branch::class, 'school_id', 'id');
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('school_logo')
+            ->useDisk('media');
+    }
 }

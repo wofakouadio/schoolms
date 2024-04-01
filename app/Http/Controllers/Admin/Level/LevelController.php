@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Level;
 
-use App\Http\Controllers\Controller;
 use App\Models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LevelController extends Controller
 {
@@ -28,7 +29,7 @@ class LevelController extends Controller
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
                 'branch_id' => $request->branch,
-                'school_id' => $request->school_id,
+                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id,
             ]);
             DB::commit();
             return response()->json([
@@ -64,7 +65,7 @@ class LevelController extends Controller
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
                 'branch_id' => $request->branch,
-                'is_active' => $request->level_is_active
+                'is_active' => $request->level_is_active ? 1 : 0
             ]);
             DB::commit();
             return response()->json([

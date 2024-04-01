@@ -20,7 +20,7 @@ class DepartmentsDatatable extends Controller
         // $data = DB::select('select id, name, is_active FROM departments WHERE school_id = ?', [Auth::guard('admin')
         //     ->user()->school_id]);
 
-        return DataTables::of($data[])
+        return DataTables::of($data)
             ->addColumn('name', function ($row) {
                 $department_name = $row->name;
                 return $department_name ?? '...';
