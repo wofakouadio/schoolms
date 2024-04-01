@@ -26,7 +26,6 @@
                 {data: 'level', name: 'level'},
                 {data: 'residency', name: 'residency'},
                 {data: 'admission_status', name: 'admission_status'},
-                {data: 'is_active', name: 'is_active'},
                 {data: 'action', name: 'action'},
             ],
             searching: true,
