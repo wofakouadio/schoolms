@@ -17,11 +17,6 @@ class TeachersDatatable extends Controller
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){
-                // if($row->teacher_profile === "user-profile-default.png"){
-                //     $profile = "<img src='/storage/teachers/profiles/".$row->teacher_profile."' class='rounded-circle' width=35>";
-                // }else{
-                //     $profile = "<img src='/storage/".$row->teacher_profile."' class='rounded-circle' width=35>";
-                // }
 
                 if($row->getMedia('teacher_profile')->count() <= 0){
                     $profile = "<img src='". asset('assets/images/profile/small/pic1.jpg') ."' class='rounded-circle' width=35>";

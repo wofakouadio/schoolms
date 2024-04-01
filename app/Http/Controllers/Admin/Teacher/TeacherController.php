@@ -109,7 +109,10 @@ class TeacherController extends Controller
     //fetch teacher record based on teacher id
     public function edit(Request $request)
     {
-        $data = Teacher::where('id', $request->teacher_id)->get();
+//        $data = Teacher::where('id', $request->teacher_id)->get();
+//        $profile = $data->getFirstMediaUrl();
+        $data = Teacher::with('media')->where('id', $request->teacher_id)->get();
+//        dd($data);
         return response()->json($data);
     }
     //update teacher record

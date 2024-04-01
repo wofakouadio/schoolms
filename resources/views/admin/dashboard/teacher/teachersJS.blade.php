@@ -81,6 +81,17 @@
                 cache:false,
                 data: {teacher_id:teacher_id},
                 success:(Response)=>{
+                    // if(Response[0]['media'] === ''){
+                    //     console.log(false)
+                    // }else{
+                    //     console.log(Response[0]['media'][0]['original_url'])
+                    // }
+                    // if(Response[0]['media'].length === 0){
+                    //     console.log(false + ' Default img')
+                    // }else{
+                    //     console.log(Response[0]['media'][0]['original_url'])
+                    // }
+
 
                     modal.find("input[name=teacher_id]").val(teacher_id)
                     modal.find("select[name=teacher_title]").val(Response[0]['teacher_title'])
@@ -117,7 +128,7 @@
                     modal.find("input[name=teacher_ntc]").val(Response[0]['teacher_ntc'])
                     modal.find("input[name=teacher_ghana_card]").val(Response[0]['teacher_ghana_card'])
                     modal.find("select[name=teacher_is_active]").val(Response[0]['is_active'])
-                    modal.find("input[name=teacher_fetched_profile]").val(Response[0]['teacher_profile'])
+                    // modal.find("input[name=teacher_fetched_profile]").val(Response[0]['teacher_profile'])
                 }
             })
         })

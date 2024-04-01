@@ -396,7 +396,7 @@
                         <div class="col-xl-3 mb-4">
                             <label  class="form-label font-w600">Profile Picture</label>
                             <input class="form-control" type="file" id="formFile" name="teacher_profile">
-                            <input type="hidden" name="teacher_fetched_profile">
+{{--                            <input type="hidden" name="teacher_fetched_profile">--}}
                         </div>
                     </div>
                     <h4 class="text-danger">Academic Achievements</h4>
