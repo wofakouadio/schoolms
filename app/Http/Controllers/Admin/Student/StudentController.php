@@ -48,7 +48,6 @@ class StudentController extends Controller
         try {
 
             $new_admission = Student::create([
-                'student_id' => $request->student_id,
                 'student_firstname' => $request->student_firstname,
                 'student_othername' => $request->student_oname,
                 'student_lastname' => $request->student_lastname,

@@ -13,7 +13,6 @@ class Student extends Model implements HasMedia
     use HasFactory, UUID, InteractsWithMedia;
 
     protected $fillable = [
-        'student_id',
         'student_firstname',
         'student_othername',
         'student_lastname',
