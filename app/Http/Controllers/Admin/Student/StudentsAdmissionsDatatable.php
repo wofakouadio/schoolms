@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
-use App\Models\Student;
-use Illuminate\Support\Facades\DB;
+use App\Models\StudentsAdmissions;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -11,18 +10,19 @@ use Yajra\DataTables\Facades\DataTables;
 class StudentsAdmissionsDatatable extends Controller
 {
     public function __invoke(){
-        $data = Student::with('level', 'model')->where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = StudentsAdmissions::with('level')->where('school_id',[Auth::guard('admin')->user()->school_id]);
         // $data = DB::select('select * FROM teachers WHERE school_id = ?', [Auth::guard('admin')
         //     ->user()->school_id]);
+//        dd($data);
         return DataTables::of($data)
             ->addColumn('profile', function($row){
 //                $mediaItems = $row->model->getMedia(*);
-//                if($row->teacher_profile === "user-profile-default.png"){
-//                    $profile = "<img src='/storage/teachers/profiles/".$row->teacher_profile."' class='rounded-circle' width=35>";
-//                }else{
-//                    $profile = "<img src='/storage/".$row->teacher_profile."' class='rounded-circle' width=35>";
-//                }
-//                return $profile ?? '...';
+                if($row->getMedia('student_profile')->count() <= 0){
+                    $profile = "<img src='". asset('assets/images/profile/small/pic1.jpg') ."' class='rounded-circle' width=35>";
+                }else{
+                    $profile = "<img src='".$row->getFirstMediaUrl('student_profile')."' class='rounded-circle' width=35>";
+                }
+                return $profile ?? '...';
             })
             ->addColumn('name', function ($row){
                 $name = $row->student_firstname . ' ' . $row->student_othername . ' ' . $row->student_lastname;
@@ -54,17 +54,6 @@ class StudentsAdmissionsDatatable extends Controller
                 }
 //                return $remodelledStatus ?? '...';
             })
-            ->addColumn('is_active', function($row){
-//                $department_status =;
-                if( $row->is_active === 0 ){
-                    return '<div class="bootstrap-badge">
-                                <span class="badge badge-xl light badge-success text-uppercase">active</span>
-                           </div>';
-                }else{
-                    return '<span class="badge badge-xl light badge-danger text-uppercase">disabled</span>';
-                }
-//                return $remodelledStatus ?? '...';
-            })
             ->addColumn('action', function($row){
                 $student_admission_id = $row->id;
                 return '<div class="d-flex">
@@ -72,6 +61,11 @@ class StudentsAdmissionsDatatable extends Controller
                     .$student_admission_id.'"
                             class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a data-bs-toggle="modal" data-bs-target="#edit-student-admission-status-modal" data-id="'
+                    .$student_admission_id.'"
+                            class="btn btn-primary shadow btn-xs sharp me-1">
+                                <i class="fas fa-check-to-slot"></i>
                             </a>
                             <a data-bs-toggle="modal" data-bs-target="#delete-student-admission-modal" data-id="'
                     .$student_admission_id
@@ -86,7 +80,7 @@ class StudentsAdmissionsDatatable extends Controller
 //                                <i class="fa fa-trash"></i>
 //                            </a>
             })
-            ->rawColumns(['profile','name','admission_status', 'is_active','action'])
+            ->rawColumns(['profile','name','admission_status','action'])
             ->make(true);
     }
 }
