@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Traits\UUID;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Teacher extends Model
+class Teacher extends Model implements HasMedia
 {
     use HasFactory, UUID;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'teacher_staff_id',
@@ -49,11 +52,20 @@ class Teacher extends Model
         'branch_id',
     ];
 
-    public function school(){
+    public function school()
+    {
         return $this->hasOne(School::class, 'id', 'school_id');
     }
-    
-    public function branch(){
+
+    public function branch()
+    {
         return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('teacher_profile')
+            ->useDisk('media');
     }
 }
