@@ -18,7 +18,8 @@
                     $("#update-level-form").find("select[name=branch]").html(Response)
                     $("#new-house-form").find("select[name=branch]").html(Response)
                     $("#update-house-form").find("select[name=branch]").html(Response)
-                    $("#new-student-form").find("select[name=student_branch]").html(Response)
+                    $("#new-student-admission-form").find("select[name=student_branch]").html(Response)
+                    $("#update-student-admission-form").find("select[name=student_branch]").html(Response)
                 }
             })
         }
