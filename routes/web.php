@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\Admission\AdmissionController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
+use App\Http\Controllers\Admin\School\TermController;
 use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
@@ -72,6 +74,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**School**/
     Route::get('/admin/school', [SchoolController::class, 'index'])->name('admin_school');
     Route::put('/admin/school/update', [SchoolController::class, 'update'])->name('admin_school_update');
+    /**School Term**/
+    Route::post('/admin/school/term/store', [TermController::class, 'store'])->name('new-term');
+    Route::get('/admin/school/term/edit', [TermController::class, 'edit'])->name('edit-term');
+    Route::put('/admin/school/term/update', [TermController::class, 'update'])->name('update-term');
+    Route::delete('/admin/school/term/delete', [TermController::class, 'delete'])->name('delete-term');
+    Route::get('/termsTable', 'App\Http\Controllers\Admin\School\TermsDatatable')->name
+    ('termsTables');
 
     /**Branch**/
     Route::get('/admin/school/branch', [BranchController::class, 'index'])->name('admin_school_branch');
@@ -123,6 +132,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name
     ('studentsAdmissionsTables');
 
-    /**Admission**/
-//    Route::get('/admin/admission', [AdmissionController::class, 'index'])->name('admin_admission');
+    /**Finance**/
+    Route::get('/admin/finance', [FinanceController::class, 'index'])->name('admin_finance');
+    Route::get('/admin/finance/expenditure', [FinanceController::class, 'expenditureView'])->name('admin_expenditure');
 });

@@ -24,6 +24,25 @@
                     <li><a href="#">Activity Log</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <i class="fa fa-bank"></i>
+                    <span class="nav-text">Finance</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_finance')}}">Dashboard</a></li>
+                    <li>
+                        <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                            <span class="nav-text">Bills</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Preparation</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{route('admin_expenditure')}}">Expenditure</a></li>
+                    <li><a href="#">Activity Log</a></li>
+                </ul>
+            </li>
 {{--            <li>--}}
 {{--                <a href="{{route('admin_department')}}">--}}
 {{--                    <i class="flaticon-381-umbrella"></i>--}}
