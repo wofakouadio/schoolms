@@ -19,15 +19,15 @@
                     <li class="breadcrumb-item"><a href="javascript:void(0)" id="breadcrumb-title">Element</a></li>
                 </ol>
             </div> --}}
-            <form action="{{route('admin_school_update')}}" method="post" enctype="multipart/form-data"
-                  id="school-basic-form">
-                @csrf
-                @method('PUT')
-                <div class="row">
-                    <div class="alert menu-alert">
-                        <ul></ul>
-                    </div>
-                    <div class="col-xl-4">
+            <div class="row">
+                <div class="alert menu-alert">
+                    <ul></ul>
+                </div>
+                <div class="col-xl-4">
+                    <form action="{{route('admin_school_update')}}" method="post" enctype="multipart/form-data"
+                          id="school-basic-form">
+                        @csrf
+                        @method('PUT')
                         <div class="card">
                             <div class="card-header">
                                 <h4>Basic Data</h4>
@@ -38,7 +38,7 @@
                                         @if($data->school_logo === null ?? 'profile.png')
                                             <img src="{{asset('storage/school/logo/profile.png')}}" alt="profile.png"
                                                  class="rounded">
-                                            @else
+                                        @else
                                             <img src="{{asset('storage/'.$data->school_logo)}}" alt="profile.png"
                                                  class="rounded" width="60">
                                         @endif
@@ -76,9 +76,39 @@
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
+                    </form>
+                </div>
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                               data-bs-target="#new-term-modal">
+                                <span class="btn-icon-start text-primary">
+                                    <i class="fa fa-plus color-primary"></i>
+                                </span> New Term
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="TermsDataTables" class="display" style="min-width: 845px">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Opening</th>
+                                        <th>Closing</th>
+                                        <th>Academic Year</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     {{--Modals--}}
     @push('modals')
@@ -91,5 +121,5 @@
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-{{--    @include('admin/dashboard/portfolio/teachersDataTables')--}}
+    @include('admin/dashboard/portfolio/termsDataTables')
 @endpush
