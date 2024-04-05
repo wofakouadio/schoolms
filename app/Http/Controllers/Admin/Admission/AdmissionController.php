@@ -6,13 +6,15 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use function App\Helpers\TermAndAcademicYear;
 
 class AdmissionController extends Controller
 {
     //index
     public function index()
     {
-        return view('admin.dashboard.admission.index');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.admission.index', compact('schoolTerm'));
     }
 
     public function getStudentIdBySchoolId(Request $request)

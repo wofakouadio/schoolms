@@ -13,8 +13,12 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                              :term_academic_year="$schoolTerm['term_academic_year']"/>
+            @if($schoolTerm == null)
+                <x-dash.dash-no-term/>
+            @else
+                <x-dash.dash-term :term_name="$schoolTerm['term_name']"
+                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">

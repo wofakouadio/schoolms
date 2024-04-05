@@ -180,6 +180,7 @@
                                 $("#update-term-form .menu-alert").removeClass('alert-warning')
                                 $("#update-term-form .menu-alert").html('')
                                 $("#TermsDataTables").DataTable().draw()
+                                window.location.reload()
                             }
                         })
                     }
