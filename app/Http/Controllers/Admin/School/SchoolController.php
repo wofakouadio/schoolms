@@ -7,6 +7,7 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function App\Helpers\TermAndAcademicYear;
 
 class SchoolController extends Controller
 {
@@ -15,7 +16,13 @@ class SchoolController extends Controller
     {
         $school_id = Auth::guard('admin')->user()->school_id;
         $schoolData = School::where('id', $school_id)->get();
-        return view('admin.dashboard.portfolio.index', compact('schoolData'));
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.portfolio.index',
+            [
+                'schoolData' => $schoolData,
+                'schoolTerm' => $schoolTerm
+            ]
+        );
     }
 
     public function update(Request $request)

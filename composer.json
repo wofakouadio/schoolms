@@ -5,7 +5,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.2",
         "laravel/framework": "^10.10",
@@ -31,7 +31,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/SchoolTermHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
