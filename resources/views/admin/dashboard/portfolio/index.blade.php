@@ -13,12 +13,8 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            {{-- <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)" id="breadcrumb-header">Form</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)" id="breadcrumb-title">Element</a></li>
-                </ol>
-            </div> --}}
+            <x-dash.dash-term :term_name="$schoolTerm['term_name']"
+                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
             <div class="row">
                 <div class="alert menu-alert">
                     <ul></ul>
