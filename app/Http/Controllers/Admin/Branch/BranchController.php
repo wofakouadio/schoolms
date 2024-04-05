@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use function App\Helpers\TermAndAcademicYear;
 
 class BranchController extends Controller
 {
     //index
     public function index()
     {
-        return view('admin.dashboard.branch.index');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.branch.index', compact('schoolTerm'));
     }
 
     //store

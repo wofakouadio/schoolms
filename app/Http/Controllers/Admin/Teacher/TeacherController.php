@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use function App\Helpers\TermAndAcademicYear;
 
 class TeacherController extends Controller
 {
     //load teacher  page on dashboard
     public function index()
     {
-        return view('admin.dashboard.teacher.index');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.teacher.index', compact('schoolTerm'));
     }
     //insert new teacher record
     public function store(Request $request)

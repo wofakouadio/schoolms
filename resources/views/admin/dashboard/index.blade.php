@@ -13,6 +13,8 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
+            <x-dash.dash-term :term_name="$schoolTerm['term_name']"
+                              :term_academic_year="$schoolTerm['term_academic_year']"/>
             <div class="row">
                 <div class="col-xl-6">
                     <div class="row">
