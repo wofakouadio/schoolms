@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-class SubjectsController extends Controller
+class SubjectController extends Controller
 {
     //index
     public function index(){

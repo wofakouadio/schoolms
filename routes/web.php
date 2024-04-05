@@ -10,10 +10,10 @@ use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
-use App\Http\Controllers\Admin\Subject\SubjectController;
 use App\Http\Controllers\Admin\School\TermController;
 use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
+use App\Http\Controllers\Admin\Subjects\SubjectController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
@@ -78,7 +78,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
      Route::get("/subject/edit", [SubjectController::class, 'edit'])->name('edit-subject');
      Route::put('/subject/update', [SubjectController::class, 'update'])->name('update-subject');
      Route::delete('/subject/delete', [SubjectController::class, 'delete'])->name('delete-subject');
-     Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subject\SubjectsDatatable')->name
+     Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name
      ('subjectsTables');
 
     /**School**/
