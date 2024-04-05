@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\School\SchoolController;
+use App\Http\Controllers\Admin\Subject\SubjectController;
 use App\Http\Controllers\Admin\School\TermController;
 use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
@@ -70,6 +71,15 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/teacher/delete', [TeacherController::class, 'delete'])->name('delete-teacher');
     Route::get('/teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
     ('teachersTables');
+
+     /** Subject **/
+     Route::get('/admin/subject', [SubjectController::class, 'index'])->name('admin_subject');
+     Route::post('/subject/store', [SubjectController::class, 'store'])->name('new-subject');
+     Route::get("/subject/edit", [SubjectController::class, 'edit'])->name('edit-subject');
+     Route::put('/subject/update', [SubjectController::class, 'update'])->name('update-subject');
+     Route::delete('/subject/delete', [SubjectController::class, 'delete'])->name('delete-subject');
+     Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subject\SubjectsDatatable')->name
+     ('subjectsTables');
 
     /**School**/
     Route::get('/admin/school', [SchoolController::class, 'index'])->name('admin_school');
