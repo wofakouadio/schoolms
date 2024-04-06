@@ -63,7 +63,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="#">Add New</a></li>
-                    <li><a href="#">View Subjects</a></li>
+                    <li><a href="{{route('admin_subject')}}">View Subjects</a></li>
                 </ul>
             </li>
 

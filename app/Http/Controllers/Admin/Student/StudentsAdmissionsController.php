@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use function App\Helpers\TermAndAcademicYear;
 
 class StudentsAdmissionsController extends Controller
 {
     //index
     public function index(){
-        return view('admin.dashboard.student.admissions');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.student.admissions', compact('schoolTerm'));
     }
 
     //new student admission

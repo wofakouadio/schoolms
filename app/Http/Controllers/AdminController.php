@@ -9,13 +9,15 @@ use App\Models\School;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use function App\Helpers\TermAndAcademicYear;
 
 class AdminController extends Controller
 {
 
     //index
     public function index(){
-        return view('admin.dashboard.index');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.index', compact('schoolTerm'));
     }
 
     //login

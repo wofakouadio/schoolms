@@ -1,12 +1,12 @@
 @extends('layouts/dash-layout')
 
 @push('title')
-    <title>Admin Dashboard | SmS</title>
+    <title>Finance Dashboard | SmS</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Admin Dashboard
+        Finance Dashboard
     </div>
 @endpush
 
@@ -19,7 +19,6 @@
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
                                   :term_academic_year="$schoolTerm['term_academic_year']"/>
             @endif
-
             <div class="row">
                 <div class="col-xl-6">
                     <div class="row">

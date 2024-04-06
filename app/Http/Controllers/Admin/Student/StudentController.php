@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use function App\Helpers\TermAndAcademicYear;
 
 class StudentController extends Controller
 {
     //index
     public function index(){
-        return view('admin.dashboard.student.index');
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.student.index', compact('schoolTerm'));
     }
 
     //auto generate student ID
