@@ -137,8 +137,9 @@ class StudentsAdmissionsController extends Controller
             ]);
 
             if($request->hasFile('student_profile')){
-                $update_admission->clearMediaCollection();
-                $update_admission->addMedia($request->file('student_profile'))
+                $admission = StudentsAdmissions::where('id', $request->admission_id)->first();
+                $admission->clearMediaCollection();
+                $admission->addMedia($request->file('student_profile'))
                     ->toMediaCollection('student_profile');
             }
 

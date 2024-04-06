@@ -1,4 +1,4 @@
-{{--Create ne teacher--}}
+{{-- Create ne teacher --}}
 <div class="modal fade" id="new-teacher-modal">
     <form method="post" id="new-teacher-form" enctype="multipart/form-data">
         @csrf
@@ -16,7 +16,8 @@
                     <h4 class="text-danger">Bio-Data</h4>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Title<span class="text-danger scale5
+                            <label class="form-label font-w600">Title<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_title">
                                 <option value="">Choose</option>
@@ -26,29 +27,33 @@
                                 <option value="Doc">Doc</option>
                                 <option value="Prof">Prof</option>
                             </select>
-                            <input type="hidden" name="school_id" value="{{Auth::guard('admin')->user()->school_id}}">
+                            <input type="hidden" name="school_id"
+                                value="{{ Auth::guard('admin')->user()->school_id }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Firstname<span class="text-danger scale5
+                            <label class="form-label font-w600">Firstname<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_firstname"
-                                   value="{{old('teacher_firstname')}}">
+                                value="{{ old('teacher_firstname') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Other Name</label>
+                            <label class="form-label font-w600">Other Name</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_oname"
-                                   value="{{old('teacher_oname')}}">
+                                value="{{ old('teacher_oname') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Lastname<span class="text-danger scale5
+                            <label class="form-label font-w600">Lastname<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_lastname"
-                                   value="{{old('teacher_lastname')}}">
+                                value="{{ old('teacher_lastname') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Gender<span class="text-danger scale5
+                            <label class="form-label font-w600">Gender<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_gender">
                                 <option value="">Choose</option>
@@ -57,79 +62,87 @@
                             </select>
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Date of Birth<span class="text-danger scale5
+                            <label class="form-label font-w600">Date of Birth<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="date" class="form-control solid" aria-label="name" name="teacher_date_of_birth"
-                                   value="{{old('teacher_date_of_birth')}}">
+                            <input type="date" class="form-control solid" aria-label="name"
+                                name="teacher_date_of_birth" value="{{ old('teacher_date_of_birth') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Place of Birth<span class="text-danger scale5
+                            <label class="form-label font-w600">Place of Birth<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_place_of_birth"
-                                   value="{{old('teacher_place_of_birth')}}">
+                                name="teacher_place_of_birth" value="{{ old('teacher_place_of_birth') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Nationality<span class="text-danger scale5
+                            <label class="form-label font-w600">Nationality<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_nationality"
-                                   value="{{old('teacher_nationality')}}">
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_nationality" value="{{ old('teacher_nationality') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Postal Address - GPD<span class="text-danger scale5
+                            <label class="form-label font-w600">Postal Address - GPD<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" name="teacher_address" class="form-control solid" value="{{old
-                            ('teacher_address')}}" aria-label>
+                            <input type="text" name="teacher_address" class="form-control solid"
+                                value="{{ old('teacher_address') }}" aria-label>
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Email Address<span class="text-danger scale5
+                            <label class="form-label font-w600">Email Address<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_email"
-                                   value="{{old('teacher_email')}}">
+                                value="{{ old('teacher_email') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Contact<span class="text-danger scale5
+                            <label class="form-label font-w600">Contact<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="tel" class="form-control solid" aria-label="name" name="teacher_contact"
-                                   value="{{old('teacher_contact')}}">
+                            <input type="tel" class="form-control solid" aria-label="name"
+                                name="teacher_contact" value="{{ old('teacher_contact') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Profile Picture</label>
+                            <label class="form-label font-w600">Profile Picture</label>
                             <input class="form-control" type="file" id="formFile" name="teacher_profile">
                         </div>
                     </div>
                     <h4 class="text-danger">Academic Achievements</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">College/University Attended<span class="text-danger
+                            <label class="form-label font-w600">College/University Attended<span
+                                    class="text-danger
                             scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control" name="teacher_school_attended">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Admission Year<span class="text-danger scale5
+                            <label class="form-label font-w600">Admission Year<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control solid" name="teacher_admission_year">
                                 <option value="">Choose</option>
                                 @php
                                     $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    foreach ($years as $year) {
+                                        echo '<option value="' . $year . '">' . $year . '</option>';
                                     }
                                 @endphp
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Completion Year<span class="text-danger scale5
+                            <label class="form-label font-w600">Completion Year<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control solid" name="teacher_completion_year">
                                 <option value="">Choose</option>
                                 @php
                                     $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    foreach ($years as $year) {
+                                        echo '<option value="' . $year . '">' . $year . '</option>';
                                     }
                                 @endphp
                             </select>
@@ -137,54 +150,58 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Country</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_country"
-                                   value="Ghana" readonly>
+                            <label class="form-label font-w600">Country</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_country" value="Ghana" readonly>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Region<span class="text-danger
+                            <label class="form-label font-w600">Region<span
+                                    class="text-danger
                             scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_region"
-                                   value="{{old('teacher_region')}}">
-{{--                            <select class="form-control solid" name="teacher_region">--}}
-{{--                                <option value="">Choose</option>--}}
-{{--                                @for($x=1960; $x <= date('Y'); $x++)--}}
-{{--                                    <option value="{{$x++}}">{{$x++}}</option>--}}
-{{--                                @endfor--}}
-{{--                            </select>--}}
+                                value="{{ old('teacher_region') }}">
+                            {{--                            <select class="form-control solid" name="teacher_region"> --}}
+                            {{--                                <option value="">Choose</option> --}}
+                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
+                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
+                            {{--                                @endfor --}}
+                            {{--                            </select> --}}
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District<span class="text-danger scale5
+                            <label class="form-label font-w600">District<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_district"
-                                   value="{{old('teacher_district')}}">
-{{--                            <select class="form-control solid" name="teacher_district">--}}
-{{--                                <option value="">Choose</option>--}}
-{{--                                @for($x=1960; $x <= date('Y'); $x++)--}}
-{{--                                    <option value="{{$x++}}">{{$x++}}</option>--}}
-{{--                                @endfor--}}
-{{--                            </select>--}}
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_district" value="{{ old('teacher_district') }}">
+                            {{--                            <select class="form-control solid" name="teacher_district"> --}}
+                            {{--                                <option value="">Choose</option> --}}
+                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
+                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
+                            {{--                                @endfor --}}
+                            {{--                            </select> --}}
                         </div>
                     </div>
                     <h4 class="text-danger">Employment Details</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">1<sup>st</sup> Appointment Date<span class="text-danger
+                            <label class="form-label font-w600">1<sup>st</sup> Appointment Date<span
+                                    class="text-danger
                             scale5 ms-2">*</span></label>
-                            <input type="date" name="teacher_first_appointment" value="{{old
-                            ('teacher_first_appointment')}}"
-                                   class="form-control solid">
+                            <input type="date" name="teacher_first_appointment"
+                                value="{{ old('teacher_first_appointment') }}"
+                                class="form-control solid">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Name of Present School<span class="text-danger scale5
+                            <label class="form-label font-w600">Name of Present School<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_present_school"
-                                   value="{{old('teacher_present_school')}}">
+                                name="teacher_present_school" value="{{ old('teacher_present_school') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Academic Qualification<span class="text-danger scale5
+                            <label class="form-label font-w600">Academic Qualification<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_qualification">
                                 <option value="">Choose</option>
@@ -199,7 +216,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Professional Qualification<span class="text-danger scale5
+                            <label class="form-label font-w600">Professional Qualification<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_professional">
                                 <option value="">Choose</option>
@@ -212,7 +230,8 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Present Rank<span class="text-danger scale5
+                            <label class="form-label font-w600">Present Rank<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_rank">
                                 <option value="">Choose</option>
@@ -225,64 +244,62 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Circuit</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_circuit"
-                                   value="{{old('teacher_circuit')}}">
+                            <label class="form-label font-w600">Circuit</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_circuit" value="{{ old('teacher_circuit') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Staff ID</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_staff_id"
-                                   value="{{old('teacher_staff_id')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Registration Number</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_reg_num"
-                                   value="{{old('teacher_reg_num')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District File No.</label>
+                            <label class="form-label font-w600">Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_district_file_number"
-                                   value="{{old('teacher_district_file_number')}}">
+                                name="teacher_staff_id" value="{{ old('teacher_staff_id') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Registration Number</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_reg_num" value="{{ old('teacher_reg_num') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">District File No.</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_district_file_number"
+                                value="{{ old('teacher_district_file_number') }}">
                         </div>
                     </div>
                     <h4 class="text-danger">Other Relevant Information</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Bank Name</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_bank_name"
-                                   value="{{old('teacher_bank_name')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Account Number</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_acc_number"
-                                   value="{{old('teacher_acc_number')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Branch</label>
+                            <label class="form-label font-w600">Bank Name</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_bank_branch"
-                                   value="{{old('teacher_bank_branch')}}">
+                                name="teacher_bank_name" value="{{ old('teacher_bank_name') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Account Number</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_acc_number" value="{{ old('teacher_acc_number') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Branch</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_bank_branch" value="{{ old('teacher_bank_branch') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">SSNIT Number</label>
+                            <label class="form-label font-w600">SSNIT Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_ssnit"
-                                   value="{{old('teacher_ssnit')}}">
+                                value="{{ old('teacher_ssnit') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">NTC Number</label>
+                            <label class="form-label font-w600">NTC Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_ntc"
-                                   value="{{old('teacher_ntc')}}">
+                                value="{{ old('teacher_ntc') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Ghana Card No.</label>
+                            <label class="form-label font-w600">Ghana Card No.</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_ghana_card"
-                                   value="{{old('teacher_ghana_card')}}">
+                                name="teacher_ghana_card" value="{{ old('teacher_ghana_card') }}">
                         </div>
                     </div>
                 </div>
@@ -295,7 +312,7 @@
     </form>
 </div>
 
-{{--edit teacher--}}
+{{-- edit teacher --}}
 <div class="modal fade" id="edit-teacher-modal">
     <form method="post" id="update-teacher-form" enctype="multipart/form-data">
         @csrf
@@ -312,9 +329,13 @@
                         <ul></ul>
                     </div>
                     <h4 class="text-danger">Bio-Data</h4>
+                    <p>
+                        <img height="200" width="200" id="image" class="img img-thumbnail">
+                    </p>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Title<span class="text-danger scale5
+                            <label class="form-label font-w600">Title<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_title">
                                 <option value="">Choose</option>
@@ -327,26 +348,29 @@
                             <input type="hidden" name="teacher_id">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Firstname<span class="text-danger scale5
+                            <label class="form-label font-w600">Firstname<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_firstname"
-                                   value="{{old('teacher_firstname')}}">
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_firstname" value="{{ old('teacher_firstname') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Other Name</label>
+                            <label class="form-label font-w600">Other Name</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_oname"
-                                   value="{{old('teacher_oname')}}">
+                                value="{{ old('teacher_oname') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Lastname<span class="text-danger scale5
+                            <label class="form-label font-w600">Lastname<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_lastname"
-                                   value="{{old('teacher_lastname')}}">
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_lastname" value="{{ old('teacher_lastname') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Gender<span class="text-danger scale5
+                            <label class="form-label font-w600">Gender<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_gender">
                                 <option value="">Choose</option>
@@ -355,80 +379,88 @@
                             </select>
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Date of Birth<span class="text-danger scale5
+                            <label class="form-label font-w600">Date of Birth<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="date" class="form-control solid" aria-label="name" name="teacher_date_of_birth"
-                                   value="{{old('teacher_date_of_birth')}}">
+                            <input type="date" class="form-control solid" aria-label="name"
+                                name="teacher_date_of_birth" value="{{ old('teacher_date_of_birth') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Place of Birth<span class="text-danger scale5
+                            <label class="form-label font-w600">Place of Birth<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_place_of_birth"
-                                   value="{{old('teacher_place_of_birth')}}">
+                                name="teacher_place_of_birth" value="{{ old('teacher_place_of_birth') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Nationality<span class="text-danger scale5
+                            <label class="form-label font-w600">Nationality<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_nationality"
-                                   value="{{old('teacher_nationality')}}">
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_nationality" value="{{ old('teacher_nationality') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Postal Address - GPD<span class="text-danger scale5
+                            <label class="form-label font-w600">Postal Address - GPD<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="text" name="teacher_address" class="form-control solid" value="{{old
-                            ('teacher_address')}}" aria-label>
+                            <input type="text" name="teacher_address" class="form-control solid"
+                                value="{{ old('teacher_address') }}" aria-label>
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Email Address<span class="text-danger scale5
+                            <label class="form-label font-w600">Email Address<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_email"
-                                   value="{{old('teacher_email')}}">
+                                value="{{ old('teacher_email') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Contact<span class="text-danger scale5
+                            <label class="form-label font-w600">Contact<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
-                            <input type="tel" class="form-control solid" aria-label="name" name="teacher_contact"
-                                   value="{{old('teacher_contact')}}">
+                            <input type="tel" class="form-control solid" aria-label="name"
+                                name="teacher_contact" value="{{ old('teacher_contact') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label  class="form-label font-w600">Profile Picture</label>
+                            <label class="form-label font-w600">Profile Picture</label>                           
                             <input class="form-control" type="file" id="formFile" name="teacher_profile">
-{{--                            <input type="hidden" name="teacher_fetched_profile">--}}
+                            {{--                            <input type="hidden" name="teacher_fetched_profile"> --}}
                         </div>
                     </div>
                     <h4 class="text-danger">Academic Achievements</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">College/University Attended<span class="text-danger
+                            <label class="form-label font-w600">College/University Attended<span
+                                    class="text-danger
                             scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control" name="teacher_school_attended">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Admission Year<span class="text-danger scale5
+                            <label class="form-label font-w600">Admission Year<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control solid" name="teacher_admission_year">
                                 <option value="">Choose</option>
                                 @php
                                     $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    foreach ($years as $year) {
+                                        echo '<option value="' . $year . '">' . $year . '</option>';
                                     }
                                 @endphp
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Completion Year<span class="text-danger scale5
+                            <label class="form-label font-w600">Completion Year<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control solid" name="teacher_completion_year">
                                 <option value="">Choose</option>
                                 @php
                                     $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    foreach ($years as $year) {
+                                        echo '<option value="' . $year . '">' . $year . '</option>';
                                     }
                                 @endphp
                             </select>
@@ -436,53 +468,56 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Country</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_country"
-                                   value="Ghana" readonly>
+                            <label class="form-label font-w600">Country</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_country" value="Ghana" readonly>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Region<span class="text-danger
+                            <label class="form-label font-w600">Region<span
+                                    class="text-danger
                             scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_region"
-                                   value="{{old('teacher_region')}}">
-                            {{--                            <select class="form-control solid" name="teacher_region">--}}
-                            {{--                                <option value="">Choose</option>--}}
-                            {{--                                @for($x=1960; $x <= date('Y'); $x++)--}}
-                            {{--                                    <option value="{{$x++}}">{{$x++}}</option>--}}
-                            {{--                                @endfor--}}
-                            {{--                            </select>--}}
+                                value="{{ old('teacher_region') }}">
+                            {{--                            <select class="form-control solid" name="teacher_region"> --}}
+                            {{--                                <option value="">Choose</option> --}}
+                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
+                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
+                            {{--                                @endfor --}}
+                            {{--                            </select> --}}
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_district"
-                                   value="{{old('teacher_district')}}">
-                            {{--                            <select class="form-control solid" name="teacher_district">--}}
-                            {{--                                <option value="">Choose</option>--}}
-                            {{--                                @for($x=1960; $x <= date('Y'); $x++)--}}
-                            {{--                                    <option value="{{$x++}}">{{$x++}}</option>--}}
-                            {{--                                @endfor--}}
-                            {{--                            </select>--}}
+                            <label class="form-label font-w600">District</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_district" value="{{ old('teacher_district') }}">
+                            {{--                            <select class="form-control solid" name="teacher_district"> --}}
+                            {{--                                <option value="">Choose</option> --}}
+                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
+                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
+                            {{--                                @endfor --}}
+                            {{--                            </select> --}}
                         </div>
                     </div>
                     <h4 class="text-danger">Employment Details</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">1<sup>st</sup> Appointment Date<span class="text-danger
+                            <label class="form-label font-w600">1<sup>st</sup> Appointment Date<span
+                                    class="text-danger
                             scale5 ms-2">*</span></label>
-                            <input type="date" name="teacher_first_appointment" value="{{old
-                            ('teacher_first_appointment')}}"
-                                   class="form-control solid">
+                            <input type="date" name="teacher_first_appointment"
+                                value="{{ old('teacher_first_appointment') }}"
+                                class="form-control solid">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Name of Present School<span class="text-danger scale5
+                            <label class="form-label font-w600">Name of Present School<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_present_school"
-                                   value="{{old('teacher_present_school')}}">
+                                name="teacher_present_school" value="{{ old('teacher_present_school') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Academic Qualification<span class="text-danger scale5
+                            <label class="form-label font-w600">Academic Qualification<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_qualification">
                                 <option value="">Choose</option>
@@ -497,7 +532,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Professional Qualification<span class="text-danger scale5
+                            <label class="form-label font-w600">Professional Qualification<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_professional">
                                 <option value="">Choose</option>
@@ -510,7 +546,8 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Present Rank<span class="text-danger scale5
+                            <label class="form-label font-w600">Present Rank<span
+                                    class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_rank">
                                 <option value="">Choose</option>
@@ -523,68 +560,66 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Circuit</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_circuit"
-                                   value="{{old('teacher_circuit')}}">
+                            <label class="form-label font-w600">Circuit</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_circuit" value="{{ old('teacher_circuit') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Staff ID</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_staff_id"
-                                   value="{{old('teacher_staff_id')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Registration Number</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_reg_num"
-                                   value="{{old('teacher_reg_num')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">District File No.</label>
+                            <label class="form-label font-w600">Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_district_file_number"
-                                   value="{{old('teacher_district_file_number')}}">
+                                name="teacher_staff_id" value="{{ old('teacher_staff_id') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Registration Number</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_reg_num" value="{{ old('teacher_reg_num') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">District File No.</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_district_file_number"
+                                value="{{ old('teacher_district_file_number') }}">
                         </div>
                     </div>
                     <h4 class="text-danger">Other Relevant Information</h4>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Bank Name</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_bank_name"
-                                   value="{{old('teacher_bank_name')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Account Number</label>
-                            <input type="text" class="form-control solid" aria-label="name" name="teacher_acc_number"
-                                   value="{{old('teacher_acc_number')}}">
-                        </div>
-                        <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Branch</label>
+                            <label class="form-label font-w600">Bank Name</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_bank_branch"
-                                   value="{{old('teacher_bank_branch')}}">
+                                name="teacher_bank_name" value="{{ old('teacher_bank_name') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Account Number</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_acc_number" value="{{ old('teacher_acc_number') }}">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label class="form-label font-w600">Branch</label>
+                            <input type="text" class="form-control solid" aria-label="name"
+                                name="teacher_bank_branch" value="{{ old('teacher_bank_branch') }}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">SSNIT Number</label>
+                            <label class="form-label font-w600">SSNIT Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_ssnit"
-                                   value="{{old('teacher_ssnit')}}">
+                                value="{{ old('teacher_ssnit') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">NTC Number</label>
+                            <label class="form-label font-w600">NTC Number</label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_ntc"
-                                   value="{{old('teacher_ntc')}}">
+                                value="{{ old('teacher_ntc') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">Ghana Card No.</label>
+                            <label class="form-label font-w600">Ghana Card No.</label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                   name="teacher_ghana_card"
-                                   value="{{old('teacher_ghana_card')}}">
+                                name="teacher_ghana_card" value="{{ old('teacher_ghana_card') }}">
                         </div>
                     </div>
                     <div class="col-xl-4 mb-4">
-                        <label  class="form-label font-w600">Status</label>
+                        <label class="form-label font-w600">Status</label>
                         <select class="form-control" name="teacher_is_active">
                             <option value="">Choose</option>
                             <option value="0">ACTIVE</option>
@@ -601,7 +636,7 @@
     </form>
 </div>
 
-{{--delete teacher--}}
+{{-- delete teacher --}}
 <div class="modal fade" id="delete-teacher-modal">
     <form method="post" id="delete-teacher-form">
         @csrf

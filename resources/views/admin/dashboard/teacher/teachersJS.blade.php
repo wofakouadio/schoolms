@@ -81,54 +81,64 @@
                 cache:false,
                 data: {teacher_id:teacher_id},
                 success:(Response)=>{
-                    // if(Response[0]['media'] === ''){
+                    // if(Response['media'] === ''){
                     //     console.log(false)
                     // }else{
-                    //     console.log(Response[0]['media'][0]['original_url'])
+                    //     console.log(Response['media'][0]['original_url'])
                     // }
-                    // if(Response[0]['media'].length === 0){
+                    // if(Response['media'].length === 0){
                     //     console.log(false + ' Default img')
                     // }else{
-                    //     console.log(Response[0]['media'][0]['original_url'])
+                    //     console.log(Response['media'][0]['original_url'])
                     // }
 
 
-                    modal.find("input[name=teacher_id]").val(teacher_id)
-                    modal.find("select[name=teacher_title]").val(Response[0]['teacher_title'])
-                    modal.find("input[name=teacher_firstname]").val(Response[0]['teacher_firstname'])
-                    modal.find("input[name=teacher_lastname]").val(Response[0]['teacher_lastname'])
-                    modal.find("input[name=teacher_oname]").val(Response[0]['teacher_othername'])
-                    modal.find("select[name=teacher_gender]").val(Response[0]['teacher_gender'])
-                    modal.find("input[name=teacher_date_of_birth]").val(Response[0]['teacher_dob'])
-                    modal.find("input[name=teacher_place_of_birth]").val(Response[0]['teacher_pob'])
-                    modal.find("input[name=teacher_nationality]").val(Response[0]['teacher_nationality'])
-                    modal.find("input[name=teacher_address]").val(Response[0]['teacher_address'])
-                    modal.find("input[name=teacher_email]").val(Response[0]['teacher_email'])
-                    modal.find("input[name=teacher_contact]").val(Response[0]['teacher_contact'])
-                    modal.find("input[name=teacher_school_attended]").val(Response[0]['teacher_school_attended'])
-                    modal.find("select[name=teacher_admission_year]").val(Response[0]['teacher_admission_year'])
-                    modal.find("select[name=teacher_completion_year]").val(Response[0]['teacher_completion_year'])
-                    modal.find("input[name=teacher_country]").val(Response[0]['teacher_country'])
-                    modal.find("input[name=teacher_region]").val(Response[0]['teacher_region'])
-                    modal.find("input[name=teacher_district]").val(Response[0]['teacher_district'])
-                    modal.find("input[name=teacher_first_appointment]").val(Response[0]['teacher_first_app'])
-                    modal.find("input[name=teacher_present_school]").val(Response[0]['teacher_present_school'])
-                    modal.find("select[name=teacher_qualification]").val(Response[0]['teacher_qualification'])
-                    modal.find("select[name=teacher_professional]").val(Response[0]['teacher_professional'])
-                    modal.find("select[name=teacher_rank]").val(Response[0]['teacher_rank'])
-                    modal.find("input[name=teacher_circuit]").val(Response[0]['teacher_circuit'])
-                    modal.find("input[name=teacher_staff_id]").val(Response[0]['teacher_staff_id'])
-                    modal.find("input[name=teacher_reg_num]").val(Response[0]['teacher_reg_number'])
-                    modal.find("input[name=teacher_district_file_number]").val
-                    (Response[0]['teacher_district_file_number'])
-                    modal.find("input[name=teacher_bank_name]").val(Response[0]['teacher_bank_name'])
-                    modal.find("input[name=teacher_acc_number]").val(Response[0]['teacher_account_number'])
-                    modal.find("input[name=teacher_bank_branch]").val(Response[0]['teacher_bank_branch'])
-                    modal.find("input[name=teacher_ssnit]").val(Response[0]['teacher_ssnit'])
-                    modal.find("input[name=teacher_ntc]").val(Response[0]['teacher_ntc'])
-                    modal.find("input[name=teacher_ghana_card]").val(Response[0]['teacher_ghana_card'])
-                    modal.find("select[name=teacher_is_active]").val(Response[0]['is_active'])
-                    // modal.find("input[name=teacher_fetched_profile]").val(Response[0]['teacher_profile'])
+                    $("input[name=teacher_id]").val(teacher_id)
+                    $("select[name=teacher_title]").val(Response['teacher_title'])
+                    $("input[name=teacher_firstname]").val(Response['teacher_firstname'])
+                    $("input[name=teacher_lastname]").val(Response['teacher_lastname'])
+                    $("input[name=teacher_oname]").val(Response['teacher_othername'])
+                    $("select[name=teacher_gender]").val(Response['teacher_gender'])
+                    $("input[name=teacher_date_of_birth]").val(Response['teacher_dob'])
+                    $("input[name=teacher_place_of_birth]").val(Response['teacher_pob'])
+                    $("input[name=teacher_nationality]").val(Response['teacher_nationality'])
+                    $("input[name=teacher_address]").val(Response['teacher_address'])
+                    $("input[name=teacher_email]").val(Response['teacher_email'])
+                    $("input[name=teacher_contact]").val(Response['teacher_contact'])
+                    $("input[name=teacher_school_attended]").val(Response['teacher_school_attended'])
+                    $("select[name=teacher_admission_year]").val(Response['teacher_admission_year'])
+                    $("select[name=teacher_completion_year]").val(Response['teacher_completion_year'])
+                    $("input[name=teacher_country]").val(Response['teacher_country'])
+                    $("input[name=teacher_region]").val(Response['teacher_region'])
+                    $("input[name=teacher_district]").val(Response['teacher_district'])
+                    $("input[name=teacher_first_appointment]").val(Response['teacher_first_app'])
+                    $("input[name=teacher_present_school]").val(Response['teacher_present_school'])
+                    $("select[name=teacher_qualification]").val(Response['teacher_qualification'])
+                    $("select[name=teacher_professional]").val(Response['teacher_professional'])
+                    $("select[name=teacher_rank]").val(Response['teacher_rank'])
+                    $("input[name=teacher_circuit]").val(Response['teacher_circuit'])
+                    $("input[name=teacher_staff_id]").val(Response['teacher_staff_id'])
+                    $("input[name=teacher_reg_num]").val(Response['teacher_reg_number'])
+                    $("input[name=teacher_district_file_number]").val
+                    (Response['teacher_district_file_number'])
+                    $("input[name=teacher_bank_name]").val(Response['teacher_bank_name'])
+                    $("input[name=teacher_acc_number]").val(Response['teacher_account_number'])
+                    $("input[name=teacher_bank_branch]").val(Response['teacher_bank_branch'])
+                    $("input[name=teacher_ssnit]").val(Response['teacher_ssnit'])
+                    $("input[name=teacher_ntc]").val(Response['teacher_ntc'])
+                    $("input[name=teacher_ghana_card]").val(Response['teacher_ghana_card'])
+                    $("select[name=teacher_is_active]").val(Response['is_active'])
+
+                    if(Response['media'].length > 0){
+                        $('#image').show()
+                        $('#image').attr("src",Response['media'][0]['original_url'])
+                    }else{
+                        $('#image').hide()
+                    }
+                    
+                    // $('#image').val("<img class='img img-thumbnail' src='".Response['media'][0]['original_url']."'>")
+                    // $('#image').val(Response['media'][0]['original_url'])
+                    // $("input[name=teacher_fetched_profile]").val(Response['teacher_profile'])
                 }
             })
         })
@@ -207,10 +217,10 @@
                 cache:false,
                 data: {teacher_id:teacher_id},
                 success:(Response)=>{
-                    modal.find("input[name=teacher_id]").val(teacher_id)
-                    modal.find(".delete-notice").html("Are you sure of deleting "
-                        + Response[0]['teacher_title'] + ". "+Response[0]['teacher_firstname'] + " "
-                    + Response[0]['teacher_othername'] + " " + Response[0]['teacher_lastname'] +" data?")
+                    $("input[name=teacher_id]").val(teacher_id)
+                    $(".delete-notice").html("Are you sure of deleting "
+                        + Response['teacher_title'] + ". "+Response['teacher_firstname'] + " "
+                    + Response['teacher_othername'] + " " + Response['teacher_lastname'] +" data?")
                 }
             })
         })
