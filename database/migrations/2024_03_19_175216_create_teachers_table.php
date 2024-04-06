@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('teacher_address')->nullable();
             $table->string('teacher_email')->unique();
             $table->string('teacher_contact')->unique();
-            $table->string('teacher_profile')->default('user-profile-default.png');
             $table->string('teacher_school_attended')->nullable();
             $table->string('teacher_admission_year')->nullable();
             $table->string('teacher_completion_year')->nullable();
@@ -46,6 +45,7 @@ return new class extends Migration
             $table->string('teacher_ssnit')->nullable();
             $table->string('teacher_ntc')->nullable();
             $table->string('teacher_ghana_card')->nullable();
+            $table->string('teacher_password');
             $table->tinyInteger('is_active')->default(0);
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();

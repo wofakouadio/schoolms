@@ -43,7 +43,7 @@
                             confirmButtonText: 'Close',
                         }).then((result) => {
                             if (result) {
-                                // window.location.reload()
+                                $("#new-teacher-form")[0].reset()
                                 $("#new-teacher-modal").modal('hide')
                                 $("#new-teacher-modal .menu-alert").removeClass('alert-danger')
                                 $("#new-teacher-modal .menu-alert").removeClass('alert-warning')
@@ -81,18 +81,6 @@
                 cache:false,
                 data: {teacher_id:teacher_id},
                 success:(Response)=>{
-                    // if(Response['media'] === ''){
-                    //     console.log(false)
-                    // }else{
-                    //     console.log(Response['media'][0]['original_url'])
-                    // }
-                    // if(Response['media'].length === 0){
-                    //     console.log(false + ' Default img')
-                    // }else{
-                    //     console.log(Response['media'][0]['original_url'])
-                    // }
-
-
                     $("input[name=teacher_id]").val(teacher_id)
                     $("select[name=teacher_title]").val(Response['teacher_title'])
                     $("input[name=teacher_firstname]").val(Response['teacher_firstname'])
@@ -135,10 +123,6 @@
                     }else{
                         $('#image').hide()
                     }
-                    
-                    // $('#image').val("<img class='img img-thumbnail' src='".Response['media'][0]['original_url']."'>")
-                    // $('#image').val(Response['media'][0]['original_url'])
-                    // $("input[name=teacher_fetched_profile]").val(Response['teacher_profile'])
                 }
             })
         })

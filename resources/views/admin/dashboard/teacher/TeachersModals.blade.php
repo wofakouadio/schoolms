@@ -27,8 +27,6 @@
                                 <option value="Doc">Doc</option>
                                 <option value="Prof">Prof</option>
                             </select>
-                            <input type="hidden" name="school_id"
-                                value="{{ Auth::guard('admin')->user()->school_id }}">
                         </div>
                         <div class="col-xl-3 mb-4">
                             <label class="form-label font-w600">Firstname<span
@@ -161,12 +159,6 @@
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="teacher_region"
                                 value="{{ old('teacher_region') }}">
-                            {{--                            <select class="form-control solid" name="teacher_region"> --}}
-                            {{--                                <option value="">Choose</option> --}}
-                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
-                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
-                            {{--                                @endfor --}}
-                            {{--                            </select> --}}
                         </div>
                         <div class="col-xl-4 mb-4">
                             <label class="form-label font-w600">District<span
@@ -174,12 +166,6 @@
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
                                 name="teacher_district" value="{{ old('teacher_district') }}">
-                            {{--                            <select class="form-control solid" name="teacher_district"> --}}
-                            {{--                                <option value="">Choose</option> --}}
-                            {{--                                @for ($x = 1960; $x <= date('Y'); $x++) --}}
-                            {{--                                    <option value="{{$x++}}">{{$x++}}</option> --}}
-                            {{--                                @endfor --}}
-                            {{--                            </select> --}}
                         </div>
                     </div>
                     <h4 class="text-danger">Employment Details</h4>
@@ -423,9 +409,8 @@
                                 name="teacher_contact" value="{{ old('teacher_contact') }}">
                         </div>
                         <div class="col-xl-3 mb-4">
-                            <label class="form-label font-w600">Profile Picture</label>                           
+                            <label class="form-label font-w600">Profile Picture</label>
                             <input class="form-control" type="file" id="formFile" name="teacher_profile">
-                            {{--                            <input type="hidden" name="teacher_fetched_profile"> --}}
                         </div>
                     </div>
                     <h4 class="text-danger">Academic Achievements</h4>

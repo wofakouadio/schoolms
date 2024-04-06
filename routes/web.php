@@ -137,7 +137,6 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Admissions Student**/
     Route::get('/admin/student/admissions', [StudentsAdmissionsController::class, 'index'])->name('admin_student_admission');
-//    Route::get('/getStudentIdBySchoolId', [StudentController::class, 'getStudentIdBySchoolId'])->name('getStudentIdBySchoolId');
     Route::post('/admissions/student', [StudentsAdmissionsController::class, 'store'])->name('new-student-admission');
     Route::post('/admissions/bulk-student', [StudentsAdmissionsController::class, 'StoreBulk'])->name('new-student-admission-bulk');
     Route::get('/admissions/student/edit', [StudentsAdmissionsController::class, 'edit'])->name('edit-student-admission');

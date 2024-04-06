@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use function App\Helpers\TermAndAcademicYear;
 
 class TeacherController extends Controller
@@ -30,7 +31,7 @@ class TeacherController extends Controller
             'teacher_nationality' => 'required',
             'teacher_address' => 'required',
             'teacher_email' => 'required|lowercase|unique:' . Teacher::class,
-            'teacher_contact' => 'required|unique:' . Teacher::class,
+            'teacher_contact' => 'required|digits:10|unique:' . Teacher::class,
             'teacher_school_attended' => 'required',
             'teacher_admission_year' => 'required',
             'teacher_completion_year' => 'required',
@@ -40,14 +41,9 @@ class TeacherController extends Controller
             'teacher_qualification' => 'required',
             'teacher_professional' => 'required',
             'teacher_rank' => 'required',
-            'teacher_ghana_card' => 'required'
+            'teacher_ghana_card' => 'required',
+            'teacher_profile' => ['image','mimes:jpg,png,jpeg']
         ]);
-
-        // if ($request->hasFile('teacher_profile')){
-        //     $teacher_profile = $request->file('teacher_profile')->store('teachers/profiles', 'public');
-        // }else{
-        //     $teacher_profile = 'user-profile-default.png';
-        // }
 
         DB::beginTransaction();
 
@@ -55,38 +51,38 @@ class TeacherController extends Controller
             $teacher = Teacher::create([
                 'teacher_staff_id' => $request->teacher_staff_id,
                 'teacher_title' => $request->teacher_title,
-                'teacher_firstname' => $request->teacher_firstname,
-                'teacher_othername' => $request->teacher_oname,
-                'teacher_lastname' => $request->teacher_lastname,
+                'teacher_firstname' => strtoupper($request->teacher_firstname),
+                'teacher_othername' => strtoupper($request->teacher_oname),
+                'teacher_lastname' => strtoupper($request->teacher_lastname),
                 'teacher_gender' => $request->teacher_gender,
                 'teacher_dob' => $request->teacher_date_of_birth,
-                'teacher_pob' => $request->teacher_place_of_birth,
-                'teacher_nationality' => $request->teacher_nationality,
-                'teacher_address' => $request->teacher_address,
+                'teacher_pob' => strtoupper($request->teacher_place_of_birth),
+                'teacher_nationality' => strtoupper($request->teacher_nationality),
+                'teacher_address' => strtoupper($request->teacher_address),
                 'teacher_email' => $request->teacher_email,
                 'teacher_contact' => $request->teacher_contact,
-                // 'teacher_profile' => $teacher_profile,
-                'teacher_school_attended' => $request->teacher_school_attended,
+                'teacher_school_attended' => strtoupper($request->teacher_school_attended),
                 'teacher_admission_year' => $request->teacher_admission_year,
                 'teacher_completion_year' => $request->teacher_completion_year,
-                'teacher_country' => $request->teacher_country,
-                'teacher_region' => $request->teacher_region,
-                'teacher_district' => $request->teacher_district,
+                'teacher_country' => strtoupper($request->teacher_country),
+                'teacher_region' => strtoupper($request->teacher_region),
+                'teacher_district' => strtoupper($request->teacher_district),
                 'teacher_first_app' => $request->teacher_first_appointment,
-                'teacher_present_school' => $request->teacher_present_school,
+                'teacher_present_school' => strtoupper($request->teacher_present_school),
                 'teacher_qualification' => $request->teacher_qualification,
                 'teacher_professional' => $request->teacher_professional,
                 'teacher_rank' => $request->teacher_rank,
-                'teacher_circuit' => $request->teacher_circuit,
-                'teacher_reg_number' => $request->teacher_reg_num,
-                'teacher_district_file_number' => $request->teacher_district_file_number,
-                'teacher_bank_name' => $request->teacher_bank_name,
+                'teacher_circuit' => strtoupper($request->teacher_circuit),
+                'teacher_reg_number' => strtoupper($request->teacher_reg_num),
+                'teacher_district_file_number' => strtoupper($request->teacher_district_file_number),
+                'teacher_bank_name' => strtoupper($request->teacher_bank_name),
                 'teacher_account_number' => $request->teacher_acc_number,
-                'teacher_bank_branch' => $request->teacher_bank_branch,
-                'teacher_ssnit' => $request->teacher_ssnit,
+                'teacher_bank_branch' => strtoupper($request->teacher_bank_branch),
+                'teacher_ssnit' => strtoupper($request->teacher_ssnit),
                 'teacher_ntc' => $request->teacher_ntc,
-                'teacher_ghana_card' => $request->teacher_ghana_card,
-                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id,
+                'teacher_ghana_card' => strtoupper($request->teacher_ghana_card),
+                'teacher_password' => Hash::make('password'),
+                'school_id' => Auth::guard('admin')->user()->school_id
             ]);
 
             if ($request->hasFile('teacher_profile')) {
@@ -128,7 +124,7 @@ class TeacherController extends Controller
             'teacher_nationality' => 'required',
             'teacher_address' => 'required',
             'teacher_email' => 'required|lowercase',
-            'teacher_contact' => 'required',
+            'teacher_contact' => 'required|digits:10',
             'teacher_school_attended' => 'required',
             'teacher_admission_year' => 'required',
             'teacher_completion_year' => 'required',
@@ -138,14 +134,9 @@ class TeacherController extends Controller
             'teacher_qualification' => 'required',
             'teacher_professional' => 'required',
             'teacher_rank' => 'required',
-            'teacher_ghana_card' => 'required'
+            'teacher_ghana_card' => 'required',
+            'teacher_profile' => ['image','mimes:jpg,png,jpeg']
         ]);
-
-        // if ($request->hasFile('teacher_profile')) {
-        //     $teacher_profile = $request->file('teacher_profile')->store('teachers/profiles', 'public');
-        // } else {
-        //     $teacher_profile = $request->teacher_fetched_profile;
-        // }
 
         DB::beginTransaction();
 
@@ -153,43 +144,41 @@ class TeacherController extends Controller
             $teacher = Teacher::where('id', $request->teacher_id)->update([
                 'teacher_staff_id' => $request->teacher_staff_id,
                 'teacher_title' => $request->teacher_title,
-                'teacher_firstname' => $request->teacher_firstname,
-                'teacher_othername' => $request->teacher_oname,
-                'teacher_lastname' => $request->teacher_lastname,
+                'teacher_firstname' => strtoupper($request->teacher_firstname),
+                'teacher_othername' => strtoupper($request->teacher_oname),
+                'teacher_lastname' => strtoupper($request->teacher_lastname),
                 'teacher_gender' => $request->teacher_gender,
                 'teacher_dob' => $request->teacher_date_of_birth,
-                'teacher_pob' => $request->teacher_place_of_birth,
-                'teacher_nationality' => $request->teacher_nationality,
-                'teacher_address' => $request->teacher_address,
+                'teacher_pob' => strtoupper($request->teacher_place_of_birth),
+                'teacher_nationality' => strtoupper($request->teacher_nationality),
+                'teacher_address' => strtoupper($request->teacher_address),
                 'teacher_email' => $request->teacher_email,
                 'teacher_contact' => $request->teacher_contact,
-                // 'teacher_profile' => $teacher_profile,
-                'teacher_school_attended' => $request->teacher_school_attended,
+                'teacher_school_attended' => strtoupper($request->teacher_school_attended),
                 'teacher_admission_year' => $request->teacher_admission_year,
                 'teacher_completion_year' => $request->teacher_completion_year,
-                'teacher_country' => $request->teacher_country,
-                'teacher_region' => $request->teacher_region,
-                'teacher_district' => $request->teacher_district,
+                'teacher_country' => strtoupper($request->teacher_country),
+                'teacher_region' => strtoupper($request->teacher_region),
+                'teacher_district' => strtoupper($request->teacher_district),
                 'teacher_first_app' => $request->teacher_first_appointment,
-                'teacher_present_school' => $request->teacher_present_school,
+                'teacher_present_school' => strtoupper($request->teacher_present_school),
                 'teacher_qualification' => $request->teacher_qualification,
                 'teacher_professional' => $request->teacher_professional,
                 'teacher_rank' => $request->teacher_rank,
-                'teacher_circuit' => $request->teacher_circuit,
-                'teacher_reg_number' => $request->teacher_reg_num,
-                'teacher_district_file_number' => $request->teacher_district_file_number,
-                'teacher_bank_name' => $request->teacher_bank_name,
+                'teacher_circuit' => strtoupper($request->teacher_circuit),
+                'teacher_reg_number' => strtoupper($request->teacher_reg_num),
+                'teacher_district_file_number' => strtoupper($request->teacher_district_file_number),
+                'teacher_bank_name' => strtoupper($request->teacher_bank_name),
                 'teacher_account_number' => $request->teacher_acc_number,
-                'teacher_bank_branch' => $request->teacher_bank_branch,
-                'teacher_ssnit' => $request->teacher_ssnit,
-                'teacher_ntc' => $request->teacher_ntc,
-                'teacher_ghana_card' => $request->teacher_ghana_card,
+                'teacher_bank_branch' => strtoupper($request->teacher_bank_branch),
+                'teacher_ssnit' => strtoupper($request->teacher_ssnit),
+                'teacher_ntc' => strtoupper($request->teacher_ntc),
+                'teacher_ghana_card' => strtoupper($request->teacher_ghana_card),
                 'is_active' => $request->teacher_is_active ? 1 : 0
             ]);
 
 
             if ($request->hasFile('teacher_profile')) {
-                // dd($teacher);
                 $teacher = Teacher::where('id', $request->teacher_id)->first();
                 $teacher->clearMediaCollection('teacher_profile');
                 $teacher->addMedia($request->file('teacher_profile'))

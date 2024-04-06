@@ -47,6 +47,7 @@ class Teacher extends Model implements HasMedia
         'teacher_ssnit',
         'teacher_ntc',
         'teacher_ghana_card',
+        'teacher_password',
         'is_active',
         'school_id',
         'branch_id',

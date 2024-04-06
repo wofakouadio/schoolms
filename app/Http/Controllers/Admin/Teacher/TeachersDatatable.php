@@ -12,8 +12,6 @@ class TeachersDatatable extends Controller
 {
     public function __invoke(){
         $data = Teacher::where('school_id',[Auth::guard('admin')->user()->school_id]);
-        // $data = DB::select('select * FROM teachers WHERE school_id = ?', [Auth::guard('admin')
-        //     ->user()->school_id]);
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){
