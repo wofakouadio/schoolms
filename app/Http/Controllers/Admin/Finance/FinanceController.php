@@ -19,4 +19,9 @@ class FinanceController extends Controller
         $schoolTerm = TermAndAcademicYear();
         return view('admin.dashboard.finance.expenditure.index', compact('schoolTerm'));
     }
+
+    public function billsView(){
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.finance.student.bills.index', compact('schoolTerm'));
+    }
 }

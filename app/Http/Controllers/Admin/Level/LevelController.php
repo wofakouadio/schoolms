@@ -114,4 +114,17 @@ class LevelController extends Controller
         }
         return $output;
     }
+
+    //get levels based on school id
+    public function getLevelsBySchoolId(){
+        $output = [];
+        $levels = Level::select('id', 'level_name')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 0)
+            ->get();
+        $output[] .= "<option value=''>Choose</option>";
+        foreach ($levels as $level){
+            $output[] .= "<option value='".$level->id."'>".$level->level_name."</option>";
+        }
+        return $output;
+    }
 }

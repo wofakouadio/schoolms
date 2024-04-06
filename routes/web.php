@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Admission\AdmissionController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Finance\BillsController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
@@ -91,6 +92,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/admin/school/term/delete', [TermController::class, 'delete'])->name('delete-term');
     Route::get('/termsTable', 'App\Http\Controllers\Admin\School\TermsDatatable')->name
     ('termsTables');
+    Route::get('/getTermsBySchoolId', [TermController::class, 'getTermsBySchoolId'])->name('getTermsBySchoolId');
 
     /**Branch**/
     Route::get('/admin/school/branch', [BranchController::class, 'index'])->name('admin_school_branch');
@@ -111,6 +113,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name
     ('levelsTables');
     Route::get('/getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
+    Route::get('/getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
 
     /**House**/
     Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');
@@ -145,4 +148,14 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Finance**/
     Route::get('/admin/finance', [FinanceController::class, 'index'])->name('admin_finance');
     Route::get('/admin/finance/expenditure', [FinanceController::class, 'expenditureView'])->name('admin_expenditure');
+
+    /**Bills**/
+    Route::get('/admin/finance/student/bills/', [FinanceController::class, 'billsView'])
+        ->name('admin_student_bill');
+    Route::post('admin/finance/student/new-bill', [BillsController::class, 'store'])->name('new-bill');
+    Route::get('admin/finance/student/edit-bill', [BillsController::class, 'edit'])->name('edit-bill');
+    Route::put('admin/finance/student/update-bill', [BillsController::class, 'update'])->name('update-bill');
+    Route::delete('admin/finance/student/delete-bill', [BillsController::class, 'delete'])->name('delete-bill');
+    Route::get('/billsTables', 'App\Http\Controllers\Admin\Finance\BillsDatatable')->name
+    ('billsTables');
 });
