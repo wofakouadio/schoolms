@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\StudentsAdmissionsImport;
 use App\Models\StudentsAdmissions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -63,7 +64,7 @@ class StudentsAdmissionsController extends Controller
                 'student_guardian_address' => $request->student_guardian_address,
                 'student_guardian_email' => $request->student_guardian_email,
                 'student_guardian_occupation' => $request->student_guardian_occupation,
-                'school_id' => $request->school_id
+                'school_id' => Auth::guard('admin')->user()->school_id
             ]);
 
             if($request->hasFile('student_profile')){
@@ -90,7 +91,9 @@ class StudentsAdmissionsController extends Controller
 
     //edit student admission
     public function edit(Request $request){
-     $data = StudentsAdmissions::with('media')->where('id', $request->admission_id)->get();
+     $data = StudentsAdmissions::where('id', $request->admission_id)->first();
+     $data->getMedia('student_profile')->first();
+     $data->getMedia('student_guardian_id_card')->first();
      return response()->json($data);
     }
 
@@ -146,7 +149,9 @@ class StudentsAdmissionsController extends Controller
             }
 
             if($request->hasFile('student_guardian_id_card')){
-                $update_admission->addMedia($request->file('student_guardian_id_card'))
+                $admission = StudentsAdmissions::where('id', $request->admission_id)->first();
+                $admission->clearMediaCollection();
+                $admission->addMedia($request->file('student_guardian_id_card'))
                     ->toMediaCollection('student_guardian_id_card');
             }
 
@@ -175,6 +180,51 @@ class StudentsAdmissionsController extends Controller
             return response()->json([
                 'status' => 200,
                 'msg' => 'Bulk uploaded successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+    }
+
+    //update student admission status
+    public function updateAdmissionStatus(Request $request){
+        DB::beginTransaction();
+
+        try {
+
+            $update_admission = StudentsAdmissions::where('id', $request->admission_id)->update([
+                'admission_status' => $request->admission_status
+            ]);
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Admission status updated successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+    }
+
+    public function delete(Request $request){
+        DB::beginTransaction();
+
+        try {
+
+            $delete_admission = StudentsAdmissions::where('id', $request->admission_id)->delete();
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Admission deleted successfully'
             ]);
         }catch (\Exception $th){
             DB::rollBack();

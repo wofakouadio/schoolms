@@ -20,7 +20,6 @@
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name" name="student_firstname"
                                    value="{{old('student_firstname')}}">
-                            <input type="hidden" name="school_id" value="{{Auth::guard('admin')->user()->school_id}}">
                         </div>
                         <div class="col-xl-4 mb-4">
                             <label  class="form-label font-w600">Other Name</label>
@@ -198,6 +197,18 @@
                         <ul></ul>
                     </div>
                     <h4 class="text-danger">Bio-Data</h4>
+                    <div class="row justify-content-center">
+                        <div class="col mb-4">
+                            <p>
+                                <img height="200" width="200" id="student-profile" class="img img-thumbnail">
+                            </p>
+                        </div>
+                        <div class="col mb-4">
+                            <p>
+                                <img height="200" width="200" id="student-guardian-id" class="img img-thumbnail">
+                            </p>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
                             <label  class="form-label font-w600">Firstname<span class="text-danger scale5
@@ -340,7 +351,45 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{--set admissions status--}}
+<div class="modal fade" id="edit-student-admission-status-modal">
+    <form method="post" id="edit-student-admission-status-form">
+        @csrf
+        @method('PUT')
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Admission Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <h4 class="text-danger fw-bold admission-notice"></h4>
+                    <div class="form-group mb-4">
+                        <label  class="form-label font-w600">Admission Status<span class="text-danger scale5
+                            ms-2">*</span></label>
+                        <select class="form-control" name="admission_status">
+                            <option value="">Choose</option>
+                            <option value="0">Pending</option>
+                            <option value="1">Admitted</option>
+                            <option value="2">Declined</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="admission_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>
@@ -348,14 +397,14 @@
 </div>
 
 {{--delete student--}}
-<div class="modal fade" id="delete-student-modal">
-    <form method="post" id="delete-student-form">
+<div class="modal fade" id="delete-student-admission-modal">
+    <form method="post" id="delete-student-admission-form">
         @csrf
         @method('DELETE')
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Delete Student</h5>
+                    <h5 class="modal-title">Delete Student Admission</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
@@ -365,7 +414,7 @@
                     </div>
                     <h4 class="text-danger fw-bold delete-notice"></h4>
                     <span class="text-muted">Note that this action is irreversible</span>
-                    <input type="hidden" name="student_id">
+                    <input type="hidden" name="admission_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>

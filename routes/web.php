@@ -141,6 +141,9 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post('/admissions/bulk-student', [StudentsAdmissionsController::class, 'StoreBulk'])->name('new-student-admission-bulk');
     Route::get('/admissions/student/edit', [StudentsAdmissionsController::class, 'edit'])->name('edit-student-admission');
     Route::put('/admissions/student/update', [StudentsAdmissionsController::class, 'update'])->name('update-student-admission');
+    Route::put('/admissions/student/update-admission-status', [StudentsAdmissionsController::class, 'updateAdmissionStatus'])->name
+    ('update-student-admission-status');
+    Route::delete('/admissions/student/delete', [StudentsAdmissionsController::class, 'delete'])->name('delete-student-admission');
     Route::get('/studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name
     ('studentsAdmissionsTables');
 

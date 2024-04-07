@@ -104,13 +104,14 @@ class LevelController extends Controller
     }
 
     //get levels based on branch id
-    public function getLevelsByBranchId(Request $request){
-        $branch_id = $request->branch_id;
+    public function getLevelsByBranchId(){
         $output = [];
-        $levels = Level::select('id', 'level_name')->where('branch_id', $branch_id)->where('is_active', 0)->get();
+        $levels = Level::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 0)->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($levels as $level){
-            $output[] .= "<option value='".$level->id."'>".$level->level_name."</option>";
+            $output[] .= "<option value='".$level->id."'>".$level->branch->branch_name . ' Branch ' . $level->level_name
+            ."</option>";
         }
         return $output;
     }

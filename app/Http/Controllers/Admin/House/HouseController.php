@@ -109,15 +109,17 @@ class HouseController extends Controller
     }
 
     //houses based on branch id
-    public function getHousesByBranchId(Request $request)
+    public function getHousesByBranchId()
     {
-        $branch_id = $request->branch_id;
         $output = [];
-        $houses = House::select('id', 'house_name')->where('branch_id', $branch_id)->where('is_active', 0)->get();
+        $houses = House::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 0)
+                ->get();
         $output[] .= "<option value=''>Choose</option>";
         $output[] .= "<option value='N/A'>Not Applicable</option>";
         foreach ($houses as $house){
-            $output[] .= "<option value='".$house->id."'>".$house->house_name."</option>";
+            $output[] .= "<option value='".$house->id."'>".$house->branch->branch_name . ' Branch -  '
+                .$house->house_name." House</option>";
         }
         return $output;
     }

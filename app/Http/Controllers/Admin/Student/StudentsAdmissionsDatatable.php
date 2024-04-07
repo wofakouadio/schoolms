@@ -29,7 +29,7 @@ class StudentsAdmissionsDatatable extends Controller
                 return $name ?? '...';
             })
             ->addColumn('dob', function ($row){
-                return date('l F j Y', strtotime($row->student_dob)) ?? '...';
+                return date('F j Y', strtotime($row->student_dob)) ?? '...';
             })
             ->addColumn('gender', function($row){
                 $gender = $row->student_gender;
@@ -49,8 +49,12 @@ class StudentsAdmissionsDatatable extends Controller
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-warning text-uppercase">pending</span>
                            </div>';
+                }elseif( $row->admission_status === 1 ){
+                    return '<div class="bootstrap-badge">
+                                <span class="badge badge-xl light badge-success text-uppercase">admitted</span>
+                           </div>';
                 }else{
-                    return '<span class="badge badge-xl light badge-danger text-uppercase">admitted</span>';
+                    return '<span class="badge badge-xl light badge-danger text-uppercase">declined</span>';
                 }
 //                return $remodelledStatus ?? '...';
             })
@@ -73,12 +77,6 @@ class StudentsAdmissionsDatatable extends Controller
                                 <i class="fa fa-trash"></i>
                             </a>
                          </div>';
-//                <a href="/admin/department/{{$department->id}}/edit" class="btn btn-primary shadow btn-xs sharp me-1">
-//                                <i class="fas fa-pencil-alt"></i>
-//                            </a>
-//                            <a href="/admin/department/{{$department->id}}" class="btn btn-danger shadow btn-xs sharp">
-//                                <i class="fa fa-trash"></i>
-//                            </a>
             })
             ->rawColumns(['profile','name','admission_status','action'])
             ->make(true);
