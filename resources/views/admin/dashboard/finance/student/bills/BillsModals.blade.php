@@ -21,24 +21,32 @@
 
                             </select>
                         </div>
-                        <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Academic Year<span class="text-danger scale5
-                            ms-2">*</span></label>
-                            <select class="form-control" name="academic_year">
-                                <option value="">Choose</option>
-                                @php
-                                    $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year
-                                        .'/'.$year + 1 .'</option>';
-                                    }
-                                @endphp
-                            </select>
-                        </div>
+{{--                        <div class="col-xl-12 mb-4">--}}
+{{--                            <label  class="form-label font-w600">Academic Year<span class="text-danger scale5--}}
+{{--                            ms-2">*</span></label>--}}
+{{--                            <select class="form-control" name="academic_year">--}}
+{{--                                <option value="">Choose</option>--}}
+{{--                                @php--}}
+{{--                                    $years = range(1960, date('Y'));--}}
+{{--                                    foreach ($years as $year){--}}
+{{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
+{{--                                        .'/'.$year + 1 .'</option>';--}}
+{{--                                    }--}}
+{{--                                @endphp--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Level / Class<span class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="level"></select>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl">
+                                <input type="checkbox" class="form-check-input" id="customCheckBox9"
+                                       name="is_for_academic_year" value="1">
+                                <label class="form-check-label" for="customCheckBox9">Check if bill is for the
+                                    whole Year</label>
+                            </div>
                         </div>
                         <div class="row AddMoreFields">
                             <div class="col-5 mb-4">
@@ -94,21 +102,23 @@
                             ms-2">*</span></label>
                             <select class="form-control" name="term"></select>
                             <input type="hidden" name="bill_id">
+                            <input type="hidden" name="branch_id">
                         </div>
-                        <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Academic Year<span class="text-danger scale5
-                            ms-2">*</span></label>
-                            <select class="form-control" name="academic_year">
-                                <option value="">Choose</option>
-                                @php
-                                    $years = range(1960, date('Y'));
-                                    foreach ($years as $year){
-                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year
-                                        .'/'.$year + 1 .'</option>';
-                                    }
-                                @endphp
-                            </select>
-                        </div>
+{{--                        <div class="col-xl-12 mb-4">--}}
+{{--                            <label  class="form-label font-w600">Academic Year<span class="text-danger scale5--}}
+{{--                            ms-2">*</span></label>--}}
+{{--                            <input type="text" class="form-control" name="academic_year" readonly>--}}
+{{--                            <select class="form-control" >--}}
+{{--                                <option value="">Choose</option>--}}
+{{--                                @php--}}
+{{--                                    $years = range(1960, date('Y'));--}}
+{{--                                    foreach ($years as $year){--}}
+{{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
+{{--                                        .'/'.$year + 1 .'</option>';--}}
+{{--                                    }--}}
+{{--                                @endphp--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Level / Class<span class="text-danger scale5
                             ms-2">*</span></label>

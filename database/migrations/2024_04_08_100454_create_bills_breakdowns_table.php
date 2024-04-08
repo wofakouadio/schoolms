@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('bills_breakdowns', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('bill_amount');
-            $table->longText('bill_description')->nullable();
-            $table->string('academic_year')->nullable();
-            $table->tinyInteger('is_for_academic_year')->default(0);
-            $table->tinyInteger('is_active')->default(0);
-            $table->string('term_id')->nullable();
-            $table->string('level_id')->nullable();
+            $table->string('item')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('bill_id')->nullable();
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->timestamps();
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('bills_breakdowns');
     }
 };

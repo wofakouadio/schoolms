@@ -63,7 +63,6 @@
     @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
     @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
     @include('admin/dashboard/finance/student/bills/billsJS')
-    <script src="{{asset('assets/vendor/ckeditor/ckeditor.js')}}"></script>
 @endpush
 {{--page datatable script--}}
 @push('datatable')

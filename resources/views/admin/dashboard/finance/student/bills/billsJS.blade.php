@@ -73,6 +73,7 @@
                     }
                 },
                 error:(Response)=>{
+                    console.log(Response)
 
                     $.each( Response.responseJSON.errors, function( key, value ) {
                         $('#new-bill-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
@@ -105,19 +106,20 @@
                 cache:false,
                 data: {bill_id:bill_id},
                 success:(Response)=>{
-                    let arrayLength = Response['bill_description'].length
+                    let arrayLength = Response['billsbreakdown'].length
 
                     modal.find("input[name=bill_id]").val(bill_id)
                     modal.find("input[name=amount]").val(Response['bill_amount'])
                     modal.find("select[name=term]").val(Response['term_id'])
                     modal.find("select[name=level]").val(Response['level_id'])
-                    modal.find("select[name=academic_year]").val(Response['academic_year'])
+                    modal.find("input[name=branch_id]").val(Response['branch_id'])
+                    // modal.find("input[name=academic_year]").val(Response['academic_year'])
                     modal.find("select[name=bill_is_active]").val(Response['is_active'])
 
                     $("#edit-bill-modal .modal-body .Fields").append('<button type="button" class="btn btn-xs ' +
                         'btn-primary" id="EditaddMoreBtn">Add More Fields</button>');
 
-                    i = Response['bill_description'].length - 1
+                    i = Response['billsbreakdown'].length - 1
 
                     $("#EditaddMoreBtn").on('click', (e)=>{
                         e.preventDefault()
@@ -129,24 +131,34 @@
                             '<input type="text" ' +
                             'name="addMore['+i+'][bill_description]" value="{{old('bill_description')}}" ' +'" ' +
                             'class="form-control " '+
-                            '"solid"></div><div class="col-5 mb-4"><label  class="form-label font-w600">Amount<span ' +
+                            'solid"><input type="hidden" name="addMore['+i+'][billbreakdown_id]"></div><div ' +
+                            'class="col-5 ' +
+                            'mb-4"><label  ' +
+                            'class="form-label' +
+                            ' ' +
+                            'font-w600">Amount<span ' +
                             'class="text-danger scale5 ms-2">*</span></label><input type="text" ' +
                             'name="addMore['+i+'][bill_amount]" value="{{old('bill_amount')}}" class="form-control solid"></div><div class="col-2"><button type="button" class="btn "' +
                             '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>')
                     })
 
-                    for (let i = 0; i <= Response['bill_description'].length; i++ ){
+                    for (let i = 0; i <= Response['billsbreakdown'].length; i++ ){
                         $("#edit-bill-modal .modal-body .Fields").append('<div class="row AddMoreFields">' +
                             '<div class="col-5 mb-4">' +
                             '<label  class="form-label ' +
                             'font-w600">Description<span class="text-danger scale5 ms-2">*</span></label>' +
                             '<input type="text" ' +
-                            'name="addMore['+i+'][bill_description]" value="'+Response['bill_description'][i]
-                                .description+'" ' +
+                            'name="addMore['+i+'][bill_description]" value="'+Response['billsbreakdown'][i]
+                                .item+'" ' +
                             'class="form-control " '+
-                            '"solid"></div><div class="col-5 mb-4"><label  class="form-label font-w600">Amount<span ' +
+                            '"solid"><input type="hidden" name="addMore['+i+'][billbreakdown_id]" ' +
+                            'value="'+Response['billsbreakdown'][i]
+                                .id+'"></div><div class="col-5 ' +
+                            'mb-4"><label  ' +
+                            'class="form-label ' +
+                            'font-w600">Amount<span ' +
                             'class="text-danger scale5 ms-2">*</span></label><input type="text" ' +
-                            'name="addMore['+i+'][bill_amount]" value="'+Response['bill_description'][i]
+                            'name="addMore['+i+'][bill_amount]" value="'+Response['billsbreakdown'][i]
                                 .amount+'" class="form-control ' +
                             'solid"></div><div class="col-2"><button type="button" class="btn "' +
                             '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>')

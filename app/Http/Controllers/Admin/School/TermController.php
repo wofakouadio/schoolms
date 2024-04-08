@@ -137,11 +137,12 @@ class TermController extends Controller
     //Terms based on school id
     public function getTermsBySchoolId(){
         $output = [];
-        $terms = Term::select('id', 'term_name')->where('school_id', Auth::guard('admin')->user()->school_id)
+        $terms = Term::select('id', 'term_name', 'term_academic_year')->where('school_id', Auth::guard('admin')->user()
+            ->school_id)
             ->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($terms as $term){
-            $output[] .= "<option value='".$term->id."'>".$term->term_name."</option>";
+            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '.$term->term_academic_year."</option>";
         }
         return $output;
     }

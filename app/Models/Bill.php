@@ -14,10 +14,12 @@ class Bill extends Model
         'bill_amount',
         'bill_description',
         'academic_year',
+        'is_for_academic_year',
         'is_active',
         'term_id',
         'level_id',
-        'school_id'
+        'school_id',
+        'branch_id'
     ];
 
     protected $casts = [
@@ -35,5 +37,9 @@ class Bill extends Model
 
     public function level(){
         return $this->hasOne(Level::class, 'id', 'level_id');
+    }
+
+    public function billsbreakdown(){
+        return $this->hasMany(BillsBreakdown::class, 'bill_id', 'id');
     }
 }
