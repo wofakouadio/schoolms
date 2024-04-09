@@ -11,14 +11,18 @@ class Department extends Model
     use HasFactory, UUID;
 
     protected $fillable = [
-        'id',
         'name',
         'description',
         'school_id',
-        'branch_id'
+        'branch_id',
+        'is_active'
     ];
 
-    protected $table = 'departments';
+    public function school(){
+        return $this->hasOne(School::class, 'id', 'school_id');
+    }
 
-    protected $primaryKey = 'id';
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
 }

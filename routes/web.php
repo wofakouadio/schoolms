@@ -59,10 +59,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
 
     /**Department to be removed**/
-//    Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
-//    Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
-//    Route::get('/admin/department/{department_id}/edit', [DepartmentsController::class, 'edit']);
-//    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
+    Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
+    Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
+    Route::get('/admin/department/edit', [DepartmentsController::class, 'edit'])->name('edit-department');
+    Route::put('/admin/department/update', [DepartmentsController::class, 'update'])->name('update-department');
+    Route::delete('/admin/department/delete', [DepartmentsController::class, 'delete'])->name('delete-department');
+    Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
 
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');

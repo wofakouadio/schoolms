@@ -20,6 +20,8 @@
                     $("#update-house-form").find("select[name=branch]").html(Response)
                     $("#new-student-admission-form").find("select[name=student_branch]").html(Response)
                     $("#update-student-admission-form").find("select[name=student_branch]").html(Response)
+                    $("#new-department-form").find("select[name=branch]").html(Response)
+                    $("#update-department-form").find("select[name=branch]").html(Response)
                 }
             })
         }
