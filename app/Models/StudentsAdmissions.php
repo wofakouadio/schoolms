@@ -14,6 +14,7 @@ class StudentsAdmissions extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
+        'student_id',
         'student_firstname',
         'student_othername',
         'student_lastname',
@@ -30,7 +31,10 @@ class StudentsAdmissions extends Model implements HasMedia
         'student_guardian_address',
         'student_guardian_email',
         'student_guardian_occupation',
+        'student_password',
         'admission_status',
+        'student_status',
+        'is_active',
         'school_id'
     ];
 

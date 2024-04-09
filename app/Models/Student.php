@@ -13,29 +13,12 @@ class Student extends Model implements HasMedia
     use HasFactory, UUID, InteractsWithMedia;
 
     protected $fillable = [
-        'student_firstname',
-        'student_othername',
-        'student_lastname',
-        'student_gender',
-        'student_dob',
-        'student_pob',
-        'student_branch',
-        'student_level',
-        'student_house',
-        'student_category',
-        'student_residency_type',
-        'student_guardian_name',
-        'student_guardian_contact',
-        'student_guardian_address',
-        'student_guardian_email',
-        'student_guardian_occupation',
-        'student_guardian_id_card',
-        'student_photo',
+        'student_id',
         'student_password',
         'student_status',
-        'admission_status',
         'is_active',
-        'school_id'
+        'school_id',
+        'admission_id'
     ];
 
     public function school(){
@@ -56,5 +39,18 @@ class Student extends Model implements HasMedia
 
     public function category(){
         return $this->hasOne(Category::class,'id','student_category');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('student_profile')
+            ->singleFile()
+            ->useDisk('media');
+
+        $this
+            ->addMediaCollection('student_guardian_id_card')
+            ->singleFile()
+            ->useDisk('media');
     }
 }

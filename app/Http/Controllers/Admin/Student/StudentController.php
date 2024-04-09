@@ -18,12 +18,6 @@ class StudentController extends Controller
         return view('admin.dashboard.student.index', compact('schoolTerm'));
     }
 
-    //auto generate student ID
-    public function getStudentIdBySchoolId(Request $request){
-        $school_id = Auth::guard('admin')->user()->school_id; //$request->school_id;
-        return sprintf("%010d",Student::where('id', $school_id)->count() + 1);
-    }
-
     //new student admission
     public function newStudentAdmission(Request $request){
         $request->validate([

@@ -79,7 +79,7 @@ Expiration date
 
 admin dashboard menu
 main page dash :
-settings/portfolio [school logo and info management, branches, levels, houses, categories, school id initial, 
+settings/portfolio [school logo and info management, branches, levels, houses, categories, school id initial,
 branches has name, location, email, contact, is_active, school_id
 teachers done
 finance
@@ -95,7 +95,7 @@ help
 remove tfoot
 use laravel mediable for file upload
 
-let's use the Laravel Eloquent instead of raw queries. 
+let's use the Laravel Eloquent instead of raw queries.
 use joins in eloquent or create relationships in the model and use
 
 Student Migrations
@@ -103,3 +103,18 @@ student id, firstname,othername, lastname, gender, date of birth, place of birth
 
 
 https://spatie.be/docs/laravel-medialibrary/v11/basic-usage/retrieving-media
+
+make default branch HQ is_hq status boolean
+
+Term : If the term closing date expires, the system shouldn't allow entries into it but you can read from it
+
+
+Finance
+dashboard to overview expenses / income daily, weekly, monthly, annually
+bill
+expense
+income
+financial report
+
+We need to work on class attendance, class assessment (class work, homework, mock, examination, projects), setting or
+uploading of exams questions, terminal report, transcript, promotions, students account for finance

@@ -90,6 +90,28 @@ class StudentsAdmissionsController extends Controller
         }
     }
 
+    //bulk upload of student information
+    public function storebulk(Request $request){
+        $request->validate([
+            'admission_bulk' => ['required']
+        ]);
+        DB::beginTransaction();
+        try {
+            Excel::import(new StudentsAdmissionsImport, $request->file('admission_bulk'));
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Bulk uploaded successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+    }
+
     //edit student admission
     public function edit(Request $request){
      $data = StudentsAdmissions::where('id', $request->admission_id)->first();
@@ -170,27 +192,6 @@ class StudentsAdmissionsController extends Controller
         }
     }
 
-    public function StoreBulk(Request $request){
-        $request->validate([
-            'admission_bulk' => ['required']
-        ]);
-        DB::beginTransaction();
-        try {
-            Excel::import(new StudentsAdmissionsImport, $request->file('admission_bulk'));
-            DB::commit();
-            return response()->json([
-                'status' => 200,
-                'msg' => 'Bulk uploaded successfully'
-            ]);
-        }catch (\Exception $th){
-            DB::rollBack();
-            return response()->json([
-                'status' => 201,
-                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-            ]);
-        }
-    }
-
     //update student admission status
     public function updateAdmissionStatus(Request $request){
         DB::beginTransaction();
@@ -199,29 +200,11 @@ class StudentsAdmissionsController extends Controller
             try {
                 $newAdmittedStudent = StudentsAdmissions::where('id', $request->admission_id)->first();
                 //new student
-                Student::create([
-                    'student_id' => sprintf("%010d",Student::where('school_id', Auth::guard('admin')->user()
-                            ->school_id)->count() + 1),
-                    'student_firstname' => $newAdmittedStudent->student_firstname,
-                    'student_othername' => $newAdmittedStudent->student_othername,
-                    'student_lastname' => $newAdmittedStudent->student_lastname,
-                    'student_gender' => $newAdmittedStudent->student_gender,
-                    'student_dob' => $newAdmittedStudent->student_dob,
-                    'student_pob' => $newAdmittedStudent->student_pob,
-                    'student_branch' => $newAdmittedStudent->student_branch,
-                    'student_level' => $newAdmittedStudent->student_level,
-                    'student_house' => $newAdmittedStudent->student_house,
-                    'student_category' => $newAdmittedStudent->student_category,
-                    'student_residency_type' => $newAdmittedStudent->student_residency_type,
-                    'student_guardian_name' => $newAdmittedStudent->student_guardian_name,
-                    'student_guardian_contact' => $newAdmittedStudent->student_guardian_contact,
-                    'student_guardian_address' => $newAdmittedStudent->student_guardian_address,
-                    'student_guardian_email' => $newAdmittedStudent->student_guardian_email,
-                    'student_guardian_occupation' => $newAdmittedStudent->student_guardian_occupation,
-                    'student_password' => Hash::make('password'),
-                    'school_id' => Auth::guard('admin')->user()->school_id
-                ]);
                 StudentsAdmissions::where('id', $request->admission_id)->update([
+                    'student_id' => sprintf("%010d",StudentsAdmissions::where('school_id', Auth::guard('admin')->user()
+                            ->school_id)->where('student_status', 1)->count() + 1),
+                    'student_password' => Hash::make('password'),
+                    'student_status' => $request->admission_status,
                     'admission_status' => $request->admission_status
                 ]);
                 DB::commit();

@@ -138,7 +138,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Admissions Student**/
     Route::get('/admin/student/admissions', [StudentsAdmissionsController::class, 'index'])->name('admin_student_admission');
     Route::post('/admissions/student', [StudentsAdmissionsController::class, 'store'])->name('new-student-admission');
-    Route::post('/admissions/bulk-student', [StudentsAdmissionsController::class, 'StoreBulk'])->name('new-student-admission-bulk');
+    Route::post('/admissions/bulk-student', [StudentsAdmissionsController::class, 'storebulk'])->name('new-student-admission-bulk');
     Route::get('/admissions/student/edit', [StudentsAdmissionsController::class, 'edit'])->name('edit-student-admission');
     Route::put('/admissions/student/update', [StudentsAdmissionsController::class, 'update'])->name('update-student-admission');
     Route::put('/admissions/student/update-admission-status', [StudentsAdmissionsController::class, 'updateAdmissionStatus'])->name
@@ -146,6 +146,11 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/admissions/student/delete', [StudentsAdmissionsController::class, 'delete'])->name('delete-student-admission');
     Route::get('/studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name
     ('studentsAdmissionsTables');
+
+    /**Students**/
+    Route::get('/admin/student', [StudentController::class, 'index'])->name('admin_student');
+    Route::get('/studentsListTables', 'App\Http\Controllers\Admin\Student\StudentsListDatatable')->name
+    ('studentsListTables');
 
     /**Finance**/
     Route::get('/admin/finance', [FinanceController::class, 'index'])->name('admin_finance');

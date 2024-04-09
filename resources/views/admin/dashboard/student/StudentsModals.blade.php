@@ -131,7 +131,7 @@
                             <select class="form-control" name="student_guardian_occupation">
                                 <option value="">Choose</option>
                                 <option value="Unemployed">Unemployed</option>
-                                <option value="employed">employed</option>
+                                <option value="Employed">Employed</option>
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
@@ -294,12 +294,12 @@
 {{--                            ms-2">*</span></label>--}}
 {{--                            <select class="form-control solid" name="student_status">--}}
 {{--                                <option value="">Choose</option>--}}
-{{--                                <option value="0">In</option>--}}
-{{--                                <option value="1">Out</option>--}}
-{{--                                <option value="2">Stop</option>--}}
-{{--                                <option value="3">Sick</option>--}}
-{{--                                <option value="4">Restore</option>--}}
-{{--                                <option value="5">Dismiss</option>--}}
+{{--                                <option value="1">In</option>--}}
+{{--                                <option value="2">Out</option>--}}
+{{--                                <option value="3">Stop</option>--}}
+{{--                                <option value="4">Sick</option>--}}
+{{--                                <option value="5">Restore</option>--}}
+{{--                                <option value="6">Dismiss</option>--}}
 {{--                            </select>--}}
 {{--                        </div>--}}
                     </div>
@@ -340,7 +340,7 @@
                             <select class="form-control" name="student_guardian_occupation">
                                 <option value="">Choose</option>
                                 <option value="Unemployed">Unemployed</option>
-                                <option value="employed">employed</option>
+                                <option value="Employed">Employed</option>
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
