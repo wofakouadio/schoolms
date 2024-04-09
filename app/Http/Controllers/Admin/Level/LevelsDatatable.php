@@ -15,14 +15,17 @@ class LevelsDatatable extends Controller
 {
     public function __invoke()
     {
-        $data = Level::with('branch')->where('school_id', [Auth::guard('admin')->user()->school_id]);
-        // $data = DB::select('select l.id, l.level_name, b.branch_name, l.is_active FROM levels l JOIN branches b ON b.school_id = l.school_id AND b.id = l.branch_id WHERE l.school_id = ?', [Auth::guard('admin')->user()->school_id]);
+        $data = Level::with('department')->with('branch')->where('school_id', [Auth::guard('admin')->user()
+            ->school_id]);
 
         return DataTables::of($data)
-
             ->addColumn('name', function ($row) {
                 $name = $row->level_name;
                 return $name ?? '...';
+            })
+            ->addColumn('department', function ($row) {
+                $department = $row->department->name;
+                return $department ?? '...';
             })
             ->addColumn('branch', function ($row) {
                 $branch = $row->branch->branch_name;
@@ -36,7 +39,6 @@ class LevelsDatatable extends Controller
                 } else {
                     return '<span class="badge badge-xl light badge-danger text-uppercase">disabled</span>';
                 }
-                //                return $remodelledStatus ?? '...';
             })
             ->addColumn('action', function ($row) {
                 $level_id = $row->id;

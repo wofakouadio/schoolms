@@ -19,7 +19,6 @@
                             ms-2">*</span></label>
                             <input type="text" name="level_name" value="{{old('level_name')}}" class="form-control
                             solid">
-                            <input type="hidden" name="school_id" value="{{Auth::guard('admin')->user()->school_id}}">
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Description</label>
@@ -28,8 +27,8 @@
                             ('level_description')}}</textarea>
                         </div>
                         <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Branch</label>
-                            <select class="form-control" name="branch"></select>
+                            <label  class="form-label font-w600">Department</label>
+                            <select class="form-control" name="department"></select>
                         </div>
                     </div>
                 </div>
@@ -73,8 +72,8 @@
                             ('level_description')}}</textarea>
                         </div>
                         <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Branch</label>
-                            <select class="form-control" name="branch"></select>
+                            <label  class="form-label font-w600">Department</label>
+                            <select class="form-control" name="department"></select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Status</label>

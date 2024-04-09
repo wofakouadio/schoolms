@@ -126,4 +126,19 @@ class DepartmentsController extends Controller
         }
     }
 
+    //get departments by school id
+    public function getDepartmentsBySchoolId()
+    {
+        $output = [];
+        $departments = Department::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 0)->get();
+        $output[] .= "<option value=''>Choose</option>";
+        foreach ($departments as $department){
+            $output[] .= "<option value='".$department->id."'>".$department->name . ' - ' .
+                $department->branch->branch_name . ' Branch'
+                ."</option>";
+        }
+        return $output;
+    }
+
 }

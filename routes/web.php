@@ -64,6 +64,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/admin/department/edit', [DepartmentsController::class, 'edit'])->name('edit-department');
     Route::put('/admin/department/update', [DepartmentsController::class, 'update'])->name('update-department');
     Route::delete('/admin/department/delete', [DepartmentsController::class, 'delete'])->name('delete-department');
+    Route::get('/getDepartmentsBySchoolId', [DepartmentsController::class, 'getDepartmentsBySchoolId'])->name('getDepartmentsBySchoolId');
     Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
 
     /** Teacher **/

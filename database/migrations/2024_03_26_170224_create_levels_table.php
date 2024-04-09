@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('level_name')->unique();
+            $table->string('level_name');
             $table->string('level_description')->nullable();
             $table->tinyInteger('is_active')->default(0);
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
+            $table->string('department_id')->nullable();
             $table->timestamps();
         });
     }

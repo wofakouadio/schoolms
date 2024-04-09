@@ -20,6 +20,7 @@
             },
             columns: [
                 {data: 'name', name: 'name'},
+                {data: 'department', name: 'department'},
                 {data: 'branch', name: 'branch'},
                 {data: 'is_active', name: 'is_active'},
                 {data: 'action', name: 'action'},

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Level;
 
+use App\Models\Department;
 use App\Models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,17 +22,19 @@ class LevelController extends Controller
     public function store(Request $request){
         $request->validate([
             'level_name' => 'required',
-            'branch' => 'required'
+            'department' => 'required'
         ]);
 
         DB::beginTransaction();
 
         try {
+            $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             Level::create([
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
-                'branch_id' => $request->branch,
-                'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id,
+                'department_id' => $request->department,
+                'branch_id' => $getBranch->branch_id,
+                'school_id' => Auth::guard('admin')->user()->school_id
             ]);
             DB::commit();
             return response()->json([
@@ -57,16 +60,18 @@ class LevelController extends Controller
     public function update(Request $request){
         $request->validate([
             'level_name' => 'required',
-            'branch' => 'required'
+            'department' => 'required'
         ]);
 
         DB::beginTransaction();
 
         try {
+            $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             Level::where('id', $request->level_id)->update([
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
-                'branch_id' => $request->branch,
+                'department_id' => $request->department,
+                'branch_id' => $getBranch->branch_id,
                 'is_active' => $request->level_is_active ? 1 : 0
             ]);
             DB::commit();
@@ -110,7 +115,8 @@ class LevelController extends Controller
         ('is_active', 0)->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($levels as $level){
-            $output[] .= "<option value='".$level->id."'>".$level->branch->branch_name . ' Branch ' . $level->level_name
+            $output[] .= "<option value='".$level->id."'>".$level->branch->branch_name . ' Branch - ' .
+                $level->level_name
             ."</option>";
         }
         return $output;
