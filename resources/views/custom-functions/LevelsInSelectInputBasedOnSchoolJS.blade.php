@@ -15,6 +15,8 @@
                     // console.log(Response)
                     $("#new-bill-form select[name=level]").html(Response)
                     $("#update-bill-form select[name=level]").html(Response)
+                    $("#new-dl-form select[name=level]").html(Response)
+                    $("#update-dl-form select[name=level]").html(Response)
                 }
             })
         }

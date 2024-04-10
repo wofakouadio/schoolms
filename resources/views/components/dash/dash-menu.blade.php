@@ -9,10 +9,14 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('admin_department')}}">
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-album"></i>
                     <span class="nav-text">Departments</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_department')}}">ListView</a></li>
+                    <li><a href="{{route('admin_assign_department_level')}}">Assign Department to Level</a></li>
+                </ul>
             </li>
             <li>
                 <a href="{{route('admin_teacher')}}">
@@ -50,24 +54,21 @@
                     <li><a href="#">Activity Log</a></li>
                 </ul>
             </li>
-{{--            <li>--}}
-{{--                <a href="{{route('admin_department')}}">--}}
-{{--                    <i class="flaticon-381-umbrella"></i>--}}
-{{--                    <span class="nav-text">Departments</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-
-{{--            <li>--}}
-{{--                <a href="javascript:void()">--}}
-{{--                    <i class="flaticon-381-home"></i>--}}
-{{--                    <span class="nav-text">Classes</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
             <li>
                 <a href="{{route('admin_subject')}}">
                     <i class="bi bi-pen"></i>
                     <span class="nav-text">Subjects</span>
                 </a>
+            </li>
+
+            <li>
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-album-3"></i>
+                    <span class="nav-text">Assessment</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_student_attendance')}}">Attendance</a></li>
+                </ul>
             </li>
 
             <li>
