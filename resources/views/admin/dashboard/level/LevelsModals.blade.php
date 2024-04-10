@@ -27,8 +27,8 @@
                             ('level_description')}}</textarea>
                         </div>
                         <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Department</label>
-                            <select class="form-control" name="department"></select>
+                            <label  class="form-label font-w600">Branch</label>
+                            <select class="form-control" name="branch"></select>
                         </div>
                     </div>
                 </div>
@@ -72,8 +72,8 @@
                             ('level_description')}}</textarea>
                         </div>
                         <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Department</label>
-                            <select class="form-control" name="department"></select>
+                            <label  class="form-label font-w600">Branch</label>
+                            <select class="form-control" name="branch"></select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Status</label>

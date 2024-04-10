@@ -15,17 +15,13 @@ class LevelsDatatable extends Controller
 {
     public function __invoke()
     {
-        $data = Level::with('department')->with('branch')->where('school_id', [Auth::guard('admin')->user()
+        $data = Level::with('branch')->where('school_id', [Auth::guard('admin')->user()
             ->school_id]);
 
         return DataTables::of($data)
             ->addColumn('name', function ($row) {
                 $name = $row->level_name;
                 return $name ?? '...';
-            })
-            ->addColumn('department', function ($row) {
-                $department = $row->department->name;
-                return $department ?? '...';
             })
             ->addColumn('branch', function ($row) {
                 $branch = $row->branch->branch_name;

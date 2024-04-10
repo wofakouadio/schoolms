@@ -80,7 +80,7 @@
                     modal.find("input[name=level_id]").val(level_id)
                     modal.find("input[name=level_name]").val(Response['level_name'])
                     modal.find("textarea[name=level_description]").val(Response['level_description'])
-                    modal.find("select[name=department]").val(Response['department_id'])
+                    modal.find("select[name=branch]").val(Response['branch_id'])
                     modal.find("select[name=level_is_active]").val(Response['is_active'])
                 }
             })

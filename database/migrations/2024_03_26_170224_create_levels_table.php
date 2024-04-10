@@ -18,7 +18,6 @@ return new class extends Migration
             $table->tinyInteger('is_active')->default(0);
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
-            $table->string('department_id')->nullable();
             $table->timestamps();
         });
     }
