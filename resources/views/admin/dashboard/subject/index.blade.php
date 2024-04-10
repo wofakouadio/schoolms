@@ -36,36 +36,12 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Department</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-{{--                                    @foreach($SubjectsDataTableView as $subject)--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$subject->name}}</td>--}}
-{{--                                            <td>--}}
-{{--                                                @if($subject->is_active === 0)--}}
-{{--                                                    <span class="badge badge-xl light badge-success text-uppercase">active</span>--}}
-{{--                                                @else--}}
-{{--                                                    <span class="badge badge-xl light badge-danger text-uppercase">disabled</span>--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
-{{--                                            <td>--}}
-{{--                                                <div class="d-flex">--}}
-{{--                                                    <a href="/admin/subject/{{$subject->id}}/edit" class="btn--}}
-{{--                                                    btn-primary shadow--}}
-{{--                                                    btn-xs--}}
-{{--                                                    sharp--}}
-{{--                                                    me-1"><i--}}
-{{--                                                            class="fas fa-pencil-alt"></i></a>--}}
-{{--                                                    <a href="/admin/subject/{{$subject->id}}" class="btn--}}
-{{--                                                    btn-danger shadow btn-xs--}}
-{{--                                                    sharp"><i class="fa fa-trash"></i></a>--}}
-{{--                                                </div>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
                                     </tbody>
                                 </table>
                             </div>
@@ -81,6 +57,7 @@
     @endsection
     {{--page js script--}}
     @push('page-js')
+        @include('custom-functions.DepartmentsInSelectInputBasedOnSchoolJS')
         @include('admin/dashboard/subject/subjectsJS')
     @endpush
     {{--page datatable script--}}

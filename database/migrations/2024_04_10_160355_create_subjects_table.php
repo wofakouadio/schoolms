@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('subject_name')->nullable();
-            $table->string('department')->nullable();
+            $table->string('department_id')->nullable();
             $table->string('description')->nullable();
             $table->tinyInteger('is_active')->default(0);
             $table->string('school_id')->nullable();

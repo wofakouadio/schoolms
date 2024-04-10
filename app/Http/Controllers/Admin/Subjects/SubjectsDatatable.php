@@ -14,7 +14,7 @@ class SubjectsDatatable extends Controller
 {
     public function __invoke()
     {
-        $data = Subject::where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = Subject::with('department')->where('school_id',[Auth::guard('admin')->user()->school_id]);
 
         // $data = DB::select('select id, subject_name, department, is_active FROM subjects');
 
@@ -22,6 +22,10 @@ class SubjectsDatatable extends Controller
             ->addColumn('name', function ($row) {
                 $subject_name = $row->name;
                 return $subject_name ?? '...';
+            })
+            ->addColumn('department', function ($row) {
+                $department = $row->department->department_name;
+                return $department ?? '...';
             })
             ->addColumn('is_active', function ($row) {
                 //                $subject_status =;

@@ -1,7 +1,7 @@
 <script>
     $(document).ready(()=>{
         // $.noConflict();
-        $("#subjectsDataTables").DataTable({
+        $("#SubjectsDataTables").DataTable({
             language: {
                 paginate: {
                     next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -20,6 +20,7 @@
             },
             columns: [
                 {data: 'name', name: 'name'},
+                {data: 'description', name: 'description'},
                 {data: 'is_active', name: 'is_active'},
                 {data: 'action', name: 'action'},
             ],

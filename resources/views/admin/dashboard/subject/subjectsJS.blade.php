@@ -42,6 +42,7 @@
                             if (result) {
                                 // window.location.reload()
                                 $("#new-subject-modal").modal('hide')
+                                $("#new-subject-form")[0].reset()
                                 $("#new-subject-modal .menu-alert").removeClass('alert-danger')
                                 $("#new-subject-modal .menu-alert").removeClass('alert-warning')
                                 $("#new-subject-modal .menu-alert").html('')

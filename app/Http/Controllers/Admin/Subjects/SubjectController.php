@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Subjects;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,8 @@ class SubjectController extends Controller
     // store new department
     public function store(Request $request){
         $request->validate([
-            'name'=>['required','string', 'max:255', 'unique:'.Subject::class],
+            'name'=>['required','string', 'max:255'],
+            'department' => 'required'
         ]);
 
 //        dd($request->all());
@@ -41,12 +43,13 @@ class SubjectController extends Controller
         DB::beginTransaction();
 
         try {
-
+            $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             $subject = Subject::create([
                 'name'=> strtoupper($request->name),
+                'department_id' => $request->department,
                 'description' => $request->description,
-                'school_id' => Auth::guard('admin')->user()->school_id //$request->id,
-//                'branch_id' => $request->branch_id
+                'school_id' => Auth::guard('admin')->user()->school_id,
+               'branch_id' => $getBranch->branch_id
             ]);
 
             DB::commit();
