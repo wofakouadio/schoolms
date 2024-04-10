@@ -15,8 +15,7 @@ class Level extends Model
         'level_description',
         'is_active',
         'school_id',
-        'branch_id',
-        'department_id'
+        'branch_id'
     ];
 
     public function school(){
