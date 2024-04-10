@@ -51,15 +51,15 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/department/DepartmentsModals')
+        @include('admin/dashboard/department/main/DepartmentsModals')
     @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('admin/dashboard/department/departmentsJS')
+    @include('admin/dashboard/department/main/departmentsJS')
     @include('custom-functions/BranchesInSelectInputJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/department/departmentsDataTables')
+    @include('admin/dashboard/department/main/departmentsDataTables')
 @endpush

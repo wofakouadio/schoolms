@@ -16,7 +16,7 @@ class DepartmentsController extends Controller
     public function index()
     {
         $schoolTerm = TermAndAcademicYear();
-        return view("admin.dashboard.department.index", compact('schoolTerm'));
+        return view("admin.dashboard.department.main.index", compact('schoolTerm'));
     }
 
 
