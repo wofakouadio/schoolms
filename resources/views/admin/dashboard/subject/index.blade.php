@@ -13,12 +13,12 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            {{-- <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)" id="breadcrumb-header">Form</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)" id="breadcrumb-title">Element</a></li>
-                </ol>
-            </div> --}}
+            @if($schoolTerm == null)
+                <x-dash.dash-no-term/>
+            @else
+                <x-dash.dash-term :term_name="$schoolTerm['term_name']"
+                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -67,13 +67,6 @@
 {{--                                        </tr>--}}
 {{--                                    @endforeach--}}
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

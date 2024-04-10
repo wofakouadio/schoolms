@@ -7,6 +7,7 @@ use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function App\Helpers\TermAndAcademicYear;
 
 
 class SubjectController extends Controller
@@ -14,8 +15,14 @@ class SubjectController extends Controller
     //index
     public function index(){
         $subjectsDataTableView = Subject::all();
+        $schoolTerm = TermAndAcademicYear();
+        // return view("admin.dashboard.subject.index",
+        //     compact('subjectsDataTableView'));
         return view("admin.dashboard.subject.index",
-            compact('subjectsDataTableView'));
+            [
+            "subjectsDataTableView"=> $subjectsDataTableView,
+            "schoolTerm" => $schoolTerm
+            ]);
     }
 
     // create new subject

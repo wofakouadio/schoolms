@@ -64,14 +64,10 @@
 {{--                </a>--}}
 {{--            </li>--}}
             <li>
-                <a href="javascript:void()" class="has-arrow" aria-expanded="false">
-                    <i class="flaticon-381-book"></i>
+                <a href="{{route('admin_subject')}}">
+                    <i class="bi bi-pen"></i>
                     <span class="nav-text">Subjects</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="#">Add New</a></li>
-                    <li><a href="{{route('admin_subject')}}">View Subjects</a></li>
-                </ul>
             </li>
 
             <li>
