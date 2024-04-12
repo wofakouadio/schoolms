@@ -132,4 +132,19 @@ class LevelController extends Controller
         }
         return $output;
     }
+
+    public function getLevelsInCheckboxBySchoolId(){
+        $output = [];
+        $levels = Level::with('branch')->where('school_id', Auth::guard('admin')
+            ->user()
+            ->school_id)
+            ->where
+            ('is_active', 0)
+            ->get();
+        foreach ($levels as $level){
+            $output[] .= "";
+            $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+        }
+        return $output;
+    }
 }

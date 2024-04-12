@@ -14,6 +14,7 @@
                     // console.log(Response)
                     $("#new-student-admission-form select[name=student_level]").html(Response)
                     $("#update-student-admission-form select[name=student_level]").html(Response)
+                    $("#new-subject-form select[name=level]").html(Response)
                 }
             })
         }

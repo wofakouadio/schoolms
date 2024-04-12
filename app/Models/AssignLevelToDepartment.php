@@ -17,4 +17,17 @@ class AssignLevelToDepartment extends Model
         'branch_id',
         'is_active'
     ];
+
+    public function AssingBranch(){
+        return $this->hasMany(Branch::class, 'branch_id', 'id');
+    }
+
+    public function AssignLevel()
+    {
+        return $this->hasMany(Level::class, 'id', 'level_id');
+    }
+
+    public function AssignDepartment(){
+        return $this->hasMany(Department::class, 'id', 'department_id');
+    }
 }

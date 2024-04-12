@@ -80,6 +80,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
         ->name('update-assign-department-to-level');
     Route::delete('/admin/assign/delete-assign-department-to-level', [AssignLevelToDepartmentController::class, 'delete'])
         ->name('delete-assign-department-to-level');
+    Route::get('/assignDepartmentToLevelTables', 'App\Http\Controllers\Admin\Departments\AssignDepartmentToLevelDataTable')->name('assignDepartmentToLevelTables');
 
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
@@ -131,6 +132,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     ('levelsTables');
     Route::get('/getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
     Route::get('/getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
+    Route::get('/getLevelsInCheckboxBySchoolId', [LevelController::class, 'getLevelsInCheckboxBySchoolId'])->name('getLevelsInCheckboxBySchoolId');
 
     /**House**/
     Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');

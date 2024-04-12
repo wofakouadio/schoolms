@@ -2,7 +2,7 @@
 <div class="modal fade" id="new-dl-modal">
     <form method="post" id="new-dl-form">
         @csrf
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">New Assignment of Department to Level</h5>

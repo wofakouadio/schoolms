@@ -13,18 +13,18 @@
                 infoEmpty: "No records available",
                 infoFiltered: ""
             },
-            {{--processing: true,--}}
-            {{--serverSide: true,--}}
-            {{--ajax:{--}}
-            {{--    url:"{{route('levelsTables')}}",--}}
-            {{--},--}}
-            {{--columns: [--}}
-            {{--    {data: 'name', name: 'name'},--}}
-            {{--    {data: 'department', name: 'department'},--}}
-            {{--    {data: 'branch', name: 'branch'},--}}
-            {{--    {data: 'is_active', name: 'is_active'},--}}
-            {{--    {data: 'action', name: 'action'},--}}
-            {{--],--}}
+            processing: true,
+            serverSide: true,
+            ajax:{
+                url:"{{route('assignDepartmentToLevelTables')}}",
+            },
+            columns: [
+                {data: 'level', name: 'level'},
+                {data: 'department', name: 'department'},
+                {data: 'branch', name: 'branch'},
+                {data: 'is_active', name: 'is_active'},
+                {data: 'action', name: 'action'},
+            ],
             searching: true,
             paging: true,
             lengthChange: true,
