@@ -36,7 +36,7 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Department</th>
+                                            <th>Level</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -57,7 +57,7 @@
     @endsection
     {{--page js script--}}
     @push('page-js')
-        @include('custom-functions.DepartmentsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/LevelsInSelectInputBasedOnBranchJS')
         @include('admin/dashboard/subject/subjectsJS')
     @endpush
     {{--page datatable script--}}

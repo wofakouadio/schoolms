@@ -68,19 +68,22 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/admin/department/delete', [DepartmentsController::class, 'delete'])->name('delete-department');
     Route::get('/getDepartmentsBySchoolId', [DepartmentsController::class, 'getDepartmentsBySchoolId'])->name('getDepartmentsBySchoolId');
     Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
+    route::get('/getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
+    Route::post('/admin/department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])
+        ->name('new-assign-department-to-level');
 
     /**Assign Department to Level**/
-    Route::get('/admin/assign/assign-department-to-level', [AssignLevelToDepartmentController::class, 'index'])->name
-    ('admin_assign_department_level');
-    Route::post('/admin/assign/new-assign-department-to-level', [AssignLevelToDepartmentController::class, 'store'])
-        ->name('new-assign-department-to-level');
-    Route::get('/admin/assign/edit-assign-department-to-level', [AssignLevelToDepartmentController::class, 'edit'])
-        ->name('edit-assign-department-to-level');
-    Route::put('/admin/assign/update-assign-department-to-level', [AssignLevelToDepartmentController::class, 'update'])
-        ->name('update-assign-department-to-level');
-    Route::delete('/admin/assign/delete-assign-department-to-level', [AssignLevelToDepartmentController::class, 'delete'])
-        ->name('delete-assign-department-to-level');
-    Route::get('/assignDepartmentToLevelTables', 'App\Http\Controllers\Admin\Departments\AssignDepartmentToLevelDataTable')->name('assignDepartmentToLevelTables');
+//    Route::get('/admin/assign/assign-department-to-level', [AssignLevelToDepartmentController::class, 'index'])->name
+//    ('admin_assign_department_level');
+//    Route::post('/admin/assign/new-assign-department-to-level', [AssignLevelToDepartmentController::class, 'store'])
+//        ->name('new-assign-department-to-level');
+//    Route::get('/admin/assign/edit-assign-department-to-level', [AssignLevelToDepartmentController::class, 'edit'])
+//        ->name('edit-assign-department-to-level');
+//    Route::put('/admin/assign/update-assign-department-to-level', [AssignLevelToDepartmentController::class, 'update'])
+//        ->name('update-assign-department-to-level');
+//    Route::delete('/admin/assign/delete-assign-department-to-level', [AssignLevelToDepartmentController::class, 'delete'])
+//        ->name('delete-assign-department-to-level');
+//    Route::get('/assignDepartmentToLevelTables', 'App\Http\Controllers\Admin\Departments\AssignDepartmentToLevelDataTable')->name('assignDepartmentToLevelTables');
 
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');

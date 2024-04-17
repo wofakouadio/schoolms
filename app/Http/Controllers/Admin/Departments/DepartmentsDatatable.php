@@ -38,6 +38,12 @@ class DepartmentsDatatable extends Controller
                             <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-department-modal" data-id="'.$department_id.'">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
+                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-leveltodepartment-modal" data-id="'.$department_id.'"
+                            data-department_name="'.$row->name.'"
+                            data-branch_id="'.$row->branch->id.'"
+                            data-branch_name="'.$row->branch->branch_name.'">
+                                <i class="fas fa-check-to-slot"></i>
+                            </a>
                             <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-department-modal" data-id="'.$department_id.'">
                                 <i class="fa fa-trash"></i>
                             </a>

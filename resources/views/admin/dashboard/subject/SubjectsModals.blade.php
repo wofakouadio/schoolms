@@ -20,8 +20,8 @@
                         <input type="text" class="form-control solid" placeholder="Subject Name" aria-label="name" name="name" value="{{old('name')}}">
                     </div>
                     <div class="col-xl-12 mb-4">
-                        <label  class="form-label font-w600">Department<span class="text-danger scale5 ms-2">*</span></label>
-                        <select class="form-control" name="department"></select>
+                        <label  class="form-label font-w600">Level<span class="text-danger scale5 ms-2">*</span></label>
+                        <select class="form-control" name="level"></select>
                     </div>
                     <div class="col-xl-12 mb-4">
                         <label  class="form-label font-w600">Description</label>
