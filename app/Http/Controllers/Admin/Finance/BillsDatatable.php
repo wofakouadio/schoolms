@@ -12,7 +12,7 @@ class BillsDatatable extends Controller
     public function __invoke()
     {
         // dd();
-        $data = Bill::with('level')->with('term')->where('school_id', Auth::guard('admin')->user()->school_id);
+        $data = Bill::with(['level','term'])->where('school_id', Auth::guard('admin')->user()->school_id);
 
         return DataTables::of($data)
 
