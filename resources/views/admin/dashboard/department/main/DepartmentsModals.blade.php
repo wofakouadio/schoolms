@@ -82,6 +82,47 @@
     </form>
 </div>
 
+{{--assign levels to department--}}
+<div class="modal fade" id="assign-leveltodepartment-modal">
+    <form method="post" id="assign-leveltodepartment-form">
+        @csrf
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Assignment of Department to Level</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Department</label>
+                            <input type="hidden" name="department_id">
+                            <input class="form-control" name="department_name" type="text" readonly>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Branch</label>
+                            <input type="hidden" name="branch_id">
+                            <input class="form-control" name="branch_name" type="text" readonly>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Level</label>
+                            <div class="row levelCheckboxOne"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 
 {{--Delete department--}}
 <div class="modal fade" id="delete-department-modal">

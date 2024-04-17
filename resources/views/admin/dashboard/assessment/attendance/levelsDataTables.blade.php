@@ -1,7 +1,7 @@
 <script>
     $(document).ready(()=>{
         // $.noConflict();
-        $("#SubjectsDataTables").DataTable({
+        $("#LevelsDataTables").DataTable({
             language: {
                 paginate: {
                     next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -16,19 +16,21 @@
             processing: true,
             serverSide: true,
             ajax:{
-                url:"{{route('subjectsTables')}}",
+                url:"{{route('levelsTables')}}",
             },
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'level', name: 'level'},
-                {data: 'description', name: 'description'},
+                {data: 'department', name: 'department'},
+                {data: 'branch', name: 'branch'},
                 {data: 'is_active', name: 'is_active'},
                 {data: 'action', name: 'action'},
             ],
             searching: true,
             paging: true,
             lengthChange: true,
-            autoWidth: true
+            autoWidth: true,
+            aoStateSave: true
+            // stateSave: true
         })
     })
 </script>

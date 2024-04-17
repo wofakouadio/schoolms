@@ -140,6 +140,90 @@
             })
         })
 
+        // assign levels to department modal
+        $("#assign-leveltodepartment-modal").on("show.bs.modal", (event)=>{
+            let str = $(event.relatedTarget);
+            let modal = $("#assign-leveltodepartment-modal");
+            let department_id = str.data('id');
+            let branch_id = str.data('branch_id');
+            let department_name = str.data('department_name');
+            let branch_name = str.data('branch_name');
+            modal.find('input[name=department_id]').val(department_id)
+            modal.find('input[name=department_name]').val(department_name)
+            modal.find('input[name=branch_id]').val(branch_id)
+            modal.find('input[name=branch_name]').val(branch_name)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{route('getLevelsBasedOnDepartmentAndBranch')}}',
+                method:'GET',
+                cache:false,
+                data: {department_id: department_id, branch_id: branch_id},
+                success:(Response)=>{
+                    modal.find('.levelCheckboxOne').html(Response)
+                }
+            })
+        })
+
+        // assign levels to department form
+        $("#assign-leveltodepartment-form").on("submit", (e)=>{
+            e.preventDefault()
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let form = $("#assign-leveltodepartment-form").serialize()
+            $.ajax({
+                url:'{{route('new-assign-department-to-level')}}',
+                method:'POST',
+                cache:false,
+                data: form,
+                success:(Response)=>{
+                    console.log(Response)
+                    // let StringResults = JSON.stringify(Response)
+                    // let DecodedResults = JSON.parse(StringResults)
+                    // if(DecodedResults.status === 201){
+                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+                    //     $("#assign-leveltodepartment-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults
+                    //         .msg)
+                    // }else{
+                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
+                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+                    //
+                    //     Swal.fire({
+                    //         title: 'Notification',
+                    //         html: DecodedResults.msg,
+                    //         type: 'success',
+                    //         allowOutsideClick: false,
+                    //         allowEscapeKey: false,
+                    //         confirmButtonText: 'Close',
+                    //     }).then((result) => {
+                    //         if (result) {
+                    //             $("#assign-leveltodepartment-modal").modal('hide')
+                    //             $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
+                    //             $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+                    //             $("#assign-leveltodepartment-modal .menu-alert").html('')
+                    //             // $("#DepartmentsDataTables").DataTable().draw();
+                    //         }
+                    //     })
+                    // }
+                },
+                error:(Response)=>{
+                    console.log(Response)
+                    // $.each( Response.responseJSON.errors, function( key, value ) {
+                    //     $('#assign-leveltodepartment-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                    //         .append
+                    //         ('<li>'+value+'</li>');
+                    // });
+                }
+            })
+        })
+
         //delete department modal
         $("#delete-department-modal").on("show.bs.modal", (event)=>{
             let str = $(event.relatedTarget)
@@ -156,7 +240,7 @@
                 cache:false,
                 data: {department_id: department_id},
                 success:(Response)=>{
-                    console.log(Response)
+                    // console.log(Response)
                     modal.find('input[name=department_id]').val(department_id)
                     modal.find('.delete-notice').html("Are you sure of deleting "
                         + Response['name'] + " department?")

@@ -15,13 +15,13 @@ class SubjectController extends Controller
 {
     //index
     public function index(){
-        $subjectsDataTableView = Subject::all();
+//        $subjectsDataTableView = Subject::all();
         $schoolTerm = TermAndAcademicYear();
         // return view("admin.dashboard.subject.index",
         //     compact('subjectsDataTableView'));
         return view("admin.dashboard.subject.index",
             [
-            "subjectsDataTableView"=> $subjectsDataTableView,
+//            "subjectsDataTableView"=> $subjectsDataTableView,
             "schoolTerm" => $schoolTerm
             ]);
     }
@@ -45,7 +45,7 @@ class SubjectController extends Controller
         try {
             $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             $subject = Subject::create([
-                'name'=> strtoupper($request->name),
+                'subject_name'=> strtoupper($request->name),
                 'department_id' => $request->department,
                 'description' => $request->description,
                 'school_id' => Auth::guard('admin')->user()->school_id,

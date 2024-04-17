@@ -13,7 +13,7 @@ class Subject extends Model
     protected $fillable = [
         'id',
         'subject_name',
-        'department_id',
+        'level_id',
         'description',
         'school_id',
         'branch_id',
@@ -32,7 +32,7 @@ class Subject extends Model
         return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 
-    public function department(){
-        return $this->hasOne(Department::class, 'id', 'department_id');
+    public function level(){
+        return $this->hasOne(Level::class, 'id', 'level_id');
     }
 }

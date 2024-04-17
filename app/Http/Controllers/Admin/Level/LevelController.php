@@ -142,8 +142,14 @@ class LevelController extends Controller
             ('is_active', 0)
             ->get();
         foreach ($levels as $level){
-            $output[] .= "";
-            $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+            $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                            <div class="form-check custom-checkbox mb-3">
+                                <input type="checkbox" class="form-check-input" name="level[]" value="'
+                        .$level->id.'">
+                                <label class="form-check-label">'.$level->level_name.' / '
+                        .$level->branch->branch_name.' Branch</label>
+                            </div>
+                        </div>';
         }
         return $output;
     }

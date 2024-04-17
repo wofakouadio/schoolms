@@ -1,12 +1,12 @@
 @extends('layouts.dash-layout')
 
 @push('title')
-    <title>Assign Department-Level | School Mgt Sys</title>
+    <title>Students Attendance | School Mgt Sys</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Assign Department to Level
+        Students Attendance
     </div>
 @endpush
 
@@ -24,19 +24,19 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-dl-modal">
+                               data-bs-target="#new-level-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> Click to assign Department to Level
+                                </span> New Level
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="AssignDepartmentLevelDataTables" class="display" style="min-width: 845px">
+                                <table id="StudentAttendanceDataTables" class="display" style="min-width: 845px">
                                     <thead>
                                     <tr>
+                                        <th>Name</th>
                                         <th>Department</th>
-                                        <th>Levels</th>
                                         <th>Branch</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -53,17 +53,15 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/department/assign/AssignDepartmentToLevelModals')
+{{--        @include('admin/dashboard/level/StudentAttendanceModals')--}}
     @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/LevelsInCheckboxBasedOnSchoolJS')
-    @include('admin/dashboard/department/assign/assignDepartmentToLevelJS')
+{{--    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')--}}
+{{--    @include('admin/dashboard/level/levelsJS')--}}
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/department/assign/assignDepartmentToLevelDataTables')
+{{--    @include('admin/dashboard/level/levelsDataTables')--}}
 @endpush

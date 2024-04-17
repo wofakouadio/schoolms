@@ -15,7 +15,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{route('admin_department')}}">ListView</a></li>
-                    <li><a href="{{route('admin_assign_department_level')}}">Assign Department to Level</a></li>
+{{--                    <li><a href="{{route('admin_assign_department_level')}}">Assign Department to Level</a></li>--}}
                 </ul>
             </li>
             <li>
