@@ -64,14 +64,18 @@
 {{--                </a>--}}
 {{--            </li>--}}
             <li>
-                <a href="{{route('admin_subject')}}">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="bi bi-pen"></i>
                     <span class="nav-text">Subjects</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_subject')}}">View Subjects</a></li>
+                    <li><a href="{{route('assign-subject-to-level')}}">Assign Subject To Level</a></li>
+                </ul>
             </li>
 
             <li>
-                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-user-4"></i>
                     <span class="nav-text">Users</span>
                 </a>

@@ -1,24 +1,25 @@
 <?php
 
 //use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\Admission\AdmissionController;
-use App\Http\Controllers\Admin\Branch\BranchController;
-use App\Http\Controllers\Admin\Category\CategoryController;
-use App\Http\Controllers\Admin\Departments\DepartmentsController;
-use App\Http\Controllers\Admin\Finance\BillsController;
-use App\Http\Controllers\Admin\Finance\FinanceController;
-use App\Http\Controllers\Admin\House\HouseController;
-use App\Http\Controllers\Admin\Level\LevelController;
-use App\Http\Controllers\Admin\School\SchoolController;
-use App\Http\Controllers\Admin\School\TermController;
-use App\Http\Controllers\Admin\Student\StudentController;
-use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
-use App\Http\Controllers\Admin\Subjects\SubjectController;
-use App\Http\Controllers\Admin\Teacher\TeacherController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\House\HouseController;
+use App\Http\Controllers\Admin\Level\LevelController;
+use App\Http\Controllers\Admin\School\TermController;
+use App\Http\Controllers\Admin\Branch\BranchController;
+use App\Http\Controllers\Admin\Finance\BillsController;
+use App\Http\Controllers\Admin\School\SchoolController;
+use App\Http\Controllers\Admin\Finance\FinanceController;
+use App\Http\Controllers\Admin\Student\StudentController;
+use App\Http\Controllers\Admin\Teacher\TeacherController;
+use App\Http\Controllers\Admin\Subjects\SubjectController;
+use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Admission\AdmissionController;
+use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
+use App\Http\Controllers\Admin\Subjects\AssignSubjectToLevel\AssignSubjectToLevelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,9 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
      Route::delete('/subject/delete', [SubjectController::class, 'delete'])->name('delete-subject');
      Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name
      ('subjectsTables');
+
+
+     Route::get("/assignSubjectToLevel/create", [AssignSubjectToLevelController::class, 'create'])->name('assign-subject-to-level');
 
     /**School**/
     Route::get('/admin/school', [SchoolController::class, 'index'])->name('admin_school');
