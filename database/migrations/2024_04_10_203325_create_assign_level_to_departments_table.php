@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('assign_level_to_departments', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('level_name');
-            $table->string('level_description')->nullable();
+            $table->string('department_id');
+            $table->string('level_id');
+            $table->string('school_id');
+            $table->string('branch_id');
             $table->tinyInteger('is_active')->default(0);
-            $table->string('school_id')->nullable();
-            $table->string('branch_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('assign_level_to_departments');
     }
 };

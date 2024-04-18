@@ -1,12 +1,12 @@
 @extends('layouts.dash-layout')
 
 @push('title')
-    <title>Subjects | School Mgt Sys</title>
+    <title>Departments | School Mgt Sys</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Subjects
+        Departments
     </div>
 @endpush
 
@@ -24,25 +24,24 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-subject-modal">
+                               data-bs-target="#new-department-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> New Subject
+                                </span> New Department
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="SubjectsDataTables" class="display" style="min-width: 845px">
+                                <table id="DepartmentsDataTables" class="display" style="min-width: 845px">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Level</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Branch</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -50,17 +49,17 @@
                 </div>
             </div>
         </div>
-        {{--Modals--}}
-        @push('modals')
-            @include('admin/dashboard/subject/SubjectsModals')
-        @endpush
-    @endsection
-    {{--page js script--}}
-    @push('page-js')
-        @include('custom-functions/LevelsInSelectInputBasedOnBranchJS')
-        @include('admin/dashboard/subject/subjectsJS')
+    {{--Modals--}}
+    @push('modals')
+        @include('admin/dashboard/department/main/DepartmentsModals')
     @endpush
-    {{--page datatable script--}}
-    @push('datatable')
-        @include('admin/dashboard/subject/subjectsDataTables')
-    @endpush
+@endsection
+{{--page js script--}}
+@push('page-js')
+    @include('admin/dashboard/department/main/departmentsJS')
+    @include('custom-functions/BranchesInSelectInputJS')
+@endpush
+{{--page datatable script--}}
+@push('datatable')
+    @include('admin/dashboard/department/main/departmentsDataTables')
+@endpush

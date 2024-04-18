@@ -1,12 +1,12 @@
 @extends('layouts.dash-layout')
 
 @push('title')
-    <title>Subjects | School Mgt Sys</title>
+    <title>Students Attendance | School Mgt Sys</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Subjects
+        Students Attendance
     </div>
 @endpush
 
@@ -24,22 +24,23 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-subject-modal">
+                               data-bs-target="#new-level-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> New Subject
+                                </span> New Level
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="SubjectsDataTables" class="display" style="min-width: 845px">
+                                <table id="StudentAttendanceDataTables" class="display" style="min-width: 845px">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Level</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Branch</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -50,17 +51,17 @@
                 </div>
             </div>
         </div>
-        {{--Modals--}}
-        @push('modals')
-            @include('admin/dashboard/subject/SubjectsModals')
-        @endpush
-    @endsection
-    {{--page js script--}}
-    @push('page-js')
-        @include('custom-functions/LevelsInSelectInputBasedOnBranchJS')
-        @include('admin/dashboard/subject/subjectsJS')
+    {{--Modals--}}
+    @push('modals')
+{{--        @include('admin/dashboard/level/StudentAttendanceModals')--}}
     @endpush
-    {{--page datatable script--}}
-    @push('datatable')
-        @include('admin/dashboard/subject/subjectsDataTables')
-    @endpush
+@endsection
+{{--page js script--}}
+@push('page-js')
+{{--    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')--}}
+{{--    @include('admin/dashboard/level/levelsJS')--}}
+@endpush
+{{--page datatable script--}}
+@push('datatable')
+{{--    @include('admin/dashboard/level/levelsDataTables')--}}
+@endpush

@@ -22,19 +22,17 @@ class LevelController extends Controller
     public function store(Request $request){
         $request->validate([
             'level_name' => 'required',
-            'department' => 'required'
+            'branch' => 'required'
         ]);
 
         DB::beginTransaction();
 
         try {
-            $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             Level::create([
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
-                'department_id' => $request->department,
-                'branch_id' => $getBranch->branch_id,
-                'school_id' => Auth::guard('admin')->user()->school_id
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'branch_id' => $request->branch
             ]);
             DB::commit();
             return response()->json([
@@ -60,18 +58,15 @@ class LevelController extends Controller
     public function update(Request $request){
         $request->validate([
             'level_name' => 'required',
-            'department' => 'required'
+            'branch' => 'required'
         ]);
 
         DB::beginTransaction();
 
         try {
-            $getBranch = Department::select('branch_id')->where('id', $request->department)->first();
             Level::where('id', $request->level_id)->update([
                 'level_name'=> strtoupper($request->level_name),
                 'level_description'=> $request->level_description,
-                'department_id' => $request->department,
-                'branch_id' => $getBranch->branch_id,
                 'is_active' => $request->level_is_active ? 1 : 0
             ]);
             DB::commit();
@@ -134,6 +129,27 @@ class LevelController extends Controller
         $output[] .= "<option value=''>Choose</option>";
         foreach ($levels as $level){
             $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+        }
+        return $output;
+    }
+
+    public function getLevelsInCheckboxBySchoolId(){
+        $output = [];
+        $levels = Level::with('branch')->where('school_id', Auth::guard('admin')
+            ->user()
+            ->school_id)
+            ->where
+            ('is_active', 0)
+            ->get();
+        foreach ($levels as $level){
+            $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                            <div class="form-check custom-checkbox mb-3">
+                                <input type="checkbox" class="form-check-input" name="level[]" value="'
+                        .$level->id.'">
+                                <label class="form-check-label">'.$level->level_name.' / '
+                        .$level->branch->branch_name.' Branch</label>
+                            </div>
+                        </div>';
         }
         return $output;
     }

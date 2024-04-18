@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Admin\Departments;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Models\AssignLevelToDepartment;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class DepartmentsDatatable extends Controller
+class AssignDepartmentToLevelDataTable extends Controller
 {
     public function __invoke()
     {
 
-        $data = Department::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id);
-
+        $data = AssignLevelToDepartment::with('AssignLevel')->with('AssignDepartment')->where('school_id', Auth::guard('admin')
+            ->user()->school_id);
+//        dd($data);
         return DataTables::of($data)
-            ->addColumn('name', function ($row) {
-                $department_name = $row->name;
-                return $department_name ?? '...';
+            ->addColumn('level', function ($row) {
+                $level = $row->AssignLevel->level_name;
+                return $level ?? '...';
+            })
+            ->addColumn('department', function ($row) {
+                $department = $row->AssignDepartment->department_name;
+                return $department ?? '...';
             })
             ->addColumn('branch', function ($row) {
                 $branch = $row->branch->branch_name;
@@ -37,12 +42,6 @@ class DepartmentsDatatable extends Controller
                 return '<div class="d-flex">
                             <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-department-modal" data-id="'.$department_id.'">
                                 <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-leveltodepartment-modal" data-id="'.$department_id.'"
-                            data-department_name="'.$row->name.'"
-                            data-branch_id="'.$row->branch->id.'"
-                            data-branch_name="'.$row->branch->branch_name.'">
-                                <i class="fas fa-check-to-slot"></i>
                             </a>
                             <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-department-modal" data-id="'.$department_id.'">
                                 <i class="fa fa-trash"></i>

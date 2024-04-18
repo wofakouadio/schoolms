@@ -15,7 +15,7 @@
                     // console.log(Response)
                     $("#new-level-form select[name=department]").html(Response)
                     $("#update-level-form select[name=department]").html(Response)
-                    $("#new-subject-form select[name=department]").html(Response)
+                    $("#new-dl-form select[name=department]").html(Response)
                 }
             })
         }

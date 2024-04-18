@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\Departments;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssignLevelToDepartment;
 use App\Models\Department;
+use App\Models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use function App\Helpers\TermAndAcademicYear;
 
 
@@ -16,7 +19,7 @@ class DepartmentsController extends Controller
     public function index()
     {
         $schoolTerm = TermAndAcademicYear();
-        return view("admin.dashboard.department.index", compact('schoolTerm'));
+        return view("admin.dashboard.department.main.index", compact('schoolTerm'));
     }
 
 
@@ -139,6 +142,85 @@ class DepartmentsController extends Controller
                 ."</option>";
         }
         return $output;
+    }
+
+    //get levels based on department and branch
+    public function getLevelsBasedOnDepartmentAndBranch(Request $request){
+        $branch_id = $request->branch_id;
+        $department_id = $request->department_id;
+        $output = [];
+        //select all levels from table based on branch and school
+        $s1 = Level::select('id', 'level_name')->where('branch_id', $branch_id)->where('school_id', Auth::guard
+        ('admin')->user()->school_id)->get();
+        foreach($s1 as $value){
+
+            $s2 = AssignLevelToDepartment::join('levels', 'assign_level_to_departments.level_id', '=', 'levels.id')
+                ->where
+            ('level_id',
+                $value->id)->where('branch_id',
+                $branch_id)
+                ->where
+            ('school_id', Auth::guard('admin')->user()->school_id)->where('department_id', $department_id)->get();
+
+            if($s2->isEmpty()){
+                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                                <div class="form-check custom-checkbox mb-3">
+                                    <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'">
+                                <label class="form-check-label">'.$value->level_name.'</label>
+                            </div>
+                        </div>';
+            }else{
+                foreach ($s2 as $value){
+
+                }
+                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                                <div class="form-check custom-checkbox mb-3">
+                                    <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'" checked>
+                                <label class="form-check-label">'.$value->level_name.'</label>
+                            </div>
+                        </div>';
+            }
+
+        }
+        return $output;
+
+    }
+
+    public function newassignleveltodepartment(Request $request){
+
+//        dd($request->all());
+        DB::beginTransaction();
+        try {
+            $data = [];
+
+            foreach($request->level as $key => $value){
+                $data[] = [
+                    'id' => Str::uuid(),
+                    'department_id' => $request->department_id,
+                    'branch_id' => $request->branch_id,
+                    'level_id' => $value,
+                    'school_id' => Auth::guard('admin')->user()->school_id,
+                ];
+            }
+//        AssignLevelToDepartment::upsert($data);
+            DB::table('assign_level_to_departments')->insert($data);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Levels assigned to Department successfully'
+            ]);
+
+        } catch (\Exception $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+
+        }
+
+
+//        dd($data);
     }
 
 }

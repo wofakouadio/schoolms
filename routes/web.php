@@ -1,7 +1,15 @@
 <?php
 
 //use App\Http\Controllers\AdminController;
+
 use Illuminate\Support\Facades\Route;
+
+
+
+use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
+
+use App\Http\Controllers\Admin\Departments\AssignLevelToDepartmentController;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
 use App\Http\Controllers\Admin\AdminAuthController;
@@ -59,7 +67,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/admin/dashboard', 'index')->name('admin_dashboard');
     Route::get('/admin/logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
 
-    /**Department to be removed**/
+    /**Department**/
     Route::get('/admin/department', [DepartmentsController::class, 'index'])->name('admin_department');
     Route::post('/department/store', [DepartmentsController::class, 'store'])->name('new-department');
     Route::get('/admin/department/edit', [DepartmentsController::class, 'edit'])->name('edit-department');
@@ -67,6 +75,22 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/admin/department/delete', [DepartmentsController::class, 'delete'])->name('delete-department');
     Route::get('/getDepartmentsBySchoolId', [DepartmentsController::class, 'getDepartmentsBySchoolId'])->name('getDepartmentsBySchoolId');
     Route::get('/departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
+    route::get('/getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
+    Route::post('/admin/department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])
+        ->name('new-assign-department-to-level');
+
+    /**Assign Department to Level**/
+//    Route::get('/admin/assign/assign-department-to-level', [AssignLevelToDepartmentController::class, 'index'])->name
+//    ('admin_assign_department_level');
+//    Route::post('/admin/assign/new-assign-department-to-level', [AssignLevelToDepartmentController::class, 'store'])
+//        ->name('new-assign-department-to-level');
+//    Route::get('/admin/assign/edit-assign-department-to-level', [AssignLevelToDepartmentController::class, 'edit'])
+//        ->name('edit-assign-department-to-level');
+//    Route::put('/admin/assign/update-assign-department-to-level', [AssignLevelToDepartmentController::class, 'update'])
+//        ->name('update-assign-department-to-level');
+//    Route::delete('/admin/assign/delete-assign-department-to-level', [AssignLevelToDepartmentController::class, 'delete'])
+//        ->name('delete-assign-department-to-level');
+//    Route::get('/assignDepartmentToLevelTables', 'App\Http\Controllers\Admin\Departments\AssignDepartmentToLevelDataTable')->name('assignDepartmentToLevelTables');
 
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
@@ -121,6 +145,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     ('levelsTables');
     Route::get('/getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
     Route::get('/getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
+    Route::get('/getLevelsInCheckboxBySchoolId', [LevelController::class, 'getLevelsInCheckboxBySchoolId'])->name('getLevelsInCheckboxBySchoolId');
 
     /**House**/
     Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');
@@ -172,4 +197,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('admin/finance/student/delete-bill', [BillsController::class, 'delete'])->name('delete-bill');
     Route::get('/billsTables', 'App\Http\Controllers\Admin\Finance\BillsDatatable')->name
     ('billsTables');
+
+    /**Attendance**/
+    Route::get('/admin/student/attendance/', [StudentAttendanceController::class, 'index'])->name('admin_student_attendance');
 });
