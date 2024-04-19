@@ -137,11 +137,48 @@
                         level_id: level_id
                     },
                     success:(Response)=>{
-                        console.log(Response)
+                        let StringResults = JSON.stringify(Response)
+                        let DecodedResults = JSON.parse(StringResults)
+                        if(DecodedResults.status === 201){
+                            $("#mark-attendance-sheet .menu-alert").removeClass('alert-warning')
+                            $("#mark-attendance-sheet .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                        }else{
+                            $("#mark-attendance-sheet .menu-alert").removeClass('alert-danger')
+                            $("#mark-attendance-sheet .menu-alert").removeClass('alert-warning')
+
+                            Swal.fire({
+                                title: 'Notification',
+                                html: DecodedResults.msg,
+                                type: 'success',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                confirmButtonText: 'Close',
+                            }).then((result) => {
+                                if (result) {
+                                    // window.location.reload()
+                                    // $("#new-branch-modal").modal('hide')
+                                    // $("#new-branch-modal .menu-alert").removeClass('alert-danger')
+                                    // $("#new-branch-modal .menu-alert").removeClass('alert-warning')
+                                    // $("#new-branch-modal .menu-alert").html('')
+                                    $("#StudentAttendanceDataTables").DataTable().ajax.draw();
+                                }
+                            })
+                        }
                     },
                     error:(Response)=>{
-                        console.log(Response)
+
+                        $.each( Response.responseJSON.errors, function( key, value ) {
+                            $('#mark-attendance-sheet').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                                .append
+                                ('<li>'+value+'</li>');
+                        });
                     }
+                    // success:(Response)=>{
+                    //     console.log(Response)
+                    // },
+                    // error:(Response)=>{
+                    //     console.log(Response)
+                    // }
                 })
             }
             // console.log(student_id)

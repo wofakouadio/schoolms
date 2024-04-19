@@ -57,7 +57,7 @@ class StudentAttendanceDatatable extends Controller
                     return '
                         <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
                             <input type="checkbox" class="form-check-input" id="checkStudent"
-                                   name="checkStudent[]" value="'.$row->student_id.'" checked>
+                                   name="checkStudent[]" value="'.$row->id.'" checked>
                             <label class="form-check-label" for="checkStudent"></label>
                         </div>
                         ';
@@ -66,7 +66,7 @@ class StudentAttendanceDatatable extends Controller
                     return '
                         <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
                             <input type="checkbox" class="form-check-input" id="checkStudent"
-                                   name="checkStudent[]" value="'.$row->student_id.'">
+                                   name="checkStudent[]" value="'.$row->id.'">
                             <label class="form-check-label" for="checkStudent"></label>
                         </div>
                         ';

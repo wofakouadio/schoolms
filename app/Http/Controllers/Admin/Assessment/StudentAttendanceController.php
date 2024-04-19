@@ -25,7 +25,8 @@ class StudentAttendanceController extends Controller
 
     //get subject name temporarly for display purpose
     public function get_subject(Request $request){
-        $data = Subject::select('subject_name')->where('id', '=', $request->subject_id)->first();
+        $data = Subject::select('subject_name')->where('id', $request->subject_id)->first();
+//        dd($data);
         return response()->json($data);
     }
 

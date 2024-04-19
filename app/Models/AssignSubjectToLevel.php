@@ -17,4 +17,12 @@ class AssignSubjectToLevel extends Model
         'branch_id',
         'is_active'
     ];
+
+    public function level(){
+        return $this->hasMany(Level::class, 'level_id', 'id');
+    }
+
+    public function subject(){
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
 }

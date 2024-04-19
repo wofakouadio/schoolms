@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignLevelToDepartment;
+use App\Models\AssignSubjectToLevel;
 use App\Models\Level;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class CustomJSController extends Controller
         $level_id = $request->level_id;
         $output = [];
         $output[] .= "<option value=''>Choose</option>";
-        $subjects = Subject::where('level_id', $level_id)->get();
+        $subjects = AssignSubjectToLevel::with('subject')->where('level_id', $level_id)->get();
         foreach ($subjects as $subject) {
-            $output[] .= "<option value='".$subject->id."'>".$subject->subject_name."</option>";
+            $output[] .= "<option value='".$subject->subject_id."'>".$subject->subject->subject_name."</option>";
         }
         return $output;
     }

@@ -7,11 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
-
 use App\Http\Controllers\Admin\CustomJSController;
-
 use App\Http\Controllers\Admin\Departments\AssignLevelToDepartmentController;
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OnBoardingController;
 use App\Http\Controllers\Admin\AdminAuthController;
