@@ -11,9 +11,7 @@ class StudentsAdmissionsDatatable extends Controller
 {
     public function __invoke(){
         $data = StudentsAdmissions::with('level')->where('school_id',[Auth::guard('admin')->user()->school_id]);
-        // $data = DB::select('select * FROM teachers WHERE school_id = ?', [Auth::guard('admin')
-        //     ->user()->school_id]);
-//        dd($data);
+
         return DataTables::of($data)
             ->addColumn('profile', function($row){
 //                $mediaItems = $row->model->getMedia(*);

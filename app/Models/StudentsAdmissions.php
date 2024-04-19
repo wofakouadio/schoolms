@@ -58,6 +58,10 @@ class StudentsAdmissions extends Model implements HasMedia
         return $this->hasOne(Category::class,'id','student_category');
     }
 
+    public function attendance(){
+        return $this->hasOne(StudentAttendance::class, 'student_id', 'student_id')->whereDay('created_at', now()->day);
+    }
+
     public function registerMediaCollections(): void
     {
         $this

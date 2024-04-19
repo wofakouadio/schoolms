@@ -185,41 +185,41 @@
                 data: form,
                 success:(Response)=>{
                     console.log(Response)
-                    // let StringResults = JSON.stringify(Response)
-                    // let DecodedResults = JSON.parse(StringResults)
-                    // if(DecodedResults.status === 201){
-                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
-                    //     $("#assign-leveltodepartment-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults
-                    //         .msg)
-                    // }else{
-                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
-                    //     $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
-                    //
-                    //     Swal.fire({
-                    //         title: 'Notification',
-                    //         html: DecodedResults.msg,
-                    //         type: 'success',
-                    //         allowOutsideClick: false,
-                    //         allowEscapeKey: false,
-                    //         confirmButtonText: 'Close',
-                    //     }).then((result) => {
-                    //         if (result) {
-                    //             $("#assign-leveltodepartment-modal").modal('hide')
-                    //             $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
-                    //             $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
-                    //             $("#assign-leveltodepartment-modal .menu-alert").html('')
-                    //             // $("#DepartmentsDataTables").DataTable().draw();
-                    //         }
-                    //     })
-                    // }
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+                        $("#assign-leveltodepartment-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults
+                            .msg)
+                    }else{
+                        $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
+                        $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                $("#assign-leveltodepartment-modal").modal('hide')
+                                $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-danger')
+                                $("#assign-leveltodepartment-modal .menu-alert").removeClass('alert-warning')
+                                $("#assign-leveltodepartment-modal .menu-alert").html('')
+                                // $("#DepartmentsDataTables").DataTable().draw();
+                            }
+                        })
+                    }
                 },
                 error:(Response)=>{
                     console.log(Response)
-                    // $.each( Response.responseJSON.errors, function( key, value ) {
-                    //     $('#assign-leveltodepartment-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
-                    //         .append
-                    //         ('<li>'+value+'</li>');
-                    // });
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#assign-leveltodepartment-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
                 }
             })
         })

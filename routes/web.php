@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Admission\AdmissionController;
 use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\CustomJSController;
 use App\Http\Controllers\Admin\Departments\AssignLevelToDepartmentController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\Finance\BillsController;
@@ -71,6 +72,9 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     route::get('/getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
     Route::post('/admin/department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])
         ->name('new-assign-department-to-level');
+    /**Custom JS Controller**/
+    Route::get('/getLevelsByDepartmentBranchSchoolId', [CustomJSController::class, 'getLevelsByDepartmentBranchSchoolId'])->name('getLevelsByDepartmentBranchSchoolId');
+    Route::get('/getSubjectsByLevelDepartmentBranchSchoolId', [CustomJSController::class, 'getSubjectsByLevelDepartmentBranchSchoolId'])->name('getSubjectsByLevelDepartmentBranchSchoolId');
 
     /**Assign Department to Level**/
 //    Route::get('/admin/assign/assign-department-to-level', [AssignLevelToDepartmentController::class, 'index'])->name
@@ -190,4 +194,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Attendance**/
     Route::get('/admin/student/attendance/', [StudentAttendanceController::class, 'index'])->name('admin_student_attendance');
+    Route::get('/get-attendance-sheet', 'App\Http\Controllers\Admin\Assessment\StudentAttendanceDatatable')->name('get-attendance-sheet');
+    Route::get('/get-subject', [StudentAttendanceController::class, 'get_subject'])->name('get-subject');
+    Route::post('/mark-student-attendance', [StudentAttendanceController::class, 'store'])->name('mark-student-attendance');
 });

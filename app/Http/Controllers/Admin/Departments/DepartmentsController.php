@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AssignLevelToDepartment;
 use App\Models\Department;
 use App\Models\Level;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -153,14 +154,13 @@ class DepartmentsController extends Controller
         $s1 = Level::select('id', 'level_name')->where('branch_id', $branch_id)->where('school_id', Auth::guard
         ('admin')->user()->school_id)->get();
         foreach($s1 as $value){
-
-            $s2 = AssignLevelToDepartment::join('levels', 'assign_level_to_departments.level_id', '=', 'levels.id')
+            $s2 = AssignLevelToDepartment::with('AssignLevel')
                 ->where
-            ('level_id',
-                $value->id)->where('branch_id',
-                $branch_id)
+                ('level_id',
+                    $value->id)->where('branch_id',
+                    $branch_id)
                 ->where
-            ('school_id', Auth::guard('admin')->user()->school_id)->where('department_id', $department_id)->get();
+                ('school_id', Auth::guard('admin')->user()->school_id)->where('department_id', $department_id)->get();
 
             if($s2->isEmpty()){
                 $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
@@ -176,7 +176,7 @@ class DepartmentsController extends Controller
                 $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'" checked>
-                                <label class="form-check-label">'.$value->level_name.'</label>
+                                <label class="form-check-label">'.$value->AssignLevel->level_name.'</label>
                             </div>
                         </div>';
             }
@@ -200,6 +200,8 @@ class DepartmentsController extends Controller
                     'branch_id' => $request->branch_id,
                     'level_id' => $value,
                     'school_id' => Auth::guard('admin')->user()->school_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ];
             }
 //        AssignLevelToDepartment::upsert($data);

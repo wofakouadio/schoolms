@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student;
 use App\Models\StudentsAdmissions;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;

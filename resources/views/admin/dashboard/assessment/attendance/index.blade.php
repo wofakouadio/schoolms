@@ -21,31 +21,70 @@
             @endif
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-level-modal">
-                                <span class="btn-icon-start text-primary">
-                                    <i class="fa fa-plus color-primary"></i>
-                                </span> New Level
-                            </a>
-                        </div>
+                    <div class="card" style="height: auto">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="StudentAttendanceDataTables" class="display" style="min-width: 845px">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Branch</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form method="post" id="get-attendance-sheet-form">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select name="department_id" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="form-group">
+                                            <label>Level</label>
+                                            <select name="level_id" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="form-group">
+                                            <label>Subject</label>
+                                            <select name="subject_id" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-4">Get List</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="subject text-capitalize text-lg-center text-primary"></h3>
+                            <form method="post" id="mark-attendance-sheet">
+                                @csrf
+                                <input type="hidden" name="subject_id">
+                                <input type="hidden" name="level_id">
+                                <input type="hidden" name="department_id">
+
+                                <div class="btn-group" id="btn-mark-attendance" style="display: none;">
+                                    <button class="btn light btn-primary" type="submit">Mark
+                                        Attendance</button>
+                                </div>
+                                <div class="table-responsive mt-4">
+                                    <table id="StudentAttendanceDataTables" class="display" style="min-width: 845px">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Residency</th>
+                                            <th>Level</th>
+                                            <th>
+                                                <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl
+                                                     checkAll">
+                                                    <input type="checkbox" class="form-check-input" id="checkAll"
+                                                           name="checkAll">
+                                                    <label class="form-check-label" for="checkAll"></label>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -58,8 +97,9 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-{{--    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')--}}
-{{--    @include('admin/dashboard/level/levelsJS')--}}
+    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/customJSscriptAttendance')
+    @include('admin/dashboard/assessment/attendance/attendanceJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

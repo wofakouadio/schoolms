@@ -34,7 +34,24 @@ class Admin extends Authenticatable
         return $this->admin_password;
     }
 
+
+    public function students(){
+        return $this->hasMany(StudentsAdmissions::class, 'school_id', 'school_id');
+    }
+
+    public function student(){
+        return $this->hasMany(StudentsAdmissions::class, 'school_id', 'school_id')->with('attendance'); //->whereDay
+        //('student_attendances.created_at', now()->day)
+            //->join('student_attendances','students_admissions.school_id','=','student_attendances.school_id');
+    }
+
     public function school(){
         return $this->hasOne(School::class, 'admin_id', 'id');
     }
+
+    public function attendance(){
+        return $this->hasOne(StudentAttendance::class, 'school_id', 'school_id')->whereDay('student_attendances.created_at', now()->day);
+            //->leftJoin('students_admissions','students_admissions.school_id','=','student_attendances.school_id');
+    }
+
 }
