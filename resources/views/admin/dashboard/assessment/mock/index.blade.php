@@ -58,6 +58,7 @@
 @push('page-js')
     @include('admin/dashboard/assessment/mock/mockJS')
     @include('custom-functions/MocksInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

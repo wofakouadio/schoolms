@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Assessment;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignSubjectsToMock;
+use App\Models\AssignSubjectToLevel;
 use App\Models\Mock;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -113,29 +114,66 @@ class StudentMockController extends Controller
         return $output;
     }
 
+//    public function getSubjectsBasedOnMock(Request $request){
+//        $mock_id = $request->mock_id;
+//        $output = [];
+//        $firstChk = Subject::select('id', 'subject_name')->where('school_id', Auth::guard('admin')->user()->school_id)
+//            ->get();
+//        foreach($firstChk as $value){
+//            $secondChk = AssignSubjectsToMock::with('AssignSubject')->where('subject_id', '=', $value->id)
+//                ->where('school_id', '=', Auth::guard('admin')->user()->school_id)
+//                ->where('mock_id', '=', $mock_id)
+//                ->get();
+//
+//            if($secondChk->isEmpty()){
+//                $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+//                            <div class="form-check custom-checkbox mb-3">
+//                                <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'">
+//                                <label class="form-check-label">'.$value->subject_name.'</label>
+//                            </div>
+//                        </div>';
+//            }else{
+//                $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+//                            <div class="form-check custom-checkbox mb-3">
+//                                <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'" checked>
+//                                <label class="form-check-label">'.$value->subject_name.'</label>
+//                            </div>
+//                        </div>';
+//            }
+//        }
+//        return $output;
+//    }
+
     public function getSubjectsBasedOnMock(Request $request){
         $mock_id = $request->mock_id;
+        $level_id = $request->level_id;
         $output = [];
-        $firstChk = Subject::select('id', 'subject_name')->where('school_id', Auth::guard('admin')->user()->school_id)
+        $firstChk = AssignSubjectToLevel::with('subject')
+            ->where('level_id', $level_id)
+            ->where('school_id', Auth::guard
+        ('admin')->user()->school_id)
             ->get();
+//        dd($firstChk);
         foreach($firstChk as $value){
-            $secondChk = AssignSubjectsToMock::with('AssignSubject')->where('subject_id', '=', $value->id)
+            $secondChk = AssignSubjectsToMock::with('AssignSubject')
+                ->where('level_id', $level_id)
+                ->where('subject_id', '=', $value->id)
                 ->where('school_id', '=', Auth::guard('admin')->user()->school_id)
                 ->where('mock_id', '=', $mock_id)
                 ->get();
-
+//dd($secondChk);
             if($secondChk->isEmpty()){
                 $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'">
-                                <label class="form-check-label">'.$value->subject_name.'</label>
+                                <label class="form-check-label">'.$value->subject->subject_name.'</label>
                             </div>
                         </div>';
             }else{
                 $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'" checked>
-                                <label class="form-check-label">'.$value->subject_name.'</label>
+                                <label class="form-check-label">'.$value->subject->subject_name.'</label>
                             </div>
                         </div>';
             }
@@ -153,6 +191,7 @@ class StudentMockController extends Controller
                 $data[] = [
                     'id' => Str::uuid(),
                     'mock_id' => $request->mock_id,
+                    'level_id' => $request->level,
                     'subject_id' => $value,
                     'school_id' => Auth::guard('admin')->user()->school_id,
                     'created_at' => Carbon::now(),

@@ -12,6 +12,7 @@ class AssignSubjectsToMock extends Model
 
     protected $fillable = [
         'mock_id',
+        'level_id',
         'subject_id',
         'school_id',
         'branch_id'

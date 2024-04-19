@@ -126,6 +126,11 @@
                             <input type="hidden" name="mock_id">
                         </div>
                         <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Levels<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control solid" name="level"></select>
+                        </div>
+                        <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Subjects<span class="text-danger scale5
                             ms-2">*</span></label>
                             <div class="row" id="subject_checkbox"></div>

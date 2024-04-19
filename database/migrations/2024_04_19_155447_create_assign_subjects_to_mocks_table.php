@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('assign_subjects_to_mocks', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('mock_id')->nullable();
+            $table->string('level_id')->nullable();
             $table->string('subject_id')->nullable();
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();

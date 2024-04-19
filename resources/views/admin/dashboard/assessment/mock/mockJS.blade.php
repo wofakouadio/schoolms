@@ -217,6 +217,26 @@
             let modal = $("#assign-subjects-to-mock-modal")
             modal.find('input[name=mock_type]').val(mock_type)
             modal.find('input[name=mock_id]').val(mock_id)
+            {{--$.ajaxSetup({--}}
+            {{--    headers: {--}}
+            {{--        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--    }--}}
+            {{--});--}}
+            {{--$.ajax({--}}
+            {{--    url:'{{route('getSubjectsBasedOnMock')}}',--}}
+            {{--    method:'GET',--}}
+            {{--    cache:false,--}}
+            {{--    data: {mock_id: mock_id},--}}
+            {{--    success:(Response)=>{--}}
+            {{--        modal.find("#subject_checkbox").html(Response)--}}
+            {{--    }--}}
+            {{--})--}}
+        })
+
+        $("#assign-subjects-to-mock-form select[name=level]").on("change", (e)=>{
+            e.preventDefault()
+            let mock_id = $("#assign-subjects-to-mock-form input[name=mock_id]").val()
+            let level_id = $("#assign-subjects-to-mock-form select[name=level]").val()
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -226,9 +246,9 @@
                 url:'{{route('getSubjectsBasedOnMock')}}',
                 method:'GET',
                 cache:false,
-                data: {mock_id: mock_id},
+                data: {mock_id: mock_id, level_id:level_id},
                 success:(Response)=>{
-                    modal.find("#subject_checkbox").html(Response)
+                    $("#assign-subjects-to-mock-form").find("#subject_checkbox").html(Response)
                 }
             })
         })
