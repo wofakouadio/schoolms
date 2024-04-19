@@ -142,7 +142,7 @@ class LevelController extends Controller
             ('is_active', 0)
             ->get();
         foreach ($levels as $level){
-            $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+            $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="level[]" value="'
                         .$level->id.'">

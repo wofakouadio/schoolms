@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\Admin\Assessment\StudentMockController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -111,6 +112,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
      Route::delete('/subject/delete', [SubjectController::class, 'delete'])->name('delete-subject');
      Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name
      ('subjectsTables');
+     Route::get('/getSubjectInCheckboxBySchoolId', [SubjectController::class, 'getSubjectInCheckboxBySchoolId'])->name('getSubjectInCheckboxBySchoolId');
 
 
      Route::get("/assignSubjectToLevel/create", [AssignSubjectToLevelController::class, 'create'])->name('assign-subject-to-level');
@@ -205,4 +207,15 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/get-attendance-sheet', 'App\Http\Controllers\Admin\Assessment\StudentAttendanceDatatable')->name('get-attendance-sheet');
     Route::get('/get-subject', [StudentAttendanceController::class, 'get_subject'])->name('get-subject');
     Route::post('/mark-student-attendance', [StudentAttendanceController::class, 'store'])->name('mark-student-attendance');
+
+    /**Mock**/
+    Route::get('/admin/student/mock', [StudentMockController::class, 'index'])->name('admin_student_mock');
+    Route::post('/new-mock-setup', [StudentMockController::class, 'new_mock_setup'])->name('new-mock-setup');
+    Route::get('/edit-mock-setup', [StudentMockController::class, 'edit'])->name('edit-mock-setup');
+    Route::put('/update-mock-setup', [StudentMockController::class, 'update_mock_setup'])->name('update-mock-setup');
+    Route::delete('/delete-mock-setup', [StudentMockController::class, 'delete_mock_setup'])->name('delete-mock-setup');
+    Route::get('/getMocksInSelectBasedOnSchool', [StudentMockController::class, 'getMocksInSelectBasedOnSchool'])->name('getMocksInSelectBasedOnSchool');
+    Route::post('/assign-subject-to-mock', [StudentMockController::class, 'assignSubjectToMock'])->name('assign-subject-to-mock');
+    Route::get('/getSubjectsBasedOnMock', [StudentMockController::class, 'getSubjectsBasedOnMock'])->name('getSubjectsBasedOnMock');
+    Route::get('/MockDatatable', 'App\Http\Controllers\Admin\Assessment\MockDatatable')->name('MockDatatable');
 });
