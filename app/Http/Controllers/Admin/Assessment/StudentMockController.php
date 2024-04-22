@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\AssignSubjectsToMock;
 use App\Models\AssignSubjectToLevel;
 use App\Models\Mock;
+use App\Models\MockBreakdown;
+use App\Models\StudentMock;
+use App\Models\StudentsAdmissions;
 use App\Models\Subject;
+use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,13 +21,15 @@ use function App\Helpers\TermAndAcademicYear;
 class StudentMockController extends Controller
 {
     //index
-    public function index(){
+    public function index()
+    {
         $schoolTerm = TermAndAcademicYear();
         return view('admin.dashboard.assessment.mock.index', compact('schoolTerm'));
     }
 
     //setup new mock
-    public function new_mock_setup(Request $request){
+    public function new_mock_setup(Request $request)
+    {
         $request->validate([
             'mock_type' => 'required'
         ]);
@@ -40,7 +46,7 @@ class StudentMockController extends Controller
                 'status' => 200,
                 'msg' => 'Mock created successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -50,13 +56,15 @@ class StudentMockController extends Controller
     }
 
     //edit mock setup
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         $data = Mock::where('id', $request->mock_id)->first();
         return response()->json($data);
     }
 
     //update mock setup
-    public function update_mock_setup(Request $request){
+    public function update_mock_setup(Request $request)
+    {
         $request->validate([
             'mock_type' => 'required',
             'mock_is_active' => 'required'
@@ -74,7 +82,7 @@ class StudentMockController extends Controller
                 'status' => 200,
                 'msg' => 'Mock updated successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -84,7 +92,8 @@ class StudentMockController extends Controller
     }
 
     //delete mock setup
-    public function delete_mock_setup(Request $request){
+    public function delete_mock_setup(Request $request)
+    {
         DB::beginTransaction();
 
         try {
@@ -94,7 +103,7 @@ class StudentMockController extends Controller
                 'status' => 200,
                 'msg' => 'Mock delete successfully'
             ]);
-        }catch (\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -104,11 +113,12 @@ class StudentMockController extends Controller
     }
 
     //get mock in select
-    public function getMocksInSelectBasedOnSchool(){
+    public function getMocksInSelectBasedOnSchool()
+    {
         $output = [];
         $mocks = Mock::where('school_id', Auth::guard('admin')->user()->school_id)->get();
         $output[] .= '<option value="">Choose</option>';
-        foreach ($mocks as $mock){
+        foreach ($mocks as $mock) {
             $output[] .= '<option value="' . $mock->id . '">' . $mock->mock_type . '</option>';
         }
         return $output;
@@ -144,36 +154,39 @@ class StudentMockController extends Controller
 //        return $output;
 //    }
 
-    public function getSubjectsBasedOnMock(Request $request){
+    public function getSubjectsBasedOnMock(Request $request)
+    {
         $mock_id = $request->mock_id;
         $level_id = $request->level_id;
         $output = [];
         $firstChk = AssignSubjectToLevel::with('subject')
             ->where('level_id', $level_id)
             ->where('school_id', Auth::guard
-        ('admin')->user()->school_id)
+            ('admin')->user()->school_id)
             ->get();
 //        dd($firstChk);
-        foreach($firstChk as $value){
+        foreach ($firstChk as $value) {
             $secondChk = AssignSubjectsToMock::with('AssignSubject')
                 ->where('level_id', $level_id)
-                ->where('subject_id', '=', $value->id)
+                ->where('subject_id', '=', $value->subject_id)
                 ->where('school_id', '=', Auth::guard('admin')->user()->school_id)
                 ->where('mock_id', '=', $mock_id)
                 ->get();
 //dd($secondChk);
-            if($secondChk->isEmpty()){
+            if ($secondChk->isEmpty()) {
                 $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
-                                <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'">
-                                <label class="form-check-label">'.$value->subject->subject_name.'</label>
+                                <input type="checkbox" class="form-check-input" name="subject[]" value="' .
+                    $value->subject_id . '">
+                                <label class="form-check-label">' . $value->subject->subject_name . '</label>
                             </div>
                         </div>';
-            }else{
+            } else {
                 $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
-                                <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id.'" checked>
-                                <label class="form-check-label">'.$value->subject->subject_name.'</label>
+                                <input type="checkbox" class="form-check-input" name="subject[]" value="' .
+                    $value->subject_id . '" checked>
+                                <label class="form-check-label">' . $value->subject->subject_name . '</label>
                             </div>
                         </div>';
             }
@@ -181,13 +194,14 @@ class StudentMockController extends Controller
         return $output;
     }
 
-    public function assignSubjectToMock(Request $request){
+    public function assignSubjectToMock(Request $request)
+    {
 
         DB::beginTransaction();
         try {
             $data = [];
 
-            foreach($request->subject as $key => $value){
+            foreach ($request->subject as $key => $value) {
                 $data[] = [
                     'id' => Str::uuid(),
                     'mock_id' => $request->mock_id,
@@ -214,5 +228,131 @@ class StudentMockController extends Controller
             ]);
 
         }
+    }
+
+    //mock examination view
+    public function examinationView()
+    {
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.assessment.mock.examination', compact('schoolTerm'));
+    }
+
+    public function getStudentsBasedOnLevel(Request $request)
+    {
+        $level_id = $request->level_id;
+        $output = [];
+        $students = StudentsAdmissions::where('student_level', $level_id)
+            ->where("school_id", Auth::guard('admin')->user()->school_id)
+            ->where('admission_status', 1)
+            ->get();
+        $output[] .= '<option value="">Choose</option>';
+        foreach ($students as $student) {
+//            dd($student);
+            $output[] .= '<option value="' . $student->id . '">' . $student->student_firstname . ' '
+                . $student->student_othername . ' '
+                . $student->student_lastname . '</option>';
+        }
+        return $output;
+    }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            'level' => 'required',
+            'mock' => 'required',
+            'student' => 'required'
+        ]);
+
+        //let get student data
+        $studentData = StudentsAdmissions::with('level')
+            ->where('id', $request->student)
+            ->where("school_id", Auth::guard('admin')->user()->school_id)
+            ->where('admission_status', 1)
+            ->first();
+
+        //let get mock data
+        $mockData = Mock::where('id', $request->mock)
+            ->where("school_id", Auth::guard('admin')->user()->school_id)
+            ->first();
+
+        //let get student subjects level assigned to mock
+        $studentSubjectsLevel = AssignSubjectsToMock::with('AssignSubject')
+            ->where('mock_id', $request->mock)
+            ->where('level_id', $request->level)
+            ->where("school_id", Auth::guard('admin')->user()->school_id)
+            ->get();
+
+        //let get academic year
+        $academicYearSession = Term::where("school_id", Auth::guard('admin')->user()->school_id)
+            ->where("is_active", 1)
+            ->first();
+
+        $data = [
+            'StudentData' => $studentData,
+            'MockData' => $mockData,
+            'Subjects' => $studentSubjectsLevel,
+            'Term' => $academicYearSession
+        ];
+        return response()->json($data);
+//        dd($studentSubjectsLevel);
+    }
+
+    //new student mock entry
+    public function store(Request $request){
+//        dd($request->all());
+        DB::beginTransaction();
+        try {
+            $mockScore = 0;
+            $mockEntry = [];
+            foreach($request->mock as $key => $value){
+                $mockScore += $value['score'];
+                $mockEntry[] = [
+                    'subject_id' => $value['subject_id'],
+                    'score' => $value['score'],
+                ];
+            }
+
+            $mock = StudentMock::create([
+                'student_id' => $request->studentId,
+                'level_id' => $request->level_id,
+                'mock_id' => $request->mock_id,
+                'term_id' => $request->term_id,
+                'total_score' => $mockScore,
+                'conduct' => $request->conduct,
+                'attitude' => $request->attitude,
+                'interest' => $request->interest,
+                'general_remarks' => $request->general_remarks,
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'branch_id' => $request->branch_id
+            ]);
+
+            foreach ($mockEntry as $key => $value) {
+                MockBreakdown::create([
+                    'mock_student_id' => $mock->id,
+                    'student_id' => $request->studentId,
+                    'mock_id' => $request->mock_id,
+                    'term_id' => $request->term_id,
+                    'subject_id' => $value['subject_id'],
+                    'score' => $value['score'],
+                    'school_id' => Auth::guard('admin')->user()->school_id,
+                    'branch_id' => $request->branch_id
+                ]);
+            }
+
+//            dd($mockEntry);
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Student Mock saved successfully'
+            ]);
+        }catch(\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+
     }
 }

@@ -18,6 +18,7 @@
                     $("#new-dl-form select[name=level]").html(Response)
                     $("#update-dl-form select[name=level]").html(Response)
                     $("#assign-subjects-to-mock-modal select[name=level]").html(Response)
+                    $("#new-student-mock-modal").find("select[name=level]").html(Response)
                 }
             })
         }

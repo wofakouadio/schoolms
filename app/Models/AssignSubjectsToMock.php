@@ -23,4 +23,9 @@ class AssignSubjectsToMock extends Model
     public function AssignSubject(){
         return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
+
+    public function subject()
+    {
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
+    }
 }

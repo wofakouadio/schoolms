@@ -14,6 +14,7 @@
                 success:(Response)=>{
                     // console.log(Response)
                     $("#assign-subjects-to-mock-modal").find("select[name=mock]").html(Response)
+                    $("#new-student-mock-modal").find("select[name=mock]").html(Response)
                 }
             })
         }

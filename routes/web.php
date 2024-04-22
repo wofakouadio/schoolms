@@ -218,4 +218,9 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post('/assign-subject-to-mock', [StudentMockController::class, 'assignSubjectToMock'])->name('assign-subject-to-mock');
     Route::get('/getSubjectsBasedOnMock', [StudentMockController::class, 'getSubjectsBasedOnMock'])->name('getSubjectsBasedOnMock');
     Route::get('/MockDatatable', 'App\Http\Controllers\Admin\Assessment\MockDatatable')->name('MockDatatable');
+        /*****************/
+    Route::get('/admin/student/mock/examination', [StudentMockController::class, 'examinationView'])->name('admin_student_mock_examination');
+    Route::get('/getStudentsBasedOnLevel', [StudentMockController::class, 'getStudentsBasedOnLevel'])->name('getStudentsBasedOnLevel');
+    Route::get('/get-student-to-mock', [StudentMockController::class, 'create'])->name('get-student-to-mock');
+    Route::post('/new-student-mock-entry', [StudentMockController::class, 'store'])->name('new-student-mock-entry');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Student;
 
 use App\Models\Student;
+use App\Models\StudentsAdmissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -85,6 +86,5 @@ class StudentController extends Controller
             ]);
         }
     }
-
 
 }

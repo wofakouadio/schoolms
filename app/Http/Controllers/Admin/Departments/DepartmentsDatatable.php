@@ -35,16 +35,16 @@ class DepartmentsDatatable extends Controller
             ->addColumn('action', function ($row) {
                 $department_id = $row->id;
                 return '<div class="d-flex">
-                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-department-modal" data-id="'.$department_id.'">
+                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-department-modal" data-id="' . $department_id . '">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-leveltodepartment-modal" data-id="'.$department_id.'"
-                            data-department_name="'.$row->name.'"
-                            data-branch_id="'.$row->branch->id.'"
-                            data-branch_name="'.$row->branch->branch_name.'">
+                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-leveltodepartment-modal" data-id="' . $department_id . '"
+                            data-department_name="' . $row->name . '"
+                            data-branch_id="' . $row->branch->id . '"
+                            data-branch_name="' . $row->branch->branch_name . '">
                                 <i class="fas fa-check-to-slot"></i>
                             </a>
-                            <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-department-modal" data-id="'.$department_id.'">
+                            <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-department-modal" data-id="' . $department_id . '">
                                 <i class="fa fa-trash"></i>
                             </a>
                          </div>';
