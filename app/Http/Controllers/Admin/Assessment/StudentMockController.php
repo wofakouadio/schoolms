@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Assessment;
 
+use App\Exports\StudentsMockExport;
 use App\Http\Controllers\Controller;
 use App\Models\AssignSubjectsToMock;
 use App\Models\AssignSubjectToLevel;
@@ -16,6 +17,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use function App\Helpers\TermAndAcademicYear;
 
 class StudentMockController extends Controller
@@ -354,5 +356,30 @@ class StudentMockController extends Controller
             ]);
         }
 
+    }
+
+    public function export_Students_mock_list(Request $request){
+//        DB::beginTransaction();
+        try {
+//            Excel::download(new StudentsMockExport($request->level), 'list.xlsx');
+//            return Excel::download(new StudentsMockExport($request->level), 'mock.xlsx',
+//                \Maatwebsite\Excel\Excel::XLSX);
+            return (new StudentsMockExport($request->level))->download('mock.xlsx');
+//            return new StudentsMockExport();
+//            DB::commit();
+//            return response()->json([
+//                'status' => 200,
+//                'msg' => 'Student Mock saved successfully'
+//            ]);
+        }catch (\Exception $th){
+//            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+//        dd($request->all());
+
+//        return (new StudentsMockExport)->level($request->level)->download('fileone.xlsx');
     }
 }

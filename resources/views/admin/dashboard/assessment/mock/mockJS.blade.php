@@ -426,6 +426,7 @@
                                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-danger')
                                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')
                                 $("#insert-student-mock-modal .menu-alert").html('')
+                                $("#StudentMockDataTables").DataTable().draw()
                             }
                         })
                     }
@@ -437,6 +438,27 @@
                             .append
                             ('<li>'+value+'</li>');
                     });
+                }
+            })
+        })
+
+        $("#new-student-mock-with-bulk-upload-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('export-students-mock-list-in-excel')}}',
+                method:'GET',
+                cache:false,
+                data: $("#new-student-mock-with-bulk-upload-form").serialize(),
+                success:(Response)=>{
+                    // console.log(Response)
+                },
+                error:(Response)=>{
+                    console.log(Response)
                 }
             })
         })

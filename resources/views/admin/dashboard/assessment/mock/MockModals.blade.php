@@ -258,6 +258,7 @@
                         <h4 class="text-primary">Mock Entry</h4>
                         <div class="col-xl-12 mb-4">
                             <div class="row" id="MockSubjects"></div>
+                        </div>
                     </div>
                     <div class="row">
                         <h4 class="text-primary">Other Information</h4>
@@ -323,6 +324,44 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{{--bulk upload--}}
+<div class="modal fade" id="new-student-mock-with-bulk-upload-modal">
+    <form method="post" id="new-student-mock-with-bulk-upload-form">
+        @csrf
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Student Mock Exams bulk Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Mock<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control solid" name="mock"></select>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Level<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control solid" name="level"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Get Student Mock List</button>
                 </div>
             </div>
         </div>

@@ -23,4 +23,26 @@ class StudentMock extends Model
         'school_id',
         'branch_id',
     ];
+
+    protected $table = 'student_mocks';
+
+    public function level(){
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
+
+    public function student(){
+        return $this->belongsTo(StudentsAdmissions::class, 'student_id', 'id');
+    }
+
+    public function mock(){
+        return $this->belongsTo(Mock::class, 'mock_id', 'id');
+    }
+
+    public function term(){
+        return $this->belongsTo(Term::class, 'term_id', 'id');
+    }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
 }

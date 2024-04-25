@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\Admin\Assessment\MidTermController;
 use App\Http\Controllers\Admin\Assessment\StudentMockController;
 use Illuminate\Support\Facades\Route;
 
@@ -223,4 +224,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/getStudentsBasedOnLevel', [StudentMockController::class, 'getStudentsBasedOnLevel'])->name('getStudentsBasedOnLevel');
     Route::get('/get-student-to-mock', [StudentMockController::class, 'create'])->name('get-student-to-mock');
     Route::post('/new-student-mock-entry', [StudentMockController::class, 'store'])->name('new-student-mock-entry');
-});
+    Route::get('/StudentsMockDatatable', 'App\Http\Controllers\Admin\Assessment\StudentsMockDatatable')->name('StudentsMockDatatable');
+    Route::get('/export-students-mock-list-in-excel', [StudentMockController::class, 'export_Students_mock_list'])->name
+    ('export-students-mock-list-in-excel');
+
+    /**Mid-Term**/
+    Route::get("/admin/student/mid-term", [MidTermController::class, 'index'])->name('admin_student_mid_term');
+    Route::get("/admin/student/mid-term/create", [MidTermController::class, 'create'])->name('get-student-to-mid-term');
+    Route::post("/new-student-mid-term-entry", [MidTermController::class, 'store'])->name("new-student-mid-term-entry");
+    Route::get('/StudentsMidTermDatatable', 'App\Http\Controllers\Admin\Assessment\StudentsMidTermDatatable')->name('StudentsMidTermTable');});
