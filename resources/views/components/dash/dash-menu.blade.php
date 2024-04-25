@@ -81,6 +81,7 @@
                             <li><a href="{{route('admin_student_mock_examination')}}">Examination</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{route('admin_student_mid_term')}}">Mid-Term</a></li>
                 </ul>
             </li>
 
