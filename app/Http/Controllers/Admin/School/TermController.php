@@ -147,4 +147,19 @@ class TermController extends Controller
         return $output;
     }
 
+    //Active Term based on school id
+    public function getActiveTermBySchoolID(){
+        $data = [];
+        $ActiveTerm = Term::select('id', 'term_name', 'term_academic_year')
+            ->where('is_active', 1)
+            ->where('school_id', Auth::guard('admin')->user()->school_id)
+            ->first();
+        $data = [
+            'term_id' => $ActiveTerm->id,
+            'term_name' => $ActiveTerm->term_name,
+            'term_academic_year' => $ActiveTerm->term_academic_year
+        ];
+        return response()->json($data);
+    }
+
 }

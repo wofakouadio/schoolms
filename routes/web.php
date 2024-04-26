@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\Admin\Assessment\EndOfTermController;
 use App\Http\Controllers\Admin\Assessment\MidTermController;
 use App\Http\Controllers\Admin\Assessment\StudentMockController;
 use Illuminate\Support\Facades\Route;
@@ -129,6 +130,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/termsTable', 'App\Http\Controllers\Admin\School\TermsDatatable')->name
     ('termsTables');
     Route::get('/getTermsBySchoolId', [TermController::class, 'getTermsBySchoolId'])->name('getTermsBySchoolId');
+    Route::get('/getActiveTermBySchoolID', [TermController::class, 'getActiveTermBySchoolID'])->name('getActiveTermBySchoolID');
 
     /**Branch**/
     Route::get('/admin/school/branch', [BranchController::class, 'index'])->name('admin_school_branch');
@@ -232,4 +234,11 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("/admin/student/mid-term", [MidTermController::class, 'index'])->name('admin_student_mid_term');
     Route::get("/admin/student/mid-term/create", [MidTermController::class, 'create'])->name('get-student-to-mid-term');
     Route::post("/new-student-mid-term-entry", [MidTermController::class, 'store'])->name("new-student-mid-term-entry");
-    Route::get('/StudentsMidTermDatatable', 'App\Http\Controllers\Admin\Assessment\StudentsMidTermDatatable')->name('StudentsMidTermTable');});
+    Route::get('/StudentsMidTermDatatable', 'App\Http\Controllers\Admin\Assessment\StudentsMidTermDatatable')->name('StudentsMidTermTable');
+
+    /**End of Sem**/
+    Route::get("/admin/student/end-of-term", [EndOfTermController::class, 'index'])->name("admin_student_end_term");
+    Route::get("/get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
+    Route::post("/new-student-end-term-entry", [EndOfTermController::class, 'store'])->name("new-student-end-term-entry");
+    Route::get('/StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\StudentsEndTermDataTables')->name('StudentsEndTermDataTables');
+});
