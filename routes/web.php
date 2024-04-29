@@ -5,6 +5,9 @@
 use App\Http\Controllers\Admin\Assessment\EndOfTermController;
 use App\Http\Controllers\Admin\Assessment\MidTermController;
 use App\Http\Controllers\Admin\Assessment\StudentMockController;
+use App\Http\Controllers\Admin\Report\Attendance\AttendanceReportController;
+use App\Http\Controllers\Admin\Report\MidTerm\MidTermReportController;
+use App\Http\Controllers\Admin\Report\Mock\MockReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -241,4 +244,17 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("/get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
     Route::post("/new-student-end-term-entry", [EndOfTermController::class, 'store'])->name("new-student-end-term-entry");
     Route::get('/StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\StudentsEndTermDataTables')->name('StudentsEndTermDataTables');
+
+    /**Reports**/
+        /**Attendance**/
+    Route::get("/admin/report/attendance", [AttendanceReportController::class, 'index'])->name("admin_student_attendance_report");
+    Route::get("/get-attendance-dates", [AttendanceReportController::class, 'get_attendance_dates'])->name('get_attendance_dates');
+    Route::get("/get-levels-by-department", [AttendanceReportController::class, 'get_levels_by_department'])->name('get_levels_by_department');
+
+        /**Mid-Term**/
+    Route::get("/admin/report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
+
+        /**Mock**/
+    Route::get("/admin/report/mock", [MockReportController::class, 'index'])->name("admin_student_mock_report");
+    Route::get("/get-mock-report", [MockReportController::class, 'get_mock_report'])->name('get_mock_report');
 });
