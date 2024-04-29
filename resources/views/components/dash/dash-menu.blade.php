@@ -88,6 +88,21 @@
 
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-folder-19"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_student_attendance_report')}}">Attendance</a></li>
+                    <li><a href="{{route('admin_student_mock_report')}}">Mock</a></li>
+                    <li><a href="{{route('admin_student_mid_term_report')}}">Mid-Term</a></li>
+{{--                    <li><a href="{{route('admin_student_mock_report')}}">Mock</a></li>--}}
+{{--                    <li><a href="{{route('admin_student_mid_term_report')}}">Mid-Term Exams</a></li>--}}
+{{--                    <li><a href="{{route('admin_student_end_term_report')}}">End of Term Exams</a></li>--}}
+                </ul>
+            </li>
+
+            <li>
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
 
                     <i class="flaticon-381-user-4"></i>
                     <span class="nav-text">Users</span>
