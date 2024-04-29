@@ -26,4 +26,8 @@ class MockBreakdown extends Model
     public function student_mock(){
         return $this->belongsTo(StudentMock::class, 'mock_student_id', 'id');
     }
+
+    public function subject(){
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
 }
