@@ -20,4 +20,8 @@ class EndOfTermBreakdown extends Model
         'school_id',
         'branch_id',
     ];
+
+    public function subject(){
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
 }

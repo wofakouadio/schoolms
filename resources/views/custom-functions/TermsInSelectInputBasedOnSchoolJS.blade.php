@@ -15,6 +15,7 @@
                     // console.log(Response)
                     $("#new-bill-form select[name=term]").html(Response)
                     $("#update-bill-form select[name=term]").html(Response)
+                    $("#end_of_term_report_form").find("select[name=term]").html(Response)
                 }
             })
         }

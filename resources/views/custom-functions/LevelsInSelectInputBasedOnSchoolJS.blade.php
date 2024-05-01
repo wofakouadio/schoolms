@@ -24,6 +24,7 @@
                     $("#new-end-term-setup-modal").find("select[name=level]").html(Response)
                     $("#mock_report_form").find("select[name=level]").html(Response)
                     $("#mid_term_report_form").find("select[name=level]").html(Response)
+                    $("#end_of_term_report_form").find("select[name=level]").html(Response)
                 }
             })
         }
