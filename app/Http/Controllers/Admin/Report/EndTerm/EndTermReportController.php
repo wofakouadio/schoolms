@@ -37,6 +37,12 @@ class EndTermReportController extends Controller
         if(!empty($endTermFirst)){
             //get school data
             $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
+            //get school profile
+            if($schoolData->getMedia('school_logo')->count() == 0){
+                $schoolProfile = "<img src='". asset('assets/images/avatar/1.jpg') ."' class='rounded-circle' width=200>";
+            }else{
+                $schoolProfile = "<img src='". $schoolData->getFirstMediaUrl('school_logo') ."' class='rounded' width=200>";
+            }
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
@@ -48,6 +54,12 @@ class EndTermReportController extends Controller
                 ->with('category')
                 ->with('branch')
                 ->where("id", $student)->first();
+            //student profile
+            if($studentData->getMedia('student_profile')->count() == 0){
+                $studentProfile = "<img src='". asset('assets/images/profile/small/pic1.jpg') ."' class='rounded-circle' width=200>";
+            }else{
+                $studentProfile = "<img src='". $studentData->getFirstMediaUrl('student_profile') ."' class='rounded' width=200>";
+            }
 
             //get end of term breakdown entry
             $endTermBreakdown = EndOfTermBreakdown::with('subject')
@@ -58,18 +70,16 @@ class EndTermReportController extends Controller
                 ->where('branch_id', $studentData->student_branch)
                 ->get();
 
-//            dd($endTermBreakdown);
-
             $output = "<table  class='display table-bordered' style='width:100%; align-self: center'>";
                 $output .= '<tr>';
-                    $output .= '<td width="20%">' . $schoolData->school_name . '</td>';
+                    $output .= '<td width="20%" class="text-center">' . $schoolProfile . '</td>';
                     $output .= '<td width="60%">
                                         <h2 class="text-center fw-bolder text-danger">' . $schoolData->school_name . '</h2>
                                         <h6 class="text-center">' . $schoolData->school_location . '</h6>
                                         <h6 class="text-center">' . $schoolData->school_email . ' / ' . $schoolData->school_phoneNumber . '</h6>
                                         <p class="text-center text-info">' . $studentData->branch->branch_name . ' Branch</p>
                                     </td>';
-                    $output .= '<td width="20%">' . $schoolData->school_name . '</td>';
+                    $output .= '<td width="20%" class="text-center">' . $studentProfile . '</td>';
                 $output .= '</tr>';
                 $output .= '<tr>';
                     $output .= '<td colspan="3"><p class="text-center text-uppercase fw-light">Student Assessment Record</p></td>';
@@ -148,9 +158,10 @@ class EndTermReportController extends Controller
                                     $output .= '<td width="25%" class="text-uppercase fw-bolder">-</td>';
                                 $output .= '</tr>';
                             }
-                        $output .= '<table>';
+                        $output .= '</table>';
                     $output .= '</td>';
                 $output .= '</tr>';
+
                 $output .= '<tr>';
                     $output .= '<td colspan="3"><p class="fw-bolder text-uppercase text-center"><u>appraisal</u></p></td>';
                 $output .= '</tr>';

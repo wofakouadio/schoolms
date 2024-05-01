@@ -27,25 +27,36 @@ class MidTermReportController extends Controller
         $student = $request->student;
         $output = '';
 
-        //get school data
-        $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
-        //get level details
-        $levelData = Level::where('id', $level)->first();
-        //get student details
-        $studentData = StudentsAdmissions::with('house')
-            ->with('category')
-            ->with('branch')
-            ->where("id", $student)->first();
-
         //get mid-term first entry
         $midTermFirst = MidTerm::where("mid_term", $mid_term)
             ->where('level_id', $level)
             ->where("student_id", $student)
             ->where('school_id', Auth::guard('admin')->user()->school_id)
-            ->where('branch_id', $studentData->student_branch)
             ->first();
 
         if(!empty($midTermFirst)){
+
+            //get school data
+            $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
+            //get school profile
+            if($schoolData->getMedia('school_logo')->count() == 0){
+                $schoolProfile = "<img src='". asset('assets/images/avatar/1.jpg') ."' class='rounded-circle' width=200>";
+            }else{
+                $schoolProfile = "<img src='". $schoolData->getFirstMediaUrl('school_logo') ."' class='rounded' width=200>";
+            }
+            //get level details
+            $levelData = Level::where('id', $level)->first();
+            //get student details
+            $studentData = StudentsAdmissions::with('house')
+                ->with('category')
+                ->with('branch')
+                ->where("id", $student)->first();
+            //student profile
+            if($studentData->getMedia('student_profile')->count() == 0){
+                $studentProfile = "<img src='". asset('assets/images/profile/small/pic1.jpg') ."' class='rounded-circle' width=200>";
+            }else{
+                $studentProfile = "<img src='". $studentData->getFirstMediaUrl('student_profile') ."' class='rounded' width=200>";
+            }
 
             //get term details
             $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)
@@ -63,14 +74,14 @@ class MidTermReportController extends Controller
 
             $output = "<table  class='display table-bordered' style='width:100%; align-self: center'>";
             $output .= '<tr>';
-            $output .= '<td width="20%">' . $schoolData->school_name . '</td>';
+            $output .= '<td width="20%" class="text-center">' . $schoolProfile . '</td>';
             $output .= '<td width="60%">
                                 <h2 class="text-center fw-bolder text-danger">' . $schoolData->school_name . '</h2>
                                 <h6 class="text-center">' . $schoolData->school_location . '</h6>
                                 <h6 class="text-center">' . $schoolData->school_email . ' / ' . $schoolData->school_phoneNumber . '</h6>
                                 <p class="text-center text-info">' . $studentData->branch->branch_name . ' Branch</p>
                             </td>';
-            $output .= '<td width="20%">' . $schoolData->school_name . '</td>';
+            $output .= '<td width="20%" class="text-center">' . $studentProfile . '</td>';
             $output .= '</tr>';
             $output .= '<tr>';
             $output .= '<td colspan="3"><p class="text-center text-uppercase fw-light">Student Assessment Record</p></td>';
