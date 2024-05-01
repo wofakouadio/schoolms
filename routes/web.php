@@ -251,10 +251,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("/get-attendance-dates", [AttendanceReportController::class, 'get_attendance_dates'])->name('get_attendance_dates');
     Route::get("/get-levels-by-department", [AttendanceReportController::class, 'get_levels_by_department'])->name('get_levels_by_department');
 
-        /**Mid-Term**/
-    Route::get("/admin/report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
-
         /**Mock**/
     Route::get("/admin/report/mock", [MockReportController::class, 'index'])->name("admin_student_mock_report");
     Route::get("/get-mock-report", [MockReportController::class, 'get_mock_report'])->name('get_mock_report');
+
+        /**Mid-Term**/
+    Route::get("/admin/report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
+    Route::get("/get-mid-term-report", [MidTermReportController::class, 'get_mid_term_report'])->name("get_mid_term_report");
+
 });

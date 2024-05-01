@@ -23,6 +23,7 @@
                     $("#new-student-mid-term-modal").find("select[name=level]").html(Response)
                     $("#new-end-term-setup-modal").find("select[name=level]").html(Response)
                     $("#mock_report_form").find("select[name=level]").html(Response)
+                    $("#mid_term_report_form").find("select[name=level]").html(Response)
                 }
             })
         }

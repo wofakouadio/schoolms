@@ -23,20 +23,22 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
-                            <form method="post" id="attendance_report_form">
+                            <form method="post" id="mid_term_report_form">
                                 <div class="form-group mb-4">
-                                    <label>Date</label>
-                                    <select class="form-control solid" name="attendance_date">
-                                        <option value="all">All</option>
+                                    <label  class="form-label">Mid-Term</label>
+                                    <select class="form-control" name="mid_term">
+                                        <option value="">Choose</option>
+                                        <option value="First">First</option>
+                                        <option value="Second">Second</option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label>Department</label>
-                                    <select class="form-control solid" name="department"></select>
+                                    <label  class="form-label">Level</label>
+                                    <select class="form-control" name="level"></select>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label>Level</label>
-                                    <select class="form-control solid" name="level"></select>
+                                    <label class="form-label">Student</label>
+                                    <select name="student" class="form-control"></select>
                                 </div>
                                 <div class="form-group mb-4">
                                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -47,21 +49,8 @@
                 </div>
                 <div class="col-9">
                     <div class="card">
-                        <div class="card-body" id="attendance_report">
-                            {{--                            <div class="table-responsive">--}}
-                            {{--                                <table id="LevelsDataTables" class="display" style="min-width: 845px">--}}
-                            {{--                                    <thead>--}}
-                            {{--                                    <tr>--}}
-                            {{--                                        <th>Name</th>--}}
-                            {{--                                        <th>Branch</th>--}}
-                            {{--                                        <th>Status</th>--}}
-                            {{--                                        <th>Action</th>--}}
-                            {{--                                    </tr>--}}
-                            {{--                                    </thead>--}}
-                            {{--                                    <tbody>--}}
-                            {{--                                    </tbody>--}}
-                            {{--                                </table>--}}
-                            {{--                            </div>--}}
+                        <div class="card-body">
+                            <div id="mid_term_report_display" style="display: flex; justify-content: center;"></div>
                         </div>
                     </div>
                 </div>
@@ -74,8 +63,8 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include("admin/dashboard/report/attendance/jsScript")
-    @include("custom-functions/DepartmentsInSelectInputBasedOnSchoolJS")
+    @include("admin/dashboard/report/mid-term/jsScript")
+    @include("custom-functions/LevelsInSelectInputBasedOnSchoolJS")
 {{--    @include('custom-functions/BranchesInSelectInputJS')--}}
 {{--    @include('admin/dashboard/level/levelsJS')--}}
 @endpush

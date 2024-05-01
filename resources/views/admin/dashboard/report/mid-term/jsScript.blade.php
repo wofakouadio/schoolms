@@ -1,31 +1,27 @@
 <script>
     $("document").ready(()=>{
 
-        //get dates of attendance made in dropdown
-        const AttendanceDates = () => {
+        //get students based on select level
+        $("#mid_term_report_form select[name=level]").on("change", (e)=>{
+            e.preventDefault()
+            let level_id = $("#mid_term_report_form select[name=level]").val()
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                url: '{{route('get_attendance_dates')}}',
-                method:'get',
-                cache: false,
+                url:'{{route('getStudentsBasedOnLevel')}}',
+                method:'GET',
+                cache:false,
+                data: {level_id:level_id},
                 success:(Response)=>{
-                    // console.log(Response)
-                    $.each(Response, function (key, value){
-                        // console.log("<option value='"+value['attendance_date']+"'>"+value['attendance_date']+"</option>")
-                        $("#attendance_report_form").find("select[name=attendance_date]").append("<option " +
-                            "value='"+value['attendance_date']+"'>"+value['attendance_date']+"</option>")
-                    })
+                    $("#mid_term_report_form").find("select[name=student]").html(Response)
                 }
             })
-        }
-        AttendanceDates()
+        })
 
-        //get levels based on selected department
-        $("#attendance_report_form select[name=department]").on("change", (e)=>{
+        $("#mid_term_report_form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
                 headers: {
@@ -33,34 +29,15 @@
                 }
             });
             $.ajax({
-                url:'{{route('get_levels_by_department')}}',
+                url:'{{route('get_mid_term_report')}}',
                 method:'GET',
                 cache: false,
-                data:{department_id: $("#attendance_report_form select[name=department]").val()},
+                data: $("#mid_term_report_form").serialize(),
                 success:(Response)=>{
-                    $("#attendance_report_form").find("select[name=level]").html('')
-                    $.each(Response, function(key, value){
-                        $("#attendance_report_form").find("select[name=level]").append(
-                            "<option value='"+value['level_id']+"'>"+value['assign_level']['level_name' +
-                            '']+"</option>"
-                        )
-                    })
+                    console.log(Response)
+                    $("#mid_term_report_display").html(Response)
                 }
             })
-
-            //get attendance report
-            $("#attendance_report_form").on("submit", (e)=>{
-                e.preventDefault()
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-
-                })
-            })
         })
-
     })
 </script>
