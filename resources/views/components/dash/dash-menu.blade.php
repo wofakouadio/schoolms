@@ -19,6 +19,12 @@
                 </ul>
             </li>
             <li>
+                <a href="{{route('admin_school_subject')}}">
+                    <i class="flaticon-381-book"></i>
+                    <span class="nav-text">Subject</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('admin_teacher')}}">
                     <i class="flaticon-381-user-9"></i>
                     <span class="nav-text">Teachers</span>
@@ -54,16 +60,16 @@
                     <li><a href="#">Activity Log</a></li>
                 </ul>
             </li>
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="bi bi-pen"></i>
-                    <span class="nav-text">Subjects</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{route('admin_subject')}}">View Subjects</a></li>
-                    <li><a href="{{route('assign-subject-to-level')}}">Assign Subject To Level</a></li>
-                </ul>
-            </li>
+{{--            <li>--}}
+{{--                <a class="has-arrow" href="javascript:void()" aria-expanded="false">--}}
+{{--                    <i class="bi bi-pen"></i>--}}
+{{--                    <span class="nav-text">Subjects</span>--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false">--}}
+{{--                    <li><a href="{{route('admin_subject')}}">View Subjects</a></li>--}}
+{{--                    <li><a href="{{route('assign-subject-to-level')}}">Assign Subject To Level</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
 
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">

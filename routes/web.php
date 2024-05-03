@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Report\Attendance\AttendanceReportController;
 use App\Http\Controllers\Admin\Report\EndTerm\EndTermReportController;
 use App\Http\Controllers\Admin\Report\MidTerm\MidTermReportController;
 use App\Http\Controllers\Admin\Report\Mock\MockReportController;
+use App\Http\Controllers\Admin\Subjects\SubjectsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -245,6 +246,14 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("/get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
     Route::post("/new-student-end-term-entry", [EndOfTermController::class, 'store'])->name("new-student-end-term-entry");
     Route::get('/StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\StudentsEndTermDataTables')->name('StudentsEndTermDataTables');
+
+    /**Subject**/
+    Route::get('/admin/school/subject', [SubjectsController::class, 'index'])->name('admin_school_subject');
+    Route::post('/new-subject', [SubjectsController::class, 'store'])->name('new_subject');
+    Route::get('/edit-subject', [SubjectsController::class, 'edit'])->name('edit_subject');
+    Route::put('/update-subject', [SubjectsController::class, 'update'])->name('update_subject');
+    Route::delete('/delete-subject', [SubjectsController::class, 'delete'])->name('delete_subject');
+    Route::get('/subjects_datatables', 'App\Http\Controllers\Admin\Subjects\SubjectDatatable')->name('subjects_datatables');
 
     /**Reports**/
         /**Attendance**/
