@@ -15,7 +15,9 @@ class SchoolController extends Controller
     public function index()
     {
         $school_id = Auth::guard('admin')->user()->school_id;
-        $schoolData = School::where('id', $school_id)->get();
+        $schoolData = School::where('id', $school_id)->first();
+        $schoolData->getMedia("school_logo")->first();
+//        dd($schoolData);
         $schoolTerm = TermAndAcademicYear();
         return view('admin.dashboard.portfolio.index',
             [
@@ -52,7 +54,8 @@ class SchoolController extends Controller
             ]);
 
             if ($request->hasFile('school_logo')) {
-
+                $school = School::where('id', Auth::guard('admin')->user()->school_id)->first();
+                $school->clearMediaCollection('school_logo');
                 $school->addMedia($request->file('school_logo'))
                     ->toMediaCollection('school_logo');
             }

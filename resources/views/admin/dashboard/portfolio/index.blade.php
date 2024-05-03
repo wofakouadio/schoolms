@@ -33,44 +33,50 @@
                                 <h4>Basic Data</h4>
                             </div>
                             <div class="card-body">
-                                @foreach($schoolData as $data)
+{{--                                {{dd($schoolData['media'])}}--}}
+{{--                                @foreach($schoolData as $data)--}}
                                     <div class="col mb-4 text-center">
-                                        @if($data->school_logo === null ?? 'profile.png')
+                                        @if($schoolData['media']->count() == 0)
+{{--                                        @if(empty($schoolData['media']['school_logo']) ?? $schoolData['school_logo'] ===--}}
+{{--                                        'profile.png' ?? null)--}}
+{{--                                        @if($data->school_logo === null ?? 'profile.png')--}}
                                             <img src="{{asset('storage/school/logo/profile.png')}}" alt="profile.png"
                                                  class="rounded">
                                         @else
-                                            <img src="{{asset('storage/'.$data->school_logo)}}" alt="profile.png"
-                                                 class="rounded" width="60">
+{{--                                            <img src="{{asset('storage/'.$data->school_logo)}}" alt="profile.png"--}}
+{{--                                                 class="rounded" width="60">--}}
+                                            <img src="{{$schoolData['media'][0]->getUrl()}}" alt="profile
+                                            .png"
+                                                 class="rounded" width="200">
                                         @endif
                                     </div>
                                     <div class="col mb-4">
                                         <label  class="form-label font-w600">Name<span class="text-danger scale5
                             ms-2">*</span></label>
                                         <input type="text" class="form-control solid" aria-label="name" name="school_name"
-                                               value="{{$data->school_name}}">
+                                               value="{{$schoolData['school_name']}}">
                                     </div>
                                     <div class="col mb-4">
                                         <label  class="form-label font-w600">Location</label>
                                         <input type="text" class="form-control solid" aria-label="name"
-                                               name="school_location" value="{{$data->school_location}}">
+                                               name="school_location" value="{{$schoolData['school_location']}}">
                                     </div>
                                     <div class="col mb-4">
                                         <label  class="form-label font-w600">Email Address</label>
                                         <input type="text" class="form-control solid" aria-label="name"
-                                               name="school_email" value="{{$data->school_email}}">
+                                               name="school_email" value="{{$schoolData['school_email']}}">
                                     </div>
                                     <div class="col mb-4">
                                         <label  class="form-label font-w600">Contact</label>
                                         <input type="text" class="form-control solid" aria-label="name"
-                                               name="school_contact" value="{{$data->school_phoneNumber}}">
+                                               name="school_contact" value="{{$schoolData['school_phoneNumber']}}">
                                     </div>
                                     <div class="col mb-4">
                                         <label  class="form-label font-w600">Upload new logo</label>
                                         <input type="file" class="form-control solid" aria-label="name"
                                                name="school_logo">
-                                        <input type="hidden" name="school_fetched_logo" value="{{$data->school_logo}}">
                                     </div>
-                                @endforeach
+{{--                                @endforeach--}}
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Save</button>

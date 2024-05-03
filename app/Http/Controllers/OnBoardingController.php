@@ -32,6 +32,7 @@ class OnBoardingController extends Controller
             'school_location' => ['required', 'string', 'max:255'],
             'school_phoneNumber' => ['required', 'string', 'max:255'],
             'school_email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.School::class],
+            'school_logo' => 'image|mimes:jpeg,jpg,png,gif'
         ]);
 
         DB::beginTransaction();
@@ -54,6 +55,10 @@ class OnBoardingController extends Controller
                     'school_email' => $request->school_email,
                     'admin_id' => $reg_admin
                 ]);
+                if($request->hasFile('school_logo')){
+                    $school->addMedia($request->file('school_logo'))
+                        ->toMediaCollection('school_logo');
+                }
 
                 $reg_school = $school->id;
                 if($reg_school){
