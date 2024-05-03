@@ -43,6 +43,11 @@ class LevelsDatatable extends Controller
                             class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
+                            <a data-bs-toggle="modal" data-bs-target="#assign-subjects-to-level-modal" data-id="' .
+                    $level_id . '" data-name="'.$row->level_name.'"
+                            class="btn btn-primary shadow btn-xs sharp me-1">
+                                <i class="fas fa-check-to-slot"></i>
+                            </a>
                             <a data-bs-toggle="modal" data-bs-target="#delete-level-modal" data-id="' . $level_id
                     . '" class="btn btn-danger shadow btn-xs sharp">
                                 <i class="fa fa-trash"></i>

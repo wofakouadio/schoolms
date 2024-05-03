@@ -19,7 +19,7 @@ class AssignSubjectToLevel extends Model
     ];
 
     public function level(){
-        return $this->hasMany(Level::class, 'level_id', 'id');
+        return $this->hasOne(Level::class, 'id', 'level_id');
     }
 
     public function subject(){

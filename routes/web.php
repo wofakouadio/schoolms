@@ -158,6 +158,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
     Route::get('/getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
     Route::get('/getLevelsInCheckboxBySchoolId', [LevelController::class, 'getLevelsInCheckboxBySchoolId'])->name('getLevelsInCheckboxBySchoolId');
+    Route::post('/assign_subjects_to_level', [LevelController::class, 'assign_subjects_to_level'])->name('assign_subjects_to_level');
 
     /**House**/
     Route::get('/admin/school/house', [HouseController::class,'index'])->name('admin_school_house');
@@ -253,6 +254,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('/edit-subject', [SubjectsController::class, 'edit'])->name('edit_subject');
     Route::put('/update-subject', [SubjectsController::class, 'update'])->name('update_subject');
     Route::delete('/delete-subject', [SubjectsController::class, 'delete'])->name('delete_subject');
+    Route::get('/getSubjectsInCheckboxes', [SubjectsController::class, 'get_subjects_in_checkboxes'])->name('get_subjects_in_checkboxes');
     Route::get('/subjects_datatables', 'App\Http\Controllers\Admin\Subjects\SubjectDatatable')->name('subjects_datatables');
 
     /**Reports**/

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Level;
 
+use App\Models\AssignSubjectToLevel;
 use App\Models\Department;
 use App\Models\Level;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use function App\Helpers\TermAndAcademicYear;
 
 class LevelController extends Controller
@@ -152,5 +155,37 @@ class LevelController extends Controller
                         </div>';
         }
         return $output;
+    }
+
+    public function assign_subjects_to_level(Request $request){
+        DB::beginTransaction();
+        try {
+            $data = [];
+            foreach($request->subject as $key => $value){
+                $data[] = [
+                    'id' => Str::uuid(),
+                    'subject_id' => $value,
+                    'level_id' => $request->level_id,
+                    'school_id' => Auth::guard('admin')->user()->school_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+            }
+//            AssignSubjectToLevel::upsert($data,
+//                ['subject_id', 'level_id'],
+//            ['subject_id', 'level_id']);
+            DB::table('assign_subject_to_levels')->insert($data);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Subjects assigned to Level successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
     }
 }

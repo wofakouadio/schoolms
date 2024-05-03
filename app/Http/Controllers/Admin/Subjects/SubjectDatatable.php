@@ -20,7 +20,7 @@ class SubjectDatatable extends Controller
             })
             ->addColumn('subject_type', function ($row) {
                 $subject_type = $row->description;
-                return $subject_type ?? '...';
+                return $subject_type ?? '';
             })
             ->addColumn('is_active', function ($row) {
                 if ($row->is_active === 0) {

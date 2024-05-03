@@ -123,3 +123,38 @@
     </form>
 </div>
 
+{{--assign subjects to level--}}
+<div class="modal fade" id="assign-subjects-to-level-modal">
+    <form method="post" id="assign-subjects-to-level-form">
+        @csrf
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Subjects to Level</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 mb-4">
+                            <label  class="form-label font-w600">Level<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input type="text" name="level_name" value="{{old('level_name')}}" class="form-control
+                            solid" readonly>
+                            <input type="hidden" name="level_id">
+                        </div>
+                        <div class="row subjectCheckbox"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Assign</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

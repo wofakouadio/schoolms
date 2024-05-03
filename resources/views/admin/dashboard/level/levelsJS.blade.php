@@ -221,5 +221,87 @@
             })
         })
 
+        //assign subjects to level modal
+        $("#assign-subjects-to-level-modal").on("show.bs.modal", (event)=>{
+            let str = $(event.relatedTarget)
+            let level_id = str.data('id')
+            let modal = $("#assign-subjects-to-level-modal")
+            let level_name = str.data('name')
+            modal.find("input[name=level_id]").val(level_id)
+            modal.find("input[name=level_name]").val(level_name)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{route('get_subjects_in_checkboxes')}}',
+                method:'GET',
+                cache:false,
+                data:{level_id: level_id},
+                success:(Response)=>{
+                    modal.find('.subjectCheckbox').html(Response)
+                }
+            })
+        })
+
+        //assign subjects to level form
+        $("#assign-subjects-to-level-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            let form_data = $("#assign-subjects-to-level-form").serialize()
+            $.ajax({
+                url:'{{route('assign_subjects_to_level')}}',
+                method:'POST',
+                cache:false,
+                data: form_data,
+                success:(Response)=>{
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        $("#assign-subjects-to-level-modal .menu-alert").removeClass('alert-warning')
+                        $("#assign-subjects-to-level-modal .menu-alert").show().addClass('alert-danger').html
+                        (DecodedResults
+                            .msg)
+                    }else{
+                        $("#assign-subjects-to-level-modal .menu-alert").removeClass('alert-danger')
+                        $("#assign-subjects-to-level-modal .menu-alert").removeClass('alert-warning')
+
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                // window.location.reload()
+                                $("#assign-subjects-to-level-modal").modal('hide')
+                                $("#assign-subjects-to-level-modal .menu-alert").removeClass('alert-danger')
+                                $("#assign-subjects-to-level-modal .menu-alert").removeClass('alert-warning')
+                                $("#assign-subjects-to-level-modal .menu-alert").html('')
+                                $("#LevelsDataTables").DataTable().draw();
+                            }
+                        })
+                    }
+                },
+                error:(Response)=>{
+
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#assign-subjects-to-level-modal').find(".menu-alert").show().addClass('alert-warning').find
+                        ("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
+                }
+            })
+        })
+
     })
 </script>
