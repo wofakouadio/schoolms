@@ -55,7 +55,7 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/finance/student/bills/billsModals')
+        @include('admin/dashboard/finance/student/bills/BillsModals')
     @endpush
 @endsection
 {{--page js script--}}
