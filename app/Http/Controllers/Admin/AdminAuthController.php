@@ -14,6 +14,7 @@ class AdminAuthController extends Controller
 
     public function admin_login()
     {
+        \Log::debug('Test debug message');
         return view('admin.auth.login');
     }
 
