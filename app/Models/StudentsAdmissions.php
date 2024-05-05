@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class StudentsAdmissions extends Model implements HasMedia
 {
-    use HasFactory, UUID;
+    use HasFactory, UUID, SoftDeletes;
     use InteractsWithMedia;
 
     protected $fillable = [
