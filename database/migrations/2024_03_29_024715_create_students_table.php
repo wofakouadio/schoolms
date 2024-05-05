@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('student_id')->nullable();
             $table->string('student_password');
             $table->tinyInteger('student_status')->default(0);
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->string('admission_id')->nullable();
             $table->timestamps();

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('term_opening_date')->nullable();
             $table->string('term_closing_date')->nullable();
             $table->string('term_academic_year')->nullable();
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->timestamps();
         });

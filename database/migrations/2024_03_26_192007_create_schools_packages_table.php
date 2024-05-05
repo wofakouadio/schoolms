@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('package_amount')->nullable();
             $table->dateTime('package_purchase_date')->nullable();
             $table->string('package_duration')->nullable();
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('category_name');
             $table->string('category_description')->nullable();
             $table->string('school_id')->nullable();
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

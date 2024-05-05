@@ -106,7 +106,7 @@ class CategoryController extends Controller
     {
         $school_id = $request->school_id;
         $output = [];
-        $categories = Category::select('id', 'category_name')->where('school_id', $school_id)->where('is_active', 0)
+        $categories = Category::select('id', 'category_name')->where('school_id', $school_id)->where('is_active', 1)
             ->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($categories as $category) {

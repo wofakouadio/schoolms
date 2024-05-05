@@ -59,7 +59,7 @@
                             <select class="form-control solid" name="mock_is_active">
                                 <option value="">Choose</option>
                                 <option value="1">ACTIVE</option>
-                                <option value="2">DISABLED</option>
+                                <option value="0">DISABLED</option>
                             </select>
                         </div>
                     </div>

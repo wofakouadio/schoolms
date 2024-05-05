@@ -135,7 +135,7 @@ class DepartmentsController extends Controller
     {
         $output = [];
         $departments = Department::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
-        ('is_active', 0)->get();
+        ('is_active', 1)->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($departments as $department){
             $output[] .= "<option value='".$department->id."'>".$department->name . ' - ' .

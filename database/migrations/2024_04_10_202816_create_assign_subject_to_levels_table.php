@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('level_id')->nullable();
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
-            $table->string('is_active')->nullable()->default(0);
+            $table->string('is_active')->nullable()->default(1);
             $table->timestamps();
         });
     }

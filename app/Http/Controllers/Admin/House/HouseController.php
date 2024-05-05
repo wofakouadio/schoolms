@@ -31,7 +31,7 @@ class HouseController extends Controller
         try {
             House::create([
                 'house_name' => $request->house_name,
-                'house_description' => $request->house_description,
+                'house_description' => $request->house_description ?? '',
                 'house_type' => $request->house_type,
                 'branch_id' => $request->branch,
                 'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id
@@ -70,8 +70,9 @@ class HouseController extends Controller
         try {
             House::where('id', $request->house_id)->update([
                 'house_name' => $request->house_name,
-                'house_description' => $request->house_description,
+                'house_description' => $request->house_description ?? 'null',
                 'house_type' => $request->house_type,
+                'is_active' => $request->house_is_active,
                 'branch_id' => $request->branch
             ]);
             DB::commit();
@@ -113,7 +114,7 @@ class HouseController extends Controller
     {
         $output = [];
         $houses = House::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
-        ('is_active', 0)
+        ('is_active', 1)
                 ->get();
         $output[] .= "<option value=''>Choose</option>";
         $output[] .= "<option value='N/A'>Not Applicable</option>";

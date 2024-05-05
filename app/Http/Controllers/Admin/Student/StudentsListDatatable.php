@@ -75,23 +75,45 @@ class StudentsListDatatable extends Controller
             })
             ->addColumn('action', function($row){
                 $student_id = $row->student_id;
-                return '<div class="d-flex">
-                            <a data-bs-toggle="modal" data-bs-target="#edit-student-modal" data-id="'
-                    .$student_id.'"
-                            class="btn btn-primary shadow btn-xs sharp me-1">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a data-bs-toggle="modal" data-bs-target="#edit-student-status-modal" data-id="'
-                    .$student_id.'"
-                            class="btn btn-primary shadow btn-xs sharp me-1">
-                                <i class="fas fa-check-to-slot"></i>
-                            </a>
-                            <a data-bs-toggle="modal" data-bs-target="#delete-student-modal" data-id="'
-                    .$student_id
-                    .'" class="btn btn-danger shadow btn-xs sharp">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                         </div>';
+                return '
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                        <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                        <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                    </g>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu" style="">
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-student-modal" data-id="'
+                    .$student_id.'">Edit Student</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-student-status-modal" data-id="'
+                    .$student_id.'">Edit Student Status</a>
+                                <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete-student-modal" data-id="'
+                    .$student_id.'">Delete Student</a>
+                            </div>
+                        </div>
+                    ';
+//                return '<div class="d-flex">
+//                            <a data-bs-toggle="modal" data-bs-target="#edit-student-modal" data-id="'
+//                    .$student_id.'"
+//                            class="btn btn-primary shadow btn-xs sharp me-1">
+//                                <i class="fas fa-pencil-alt"></i>
+//                            </a>
+//                            <a data-bs-toggle="modal" data-bs-target="#edit-student-status-modal" data-id="'
+//                    .$student_id.'"
+//                            class="btn btn-primary shadow btn-xs sharp me-1">
+//                                <i class="fas fa-check-to-slot"></i>
+//                            </a>
+//                            <a data-bs-toggle="modal" data-bs-target="#delete-student-modal" data-id="'
+//                    .$student_id
+//                    .'" class="btn btn-danger shadow btn-xs sharp">
+//                                <i class="fa fa-trash"></i>
+//                            </a>
+//                         </div>';
             })
             ->rawColumns(['profile','name','student_status','action'])
             ->make(true);

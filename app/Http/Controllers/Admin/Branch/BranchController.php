@@ -121,7 +121,7 @@ class BranchController extends Controller
     {
         $school_id = Auth::guard('admin')->user()->school_id; //$request->school_id;
         $output = [];
-        $branches = Branch::select('id', 'branch_name')->where('school_id', $school_id)->where('is_active', 0)->get();
+        $branches = Branch::select('id', 'branch_name')->where('school_id', $school_id)->where('is_active', 1)->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($branches as $branch) {
             $output[] .= "<option value='" . $branch->id . "'>" . $branch->branch_name . "</option>";

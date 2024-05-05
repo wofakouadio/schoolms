@@ -54,16 +54,16 @@ class StudentAttendanceDatatable extends Controller
                 if($row->attendance){
                     if($row->attendance->status == 1){
 //                    $status = 'checked';
-                    return '
-                        <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
-                            <input type="checkbox" class="form-check-input" id="checkStudent"
-                                   name="checkStudent[]" value="'.$row->id.'" checked>
-                            <label class="form-check-label" for="checkStudent"></label>
-                        </div>
-                        ';
+                        $checkStudent =  '
+                            <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
+                                <input type="checkbox" class="form-check-input" id="checkStudent"
+                                       name="checkStudent[]" value="'.$row->id.'" checked>
+                                <label class="form-check-label" for="checkStudent"></label>
+                            </div>
+                            ';
                 }
                 }else{
-                    return '
+                    $checkStudent = '
                         <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
                             <input type="checkbox" class="form-check-input" id="checkStudent"
                                    name="checkStudent[]" value="'.$row->id.'">
@@ -73,7 +73,7 @@ class StudentAttendanceDatatable extends Controller
                 }
 
 //                dd($status);
-
+                return $checkStudent ?? '';
             })
             ->rawColumns(['check'])
             ->make(true);

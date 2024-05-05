@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('subject_name')->nullable();
             $table->string('level_id')->nullable();
             $table->string('description')->nullable();
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->timestamps();

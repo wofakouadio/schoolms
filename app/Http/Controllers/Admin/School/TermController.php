@@ -27,6 +27,7 @@ class TermController extends Controller
                 'term_opening_date' => $request->term_opening_date,
                 'term_closing_date' => $request->term_closing_date,
                 'term_academic_year' => $request->term_academic_year,
+                'is_active' => 0,
                 'school_id' => Auth::guard('admin')->user()->school_id
             ]);
             DB::commit();

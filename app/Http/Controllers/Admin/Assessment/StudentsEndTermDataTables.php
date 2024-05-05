@@ -61,17 +61,18 @@ class StudentsEndTermDataTables extends Controller
 //            })
             ->addColumn('action', function ($row) {
                 $mock_id = $row->id;
-                return '<div class="d-flex">
-                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-mock-setup-modal" data-id="'.$mock_id.'">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-subjects-to-mock-modal" data-id="'.$mock_id.'" data-name="'.$row->mock_type.'">
-                                <i class="fas fa-check-to-slot"></i>
-                            </a>
-                            <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-mock-setup-modal" data-id="'.$mock_id.'">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                         </div>';
+
+//                return '<div class="d-flex">
+//                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#edit-mock-setup-modal" data-id="'.$mock_id.'">
+//                                <i class="fas fa-pencil-alt"></i>
+//                            </a>
+//                            <a class="btn btn-primary shadow btn-xs sharp me-1" data-bs-toggle="modal" data-bs-target="#assign-subjects-to-mock-modal" data-id="'.$mock_id.'" data-name="'.$row->mock_type.'">
+//                                <i class="fas fa-check-to-slot"></i>
+//                            </a>
+//                            <a href="" class="btn btn-danger shadow btn-xs sharp" data-bs-toggle="modal" data-bs-target="#delete-mock-setup-modal" data-id="'.$mock_id.'">
+//                                <i class="fa fa-trash"></i>
+//                            </a>
+//                         </div>';
             })
             ->rawColumns(['action'])
             ->make(true);

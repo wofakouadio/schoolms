@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('level_id');
             $table->string('school_id');
             $table->string('branch_id');
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('bill_amount');
             $table->longText('bill_description')->nullable();
             $table->string('academic_year')->nullable();
-            $table->tinyInteger('is_for_academic_year')->default(0);
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_for_academic_year')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('term_id')->nullable();
             $table->string('level_id')->nullable();
             $table->string('school_id')->nullable();

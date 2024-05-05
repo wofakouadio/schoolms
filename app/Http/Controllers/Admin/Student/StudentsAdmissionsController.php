@@ -63,7 +63,7 @@ class StudentsAdmissionsController extends Controller
                 'student_guardian_name' => $request->student_guardian_name,
                 'student_guardian_contact' => $request->student_guardian_contact,
                 'student_guardian_address' => $request->student_guardian_address,
-                'student_guardian_email' => $request->student_guardian_email,
+                'student_guardian_email' => $request->student_guardian_email ?? '',
                 'student_guardian_occupation' => $request->student_guardian_occupation,
                 'school_id' => Auth::guard('admin')->user()->school_id
             ]);
@@ -160,7 +160,7 @@ class StudentsAdmissionsController extends Controller
                 'student_guardian_name' => $request->student_guardian_name,
                 'student_guardian_contact' => $request->student_guardian_contact,
                 'student_guardian_address' => $request->student_guardian_address,
-                'student_guardian_email' => $request->student_guardian_email,
+                'student_guardian_email' => $request->student_guardian_email ?? '',
                 'student_guardian_occupation' => $request->student_guardian_occupation
             ]);
 

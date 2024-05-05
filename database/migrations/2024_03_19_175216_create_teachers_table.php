@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('teacher_ntc')->nullable();
             $table->string('teacher_ghana_card')->nullable();
             $table->string('teacher_password');
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->timestamps();

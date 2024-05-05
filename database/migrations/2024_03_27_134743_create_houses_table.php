@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('house_type');
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
-            $table->tinyInteger('is_active')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }
