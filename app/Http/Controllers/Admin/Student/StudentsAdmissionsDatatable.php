@@ -59,17 +59,17 @@ class StudentsAdmissionsDatatable extends Controller
             ->addColumn('action', function($row){
                 $student_admission_id = $row->id;
                 return '<div class="d-flex">
-                            <a data-bs-toggle="modal" data-bs-target="#edit-student-admission-modal" data-id="'
+                            <a data-bs-toggle="modal" title="Edit Admission" data-bs-target="#edit-student-admission-modal" data-id="'
                     .$student_admission_id.'"
                             class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a data-bs-toggle="modal" data-bs-target="#edit-student-admission-status-modal" data-id="'
+                            <a data-bs-toggle="modal" title="Edit Status" data-bs-target="#edit-student-admission-status-modal" data-id="'
                     .$student_admission_id.'"
                             class="btn btn-primary shadow btn-xs sharp me-1">
                                 <i class="fas fa-check-to-slot"></i>
                             </a>
-                            <a data-bs-toggle="modal" data-bs-target="#delete-student-admission-modal" data-id="'
+                            <a data-bs-toggle="modal" title="Delete" data-bs-target="#delete-student-admission-modal" data-id="'
                     .$student_admission_id
                     .'" class="btn btn-danger shadow btn-xs sharp">
                                 <i class="fa fa-trash"></i>

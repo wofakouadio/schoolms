@@ -15,23 +15,23 @@ class StudentAttendanceDatatable extends Controller
 {
     public function __invoke(Request $request)
     {
-//        dd($request->all());
-//        $data = Auth::guard('admin')->user()->attendances ;//->where('admission_status', 1);
-        $data = Auth::guard('admin')->user()->student ;//->where('admission_status', 1);
-            //->leftJoin('student_attendances','student_attendances.student_id','=','student_id');
-//dd($data);
+        //        dd($request->all());
+        //        $data = Auth::guard('admin')->user()->attendances ;//->where('admission_status', 1);
+        $data = Auth::guard('admin')->user()->student; //->where('admission_status', 1);
+        //->leftJoin('student_attendances','student_attendances.student_id','=','student_id');
+        //dd($data);
         $branch = Department::select('branch_id')->where('id', $request->department_id)->first();
 
         if ($request->filled('department_id')) {
             $data = $data->where('student_branch', $branch->branch_id);
-        }else{
+        } else {
             $data = $data->where('student_branch', '-1');
         }
-//        dd($data);
+        //        dd($data);
         if ($request->filled('level_id')) {
             $data = $data->where('student_level', $request->level_id);
         }
-//        dd($data);
+        //        dd($data);
         return DataTables::of($data)
 
             ->addColumn('name', function ($row) {
@@ -51,32 +51,31 @@ class StudentAttendanceDatatable extends Controller
                 return $level ?? '...';
             })
             ->addColumn('check', function ($row) {
-                if($row->attendance){
-                    if($row->attendance->status == 1){
-//                    $status = 'checked';
-                    return '
+                if ($row->attendance) {
+                    if ($row->attendance->status == 1) {
+                        //                    $status = 'checked';
+                        return '
                         <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
                             <input type="checkbox" class="form-check-input" id="checkStudent"
-                                   name="checkStudent[]" value="'.$row->id.'" checked>
+                                   name="checkStudent[]" value="' . $row->id . '" checked>
                             <label class="form-check-label" for="checkStudent"></label>
                         </div>
                         ';
-                }
-                }else{
+                    }
+                } else {
                     return '
                         <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl checkStudent">
                             <input type="checkbox" class="form-check-input" id="checkStudent"
-                                   name="checkStudent[]" value="'.$row->id.'">
+                                   name="checkStudent[]" value="' . $row->id . '">
                             <label class="form-check-label" for="checkStudent"></label>
                         </div>
                         ';
                 }
 
-//                dd($status);
+                //                dd($status);
 
             })
             ->rawColumns(['check'])
             ->make(true);
-
     }
 }
