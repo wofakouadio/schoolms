@@ -117,7 +117,6 @@ class HouseController extends Controller
         ('is_active', 1)
                 ->get();
         $output[] .= "<option value=''>Choose</option>";
-        $output[] .= "<option value='N/A'>Not Applicable</option>";
         foreach ($houses as $house){
             $output[] .= "<option value='".$house->id."'>".$house->branch->branch_name . ' Branch -  '
                 .$house->house_name." House</option>";
