@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Branch;
+use App\Models\House;
 use App\Models\School;
 use App\Models\SchoolsPackage;
 use \Illuminate\Support\Facades\Session;
@@ -75,6 +76,14 @@ class OnBoardingController extends Controller
                         'branch_id' => $branch->id
                     ]);
                 }
+
+                House::create([
+                    'house_name' => 'N/A',
+                    'house_description' => 'N/A',
+                    'house_type' => 'N/A',
+                    'school_id' => $reg_school,
+                    'branch_id' => $branch->id
+                ]);
             }
 
             DB::commit();
