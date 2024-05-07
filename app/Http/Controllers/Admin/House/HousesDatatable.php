@@ -13,7 +13,9 @@ class HousesDatatable extends Controller
     public function __invoke()
     {
 
-        $data = House::with('school', 'branch')->where('houses.school_id', [Auth::guard('admin')->user()->school_id]);
+        $data = House::with('school', 'branch')
+            ->where('house_type', '!=', 'N/A')
+            ->where('houses.school_id', [Auth::guard('admin')->user()->school_id]);
         // $data = DB::select('select h.id, h.house_name, h.house_type, b.branch_name, h.is_active FROM houses h JOIN branches b ON b.school_id = h.school_id AND b.id = h.branch_id WHERE h.school_id = ?', [Auth::guard('admin')->user()->school_id]);
         // dd($data->get());
         return DataTables::of($data)
@@ -29,10 +31,17 @@ class HousesDatatable extends Controller
                                     Boys <i class="mdi mdi-gender-male"></i>
                                 </span>
                            </div>';
-                } else {
+                }elseif ($row->house_type === 'Girls') {
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-primary">
                                     Girls <i class="mdi mdi-gender-female"></i>
+                                </span>
+                           </div>';
+                }
+                else {
+                    return '<div class="bootstrap-badge">
+                                <span class="badge badge-xl light badge-primary">
+                                    N/A
                                 </span>
                            </div>';
                 }
