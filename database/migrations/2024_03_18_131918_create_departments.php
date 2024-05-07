@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('name')->unique();
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
