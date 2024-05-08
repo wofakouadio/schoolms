@@ -83,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label class="form-label font-w600">Postal Address - GPD<span
+                            <label class="form-label font-w600">Postal Address - GPS<span
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" name="teacher_address" class="form-control solid"
@@ -237,7 +237,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Staff ID</label>
+                            <label class="form-label font-w600">GES Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                 name="teacher_staff_id" value="{{ old('teacher_staff_id') }}">
                         </div>
@@ -266,7 +266,7 @@
                                 name="teacher_acc_number" value="{{ old('teacher_acc_number') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Branch</label>
+                            <label class="form-label font-w600">Bank Branch Name</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                 name="teacher_bank_branch" value="{{ old('teacher_bank_branch') }}">
                         </div>
@@ -388,7 +388,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-3 mb-4">
-                            <label class="form-label font-w600">Postal Address - GPD<span
+                            <label class="form-label font-w600">Postal Address - GPS<span
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" name="teacher_address" class="form-control solid"
@@ -552,7 +552,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Staff ID</label>
+                            <label class="form-label font-w600">GES Staff ID</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                 name="teacher_staff_id" value="{{ old('teacher_staff_id') }}">
                         </div>
@@ -581,7 +581,7 @@
                                 name="teacher_acc_number" value="{{ old('teacher_acc_number') }}">
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Branch</label>
+                            <label class="form-label font-w600">Bank Branch Name</label>
                             <input type="text" class="form-control solid" aria-label="name"
                                 name="teacher_bank_branch" value="{{ old('teacher_bank_branch') }}">
                         </div>
