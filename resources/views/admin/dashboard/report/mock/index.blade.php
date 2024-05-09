@@ -2,6 +2,7 @@
 
 @push('title')
     <title>Mock Report | School Mgt Sys</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 @endpush
 
 @push('page_name')
@@ -23,7 +24,7 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
-                            <form method="post" id="mock_report_form">
+                            <form method="get" id="mock_report_form">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label>Mock Type</label>
@@ -37,9 +38,14 @@
                                     <label>Student</label>
                                     <select class="form-control solid" name="student"></select>
                                 </div>
-                                <div class="form-group mb-4">
+                                <div>
                                     <button class="btn btn-primary" type="submit">Submit</button>
+{{--                                    <button class="btn btn-secondary ml-2" type="submit"--}}
+{{--                                            id="DownloadMockReport">Download</button>--}}
                                 </div>
+{{--                                <div class="form-group mb-4">--}}
+{{--                                    <button class="btn btn-primary" type="submit">Submit</button>--}}
+{{--                                </div>--}}
                             </form>
                         </div>
                     </div>
@@ -47,29 +53,12 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-body">
-                            <div id="mock_report_display" style="display: flex; justify-content: center;">
-                            {{--                                <table id="LevelsDataTables" class="display" style="min-width: 845px">--}}
-                            {{--                                    <thead>--}}
-                            {{--                                    <tr>--}}
-                            {{--                                        <th>Name</th>--}}
-                            {{--                                        <th>Branch</th>--}}
-                            {{--                                        <th>Status</th>--}}
-                            {{--                                        <th>Action</th>--}}
-                            {{--                                    </tr>--}}
-                            {{--                                    </thead>--}}
-                            {{--                                    <tbody>--}}
-                            {{--                                    </tbody>--}}
-                            {{--                                </table>--}}
-                            </div>
+                            <div id="mock_report_display" style="display: flex; justify-content: center;"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {{--Modals--}}
-    @push('modals')
-{{--        @include('admin/dashboard/level/LevelsModals')--}}
-    @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
