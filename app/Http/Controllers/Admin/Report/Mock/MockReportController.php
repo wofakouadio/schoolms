@@ -10,9 +10,11 @@ use App\Models\School;
 use App\Models\StudentMock;
 use App\Models\StudentsAdmissions;
 use App\Models\Term;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function App\Helpers\TermAndAcademicYear;
+
 
 class MockReportController extends Controller
 {
@@ -190,5 +192,86 @@ class MockReportController extends Controller
         }
 
         return $output;
+    }
+
+    public function download_mock_report(Request $request){
+
+        $mock_id = $request->mock_id;
+        $level = $request->level_id;
+        $student = $request->student_id;
+        $data = [];
+
+        $data = [
+            'mock_id' => $mock_id,
+            'level_id' => $level,
+            'student_id' => $student,
+        ];
+
+//        //get term details
+//        $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)->where('is_active', 1)->first();
+//        //mock first entry
+//        $mockFirstEntry = StudentMock::where('mock_id', $mock_id)
+//            ->where('student_id', $student)
+//            ->where('level_id', $level)
+//            ->where('term_id', $termData->id)
+//            ->where('school_id', Auth::guard('admin')->user()->school_id)
+//            ->first();
+//
+//        if(!empty($mockFirstEntry)) {
+//
+//            //get school data
+//            $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
+//            //get school profile
+//            if($schoolData->getMedia('school_logo')->count() == 0){
+//                $schoolProfile = "<img src='". asset('assets/images/avatar/1.jpg') ."' class='rounded-circle' width=200>";
+//            }else{
+//                $schoolProfile = "<img src='". $schoolData->getFirstMediaUrl('school_logo') ."' class='rounded' width=200>";
+//            }
+//            //get mock details
+//            $mockData = Mock::where('id', $mock_id)->first();
+//            //get level details
+//            $levelData = Level::where('id', $level)->first();
+//            //get student details
+//            $studentData = StudentsAdmissions::with('house')
+//                ->with('category')
+//                ->with('branch')
+//                ->where("id", $student)->first();
+//            //student profile
+//            if($studentData->getMedia('student_profile')->count() == 0){
+//                $studentProfile = "<img src='". asset('assets/images/profile/small/pic1.jpg') ."' class='rounded-circle' width=200>";
+//            }else{
+//                $studentProfile = "<img src='". $studentData->getFirstMediaUrl('student_profile') ."' class='rounded' width=200>";
+//            }
+//
+//            //get mock breakdown entry
+//            $mockBreakdown = MockBreakdown::with('subject')
+//                ->where('mock_student_id', $mockFirstEntry->id)
+//                ->where('mock_id', $mock_id)
+//                ->where('student_id', $student)
+//                ->where('term_id', $termData->id)
+//                ->where('school_id', Auth::guard('admin')->user()->school_id)
+//                ->where('branch_id', $studentData->student_branch)
+//                ->get();
+//
+//            $data = [
+//                'schoolData' => $schoolData,
+//                'levelData' => $levelData,
+//                'studentData' => $studentData,
+//                'mockBreakdown' => $mockBreakdown,
+//                'mockFirstEntry' => $mockFirstEntry,
+//                'studentProfile' => $studentProfile,
+//                'schoolProfile' => $schoolProfile,
+//            ];
+//            $pdf = Pdf::loadView("admin.dashboard.report.mock.StudentMockReportDownload");
+//        }
+//        else{
+//            $data = [
+//                'msg' => '<h4 class="fw-bolder text-uppercase text-danger">No record found</h4>'
+//            ];
+////            $output .= '<h4 class="fw-bolder text-uppercase text-danger">No record found</h4>';
+//            $pdf = Pdf::loadView("admin.dashboard.report.mock.StudentMockReportDownload");
+//        }
+        $pdf = Pdf::loadView("admin.dashboard.report.mock.StudentMockReportDownload", $data);
+        return $pdf->download('StudentMockReportDownload.pdf');
     }
 }
