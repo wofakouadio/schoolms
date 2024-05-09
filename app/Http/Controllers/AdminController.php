@@ -17,7 +17,10 @@ class AdminController extends Controller
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
-        return view('admin.dashboard.index', compact('schoolTerm'));
+        $schoolData = School::where('id', Auth::guard('admin')->user()->school_id)->first();
+        $schoolData->getMedia("school_logo")->first();
+        return view('admin.dashboard.index', ['schoolData' => $schoolData,
+            'schoolTerm' => $schoolTerm]);
     }
 
     //login
