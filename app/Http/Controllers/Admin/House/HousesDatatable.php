@@ -24,28 +24,28 @@ class HousesDatatable extends Controller
                 $name = $row->house_name;
                 return $name ?? '...';
             })
-            ->addColumn('type', function ($row) {
-                if ($row->house_type === 'Boys') {
-                    return '<div class="bootstrap-badge">
-                                <span class="badge badge-xl light badge-primary">
-                                    Boys <i class="mdi mdi-gender-male"></i>
-                                </span>
-                           </div>';
-                }elseif ($row->house_type === 'Girls') {
-                    return '<div class="bootstrap-badge">
-                                <span class="badge badge-xl light badge-primary">
-                                    Girls <i class="mdi mdi-gender-female"></i>
-                                </span>
-                           </div>';
-                }
-                else {
-                    return '<div class="bootstrap-badge">
-                                <span class="badge badge-xl light badge-primary">
-                                    N/A
-                                </span>
-                           </div>';
-                }
-            })
+//            ->addColumn('type', function ($row) {
+//                if ($row->house_type === 'Boys') {
+//                    return '<div class="bootstrap-badge">
+//                                <span class="badge badge-xl light badge-primary">
+//                                    Boys <i class="mdi mdi-gender-male"></i>
+//                                </span>
+//                           </div>';
+//                }elseif ($row->house_type === 'Girls') {
+//                    return '<div class="bootstrap-badge">
+//                                <span class="badge badge-xl light badge-primary">
+//                                    Girls <i class="mdi mdi-gender-female"></i>
+//                                </span>
+//                           </div>';
+//                }
+//                else {
+//                    return '<div class="bootstrap-badge">
+//                                <span class="badge badge-xl light badge-primary">
+//                                    N/A
+//                                </span>
+//                           </div>';
+//                }
+//            })
             ->addColumn('branch', function ($row) {
                 $branch = $row->branch->branch_name;
                 return $branch ?? '...';

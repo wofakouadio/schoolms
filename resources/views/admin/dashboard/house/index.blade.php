@@ -36,7 +36,6 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Type</th>
                                         <th>Branch</th>
                                         <th>Status</th>
                                         <th>Action</th>

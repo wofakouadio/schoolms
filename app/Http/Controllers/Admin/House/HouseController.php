@@ -23,7 +23,7 @@ class HouseController extends Controller
     {
         $request->validate([
             'house_name' => 'required',
-            'house_type' => 'required',
+//            'house_type' => 'required',
             'branch' => 'required'
         ]);
 
@@ -32,7 +32,7 @@ class HouseController extends Controller
             House::create([
                 'house_name' => $request->house_name,
                 'house_description' => $request->house_description ?? '',
-                'house_type' => $request->house_type,
+                'house_type' => $request->house_type ?? '',
                 'branch_id' => $request->branch,
                 'school_id' => Auth::guard('admin')->user()->school_id //$request->school_id
             ]);
@@ -62,7 +62,6 @@ class HouseController extends Controller
     {
         $request->validate([
             'house_name' => 'required',
-            'house_type' => 'required',
             'branch' => 'required'
         ]);
 
@@ -71,7 +70,7 @@ class HouseController extends Controller
             House::where('id', $request->house_id)->update([
                 'house_name' => $request->house_name,
                 'house_description' => $request->house_description ?? 'null',
-                'house_type' => $request->house_type,
+                'house_type' => $request->house_type ?? 'null',
                 'is_active' => $request->house_is_active,
                 'branch_id' => $request->branch
             ]);
@@ -119,7 +118,7 @@ class HouseController extends Controller
         $output[] .= "<option value=''>Choose</option>";
         foreach ($houses as $house){
             $output[] .= "<option value='".$house->id."'>".$house->branch->branch_name . ' Branch -  '
-                .$house->house_name." House</option>";
+                .$house->house_name."</option>";
         }
         return $output;
     }

@@ -27,14 +27,14 @@
                                       cols="10" rows="5">{{old
                             ('house_description')}}</textarea>
                         </div>
-                        <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Type</label>
-                            <select class="form-control" name="house_type">
-                                <option value="">Choose</option>
-                                <option value="Boys">Boys</option>
-                                <option value="Girls">Girls</option>
-                            </select>
-                        </div>
+{{--                        <div class="col-xl-12 mb-4">--}}
+{{--                            <label  class="form-label font-w600">Type</label>--}}
+{{--                            <select class="form-control" name="house_type">--}}
+{{--                                <option value="">Choose</option>--}}
+{{--                                <option value="Boys">Boys</option>--}}
+{{--                                <option value="Girls">Girls</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Branch</label>
                             <select class="form-control" name="branch"></select>
@@ -81,14 +81,14 @@
                                       rows="5">{{old
                             ('house_description')}}</textarea>
                         </div>
-                        <div class="col-xl-12 mb-4">
-                            <label  class="form-label font-w600">Type</label>
-                            <select class="form-control" name="house_type">
-                                <option value="">Choose</option>
-                                <option value="Boys">Boys</option>
-                                <option value="Girls">Girls</option>
-                            </select>
-                        </div>
+{{--                        <div class="col-xl-12 mb-4">--}}
+{{--                            <label  class="form-label font-w600">Type</label>--}}
+{{--                            <select class="form-control" name="house_type">--}}
+{{--                                <option value="">Choose</option>--}}
+{{--                                <option value="Boys">Boys</option>--}}
+{{--                                <option value="Girls">Girls</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Branch</label>
                             <select class="form-control" name="branch"></select>

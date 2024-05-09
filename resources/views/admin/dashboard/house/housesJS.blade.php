@@ -80,7 +80,7 @@
                     modal.find("input[name=house_name]").val(Response['house_name'])
                     modal.find("textarea[name=house_description]").val(Response['house_description'])
                     modal.find("select[name=branch]").val(Response['branch_id'])
-                    modal.find("select[name=house_type]").val(Response['house_type'])
+                    // modal.find("select[name=house_type]").val(Response['house_type'])
                     modal.find("select[name=house_is_active]").val(Response['is_active'])
                 }
             })
