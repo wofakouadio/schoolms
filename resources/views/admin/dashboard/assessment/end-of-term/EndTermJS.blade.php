@@ -123,6 +123,7 @@
                                 $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')
                                 $("#insert-student-end-term-modal .menu-alert").html('')
                                 $("#StudentsEndTermDataTables").DataTable().draw()
+                                window.location.reload()
                             }
                         })
                     }
