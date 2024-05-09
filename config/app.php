@@ -171,6 +171,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        KoenHendriks\StrAcronym\StrServiceProvider::class
     ])->toArray(),
 
     /*
