@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('mock_breakdowns', function (Blueprint $table) {
-            $table->foreign('mock_student_id')->references('id')->on('mocks')->cascadeOnDelete();
+            $table->foreign('mock_student_id')->references('id')->on('student_mocks')->cascadeOnDelete();
+            $table->foreign('mock_id')->references('id')->on('mocks')->cascadeOnDelete();
             $table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
             $table->foreign('student_id')->references('id')->on('students_admissions')->cascadeOnDelete();
             $table->foreign('term_id')->references('id')->on('terms')->cascadeOnDelete();
@@ -29,6 +30,7 @@ return new class extends Migration
     {
         Schema::table('mock_breakdowns', function (Blueprint $table) {
             $table->string('mock_student_id');
+            $table->string('mock_id');
             $table->string('subject_id');
             $table->string('student_id');
             $table->string('term_id');
