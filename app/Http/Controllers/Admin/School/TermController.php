@@ -61,32 +61,41 @@ class TermController extends Controller
 
         DB::beginTransaction();
 
-        if($request->term_is_active == '0'){
-            try {
-                Term::where('id', $request->term_id)->update([
-                    'term_name' => strtoupper($request->term_name),
-                    'term_opening_date' => $request->term_opening_date,
-                    'term_closing_date' => $request->term_closing_date,
-                    'term_academic_year' => $request->term_academic_year,
-                    'is_active' => $request->term_is_active
-                ]);
-                DB::commit();
-                return response()->json([
-                    'status' => 200,
-                    'msg' => 'Term updated successfully'
-                ]);
-            }catch (\Exception $th){
-                DB::rollBack();
-                return response()->json([
-                    'status' => 201,
-                    'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-                ]);
-            }
-        }else{
-            $sqlCheckActive = Term::where('school_id', Auth::guard('admin')->user()->school_id)->where('is_active',
-                $request->term_is_active)
-                ->first();
-            if($sqlCheckActive){
+        try {
+            Term::where('id', $request->term_id)->update([
+                'term_name' => strtoupper($request->term_name),
+                'term_opening_date' => $request->term_opening_date,
+                'term_closing_date' => $request->term_closing_date,
+                'term_academic_year' => $request->term_academic_year
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Term updated successfully'
+            ]);
+        }catch (\Exception $th){
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+            ]);
+        }
+    }
+
+    //update term status
+    public function update_status(Request $request){
+        $request->validate([
+            'term_is_active' => 'required'
+        ]);
+
+        DB::beginTransaction();
+
+        $sqlCheckActive = Term::where('school_id', Auth::guard('admin')->user()->school_id)
+            ->where('is_active',1)
+            ->first();
+
+        if($sqlCheckActive){
+            if($sqlCheckActive->is_active == $request->term_is_active){
                 return response()->json([
                     'status' => 201,
                     'msg' => 'Disable Term in Session before activating a new term'
@@ -94,16 +103,12 @@ class TermController extends Controller
             }else{
                 try {
                     Term::where('id', $request->term_id)->update([
-                        'term_name' => strtoupper($request->term_name),
-                        'term_opening_date' => $request->term_opening_date,
-                        'term_closing_date' => $request->term_closing_date,
-                        'term_academic_year' => $request->term_academic_year,
                         'is_active' => $request->term_is_active
                     ]);
                     DB::commit();
                     return response()->json([
                         'status' => 200,
-                        'msg' => 'Term updated successfully'
+                        'msg' => 'Term Status updated successfully'
                     ]);
                 }catch (\Exception $th){
                     DB::rollBack();
@@ -112,6 +117,23 @@ class TermController extends Controller
                         'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
                     ]);
                 }
+            }
+        }else{
+            try {
+                Term::where('id', $request->term_id)->update([
+                    'is_active' => $request->term_is_active
+                ]);
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'msg' => 'Term Status updated successfully'
+                ]);
+            }catch (\Exception $th){
+                DB::rollBack();
+                return response()->json([
+                    'status' => 201,
+                    'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+                ]);
             }
         }
     }
