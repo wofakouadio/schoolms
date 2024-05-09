@@ -1407,6 +1407,66 @@
             "time": "2024-04-14T10:49:22+00:00"
         },
         {
+            "name": "koenhendriks/laravel-str-acronym",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koenhendriks/laravel-str-acronym.git",
+                "reference": "b507d47a0164f7d0d2367b61fc597abef144797c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koenhendriks/laravel-str-acronym/zipball/b507d47a0164f7d0d2367b61fc597abef144797c",
+                "reference": "b507d47a0164f7d0d2367b61fc597abef144797c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.1",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KoenHendriks\\StrAcronym\\StrServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KoenHendriks\\StrAcronym\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Koen Hendriks",
+                    "email": "info@koenhendriks.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to be able to generate acronyms from strings in Laravel projects using the Str helper and supports the Stringable class.",
+            "homepage": "https://github.com/koenhendriks/laravel-str-acronym",
+            "keywords": [
+                "acronym",
+                "koenhendriks",
+                "laravel",
+                "laravel-str-acronym",
+                "str-acronym"
+            ],
+            "support": {
+                "issues": "https://github.com/koenhendriks/laravel-str-acronym/issues",
+                "source": "https://github.com/koenhendriks/laravel-str-acronym/tree/1.0.2"
+            },
+            "time": "2023-04-09T18:38:20+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v10.48.10",
             "source": {
@@ -4171,6 +4231,7 @@
         {
             "name": "sabberworm/php-css-parser",
             "version": "v8.5.1",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/PHP-CSS-Parser.git",
@@ -4236,15 +4297,81 @@
         {
             "name": "spatie/image",
             "version": "3.5.0",
+
             "source": {
                 "type": "git",
-                "url": "https://github.com/spatie/image.git",
-                "reference": "05166a6fae90b4c2ab57ff2d25d7f97a5e29f47b"
+                "url": "https://github.com/MyIntervals/PHP-CSS-Parser.git",
+                "reference": "4a3d572b0f8b28bb6fd016ae8bbfc445facef152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/05166a6fae90b4c2ab57ff2d25d7f97a5e29f47b",
-                "reference": "05166a6fae90b4c2ab57ff2d25d7f97a5e29f47b",
+                "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/4a3d572b0f8b28bb6fd016ae8bbfc445facef152",
+                "reference": "4a3d572b0f8b28bb6fd016ae8bbfc445facef152",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "php": ">=5.6.20"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7.27"
+            },
+            "suggest": {
+                "ext-mbstring": "for parsing UTF-8 CSS"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "9.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sabberworm\\CSS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                },
+                {
+                    "name": "Oliver Klee",
+                    "email": "github@oliverklee.de"
+                },
+                {
+                    "name": "Jake Hotson",
+                    "email": "jake.github@qzdesign.co.uk"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/MyIntervals/PHP-CSS-Parser/issues",
+                "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.5.1"
+            },
+            "time": "2024-02-15T16:41:13+00:00"
+        },
+        {
+            "name": "spatie/image",
+            "version": "3.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image.git",
+                "reference": "2e848dcf5c6780455d3d15a3e8f1dcec2571e06b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image/zipball/2e848dcf5c6780455d3d15a3e8f1dcec2571e06b",
+                "reference": "2e848dcf5c6780455d3d15a3e8f1dcec2571e06b",
                 "shasum": ""
             },
             "require": {
@@ -4291,7 +4418,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/image/tree/3.5.0"
+                "source": "https://github.com/spatie/image/tree/3.6.0"
             },
             "funding": [
                 {
@@ -4303,20 +4430,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-17T13:16:06+00:00"
+            "time": "2024-05-07T08:56:10+00:00"
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.7.3",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "d4f0d09c44700c78d1718cd40da404b1c800b935"
+                "reference": "ed39c7bfce7a2ecf676174a2d4286ab3a1c4f4f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/d4f0d09c44700c78d1718cd40da404b1c800b935",
-                "reference": "d4f0d09c44700c78d1718cd40da404b1c800b935",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/ed39c7bfce7a2ecf676174a2d4286ab3a1c4f4f7",
+                "reference": "ed39c7bfce7a2ecf676174a2d4286ab3a1c4f4f7",
                 "shasum": ""
             },
             "require": {
@@ -4356,22 +4483,22 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/image-optimizer/issues",
-                "source": "https://github.com/spatie/image-optimizer/tree/1.7.3"
+                "source": "https://github.com/spatie/image-optimizer/tree/1.7.4"
             },
-            "time": "2024-05-03T14:05:33+00:00"
+            "time": "2024-05-06T09:12:30+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "11.4.7",
+            "version": "11.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "85f5f8284f827b8f2b426943e357e3df117ad1f5"
+                "reference": "2c50eee8310a90b2210ff5e4907908333f38915c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/85f5f8284f827b8f2b426943e357e3df117ad1f5",
-                "reference": "85f5f8284f827b8f2b426943e357e3df117ad1f5",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/2c50eee8310a90b2210ff5e4907908333f38915c",
+                "reference": "2c50eee8310a90b2210ff5e4907908333f38915c",
                 "shasum": ""
             },
             "require": {
@@ -4454,7 +4581,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.4.7"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/11.4.8"
             },
             "funding": [
                 {
@@ -4466,7 +4593,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-24T13:42:14+00:00"
+            "time": "2024-05-06T09:16:55+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -9685,8 +9812,10 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^7.4|^8.0|^8.1|^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+
+    "plugin-api-version": "2.3.0"
+
 }
