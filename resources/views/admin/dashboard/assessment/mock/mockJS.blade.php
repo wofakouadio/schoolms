@@ -427,6 +427,7 @@
                                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')
                                 $("#insert-student-mock-modal .menu-alert").html('')
                                 $("#StudentMockDataTables").DataTable().draw()
+                                window.location.reload()
                             }
                         })
                     }
