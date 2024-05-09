@@ -85,7 +85,7 @@
                     </form>
                 </div>
                 <div class="col-xl-8">
-                    <div class="card">
+                    <div class="card" style="height: auto">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
                                data-bs-target="#new-term-modal">

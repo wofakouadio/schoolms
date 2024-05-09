@@ -136,6 +136,28 @@
                     modal.find('input[name=term_opening_date]').val(Response['term_opening_date'])
                     modal.find('input[name=term_closing_date]').val(Response['term_closing_date'])
                     modal.find('select[name=term_academic_year]').val(Response['term_academic_year'])
+                }
+            })
+        })
+
+        //edit term status
+        $("#edit-term-status-modal").on("show.bs.modal", (event)=>{
+            let str = $(event.relatedTarget)
+            let term_id = str.data('id')
+            let modal = $("#edit-term-status-modal")
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{route('edit-term')}}',
+                method:'GET',
+                cache:false,
+                data:{term_id : term_id},
+                success:(Response)=>{
+                    modal.find('input[name=term_id]').val(term_id)
+                    modal.find('input[name=term_name]').val(Response['term_name'])
                     modal.find('select[name=term_is_active]').val(Response['is_active'])
                 }
             })
@@ -189,6 +211,62 @@
 
                     $.each( Response.responseJSON.errors, function( key, value ) {
                         $('#update-term-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
+                }
+            })
+        })
+
+        //update term
+        $("#update-term-status-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let form_data = $("#update-term-status-form").serialize()
+            $.ajax({
+                url:'{{route('update-term-status')}}',
+                method:'POST',
+                cache:false,
+                data: form_data,
+                success:(Response)=>{
+                    // console.log(Response)
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        $("#update-term-status-form .menu-alert").removeClass('alert-warning')
+                        $("#update-term-status-form .menu-alert").show().addClass('alert-danger').html(DecodedResults
+                            .msg)
+                    }else{
+                        $("#update-term-status-form .menu-alert").removeClass('alert-danger')
+                        $("#update-term-status-form .menu-alert").removeClass('alert-warning')
+
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                $("#edit-term-status-modal").modal('hide')
+                                $("#update-term-status-form .menu-alert").removeClass('alert-danger')
+                                $("#update-term-status-form .menu-alert").removeClass('alert-warning')
+                                $("#update-term-status-form .menu-alert").html('')
+                                $("#TermsDataTables").DataTable().draw()
+                                window.location.reload()
+                            }
+                        })
+                    }
+                },
+                error:(Response)=>{
+
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#update-term-status-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
                             .append
                             ('<li>'+value+'</li>');
                     });

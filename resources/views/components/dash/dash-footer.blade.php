@@ -85,6 +85,7 @@ function JobickCarousel()
 </script>
 
 {{-- custom scripts --}}
+@include('custom-functions/SchoolDataJS')
 @stack('page-js')
 @stack('datatable')
 

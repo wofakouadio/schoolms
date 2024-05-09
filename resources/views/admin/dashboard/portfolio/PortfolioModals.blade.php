@@ -105,6 +105,39 @@
                             @endphp
                         </select>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{--Edit Term Status--}}
+<div class="modal fade" id="edit-term-status-modal">
+    <form method="post" id="update-term-status-form">
+        @csrf
+        @method('PUT')
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Term Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="form-group">
+                        <label  class="form-label font-w600">Term<span class="text-danger scale5
+                            ms-2">*</span></label>
+                        <input type="text" class="form-control solid" aria-label="name" name="term_name"
+                               value="{{old('term_name')}}">
+                        <input type="hidden" name="term_id">
+                    </div>
                     <div class="form-group">
                         <label  class="form-label font-w600">Status</label>
                         <select class="form-control" name="term_is_active">
