@@ -7,6 +7,7 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use function App\Helpers\TermAndAcademicYear;
 
 class SchoolController extends Controller
@@ -73,4 +74,16 @@ class SchoolController extends Controller
             ]);
         }
     }
+
+    public function school_data(){
+        $data = School::where('id', Auth::guard('admin')->user()->school_id)->first();
+        $data->getMedia("school_logo")->first();
+        $acronym = Str::of($data->school_name)->headline()->acronym();
+        $result = [
+            'school_data' => $data,
+            'acronym' => $acronym
+        ];
+        return response()->json($result);
+    }
+
 }
