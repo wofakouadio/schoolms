@@ -45,7 +45,7 @@
                             confirmButtonText: 'Close',
                         }).then((result) => {
                             if (result) {
-                                // window.location.reload()
+                                window.location.reload()
                                 $("#new-student-admission-modal").modal('hide')
                                 $("#new-student-admission-modal .menu-alert").removeClass('alert-danger')
                                 $("#new-student-admission-modal .menu-alert").removeClass('alert-warning')
