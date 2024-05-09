@@ -16,7 +16,7 @@ class MockDatatable extends Controller
 {
     public function __invoke()
     {
-        $data = Mock::where('school_id', Auth::guard('admin')->user()->school_id);
+        $data = Mock::where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
 
         return DataTables::of($data)
 

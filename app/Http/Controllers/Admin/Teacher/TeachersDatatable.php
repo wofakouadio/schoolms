@@ -11,7 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 class TeachersDatatable extends Controller
 {
     public function __invoke(){
-        $data = Teacher::where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = Teacher::where('school_id',[Auth::guard('admin')->user()->school_id])->orderBy('created_at', 'DESC');
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){

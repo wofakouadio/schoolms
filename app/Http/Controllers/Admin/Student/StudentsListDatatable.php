@@ -10,8 +10,11 @@ use Yajra\DataTables\Facades\DataTables;
 class StudentsListDatatable extends Controller
 {
     public function __invoke(){
-        $data = StudentsAdmissions::with('level')->where('school_id',[Auth::guard('admin')->user()
-            ->school_id])->where('admission_status', '=', 1);
+        $data = StudentsAdmissions::with('level')
+            ->where('school_id',[Auth::guard('admin')->user()
+            ->school_id])
+            ->where('admission_status', '=', 1)
+            ->orderBy('created_at', 'DESC');
 //        dd($data);
         return DataTables::of($data)
             ->addColumn('serial_number', function ($row){

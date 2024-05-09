@@ -16,7 +16,7 @@ class LevelsDatatable extends Controller
     public function __invoke()
     {
         $data = Level::with('branch')->where('school_id', [Auth::guard('admin')->user()
-            ->school_id]);
+            ->school_id])->orderBy('created_at', 'DESC');
 
         return DataTables::of($data)
             ->addColumn('name', function ($row) {

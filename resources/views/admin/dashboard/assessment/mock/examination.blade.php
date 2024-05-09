@@ -30,7 +30,7 @@
                                 </span> New Student Mock
                             </a>
 
-                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                            <a class="btn btn-rounded btn-light disabled" data-bs-toggle="modal"
                                data-bs-target="#new-student-mock-with-bulk-upload-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>

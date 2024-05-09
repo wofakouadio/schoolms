@@ -43,28 +43,28 @@
             })
         })
 
-        {{--$("#DownloadMockReport").on("click", ()=>{--}}
-        {{--    // e.preventDefault()--}}
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--    $.ajax({--}}
-        {{--        --}}{{--url:'{{route('download_mock_report')}}',--}}
-        {{--        method:'GET',--}}
-        {{--        cache: false,--}}
-        {{--        data: {--}}
-        {{--            mock_id: $("#mock_report_form select[name=mock]").val(),--}}
-        {{--            level_id: $("#mock_report_form select[name=level]").val(),--}}
-        {{--            student_id: $("#mock_report_form select[name=student]").val(),--}}
-        {{--        },--}}
-        {{--        success:(Response)=>{--}}
-        {{--            console.log(Response)--}}
-        {{--            // $("#mock_report_display").html(Response)--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--})--}}
+        $("#DownloadMockReport").on("click", ()=>{
+            // e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{route('download_mock_report')}}',
+                method:'GET',
+                cache: false,
+                data: {
+                    mock_id: $("#mock_report_form select[name=mock]").val(),
+                    level_id: $("#mock_report_form select[name=level]").val(),
+                    student_id: $("#mock_report_form select[name=student]").val(),
+                },
+                success:(Response)=>{
+                    console.log(Response)
+                    // $("#mock_report_display").html(Response)
+                }
+            })
+        })
 
     })
 </script>

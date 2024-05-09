@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 class TermsDatatable extends Controller
 {
     public function __invoke(){
-        $data = Term::where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = Term::where('school_id',[Auth::guard('admin')->user()->school_id])->orderBy('created_at', 'DESC');
 
         return DataTables::of($data)
             ->addColumn('name', function ($row){

@@ -11,7 +11,8 @@ class SubjectDatatable extends Controller
 {
     public function __invoke()
     {
-        $data = Subject::where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = Subject::where('school_id',[Auth::guard('admin')->user()->school_id])
+            ->orderBy('created_at', 'DESC');
 //                ->where('description', '!=', '');
         return DataTables::of($data)
             ->addColumn('name', function ($row) {

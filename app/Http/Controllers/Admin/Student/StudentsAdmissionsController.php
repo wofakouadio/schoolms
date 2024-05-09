@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
+use App\DataTables\StudentAdmissionDataTable;
 use App\Http\Controllers\Controller;
 use App\Imports\StudentsAdmissionsImport;
 use App\Models\Student;
@@ -18,8 +19,9 @@ use function App\Helpers\TermAndAcademicYear;
 class StudentsAdmissionsController extends Controller
 {
     //index
-    public function index(){
+    public function index(StudentAdmissionDataTable $dataTable){
         $schoolTerm = TermAndAcademicYear();
+
         return view('admin.dashboard.student.admissions', compact('schoolTerm'));
     }
 

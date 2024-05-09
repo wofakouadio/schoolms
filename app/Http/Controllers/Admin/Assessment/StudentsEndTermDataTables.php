@@ -16,7 +16,7 @@ class StudentsEndTermDataTables extends Controller
             ->with('student')
             ->with('branch')
             ->with('term')
-            ->where('school_id', Auth::guard('admin')->user()->school_id);
+            ->where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
 //            ->where('term.id', '=', 'studentMock.term_id')
 //            ->where;
 //        dd($data);

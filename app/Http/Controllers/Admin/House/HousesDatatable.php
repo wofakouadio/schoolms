@@ -15,7 +15,7 @@ class HousesDatatable extends Controller
 
         $data = House::with('school', 'branch')
             ->where('house_type', '!=', 'N/A')
-            ->where('houses.school_id', [Auth::guard('admin')->user()->school_id]);
+            ->where('houses.school_id', [Auth::guard('admin')->user()->school_id])->orderBy('created_at', 'DESC');
         // $data = DB::select('select h.id, h.house_name, h.house_type, b.branch_name, h.is_active FROM houses h JOIN branches b ON b.school_id = h.school_id AND b.id = h.branch_id WHERE h.school_id = ?', [Auth::guard('admin')->user()->school_id]);
         // dd($data->get());
         return DataTables::of($data)

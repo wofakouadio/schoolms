@@ -37,6 +37,7 @@
 {{--                            </a>--}}
                         </div>
                         <div class="card-body">
+
                             <div class="table-responsive">
                                 <table id="StudentsListDatatables" class="display" style="min-width: 845px">
                                     <thead>
