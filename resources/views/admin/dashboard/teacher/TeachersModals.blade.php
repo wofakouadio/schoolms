@@ -183,7 +183,7 @@
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                name="teacher_present_school" value="{{ old('teacher_present_school') }}">
+                                name="teacher_present_school" readonly>
                         </div>
                         <div class="col-xl-4 mb-4">
                             <label class="form-label font-w600">Academic Qualification<span
@@ -202,9 +202,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Professional Qualification<span
-                                    class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label class="form-label font-w600">Professional Qualification
+                                <span class="text-danger scale5 ms-2">*</span></label>
                             <select class="form-control" name="teacher_professional">
                                 <option value="">Choose</option>
                                 <option value="3-Year P/S">3-Year P/S</option>
@@ -216,7 +215,8 @@
                             </select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label class="form-label font-w600">Present Rank<span
+                            <label class="form-label font-w600">Present Rank
+                                <span
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control" name="teacher_rank">
@@ -498,7 +498,7 @@
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" aria-label="name"
-                                name="teacher_present_school" value="{{ old('teacher_present_school') }}">
+                                name="teacher_present_school" value="{{ old('teacher_present_school') }}" readonly>
                         </div>
                         <div class="col-xl-4 mb-4">
                             <label class="form-label font-w600">Academic Qualification<span
