@@ -56,6 +56,7 @@ class TermsDatatable extends Controller
                             </button>
                             <div class="dropdown-menu" style="">
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-term-modal" data-id="'.$term_id.'">Edit Term</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-term-status-modal" data-id="'.$term_id.'">Edit Term Status</a>
                                 <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete-term-modal" data-id="'.$term_id.'">Delete Term</a>
                             </div>
                         </div>
