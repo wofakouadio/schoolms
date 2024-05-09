@@ -126,11 +126,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**School**/
     Route::get('/admin/school', [SchoolController::class, 'index'])->name('admin_school');
+    Route::get('/school_data', [SchoolController::class, 'school_data'])->name('school_data');
     Route::put('/admin/school/update', [SchoolController::class, 'update'])->name('admin_school_update');
     /**School Term**/
     Route::post('/admin/school/term/store', [TermController::class, 'store'])->name('new-term');
     Route::get('/admin/school/term/edit', [TermController::class, 'edit'])->name('edit-term');
     Route::put('/admin/school/term/update', [TermController::class, 'update'])->name('update-term');
+    Route::put('/admin/school/term/update-status', [TermController::class, 'update_status'])->name('update-term-status');
     Route::delete('/admin/school/term/delete', [TermController::class, 'delete'])->name('delete-term');
     Route::get('/termsTable', 'App\Http\Controllers\Admin\School\TermsDatatable')->name
     ('termsTables');
@@ -266,6 +268,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
         /**Mock**/
     Route::get("/admin/report/mock", [MockReportController::class, 'index'])->name("admin_student_mock_report");
     Route::get("/get-mock-report", [MockReportController::class, 'get_mock_report'])->name('get_mock_report');
+//    Route::get('/download_mock_report', [MockReportController::class, 'download_mock_report'])->name('download_mock_report');
 
         /**Mid-Term**/
     Route::get("/admin/report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
