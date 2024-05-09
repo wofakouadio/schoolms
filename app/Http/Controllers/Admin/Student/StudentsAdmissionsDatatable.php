@@ -10,7 +10,9 @@ use Yajra\DataTables\Facades\DataTables;
 class StudentsAdmissionsDatatable extends Controller
 {
     public function __invoke(){
-        $data = StudentsAdmissions::with('level')->where('school_id',[Auth::guard('admin')->user()->school_id]);
+        $data = StudentsAdmissions::with('level')
+            ->where('school_id',[Auth::guard('admin')->user()->school_id])
+            ->latest();
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){

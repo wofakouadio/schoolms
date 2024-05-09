@@ -2,6 +2,12 @@
     $(document).ready(()=>{
         // $.noConflict();
         $("#StudentsAdmissionsDatatables").DataTable({
+            searching: true,
+            paging: true,
+            lengthChange: true,
+            autoWidth: true,
+            stateSave: true,
+            ordering: true,
             language: {
                 paginate: {
                     next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -19,20 +25,15 @@
                 url:"{{route('studentsAdmissionsTables')}}",
             },
             columns: [
-                {data: 'profile', name: 'profile', },
-                {data: 'name', name: 'name'},
-                {data: 'dob', name: 'dob'},
-                {data: 'gender', name: 'gender'},
-                {data: 'level', name: 'level'},
-                {data: 'residency', name: 'residency'},
-                {data: 'admission_status', name: 'admission_status'},
-                {data: 'action', name: 'action'},
-            ],
-            searching: true,
-            paging: true,
-            lengthChange: true,
-            autoWidth: true,
-            aoStateSave: true
+                {data: 'profile', name: 'profile',  orderable: false, searchable: false},
+                {data: 'name', name: 'name',  orderable: true, searchable: true},
+                {data: 'dob', name: 'dob',  orderable: true, searchable: true},
+                {data: 'gender', name: 'gender',  orderable: true, searchable: true},
+                {data: 'level', name: 'level',  orderable: true, searchable: true},
+                {data: 'residency', name: 'residency',  orderable: true, searchable: true},
+                {data: 'admission_status', name: 'admission_status', orderable: false, searchable: false},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
             // stateSave: true
         })
     })
