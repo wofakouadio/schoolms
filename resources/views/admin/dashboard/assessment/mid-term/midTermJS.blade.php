@@ -114,6 +114,7 @@
                                 $("#insert-student-mid-term-modal .menu-alert").removeClass('alert-warning')
                                 $("#insert-student-mid-term-modal .menu-alert").html('')
                                 $("#StudentsMidTermDataTables").DataTable().draw()
+                                window.location.reload()
                             }
                         })
                     }
