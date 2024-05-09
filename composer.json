@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.2",
+        "koenhendriks/laravel-str-acronym": "^1.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
