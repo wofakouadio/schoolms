@@ -43,11 +43,11 @@ class StudentsAdmissionsDatatable extends Controller
             })
             ->addColumn('admission_status', function($row){
 //                $department_status =;
-                if( $row->admission_status === 0 ){
+                if( $row->admission_status == 0 ){
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-warning text-uppercase">pending</span>
                            </div>';
-                }elseif( $row->admission_status === 1 ){
+                }elseif( $row->admission_status == 1 ){
                     return '<div class="bootstrap-badge">
                                 <span class="badge badge-xl light badge-success text-uppercase">admitted</span>
                            </div>';
