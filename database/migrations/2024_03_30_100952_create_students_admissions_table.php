@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('student_guardian_name')->nullable();
             $table->string('student_guardian_contact')->nullable();
             $table->string('student_guardian_email')->nullable();
+            $table->string('student_guardian_address')->nullable();
             $table->string('student_guardian_occupation')->nullable();
             $table->string('student_password')->nullable();
             $table->string('admission_status')->default(0);

@@ -32,7 +32,7 @@ class TeacherController extends Controller
             'teacher_address' => 'required',
             'teacher_email' => 'required|lowercase|unique:' . Teacher::class,
             'teacher_contact' => 'required|digits:10|unique:' . Teacher::class,
-            'teacher_school_attended' => 'required',
+            'teacher_school_attended' => 'string',
             'teacher_admission_year' => 'required',
             'teacher_completion_year' => 'required',
             'teacher_country' => 'required',
