@@ -51,6 +51,10 @@ class StudentsAdmissions extends Model implements HasMedia
         return $this->hasOne(Level::class, 'id','student_level');
     }
 
+    public function teacher_level(){
+        return $this->hasMany(Level::class, 'id','student_level');
+    }
+
     public function house(){
         return $this->hasOne(House::class, 'id','student_house');
     }

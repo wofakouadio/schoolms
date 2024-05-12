@@ -1,40 +1,51 @@
 <?php
-
+namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 //use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Assessment\EndOfTermController;
 use App\Http\Controllers\Admin\Assessment\MidTermController;
+use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
 use App\Http\Controllers\Admin\Assessment\StudentMockController;
+use App\Http\Controllers\Admin\Branch\BranchController;
+use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\CustomJSController;
+use App\Http\Controllers\Admin\Departments\DepartmentsController;
+use App\Http\Controllers\Admin\Finance\BillsController;
+use App\Http\Controllers\Admin\Finance\FinanceController;
+use App\Http\Controllers\Admin\House\HouseController;
+use App\Http\Controllers\Admin\Level\LevelController;
+use App\Http\Controllers\Admin\Permission\AccountPermissionController;
 use App\Http\Controllers\Admin\Report\Attendance\AttendanceReportController;
 use App\Http\Controllers\Admin\Report\EndTerm\EndTermReportController;
 use App\Http\Controllers\Admin\Report\MidTerm\MidTermReportController;
 use App\Http\Controllers\Admin\Report\Mock\MockReportController;
-use App\Http\Controllers\Admin\Subjects\SubjectsController;
-use Illuminate\Support\Facades\Route;
-
-
-
-use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
-use App\Http\Controllers\Admin\CustomJSController;
-use App\Http\Controllers\Admin\Departments\AssignLevelToDepartmentController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OnBoardingController;
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\House\HouseController;
-use App\Http\Controllers\Admin\Level\LevelController;
-use App\Http\Controllers\Admin\School\TermController;
-use App\Http\Controllers\Admin\Branch\BranchController;
-use App\Http\Controllers\Admin\Finance\BillsController;
 use App\Http\Controllers\Admin\School\SchoolController;
-use App\Http\Controllers\Admin\Finance\FinanceController;
+use App\Http\Controllers\Admin\School\TermController;
 use App\Http\Controllers\Admin\Student\StudentController;
-use App\Http\Controllers\Admin\Teacher\TeacherController;
-use App\Http\Controllers\Admin\Subjects\SubjectController;
-use App\Http\Controllers\Admin\Category\CategoryController;
-use App\Http\Controllers\Admin\Admission\AdmissionController;
-use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
 use App\Http\Controllers\Admin\Subjects\AssignSubjectToLevel\AssignSubjectToLevelController;
+use App\Http\Controllers\Admin\Subjects\SubjectController;
+use App\Http\Controllers\Admin\Subjects\SubjectsController;
+use App\Http\Controllers\Admin\Teacher\TeacherController;
+use App\Http\Controllers\OnBoardingController;
+
+
+use App\Http\Controllers\Teacher\EndTerm\TeacherEndTermReportController;
+use App\Http\Controllers\Teacher\MidTerm\TeacherMidTermReportController;
+use App\Http\Controllers\Teacher\Mock\TeacherMockReportController;
+use App\Http\Controllers\Teacher\TeacherAuthController;
+use App\Http\Controllers\Teacher\Profile\TeacherProfileController;
+use App\Http\Controllers\Teacher\TeacherUserController;
+use App\Http\Controllers\Teacher\Level\TeacherLevelController;
+use App\Http\Controllers\Teacher\Mock\TeacherMockController;
+use App\Http\Controllers\Teacher\MidTerm\TeacherMidTermController;
+use App\Http\Controllers\Teacher\EndTerm\TeacherEndOfTermController;
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -88,20 +99,6 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Custom JS Controller**/
     Route::get('/getLevelsByDepartmentBranchSchoolId', [CustomJSController::class, 'getLevelsByDepartmentBranchSchoolId'])->name('getLevelsByDepartmentBranchSchoolId');
     Route::get('/getSubjectsByLevelDepartmentBranchSchoolId', [CustomJSController::class, 'getSubjectsByLevelDepartmentBranchSchoolId'])->name('getSubjectsByLevelDepartmentBranchSchoolId');
-
-    /**Assign Department to Level**/
-//    Route::get('/admin/assign/assign-department-to-level', [AssignLevelToDepartmentController::class, 'index'])->name
-//    ('admin_assign_department_level');
-//    Route::post('/admin/assign/new-assign-department-to-level', [AssignLevelToDepartmentController::class, 'store'])
-//        ->name('new-assign-department-to-level');
-//    Route::get('/admin/assign/edit-assign-department-to-level', [AssignLevelToDepartmentController::class, 'edit'])
-//        ->name('edit-assign-department-to-level');
-//    Route::put('/admin/assign/update-assign-department-to-level', [AssignLevelToDepartmentController::class, 'update'])
-//        ->name('update-assign-department-to-level');
-//    Route::delete('/admin/assign/delete-assign-department-to-level', [AssignLevelToDepartmentController::class, 'delete'])
-//        ->name('delete-assign-department-to-level');
-//    Route::get('/assignDepartmentToLevelTables', 'App\Http\Controllers\Admin\Departments\AssignDepartmentToLevelDataTable')->name('assignDepartmentToLevelTables');
-
     /** Teacher **/
     Route::get('/admin/teacher', [TeacherController::class, 'index'])->name('admin_teacher');
     Route::post('/teacher/store', [TeacherController::class, 'store'])->name('new-teacher');
@@ -110,6 +107,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/teacher/delete', [TeacherController::class, 'delete'])->name('delete-teacher');
     Route::get('/teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
     ('teachersTables');
+    /**Assign level to teacher**/
+    Route::get('/admin/teacher/assign-levels-to-teacher', [TeacherController::class, 'assignLevelsToTeacherIndex'])
+        ->name('assign-levels-to-teacher');
+    /**Assign Subjects to Teacher**/
+    Route::get('/getTeachersBySchool', [TeacherController::class, 'getTeachersBySchool'])->name('getTeachersBySchool');
+    Route::post('/assign-subjects-to-teacher', [TeacherController::class, 'assign_subjects_to_teacher'])->name('assign-subjects-to-teacher');
 
      /** Subject **/
      Route::get('/admin/subject', [SubjectController::class, 'index'])->name('admin_subject');
@@ -120,7 +123,6 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
      Route::get('/subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name
      ('subjectsTables');
      Route::get('/getSubjectInCheckboxBySchoolId', [SubjectController::class, 'getSubjectInCheckboxBySchoolId'])->name('getSubjectInCheckboxBySchoolId');
-
 
      Route::get("/assignSubjectToLevel/create", [AssignSubjectToLevelController::class, 'create'])->name('assign-subject-to-level');
 
@@ -258,6 +260,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('/delete-subject', [SubjectsController::class, 'delete'])->name('delete_subject');
     Route::get('/getSubjectsInCheckboxes', [SubjectsController::class, 'get_subjects_in_checkboxes'])->name('get_subjects_in_checkboxes');
     Route::get('/subjects_datatables', 'App\Http\Controllers\Admin\Subjects\SubjectDatatable')->name('subjects_datatables');
+    Route::get("/getSubjectsByLevel", [SubjectsController::class, 'getSubjectsByLevel'])->name('get_subjects_by_level');
 
     /**Reports**/
         /**Attendance**/
@@ -267,8 +270,8 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
         /**Mock**/
     Route::get("/admin/report/mock", [MockReportController::class, 'index'])->name("admin_student_mock_report");
-    Route::get("/get-mock-report", [MockReportController::class, 'get_mock_report'])->name('get_mock_report');
-//    Route::get('/download_mock_report', [MockReportController::class, 'download_mock_report'])->name('download_mock_report');
+//    Route::get("/get-mock-report", [MockReportController::class, 'get_mock_report'])->name('get_mock_report');
+    Route::post('/download_mock_report', [MockReportController::class, 'download_mock_report'])->name('download_mock_report');
 
         /**Mid-Term**/
     Route::get("/admin/report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
@@ -277,5 +280,64 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
         /**End 0f Term**/
     Route::get("/admin/report/end-of-term", [EndTermReportController::class, 'index'])->name("admin_student_end_term_report");
     Route::get("/get-end-of-term-report", [EndTermReportController::class, 'get_end_of_term_report'])->name("get_end_of_term_report");
+
+    /**Account Permission**/
+    Route::get('/admin/users/permission', [AccountPermissionController::class,
+    'index'])->name('admin_user_account_permission');
+    Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
+
+});
+
+
+//Teacher login page
+Route::get('teacher/auth/', [TeacherAuthController::class, 'teacher_login'])->name('teacher_login');
+Route::get('/teacher/auth/forgot-password', [TeacherAuthController::class, 'forgot_password'])->name('teacher_forgot_password');
+Route::post('/teacher/auth/login', [TeacherAuthController::class, 'teacher_authentication'])->name('teacher_authentication');
+
+//Teacher User Controller
+Route::middleware(['auth' => 'teacher'])->controller(TeacherUserController::class)->group(function (){
+    Route::get('/teacher/dashboard', 'index')->name('teacher_dashboard');
+    Route::get('/getActiveTermBySchoolID', 'getActiveTermBySchoolID')->name('getTeacherActiveTermBySchoolID');
+    Route::get('/getTermsBySchoolId',  'getTermsBySchoolId')->name('getTeacherTermsBySchoolId');
+    Route::get('/teacher/logout', [TeacherAuthController::class, 'teacher_logout'])->name('teacher_logout');
+
+    /**Profile**/
+    Route::get('/teacher/profile', [TeacherProfileController::class, 'index'])->name('teacher_profile');
+    Route::get('/teacher/school_data', [TeacherProfileController::class, 'school_data'])->name('teacher_school_data');
+
+    /**Levels/Classes**/
+    Route::get('/teacher/levels', [TeacherLevelController::class, 'index'])->name('teacher_levels');
+    Route::get('/getLevelsBySchoolId', [TeacherLevelController::class, 'getLevelsBySchoolId'])->name('getTeacherLevelsBySchoolId');
+
+    /**Mock Assessment**/
+    Route::get('/teacher/assessment/mock', [TeacherMockController::class, 'index'])->name('teacher_mock_assessment');
+    Route::get('/getMocksInSelectBasedOnSchool', [TeacherMockController::class, 'getMocksInSelectBasedOnSchool'])->name('getTeacherMocksInSelectBasedOnSchool');
+    Route::get('/getStudentsBasedOnLevel', [TeacherMockController::class, 'getStudentsBasedOnLevel'])->name('getTeacherStudentsBasedOnLevel');
+    Route::get('/get-student-to-mock', [TeacherMockController::class, 'create'])->name('get-teacher-student-to-mock');
+    Route::post('/new-student-mock-entry', [TeacherMockController::class, 'store'])->name('new-teacher-student-mock-entry');
+
+    /**MidTerm Assessment**/
+    Route::get('/teacher/assessment/mid-term', [TeacherMidTermController::class, 'index'])->name('teacher_mid_term_assessment');
+    Route::get("/teacher/student/mid-term/create", [TeacherMidTermController::class, 'create'])->name('get-teacher-student-to-mid-term');
+    Route::post("/new-student-mid-term-entry", [TeacherMidTermController::class, 'store'])->name("new-teacher-student-mid-term-entry");
+
+    /**End of Term Assessment**/
+    Route::get("/teacher/assessment/end-of-term", [TeacherEndOfTermController::class, 'index'])->name("teacher_end_term_assessment");
+    Route::get("/get-student-to-end-term", [TeacherEndOfTermController::class, 'create'])->name("get-teacher-student-to-end-term");
+    Route::post("/new-student-end-term-entry", [TeacherEndOfTermController::class, 'store'])->name("new-teacher-student-end-term-entry");
+
+    /**Mock Report**/
+    Route::get('/teacher/report/mock', [TeacherMockReportController::class, 'index'])->name("teacher_mock_report");
+    Route::get("/teacher/report/mock/student", [TeacherMockReportController::class, 'get_mock_report'])->name('get_teacher_mock_report');
+
+    /**MidTerm Report**/
+    Route::get('/teacher/report/mid-term', [TeacherMidTermReportController::class, 'index'])->name('teacher_mid_term_report');
+    Route::get('/teacher/report/mid-term/student', [TeacherMidTermReportController::class, 'get_mid_term_report'])->name
+    ('get_teacher_mid_term_report');
+
+    /**End of Term Report**/
+    Route::get('/teacher/report/end-of-term', [TeacherEndTermReportController::class, 'index'])->name('teacher_end_of_term_report');
+    Route::get('/teacher/report/end-of-term/student', [TeacherEndTermReportController::class, 'get_end_of_term_report'])
+        ->name('teacher_get_end_of_term_report');
 
 });

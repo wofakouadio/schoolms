@@ -649,3 +649,55 @@
         </div>
     </form>
 </div>
+
+
+{{--Assign Levels/Classes to Teacher--}}
+<div class="modal fade" id="new-assign-level-teacher-modal">
+    <form method="post" id="new-assign-level-teacher-form" action="{{route('assign-subjects-to-teacher')}}">
+        @csrf
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Levels/Classes to Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 mb-4">
+                            <label class="form-label font-w600">Teacher<span
+                                    class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control" name="teacher">
+                                <option value="">Choose</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label class="form-label font-w600">Level<span
+                                    class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control" name="level"></select>
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label class="form-label font-w600">Subject<span
+                                    class="text-danger scale5
+                            ms-2">*</span></label>
+                            <div class="row teacherSubjects"></div>
+{{--                            <select class="form-control" name="subject">--}}
+{{--                                <option value="">Choose</option>--}}
+{{--                                <option value="All">All Subjects</option>--}}
+{{--                            </select>--}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

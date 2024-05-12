@@ -24,7 +24,7 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
-                            <form method="get" id="mock_report_form">
+                            <form method="post" id="mock_report_form" action="{{route('download_mock_report')}}">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label>Mock Type</label>

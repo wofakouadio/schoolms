@@ -7,7 +7,11 @@
                 }
             });
             $.ajax({
+            @if(Auth::guard('admin')->check())
                 url: '{{route('school_data')}}',
+            @elseif(Auth::guard('teacher')->check())
+                url: '{{route('teacher_school_data')}}',
+            @endif
                 method: 'GET',
                 cache: false,
                 success: (Response)=>{
