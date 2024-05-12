@@ -1,7 +1,8 @@
 <div class="dlabnav">
     <div class="dlabnav-scroll">
         <x-dash.dash-user-info/>
-        <ul class="metismenu" id="menu">
+        @if(Auth::guard('admin')->check())
+            <ul class="metismenu" id="menu">
             <li>
                 <a href="{{route('admin_dashboard')}}">
                     <i class="flaticon-025-dashboard"></i>
@@ -24,11 +25,22 @@
                     <span class="nav-text">Subject</span>
                 </a>
             </li>
+{{--            <li>--}}
+{{--                <a href="{{route('admin_teacher')}}">--}}
+{{--                    <i class="flaticon-381-user-9"></i>--}}
+{{--                    <span class="nav-text">Teachers</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
             <li>
-                <a href="{{route('admin_teacher')}}">
+                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-user-9"></i>
                     <span class="nav-text">Teachers</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{route('admin_teacher')}}">List</a></li>
+                    <li><a href="{{route('assign-levels-to-teacher')}}">Assign Class/Level to Teacher</a></li>
+
+                </ul>
             </li>
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -107,19 +119,6 @@
 
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-
-                    <i class="flaticon-381-user-4"></i>
-                    <span class="nav-text">Users</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="javascript:void()">Add New</a></li>
-                    <li><a href="#">View Users</a></li>
-                    <li><a href="#">Account Settings</a></li>
-                    <li><a href="#">Activity Log</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-settings-5"></i>
                     <span class="nav-text">Portfolio</span>
                 </a>
@@ -131,16 +130,27 @@
                     <li><a href="{{route('admin_school_category')}}">Categories</a></li>
                 </ul>
             </li>
+
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-book"></i>
-                    <span class="nav-text">Permissions</span>
+
+                    <i class="flaticon-381-user-4"></i>
+                    <span class="nav-text">Users</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="javascript:void()">Add New</a></li>
-                    <li><a href="#">View Users</a></li>
+                    <li><a href="{{route('admin_user_account_permission')}}">View Users</a></li>
                 </ul>
             </li>
+{{--            <li>--}}
+{{--                <a class="has-arrow " href="javascript:void()" aria-expanded="false">--}}
+{{--                    <i class="flaticon-381-book"></i>--}}
+{{--                    <span class="nav-text">Permissions</span>--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false">--}}
+{{--                    <li><a href="javascript:void()">Add New</a></li>--}}
+{{--                    <li><a href="#">View Users</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
             <!-- <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-093-waving"></i>
                     <span class="nav-text">Jobs</span>
@@ -295,5 +305,81 @@
                 </ul>
             </li> -->
         </ul>
+        @elseif(Auth::guard('teacher')->check())
+            <ul class="metismenu" id="menu">
+                <li>
+                    <a href="{{route('teacher_dashboard')}}">
+                        <i class="flaticon-025-dashboard"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-381-settings-5"></i>
+                        <span class="nav-text">Profile</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="{{route('teacher_profile')}}">View</a></li>
+{{--                        <li><a href="{{route('admin_school_branch')}}">Branches</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_level')}}">Levels</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_house')}}">Houses</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_category')}}">Categories</a></li>--}}
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{route('teacher_levels')}}">
+                        <i class="flaticon-381-user-5"></i>
+                        <span class="nav-text">My Levels/Classes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-381-album-3"></i>
+                        <span class="nav-text">Assessment</span>
+                    </a>
+                    <ul aria-expanded="false">
+{{--                        <li><a href="{{route('admin_student_attendance')}}">Attendance</a></li>--}}
+                        <li><a href="{{route('teacher_mock_assessment')}}">Mock</a></li>
+                        <li><a href="{{route('teacher_mid_term_assessment')}}">Mid-Term</a></li>
+                        <li><a href="{{route('teacher_end_term_assessment')}}">End of Term</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-381-folder-19"></i>
+                        <span class="nav-text">Reports</span>
+                    </a>
+                    <ul aria-expanded="false">
+{{--                        <li><a href="{{route('admin_student_attendance_report')}}">Attendance</a></li>--}}
+                        <li><a href="{{route('teacher_mock_report')}}">Mock</a></li>
+                        <li><a href="{{route('teacher_mid_term_report')}}">Mid-Term</a></li>
+                        <li><a href="{{route('teacher_end_of_term_report')}}">End of Term</a></li>
+                    </ul>
+                </li>
+{{--                <li>--}}
+{{--                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">--}}
+{{--                        <i class="flaticon-381-settings-5"></i>--}}
+{{--                        <span class="nav-text">Portfolio</span>--}}
+{{--                    </a>--}}
+{{--                    <ul aria-expanded="false">--}}
+{{--                        <li><a href="{{route('admin_school')}}">Main</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_branch')}}">Branches</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_level')}}">Levels</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_house')}}">Houses</a></li>--}}
+{{--                        <li><a href="{{route('admin_school_category')}}">Categories</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+{{--                <li>--}}
+{{--                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">--}}
+
+{{--                        <i class="flaticon-381-user-4"></i>--}}
+{{--                        <span class="nav-text">Users</span>--}}
+{{--                    </a>--}}
+{{--                    <ul aria-expanded="false">--}}
+{{--                        <li><a href="{{route('admin_user_account_permission')}}">View Users</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+            </ul>
+        @endauth
     </div>
 </div>

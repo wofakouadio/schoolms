@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Models\Teacher;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 use function App\Helpers\TermAndAcademicYear;
+
+
 
 class TeacherController extends Controller
 {
@@ -218,5 +223,64 @@ class TeacherController extends Controller
                 'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
             ]);
         }
+    }
+
+    //assign level to teacher index
+    public function assignLevelsToTeacherIndex()
+    {
+        $schoolTerm = TermAndAcademicYear();
+        return view('admin.dashboard.teacher.assign_level_to_teacher', compact('schoolTerm'));
+    }
+
+    public function getTeachersBySchool(){
+//        $data = [];
+//        $data[] = '<option value="">Choose</option>';
+        $teachers = Teacher::where('school_id', Auth::guard('admin')->user()->school_id)
+            ->where('is_active', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+//        foreach ($teachers as $teacher){
+//            $data[] = '<option value="'.$teacher->id.'">' . $teacher->teacher_firstname . ' ' .
+//                $teacher->teacher_lastname . '</option>';
+//        }
+        return response()->json($teachers);
+    }
+
+    public function assign_subjects_to_teacher(Request $request){
+        $teacher = $request->teacher;
+        $level = $request->level;
+        $data = [];
+
+        DB::beginTransaction();
+
+        try {
+            foreach($request->subject as $subject){
+                $data[] = [
+                    'id' => Str::uuid(),
+                    'teacher_id' => $teacher,
+                    'level_id' => $level,
+                    'subject_id' => $subject,
+                    'school_id' => Auth::guard('admin')->user()->school_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+            }
+
+            DB::table('subjects_to_teachers')->insert($data);
+            DB::commit();
+
+            Alert::success('Notification','Subjects assigned to Teacher Successfully');
+            return back();
+//            return redirect()->route('assign-levels-to-teacher');
+        } catch (\Exception $th) {
+            DB::rollBack();
+//            dd($th->getMessage());
+            Alert::alert('Notification',$th->getMessage());
+            return back();
+        }
+
+
+//        dd($request->all());
+
     }
 }

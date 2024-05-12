@@ -246,6 +246,7 @@ class StudentMockController extends Controller
         $students = StudentsAdmissions::where('student_level', $level_id)
             ->where("school_id", Auth::guard('admin')->user()->school_id)
             ->where('admission_status', 1)
+            ->orderBy('student_firstname', 'ASC')
             ->get();
         $output[] .= '<option value="">Choose</option>';
         foreach ($students as $student) {

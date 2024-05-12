@@ -3,16 +3,20 @@
 namespace App\Models;
 
 use App\Traits\UUID;
+//use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Teacher extends Model implements HasMedia
+class Teacher extends Authenticatable implements HasMedia
 {
     use HasFactory, UUID, SoftDeletes;
     use InteractsWithMedia;
+
+
 
     protected $fillable = [
         'teacher_staff_id',
@@ -53,6 +57,17 @@ class Teacher extends Model implements HasMedia
         'school_id',
         'branch_id',
     ];
+
+    protected $hidden = [
+        'admin_password'
+    ];
+
+    protected $guard = 'teacher';
+
+    public function getAuthPassword()
+    {
+        return $this->teacher_password;
+    }
 
     public function school()
     {

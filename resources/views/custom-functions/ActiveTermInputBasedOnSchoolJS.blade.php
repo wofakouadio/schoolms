@@ -7,15 +7,25 @@
                 }
             });
             $.ajax({
-                url:'{{route('getActiveTermBySchoolID')}}',
+                @if(Auth::guard('admin')->check())
+                    url:'{{route('getActiveTermBySchoolID')}}',
+                @elseif(Auth::guard('teacher')->check())
+                    url:'{{route('getTeacherActiveTermBySchoolID')}}',
+                @endif
                 method:'GET',
                 cache:false,
                 success:(Response)=>{
                     // console.log(Response)
-                    $("#new-end-term-setup-form").find("input[name=term_id]").val(Response['term_id']);
-                    $("#new-end-term-setup-form").find("input[name=term_name]").val(Response['term_name']);
-                    $("#new-end-term-setup-form").find("input[name=term_academic_year]").val
-                    (Response['term_academic_year']);
+                    @if(Auth::guard('admin')->check())
+                        $("#new-end-term-setup-form").find("input[name=term_id]").val(Response['term_id']);
+                        $("#new-end-term-setup-form").find("input[name=term_name]").val(Response['term_name']);
+                        $("#new-end-term-setup-form").find("input[name=term_academic_year]").val
+                        (Response['term_academic_year']);
+                    @elseif(Auth::guard('teacher')->check())
+                        $("#new-end-term-setup-form").find("input[name=term_id]").val(Response['term_id']);
+                        $("#new-end-term-setup-form").find("input[name=term_name]").val(Response['term_name']);
+                        $("#new-end-term-setup-form").find("input[name=term_academic_year]").val(Response['term_academic_year']);
+                    @endif
                 }
             })
         }

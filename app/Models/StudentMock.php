@@ -31,6 +31,10 @@ class StudentMock extends Model
         return $this->belongsTo(Level::class, 'level_id', 'id');
     }
 
+    public function teacher_level(){
+        return $this->hasMany(Level::class, 'id', 'level_id');
+    }
+
     public function student(){
         return $this->belongsTo(StudentsAdmissions::class, 'student_id', 'id');
     }
