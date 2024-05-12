@@ -2,7 +2,7 @@
 
 @push('title')
     <title>Mock Report | School Mgt Sys</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 @endpush
 
 @push('page_name')
@@ -14,11 +14,10 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            @if($schoolTerm == null)
-                <x-dash.dash-no-term/>
+            @if ($schoolTerm == null)
+                <x-dash.dash-no-term />
             @else
-                <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                <x-dash.dash-term :term_name="$schoolTerm['term_name']" :term_academic_year="$schoolTerm['term_academic_year']" />
             @endif
             <div class="row">
                 <div class="col-3">
@@ -40,12 +39,14 @@
                                 </div>
                                 <div>
                                     <button class="btn btn-primary" type="submit">Submit</button>
-{{--                                    <button class="btn btn-secondary ml-2" type="submit"--}}
-{{--                                            id="DownloadMockReport">Download</button>--}}
+                                    {{--                                    <button class="btn btn-secondary ml-2" type="submit" --}}
+                                    {{--                                            id="DownloadMockReport">Download</button> --}}
+
+                                    <a href="{{ route('preview_mock_report') }}" class="btn btn-secondary ml-2">Preview</a>
                                 </div>
-{{--                                <div class="form-group mb-4">--}}
-{{--                                    <button class="btn btn-primary" type="submit">Submit</button>--}}
-{{--                                </div>--}}
+                                {{--                                <div class="form-group mb-4"> --}}
+                                {{--                                    <button class="btn btn-primary" type="submit">Submit</button> --}}
+                                {{--                                </div> --}}
                             </form>
                         </div>
                     </div>
@@ -59,14 +60,14 @@
                 </div>
             </div>
         </div>
-@endsection
-{{--page js script--}}
-@push('page-js')
-    @include("admin/dashboard/report/mock/jsScript")
-    @include("custom-functions/MocksInSelectInputBasedOnSchoolJS")
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-@endpush
-{{--page datatable script--}}
-@push('datatable')
-{{--    @include('admin/dashboard/level/levelsDataTables')--}}
-@endpush
+    @endsection
+    {{-- page js script --}}
+    @push('page-js')
+        @include('admin/dashboard/report/mock/jsScript')
+        @include('custom-functions/MocksInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+    @endpush
+    {{-- page datatable script --}}
+    @push('datatable')
+        {{--    @include('admin/dashboard/level/levelsDataTables') --}}
+    @endpush

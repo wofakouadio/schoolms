@@ -274,4 +274,11 @@ class MockReportController extends Controller
         $pdf = Pdf::loadView("admin.dashboard.report.mock.StudentMockReportDownload", $data);
         return $pdf->download('StudentMockReportDownload.pdf');
     }
+
+    public function preview_mock_report(Request $request){
+        $mocks=StudentMock::all();
+
+        $pdf = Pdf::loadView("admin.dashboard.report.mock.StudentMockReportDownload",compact('mocks'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('StudentMockReportDownload.pdf');
+    }
 }
