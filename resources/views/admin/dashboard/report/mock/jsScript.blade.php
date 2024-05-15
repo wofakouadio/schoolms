@@ -11,6 +11,7 @@
                 }
             });
             $.ajax({
+
                 url:'{{route('getStudentsBasedOnLevel')}}',
                 method:'GET',
                 cache:false,
