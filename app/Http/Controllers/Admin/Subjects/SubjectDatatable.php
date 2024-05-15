@@ -36,7 +36,7 @@ class SubjectDatatable extends Controller
                 $subject_id = $row->id;
                 return '
                         <div class="dropdown">
-                            <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-original-title="Action Dropdown">
                                 <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"></rect>
