@@ -21,23 +21,23 @@
             })
         })
 
-        $("#mid_term_report_form").on("submit", (e)=>{
-            e.preventDefault()
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url:'{{route('get_mid_term_report')}}',
-                method:'GET',
-                cache: false,
-                data: $("#mid_term_report_form").serialize(),
-                success:(Response)=>{
-                    console.log(Response)
-                    $("#mid_term_report_display").html(Response)
-                }
-            })
-        })
+        {{--$("#mid_term_report_form").on("submit", (e)=>{--}}
+        {{--    e.preventDefault()--}}
+        {{--    $.ajaxSetup({--}}
+        {{--        headers: {--}}
+        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--    $.ajax({--}}
+        {{--        url:'{{route('get_mid_term_report')}}',--}}
+        {{--        method:'GET',--}}
+        {{--        cache: false,--}}
+        {{--        data: $("#mid_term_report_form").serialize(),--}}
+        {{--        success:(Response)=>{--}}
+        {{--            console.log(Response)--}}
+        {{--            $("#mid_term_report_display").html(Response)--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--})--}}
     })
 </script>
