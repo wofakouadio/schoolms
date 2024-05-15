@@ -23,8 +23,8 @@
                 <div class="col-3">
                     <div class="card" style="height: auto">
                         <div class="card-body">
-                            <form method="get" id="end_of_term_report_form" action="{{route
-                            ('teacher_get_end_of_term_report')}}">
+                            <form method="post" id="end_of_term_report_form" action="{{route
+                            ('preview_end_of_term_report')}}">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label  class="form-label">Term</label>
@@ -58,6 +58,18 @@
                                             alert-square text-uppercase"><strong>{{$value['notice']}}</strong></div>
                                         @else
                                             <div class="card">
+                                                <div class="card-header">
+                                                    <form action="{{route('download_end_of_term_report')}}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="term"
+                                                               value="{{$value['termData']['id']}}">
+                                                        <input type="hidden" name="level"
+                                                               value="{{$value['levelData']['id']}}">
+                                                        <input type="hidden" name="student"
+                                                               value="{{$value['studentData']['id']}}">
+                                                        <button class="btn btn-primary" type="submit">Download</button>
+                                                    </form>
+                                                </div>
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12
