@@ -4,46 +4,7 @@ namespace App\Http\Controllers\Admin;
 namespace App\Http\Controllers\Teacher;
 //use App\Http\Controllers\AdminController;
 
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Assessment\EndOfTermController;
-use App\Http\Controllers\Admin\Assessment\MidTermController;
-use App\Http\Controllers\Admin\Assessment\StudentAttendanceController;
-use App\Http\Controllers\Admin\Assessment\StudentMockController;
-use App\Http\Controllers\Admin\Branch\BranchController;
-use App\Http\Controllers\Admin\Category\CategoryController;
-use App\Http\Controllers\Admin\CustomJSController;
-use App\Http\Controllers\Admin\Departments\DepartmentsController;
-use App\Http\Controllers\Admin\Finance\BillsController;
-use App\Http\Controllers\Admin\Finance\FinanceController;
-use App\Http\Controllers\Admin\House\HouseController;
-use App\Http\Controllers\Admin\Level\LevelController;
-use App\Http\Controllers\Admin\Permission\AccountPermissionController;
-use App\Http\Controllers\Admin\Report\Attendance\AttendanceReportController;
-use App\Http\Controllers\Admin\Report\EndTerm\EndTermReportController;
-use App\Http\Controllers\Admin\Report\MidTerm\MidTermReportController;
-use App\Http\Controllers\Admin\Report\Mock\MockReportController;
-use App\Http\Controllers\Admin\School\SchoolController;
-use App\Http\Controllers\Admin\School\TermController;
-use App\Http\Controllers\Admin\Student\StudentController;
-use App\Http\Controllers\Admin\Student\StudentsAdmissionsController;
-use App\Http\Controllers\Admin\Subjects\AssignSubjectToLevel\AssignSubjectToLevelController;
-use App\Http\Controllers\Admin\Subjects\SubjectController;
-use App\Http\Controllers\Admin\Subjects\SubjectsController;
-use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\OnBoardingController;
-
-
-use App\Http\Controllers\Teacher\EndTerm\TeacherEndTermReportController;
-use App\Http\Controllers\Teacher\MidTerm\TeacherMidTermReportController;
-use App\Http\Controllers\Teacher\Mock\TeacherMockReportController;
-use App\Http\Controllers\Teacher\TeacherAuthController;
-use App\Http\Controllers\Teacher\Profile\TeacherProfileController;
-use App\Http\Controllers\Teacher\TeacherUserController;
-use App\Http\Controllers\Teacher\Level\TeacherLevelController;
-use App\Http\Controllers\Teacher\Mock\TeacherMockController;
-use App\Http\Controllers\Teacher\MidTerm\TeacherMidTermController;
-use App\Http\Controllers\Teacher\EndTerm\TeacherEndOfTermController;
 use Illuminate\Support\Facades\Route;
 
 
