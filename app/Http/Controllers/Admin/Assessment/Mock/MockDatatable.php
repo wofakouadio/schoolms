@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Assessment;
+namespace App\Http\Controllers\Admin\Assessment\Mock;
 
-use App\Models\Branch;
-use App\Models\Department;
-use App\Models\Mock;
-use Illuminate\Http\Request;
-use Dflydev\DotAccessData\Data;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Mock;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 

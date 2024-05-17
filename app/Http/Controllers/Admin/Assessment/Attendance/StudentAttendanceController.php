@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Assessment;
+namespace App\Http\Controllers\Admin\Assessment\Attendance;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
-use App\Models\Student;
 use App\Models\StudentAttendance;
-use App\Models\StudentsAdmissions;
 use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

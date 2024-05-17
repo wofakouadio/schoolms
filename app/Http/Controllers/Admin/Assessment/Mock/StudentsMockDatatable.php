@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Assessment;
+namespace App\Http\Controllers\Admin\Assessment\Mock;
 
 use App\Http\Controllers\Controller;
-use App\Models\Mock;
 use App\Models\StudentMock;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;

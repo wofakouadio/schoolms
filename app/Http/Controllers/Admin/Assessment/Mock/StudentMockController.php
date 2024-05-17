@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Assessment;
+namespace App\Http\Controllers\Admin\Assessment\Mock;
 
 use App\Exports\StudentsMockExport;
 use App\Http\Controllers\Controller;
@@ -10,14 +10,12 @@ use App\Models\Mock;
 use App\Models\MockBreakdown;
 use App\Models\StudentMock;
 use App\Models\StudentsAdmissions;
-use App\Models\Subject;
 use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
 use function App\Helpers\TermAndAcademicYear;
 
 class StudentMockController extends Controller

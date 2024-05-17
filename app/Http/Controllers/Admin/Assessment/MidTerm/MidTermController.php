@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Assessment;
+namespace App\Http\Controllers\Admin\Assessment\MidTerm;
 
 use App\Http\Controllers\Controller;
-use App\Models\AssignSubjectsToMock;
 use App\Models\AssignSubjectToLevel;
-use App\Models\EndOfTerm;
-use App\Models\EndOfTermBreakdown;
-use App\Models\Mock;
+use App\Models\MidTerm;
+use App\Models\MidTermBreakdown;
 use App\Models\StudentsAdmissions;
 use App\Models\Term;
 use Illuminate\Http\Request;
@@ -15,18 +13,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function App\Helpers\TermAndAcademicYear;
 
-class EndOfTermController extends Controller
+class MidTermController extends Controller
 {
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
-        return view('admin.dashboard.assessment.end-of-term.index', compact('schoolTerm'));
+        return view('admin.dashboard.assessment.mid-term.index', compact('schoolTerm'));
     }
 
     public function create(Request $request)
     {
         $request->validate([
             'level' => 'required',
+            'mid_term' => 'required',
             'student' => 'required'
         ]);
 
@@ -50,54 +49,45 @@ class EndOfTermController extends Controller
 
         $data = [
             'StudentData' => $studentData,
+            'MidTerm' => $request->mid_term,
             'Subjects' => $studentSubjectsLevel,
             'Term' => $academicYearSession
         ];
         return response()->json($data);
-//        dd($studentSubjectsLevel);
     }
 
     public function store(Request $request){
 //        dd($request->all());
         DB::beginTransaction();
         try {
-            $class_score = 0;
-            $exam_score = 0;
-            $total_score = 0;
-            $endTermEntry = [];
-            foreach($request->end_term as $key => $value){
-                $class_score += $value['class_score'];
-                $exam_score += $value['exam_score'];
-                $endTermEntry[] = [
+            $midTermScore = 0;
+            $midTermEntry = [];
+            foreach($request->mid_term as $key => $value){
+                $midTermScore += $value['score'];
+                $midTermEntry[] = [
                     'subject_id' => $value['subject_id'],
-                    'class_score' => $value['class_score'],
-                    'exam_score' => $value['exam_score']
+                    'score' => $value['score'],
                 ];
             }
 
-            $EndTerm = EndOfTerm::create([
+            $midTerm = MidTerm::create([
                 'student_id' => $request->studentId,
                 'level_id' => $request->level_id,
+                'mid_term' => $request->mid_term_name,
                 'term_id' => $request->term_id,
-                'total_class_score' => $class_score,
-                'total_exam_score' => $exam_score,
-                'total_score' => $class_score + $exam_score,
-                'conduct' => $request->conduct,
-                'attitude' => $request->attitude,
-                'interest' => $request->interest,
-                'general_remarks' => $request->general_remarks,
+                'total_score' => $midTermScore,
                 'school_id' => Auth::guard('admin')->user()->school_id,
                 'branch_id' => $request->branch_id
             ]);
 
-            foreach ($endTermEntry as $key => $value) {
-                EndOfTermBreakdown::create([
-                    'end_term_student_id' => $EndTerm->id,
+            foreach ($midTermEntry as $key => $value) {
+                MidTermBreakdown::create([
+                    'mid_term_student_id' => $midTerm->id,
                     'student_id' => $request->studentId,
+                    'mid_term' => $request->mid_term_name,
                     'term_id' => $request->term_id,
                     'subject_id' => $value['subject_id'],
-                    'class_score' => $value['class_score'],
-                    'exam_score' => $value['exam_score'],
+                    'score' => $value['score'],
                     'school_id' => Auth::guard('admin')->user()->school_id,
                     'branch_id' => $request->branch_id
                 ]);
@@ -108,7 +98,7 @@ class EndOfTermController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 200,
-                'msg' => 'Student End of Term Entry saved successfully'
+                'msg' => 'Student Mid-Term Entry saved successfully'
             ]);
         }catch(\Exception $th){
             DB::rollBack();
