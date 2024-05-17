@@ -10,14 +10,9 @@
                 </a>
             </li>
             <li>
-                <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                <a href="{{route('admin_department')}}">
                     <i class="flaticon-381-album"></i>
-                    <span class="nav-text">Departments</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{route('admin_department')}}">ListView</a></li>
-{{--                    <li><a href="{{route('admin_assign_department_level')}}">Assign Department to Level</a></li>--}}
-                </ul>
+                    <span>Departments</span></a>
             </li>
             <li>
                 <a href="{{route('admin_school_subject')}}">
@@ -25,12 +20,6 @@
                     <span class="nav-text">Subject</span>
                 </a>
             </li>
-{{--            <li>--}}
-{{--                <a href="{{route('admin_teacher')}}">--}}
-{{--                    <i class="flaticon-381-user-9"></i>--}}
-{{--                    <span class="nav-text">Teachers</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
             <li>
                 <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-user-9"></i>
@@ -39,7 +28,6 @@
                 <ul aria-expanded="false">
                     <li><a href="{{route('admin_teacher')}}">List</a></li>
                     <li><a href="{{route('assign-levels-to-teacher')}}">Assign Class/Level to Teacher</a></li>
-
                 </ul>
             </li>
             <li>
@@ -89,6 +77,7 @@
                     <span class="nav-text">Assessment</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="{{route('admin_assessment_settings')}}">Settings</a></li>
                     <li><a href="{{route('admin_student_attendance')}}">Attendance</a></li>
                     <li>
                         <a class="has-arrow " href="javascript:void()" aria-expanded="false">
