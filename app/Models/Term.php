@@ -19,4 +19,8 @@ class Term extends Model
         'is_active',
         'school_id'
     ];
+
+    public function academic_year(){
+        return $this->belongsTo(AcademicYear::class, 'term_academic_year', 'id');
+    }
 }

@@ -33,7 +33,9 @@ class MockReportController extends Controller
 //        dd($request->all());
         $schoolTerm = TermAndAcademicYear();
         //get term details
-        $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)->where('is_active', 1)->first();
+        $termData = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 1)
+            ->first();
         //mock first entry
         $mockFirstEntry = StudentMock::where('mock_id', $mock_id)
             ->where('student_id', $student)
@@ -96,6 +98,7 @@ class MockReportController extends Controller
                 'notice' => 'No record found'
             ];
         }
+//        dd($data);
         return view('admin.dashboard.report.mock.index', compact('schoolTerm', 'data'));
     }
 
@@ -106,7 +109,9 @@ class MockReportController extends Controller
         $student = $request->student;
 //        dd($request->all());
         //get term details
-        $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)->where('is_active', 1)->first();
+        $termData = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)->where
+        ('is_active', 1)
+            ->first();
         //mock first entry
         $mockFirstEntry = StudentMock::where('mock_id', $mock_id)
             ->where('student_id', $student)

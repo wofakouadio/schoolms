@@ -14,16 +14,18 @@
 @section('content')
     <div class="content-body">
         <div class="container-fluid">
-            @if ($schoolTerm == null)
-                <x-dash.dash-no-term />
+            @if($schoolTerm == null)
+                <x-dash.dash-no-term/>
             @else
-                <x-dash.dash-term :term_name="$schoolTerm['term_name']" :term_academic_year="$schoolTerm['term_academic_year']" />
+                <x-dash.dash-term :term_name="$schoolTerm['term_name']"
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             <div class="row">
                 <div class="col-3">
                     <div class="card" style="height: auto">
                         <div class="card-body">
-                            <form method="post" id="mock_report_form" action="{{ route('preview_mock_report') }}">
+                            <form method="post" id="mock_report_form" action="{{route('admin_preview_mock_report')}}">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label>Mock Type</label>
@@ -55,7 +57,7 @@
                                 @else
                                     <div class="card">
                                         <div class="card-header">
-                                            <form action="{{route('download_mock_report')}}" method="post">
+                                            <form action="{{route('admin_download_mock_report')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="mock"
                                                        value="{{$value['mockData']['id']}}">
@@ -134,7 +136,9 @@
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Academic Year : <span class="fw-bolder"
-                                                        >{{$value['termData']['term_academic_year']}}</span></p>
+                                                        >{{$value['termData']['academic_year']['academic_year_start']
+                                                        .'/'
+                                                        .$value['termData']['academic_year']['academic_year_end']}}</span></p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Score : <span class="fw-bolder"

@@ -16,10 +16,11 @@ class AssessmentSettingsController extends Controller
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
-        $AssessmentSettings = AssessmentSettings::where('school_id', Auth::guard('admin')->user()->school_id)
+        $AssessmentSettings = AssessmentSettings::with('school_academic_year')->where('school_id', Auth::guard('admin')->user()
+            ->school_id)
             ->orderBy('created_at', 'desc')
             ->get();
-        $GradingSystems = GradingSystem::where([
+        $GradingSystems = GradingSystem::with('school_academic_year')->where([
             'school_id' => Auth::guard('admin')->user()->school_id,
             'academic_year' => $schoolTerm->term_academic_year
         ])->orderBy('created_at', 'desc')
@@ -61,7 +62,7 @@ class AssessmentSettingsController extends Controller
 
     //get assessment data
     public function edit_assessment_setup(Request $request){
-        $data = AssessmentSettings::where('id', $request->assessment_id)->first();
+        $data = AssessmentSettings::with('school_academic_year')->where('id', $request->assessment_id)->first();
         return response()->json($data);
     }
 
@@ -135,7 +136,7 @@ class AssessmentSettingsController extends Controller
     }
 
     public function edit_grading_system(Request $request){
-        $data = GradingSystem::where('id', $request->grading_system_id)->first();
+        $data = GradingSystem::with('school_academic_year')->where('id', $request->grading_system_id)->first();
         return response()->json($data);
     }
 

@@ -17,13 +17,15 @@
                 <x-dash.dash-no-term/>
             @else
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             <div class="row">
                 <div class="col-3">
                     <div class="card" style="height: auto">
                         <div class="card-body">
-                            <form method="post" id="end_of_term_report_form" action="{{route('get_end_of_term_report')}}">
+                            <form method="post" id="end_of_term_report_form" action="{{route
+                            ('admin_get_end_of_term_report')}}">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label  class="form-label">Term</label>
@@ -55,7 +57,7 @@
                                 @else
                                     <div class="card">
                                         <div class="card-header">
-                                            <form action="{{route('download_end_of_term_report')}}" method="post">
+                                            <form action="{{route('admin_download_end_of_term_report')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="term"
                                                        value="{{$value['termData']['id']}}">
@@ -136,15 +138,21 @@
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Academic Year : <span class="fw-bolder"
-                                                        >{{$value['termData']['term_academic_year']}}</span></p>
+                                                        >{{$value['termData']['academic_year']['academic_year_start']
+                                                        .'/'
+                                                        .$value['termData']['academic_year']['academic_year_end']}}</span></p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
-                                                    <p>Total Class Score : <span class="fw-bolder"
-                                                        >{{$value['endTermFirst']['total_class_score']}}</span></p>
+                                                    <p>Total Class Score : <span class="fw-bolder">
+                                                            {{$value['endTermFirst']['total_class_score'] *
+                                                            ($value['schoolAssessmentSettings']['class_percentage'] / 100)
+                                                            }}</span></p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Exam Score : <span class="fw-bolder"
-                                                        >{{$value['endTermFirst']['total_exam_score']}}</span></p>
+                                                        >{{$value['endTermFirst']['total_exam_score'] *
+                                                            ($value['schoolAssessmentSettings']['exam_percentage'] /
+                                                            100)}}</span></p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Score : <span class="fw-bolder"
@@ -159,20 +167,39 @@
                                                     <thead>
                                                     <tr>
                                                         <th class="center">Subject</th>
-                                                        <th class="center">Class Score</th>
-                                                        <th class="center">Exam Score</th>
+                                                        <th class="center">Class Score
+                                                            ({{$value['schoolAssessmentSettings']['class_percentage']}}%)
+                                                        </th>
+                                                        <th class="center">Exam Score
+                                                            ({{$value['schoolAssessmentSettings']['exam_percentage']}}%)
+                                                            </th>
+                                                        <th class="center">Total Score
+                                                            ({{$value['schoolAssessmentSettings']['exam_percentage']
+                                                            + $value['schoolAssessmentSettings']['class_percentage']
+                                                            }}%)
+                                                        </th>
                                                         <th class="center">Proficiency Level</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($value['endTermBreakdown'] as $breakdown)
-                                                        <tr>
-                                                            <td
-                                                                class="center">{{$breakdown['subject']['subject_name']}}</td>
-                                                            <td
-                                                                class="center">{{$breakdown['class_score']}}</td>
-                                                            <td
-                                                                class="center">{{$breakdown['exam_score']}}</td>
+                                                        <tr class="center">
+                                                            <td class="center">
+                                                                {{$breakdown['subject']['subject_name']}}
+                                                            </td>
+                                                            <td class="center">
+                                                                {{$class = $breakdown['class_score'] *
+                                                            ($value['schoolAssessmentSettings']['class_percentage'] / 100)}}
+                                                            </td>
+                                                            <td class="center">
+                                                                {{$exam = $breakdown['exam_score'] *
+                                                            ($value['schoolAssessmentSettings']['exam_percentage'] /
+                                                            100)}}
+                                                            </td>
+                                                            <td class="center">
+{{--                                                                {{$breakdown['exam_score'] + $breakdown['class_score']}}--}}
+                                                                {{$class + $exam}}
+                                                            </td>
                                                             <td class="center">-</td>
                                                         </tr>
                                                     @endforeach

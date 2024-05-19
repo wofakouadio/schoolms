@@ -24,4 +24,8 @@ class GradingSystem extends Model
     public function school(){
         return $this->belongsTo(School::class, 'school_id', 'id');
     }
+
+    public function school_academic_year(){
+        return $this->belongsTo(AcademicYear::class, 'academic_year', 'id');
+    }
 }

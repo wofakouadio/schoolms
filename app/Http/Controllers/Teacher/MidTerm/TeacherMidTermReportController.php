@@ -61,7 +61,7 @@ class TeacherMidTermReportController extends Controller
             }
 
             //get term details
-            $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)
                 ->where('id', $midTermFirst->term_id)
                 ->first();
 
@@ -134,7 +134,7 @@ class TeacherMidTermReportController extends Controller
             }
 
             //get term details
-            $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)
                 ->where('id', $midTermFirst->term_id)
                 ->first();
 

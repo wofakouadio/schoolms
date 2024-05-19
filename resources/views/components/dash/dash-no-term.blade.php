@@ -4,7 +4,7 @@
 {{--    </div>--}}
     <div class="alert alert-danger solid alert-square ">
         <strong>Error!</strong>
-        <a href="{{route('admin_school')}}" class="text-warning fw-bolder">Click here</a> to activate a term NOW!!!
+        <a href="{{route('admin_school_term')}}" class="text-warning fw-bolder">Click here</a> to activate a term NOW!!!
     </div>
 
 </div>

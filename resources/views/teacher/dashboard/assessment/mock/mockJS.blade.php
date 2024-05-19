@@ -65,7 +65,8 @@
                     $("#insert-student-mock-modal").find('input[name=term_id]').val
                     (Response['Term']['id'])
                     $("#insert-student-mock-modal").find('input[name=academic_year]').val
-                    (Response['Term']['term_academic_year'])
+                    (Response['Term']['academic_year']['academic_year_start']+'/'+Response['Term']['academic_year' +
+                    '']['academic_year_end'])
                     $("#insert-student-mock-modal").find('input[name=branch_id]').val
                     (Response['StudentData']['student_branch'])
                     $.each(Response['Subjects'], function (index, value){

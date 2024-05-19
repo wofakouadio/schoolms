@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Report\EndTerm;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssessmentSettings;
 use App\Models\EndOfTerm;
 use App\Models\EndOfTermBreakdown;
+use App\Models\GradingSystem;
 use App\Models\Level;
 use App\Models\School;
 use App\Models\StudentsAdmissions;
@@ -48,7 +50,7 @@ class EndTermReportController extends Controller
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
-            $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)
                 ->where('id', $term)
                 ->first();
             //get student details
@@ -72,6 +74,27 @@ class EndTermReportController extends Controller
                 ->where('branch_id', $studentData->student_branch)
                 ->get();
 
+            //get assessment settings
+            $assessmentSettings = AssessmentSettings::where([
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'academic_year' => $termData->term_academic_year,
+                'is_active' => 1
+            ])->first();
+
+            if($assessmentSettings->count() == 0){
+                $schoolAssessmentSettings = config('assessment-settings');
+            }else{
+                $schoolAssessmentSettings = $assessmentSettings;
+            }
+
+            //get grading
+            $gradingSystem = GradingSystem::where([
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'academic_year' => $termData->term_academic_year,
+                'is_active' => 1
+            ])->get();
+
+
             $data[] = [
                 'status' => 1,
                 'notice' => 'record found',
@@ -82,7 +105,9 @@ class EndTermReportController extends Controller
                 'studentProfile' => $studentProfile,
                 'endTermBreakdown' => $endTermBreakdown,
                 'schoolData' => $schoolData,
-                'termData' => $termData
+                'termData' => $termData,
+                'schoolAssessmentSettings' => $schoolAssessmentSettings,
+                'gradingSystem' => $gradingSystem
             ];
         }else{
             $data[] = [
@@ -90,6 +115,9 @@ class EndTermReportController extends Controller
                 'notice' => 'No record found'
             ];
         }
+
+//        dd($data);
+
         return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
     }
 
@@ -117,7 +145,7 @@ class EndTermReportController extends Controller
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
-            $termData = Term::where('school_id', Auth::guard('admin')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)
                 ->where('id', $term)
                 ->first();
             //get student details

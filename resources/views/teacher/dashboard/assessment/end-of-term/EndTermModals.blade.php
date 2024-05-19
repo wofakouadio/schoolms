@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Academic Year</label>
-                            <input class="form-control solid" name="term_academic_year" type="text" readonly>
+                            <input class="form-control solid" name="term_academic_year" type="text" readonly value="">
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Level<span class="text-danger scale5

@@ -18,7 +18,8 @@
                     <x-dash.dash-no-term/>
                 @else
                     <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                      :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                      :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                      :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
                 @endif
                 <div class="col-12">
                     <div class="card">

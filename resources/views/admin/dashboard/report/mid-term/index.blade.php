@@ -17,13 +17,15 @@
                 <x-dash.dash-no-term/>
             @else
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             <div class="row">
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
-                            <form method="post" id="mid_term_report_form" action="{{route('get_mid_term_report')}}">
+                            <form method="post" id="mid_term_report_form" action="{{route('admin_get_mid_term_report')
+                            }}">
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label  class="form-label">Mid-Term</label>
@@ -59,7 +61,7 @@
                                 @else
                                     <div class="card">
                                         <div class="card-header">
-                                            <form action="{{route('download_mid_term_report')}}" method="post">
+                                            <form action="{{route('admin_download_mid_term_report')}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="mid_term"
                                                        value="{{$value['midTermData']}}">
@@ -139,7 +141,9 @@
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Academic Year : <span class="fw-bolder"
-                                                        >{{$value['termData']['term_academic_year']}}</span></p>
+                                                        >{{$value['termData']['academic_year']['academic_year_start']
+                                                        .'/'
+                                                        .$value['termData']['academic_year']['academic_year_end']}}</span></p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Mid-Term : <span class="fw-bolder"

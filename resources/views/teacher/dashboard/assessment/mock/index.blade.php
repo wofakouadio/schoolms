@@ -17,7 +17,8 @@
                 <x-dash.dash-no-term/>
             @else
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             <div class="row">
                 <div class="col-12">
@@ -79,7 +80,8 @@
                                             <tr>
                                                 <td>{{$value->mock->mock_type}}</td>
                                                 <td>{{$value->term->term_name .' '
-                                                .$value->term->term_academic_year}}</td>
+                                                .$value->term->academic_year->academic_year_start.'/'
+                                                .$value->term->academic_year->academic_year_end}}</td>
                                                 <td>{{$value->student->student_firstname.' '
                                                 .$value->student->student_lastname}}</td>
                                                 <td>{{$value->level->level_name}}</td>

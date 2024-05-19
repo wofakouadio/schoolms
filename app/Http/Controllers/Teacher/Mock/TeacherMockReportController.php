@@ -34,7 +34,7 @@ class TeacherMockReportController extends Controller
         $schoolTerm = TermAndAcademicYear();
 
         //get term details
-        $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)->where('is_active', 1)->first();
+        $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)->where('is_active', 1)->first();
         //mock first entry
         $mockFirstEntry = StudentMock::where('mock_id', $mock_id)
             ->where('student_id', $student)
@@ -107,7 +107,7 @@ class TeacherMockReportController extends Controller
         $student = $request->student;
 
         //get term details
-        $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)->where('is_active', 1)->first();
+        $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)->where('is_active', 1)->first();
         //mock first entry
         $mockFirstEntry = StudentMock::where('mock_id', $mock_id)
             ->where('student_id', $student)

@@ -42,7 +42,7 @@ class EndOfTermController extends Controller
             ->get();
 //        dd($studentSubjectsLevel);
         //let get academic year
-        $academicYearSession = Term::where("school_id", Auth::guard('admin')->user()->school_id)
+        $academicYearSession = Term::with('academic_year')->where("school_id", Auth::guard('admin')->user()->school_id)
             ->where("is_active", 1)
             ->first();
 

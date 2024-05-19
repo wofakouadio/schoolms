@@ -17,7 +17,8 @@
                 <x-dash.dash-no-term/>
             @else
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             <div class="row">
                 <div class="col-12">
@@ -72,7 +73,9 @@
                                     <tbody>
                                     @foreach($data as $row)
                                         <tr>
-                                            <td>{{$row->term->term_name . ' - ' . $row->term->term_academic_year}}</td>
+                                            <td>{{$row->term->term_name . ' - ' .
+                                            $row->term->academic_year->academic_year_start.'/'
+                                            .$row->term->academic_year->academic_year_end}}</td>
                                             <td>{{$row->student->student_id}}</td>
                                             <td>{{$row->student->student_firstname.' '.$row->student->student_lastname}}</td>
                                             <td>{{$row->level->level_name}}</td>

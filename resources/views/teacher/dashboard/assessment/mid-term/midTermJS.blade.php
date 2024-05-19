@@ -54,7 +54,8 @@
                     modal.find('input[name=mid_term_name]').val(Response['MidTerm'])
                     modal.find('input[name=term]').val(Response['Term']['term_name'])
                     modal.find('input[name=term_id]').val(Response['Term']['id'])
-                    modal.find('input[name=academic_year]').val(Response['Term']['term_academic_year'])
+                    modal.find('input[name=academic_year]').val(Response['Term']['academic_year']['academic_year_start']+'/'+Response['Term']['academic_year' +
+                    '']['academic_year_end'])
                     modal.find('input[name=branch_id]').val(Response['StudentData']['student_branch'])
                     $.each(Response['Subjects'], function (index, value){
                         $("#insert-student-mid-term-modal #Subjects").append

@@ -17,7 +17,8 @@
                 <x-dash.dash-no-term/>
             @else
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']"
-                                  :term_academic_year="$schoolTerm['term_academic_year']"/>
+                                  :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
+                                  :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -56,9 +57,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+{{--                                    {{dd($AssessmentSettings)}}--}}
                                     @foreach($AssessmentSettings as $assessment)
                                         <tr>
-                                            <td>{{$assessment->academic_year}}</td>
+                                            <td>{{$assessment->school_academic_year->academic_year_start .'/'.
+                                            $assessment->school_academic_year->academic_year_end}}</td>
                                             <td>{{$assessment->class_percentage}}</td>
                                             <td>{{$assessment->exam_percentage}}</td>
                                             <td>
@@ -130,7 +133,8 @@
                                     <tbody>
                                     @foreach($GradingSystems as $value)
                                         <tr>
-                                            <td>{{$value->academic_year}}</td>
+                                            <td>{{$assessment->school_academic_year->academic_year_start .'/'.
+                                            $assessment->school_academic_year->academic_year_end}}</td>
                                             <td>{{$value->score_from}} - {{$value->score_to}}</td>
                                             <td>{{$value->level_of_proficiency}}</td>
                                             <td>{{$value->grade}}</td>

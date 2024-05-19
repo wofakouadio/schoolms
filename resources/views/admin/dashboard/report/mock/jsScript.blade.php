@@ -30,13 +30,13 @@
         {{--        }--}}
         {{--    });--}}
         {{--    $.ajax({--}}
-        {{--        url:'{{route('get_mock_report')}}',--}}
+        {{--        url:'{{route('admin_preview_mock_report')}}',--}}
         {{--        method:'GET',--}}
         {{--        cache: false,--}}
         {{--        data: $("#mock_report_form").serialize(),--}}
         {{--        success:(Response)=>{--}}
         {{--            console.log(Response)--}}
-        {{--            $("#mock_report_display").html(Response)--}}
+        {{--            // $("#mock_report_display").html(Response)--}}
         {{--        },--}}
         {{--        // error:(Response)=>{--}}
         {{--        //--}}

@@ -22,27 +22,28 @@ class TeacherUserController extends Controller
 
     public function getActiveTermBySchoolID(){
         $data = [];
-        $ActiveTerm = Term::select('id', 'term_name', 'term_academic_year')
+        $ActiveTerm = Term::with('academic_year')
             ->where('is_active', 1)
             ->where('school_id', Auth::guard('teacher')->user()->school_id)
             ->first();
         $data = [
             'term_id' => $ActiveTerm->id,
             'term_name' => $ActiveTerm->term_name,
-            'term_academic_year' => $ActiveTerm->term_academic_year
+            'academic_year_start' => $ActiveTerm->academic_year->academic_year_start,
+            'academic_year_end' => $ActiveTerm->academic_year->academic_year_end,
         ];
         return response()->json($data);
     }
 
     public function getTermsBySchoolId(){
         $output = [];
-        $terms = Term::select('id', 'term_name', 'term_academic_year')->where('school_id', Auth::guard('teacher')
-            ->user()
-            ->school_id)
+        $terms = Term::with('academic_year')->where('school_id', Auth::guard('teacher')
+            ->user()->school_id)
             ->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($terms as $term){
-            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '.$term->term_academic_year."</option>";
+            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '
+                .$term->academic_year->academic_year_start."/".$term->academic_year->academic_year_end."</option>";
         }
         return $output;
     }

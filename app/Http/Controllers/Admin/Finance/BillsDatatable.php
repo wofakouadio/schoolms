@@ -12,12 +12,15 @@ class BillsDatatable extends Controller
     public function __invoke()
     {
         // dd();
-        $data = Bill::with(['level','term'])->where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
-
+        $data = Bill::with(['level','term'])->where('school_id', Auth::guard('admin')->user()
+            ->school_id)
+            ->orderBy('created_at', 'DESC');
+//        dd($data);
         return DataTables::of($data)
 
             ->addColumn('academic_year', function ($row) {
-                $academic_year = $row->academic_year;
+                $academic_year = $row->term->academic_year->academic_year_start.'/'
+                    .$row->term->academic_year->academic_year_end;
                 return $academic_year ?? '...';
             })
             ->addColumn('term', function ($row) {

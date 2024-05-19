@@ -22,7 +22,8 @@ class StudentsEndTermDataTables extends Controller
         return DataTables::of($data)
 
             ->addColumn('term', function ($row) {
-                $term = $row->term->term_name . ' - ' . $row->term->term_academic_year;
+                $term = $row->term->term_name . ' - ' . $row->term->academic_year->academic_year_start.'/'
+                    .$row->term->academic_year->academic_year_end;
                 return $term ?? '...';
             })
             ->addColumn('student_id', function ($row) {

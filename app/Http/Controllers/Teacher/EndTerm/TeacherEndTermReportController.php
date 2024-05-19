@@ -48,7 +48,7 @@ class TeacherEndTermReportController extends Controller
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
-            $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)
                 ->where('id', $term)
                 ->first();
             //get student details
@@ -118,7 +118,7 @@ class TeacherEndTermReportController extends Controller
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
-            $termData = Term::where('school_id', Auth::guard('teacher')->user()->school_id)
+            $termData = Term::with('academic_year')->where('school_id', Auth::guard('teacher')->user()->school_id)
                 ->where('id', $term)
                 ->first();
             //get student details

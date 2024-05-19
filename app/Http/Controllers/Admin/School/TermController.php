@@ -7,9 +7,24 @@ use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use function App\Helpers\TermAndAcademicYear;
 
 class TermController extends Controller
 {
+    //index
+    public function index(){
+        $schoolTerm = TermAndAcademicYear();
+        $terms = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('admin.dashboard.term.index',
+            [
+                'terms' => $terms,
+                'schoolTerm' => $schoolTerm
+            ]
+        );
+    }
     //store new term
     public function store(Request $request){
         $request->validate([
@@ -31,22 +46,17 @@ class TermController extends Controller
                 'school_id' => Auth::guard('admin')->user()->school_id
             ]);
             DB::commit();
-            return response()->json([
-                'status' => 200,
-                'msg' => 'Term created successfully'
-            ]);
+            Alert::success('Success', 'Term created successfully.');
+            return redirect()->route('admin_school_term');
         }catch (\Exception $th){
             DB::rollBack();
-            return response()->json([
-                'status' => 201,
-                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-            ]);
+            return back()->withErrors([$th->getMessage()]);
         }
     }
 
     //edit term
     public function edit(Request $request){
-        $data = Term::where('id', $request->term_id)->first();
+        $data = Term::with('academic_year')->where('id', $request->term_id)->first();
         return response()->json($data);
     }
 
@@ -69,16 +79,11 @@ class TermController extends Controller
                 'term_academic_year' => $request->term_academic_year
             ]);
             DB::commit();
-            return response()->json([
-                'status' => 200,
-                'msg' => 'Term updated successfully'
-            ]);
+            Alert::success('Success', 'Term updated successfully.');
+            return redirect()->route('admin_school_term');
         }catch (\Exception $th){
             DB::rollBack();
-            return response()->json([
-                'status' => 201,
-                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-            ]);
+            return back()->withErrors([$th->getMessage()]);
         }
     }
 
@@ -96,26 +101,30 @@ class TermController extends Controller
 
         if($sqlCheckActive){
             if($sqlCheckActive->is_active == $request->term_is_active){
-                return response()->json([
-                    'status' => 201,
-                    'msg' => 'Disable Term in Session before activating a new term'
-                ]);
+                return back()->withErrors(['Disable Term in Session before activating a new term']);
+//                return response()->json([
+//                    'status' => 201,
+//                    'msg' => 'Disable Term in Session before activating a new term'
+//                ]);
             }else{
                 try {
                     Term::where('id', $request->term_id)->update([
                         'is_active' => $request->term_is_active
                     ]);
                     DB::commit();
-                    return response()->json([
-                        'status' => 200,
-                        'msg' => 'Term Status updated successfully'
-                    ]);
+                    Alert::success('Success', 'Term Status updated successfully.');
+                    return redirect()->route('admin_school_term');
+//                    return response()->json([
+//                        'status' => 200,
+//                        'msg' => 'Term Status updated successfully'
+//                    ]);
                 }catch (\Exception $th){
                     DB::rollBack();
-                    return response()->json([
-                        'status' => 201,
-                        'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-                    ]);
+                    return back()->withErrors([$th->getMessage()]);
+//                    return response()->json([
+//                        'status' => 201,
+//                        'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+//                    ]);
                 }
             }
         }else{
@@ -124,16 +133,19 @@ class TermController extends Controller
                     'is_active' => $request->term_is_active
                 ]);
                 DB::commit();
-                return response()->json([
-                    'status' => 200,
-                    'msg' => 'Term Status updated successfully'
-                ]);
+                Alert::success('Success', 'Term Status updated successfully.');
+                return redirect()->route('admin_school_term');
+//                return response()->json([
+//                    'status' => 200,
+//                    'msg' => 'Term Status updated successfully'
+//                ]);
             }catch (\Exception $th){
                 DB::rollBack();
-                return response()->json([
-                    'status' => 201,
-                    'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-                ]);
+                return back()->withErrors([$th->getMessage()]);
+//                return response()->json([
+//                    'status' => 201,
+//                    'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+//                ]);
             }
         }
     }
@@ -144,28 +156,34 @@ class TermController extends Controller
         try {
             Term::where('id', $request->term_id)->delete();
             DB::commit();
-            return response()->json([
-                'status' => 200,
-                'msg' => 'Term deleted successfully'
-            ]);
+            Alert::success('Success', 'Term deleted successfully.');
+            return redirect()->route('admin_school_term');
+//            return response()->json([
+//                'status' => 200,
+//                'msg' => 'Term deleted successfully'
+//            ]);
         }catch (\Exception $th){
             DB::rollBack();
-            return response()->json([
-                'status' => 201,
-                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-            ]);
+            return back()->withErrors([$th->getMessage()]);
+//            return response()->json([
+//                'status' => 201,
+//                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
+//            ]);
         }
     }
 
     //Terms based on school id
     public function getTermsBySchoolId(){
         $output = [];
-        $terms = Term::select('id', 'term_name', 'term_academic_year')->where('school_id', Auth::guard('admin')->user()
+        $terms = Term::with('academic_year')->where('school_id', Auth::guard
+        ('admin')
+            ->user()
             ->school_id)
             ->get();
         $output[] .= "<option value=''>Choose</option>";
         foreach ($terms as $term){
-            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '.$term->term_academic_year."</option>";
+            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '
+                .$term->academic_year->academic_year_start."/".$term->academic_year->academic_year_end."</option>";
         }
         return $output;
     }
@@ -173,14 +191,15 @@ class TermController extends Controller
     //Active Term based on school id
     public function getActiveTermBySchoolID(){
         $data = [];
-        $ActiveTerm = Term::select('id', 'term_name', 'term_academic_year')
+        $ActiveTerm = Term::with('academic_year')
             ->where('is_active', 1)
             ->where('school_id', Auth::guard('admin')->user()->school_id)
             ->first();
         $data = [
             'term_id' => $ActiveTerm->id,
             'term_name' => $ActiveTerm->term_name,
-            'term_academic_year' => $ActiveTerm->term_academic_year
+            'academic_year_start' => $ActiveTerm->academic_year->academic_year_start,
+            'academic_year_end' => $ActiveTerm->academic_year->academic_year_end,
         ];
         return response()->json($data);
     }

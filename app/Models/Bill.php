@@ -36,6 +36,10 @@ class Bill extends Model
         return $this->hasOne(Term::class, 'id', 'term_id');
     }
 
+    public function academic_year(){
+        return $this->belongsTo(AcademicYear::class, 'academic_year', 'id');
+    }
+
     public function level(){
         return $this->hasOne(Level::class, 'id', 'level_id');
     }

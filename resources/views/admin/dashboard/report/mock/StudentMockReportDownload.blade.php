@@ -164,7 +164,9 @@
                                 <td style="border: 1px solid black; text-align: left; padding-left:10px">{{$value['termData']['term_name']}}</td>
                                 <td style="border: 1px solid black; text-align: left;
                                 padding-left:10px">Academic Year:</td>
-                                <td style="border: 1px solid black; text-align: left; padding-left:10px">{{$value['termData']['term_academic_year']}}</td>
+                                <td style="border: 1px solid black; text-align: left; padding-left:10px">{{$value['termData']['academic_year']['academic_year_start']
+                                                        .'/'
+                                                        .$value['termData']['academic_year']['academic_year_end']}}</td>
                             </tr>
                             <tr style="text-align: center; border: 1px solid black">
                                 <td style="border: 1px solid black; text-align: left;

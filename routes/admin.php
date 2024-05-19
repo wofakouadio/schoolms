@@ -3,6 +3,7 @@
 //namespace App\Http\Controllers\Admin;
 
 //Administrator login page
+use App\Http\Controllers\Admin\AcademicYear\AcademicYearController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Assessment\Attendance\StudentAttendanceController;
@@ -87,32 +88,43 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**School**/
     Route::get('school', [SchoolController::class, 'index'])->name('admin_school');
     Route::get('school_data', [SchoolController::class, 'school_data'])->name('school_data');
-    Route::put('school/update', [SchoolController::class, 'update'])->name('admin_school_update');
-    /**School Term**/
-    Route::post('school/term/store', [TermController::class, 'store'])->name('new-term');
-    Route::get('school/term/edit', [TermController::class, 'edit'])->name('edit-term');
-    Route::put('school/term/update', [TermController::class, 'update'])->name('update-term');
-    Route::put('school/term/update-status', [TermController::class, 'update_status'])->name('update-term-status');
-    Route::delete('school/term/delete', [TermController::class, 'delete'])->name('delete-term');
+    Route::put('update', [SchoolController::class, 'update'])->name('admin_school_update');
+
+    /**Term**/
+    Route::get('term', [TermController::class, 'index'])->name('admin_school_term');
+    Route::post('term/store', [TermController::class, 'store'])->name('new-term');
+    Route::get('term/edit', [TermController::class, 'edit'])->name('edit-term');
+    Route::put('term/update', [TermController::class, 'update'])->name('update-term');
+    Route::put('term/update-status', [TermController::class, 'update_status'])->name('update-term-status');
+    Route::delete('term/delete', [TermController::class, 'delete'])->name('delete-term');
     Route::get('termsTable', 'App\Http\Controllers\Admin\School\TermsDatatable')->name('termsTables');
     Route::get('getTermsBySchoolId', [TermController::class, 'getTermsBySchoolId'])->name('getTermsBySchoolId');
     Route::get('getActiveTermBySchoolID', [TermController::class, 'getActiveTermBySchoolID'])->name('getActiveTermBySchoolID');
 
+    /**Academic Year**/
+    Route::get("academic-year", [AcademicYearController::class, 'index'])->name("admin_academic_year");
+    Route::post("academic-year/new", [AcademicYearController::class, 'store'])->name("new_admin_academic_year");
+    Route::get("academic-year/edit", [AcademicYearController::class, 'edit'])->name("edit_admin_academic_year");
+    Route::put("academic-year/update", [AcademicYearController::class, 'update'])->name("update_admin_academic_year");
+    Route::put("academic-year/update-status", [AcademicYearController::class, 'update_status'])->name("update_admin_academic_year_status");
+    Route::delete("academic-year/delete", [AcademicYearController::class, 'delete'])->name("delete_admin_academic_year");
+    Route::get('getAcademicYearsBySchoolId', [AcademicYearController::class, 'getAcademicYearsBySchoolId'])->name('getAcademicYearsBySchoolId');
+
     /**Branch**/
-    Route::get('school/branch', [BranchController::class, 'index'])->name('admin_school_branch');
-    Route::post('school/branch', [BranchController::class, 'store'])->name('new-branch');
-    Route::get('school/branch/edit', [BranchController::class, 'edit'])->name('edit-branch');
-    Route::put('school/branch/update', [BranchController::class, 'update'])->name('update-branch');
-    Route::delete('school/branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
+    Route::get('branch', [BranchController::class, 'index'])->name('admin_school_branch');
+    Route::post('branch', [BranchController::class, 'store'])->name('new-branch');
+    Route::get('branch/edit', [BranchController::class, 'edit'])->name('edit-branch');
+    Route::put('branch/update', [BranchController::class, 'update'])->name('update-branch');
+    Route::delete('branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
     Route::get('branchesTables', 'App\Http\Controllers\Admin\Branch\BranchesDatatable')->name('branchesTables');
     Route::get('getBranchesBySchoolId', [BranchController::class, 'getBranchesBySchoolId'])->name('getBranchesBySchoolId');
 
     /**Level**/
-    Route::get('school/level', [LevelController::class, 'index'])->name('admin_school_level');
-    Route::post('school/level', [LevelController::class, 'store'])->name('new-level');
-    Route::get('school/level/edit', [LevelController::class, 'edit'])->name('edit-level');
-    Route::put('school/level/update', [LevelController::class, 'update'])->name('update-level');
-    Route::delete('school/level/delete', [LevelController::class, 'delete'])->name('delete-level');
+    Route::get('level', [LevelController::class, 'index'])->name('admin_school_level');
+    Route::post('level', [LevelController::class, 'store'])->name('new-level');
+    Route::get('level/edit', [LevelController::class, 'edit'])->name('edit-level');
+    Route::put('level/update', [LevelController::class, 'update'])->name('update-level');
+    Route::delete('level/delete', [LevelController::class, 'delete'])->name('delete-level');
     Route::get('levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name('levelsTables');
     Route::get('getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
     Route::get('getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
@@ -120,20 +132,20 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post('assign_subjects_to_level', [LevelController::class, 'assign_subjects_to_level'])->name('assign_subjects_to_level');
 
     /**House**/
-    Route::get('school/house', [HouseController::class, 'index'])->name('admin_school_house');
-    Route::post('school/house', [HouseController::class, 'store'])->name('new-house');
-    Route::get('school/house/edit', [HouseController::class, 'edit'])->name('edit-house');
-    Route::put('school/house/update', [HouseController::class, 'update'])->name('update-house');
-    Route::delete('school/house/delete', [HouseController::class, 'delete'])->name('delete-house');
+    Route::get('house', [HouseController::class, 'index'])->name('admin_school_house');
+    Route::post('house', [HouseController::class, 'store'])->name('new-house');
+    Route::get('house/edit', [HouseController::class, 'edit'])->name('edit-house');
+    Route::put('house/update', [HouseController::class, 'update'])->name('update-house');
+    Route::delete('house/delete', [HouseController::class, 'delete'])->name('delete-house');
     Route::get('housesTables', 'App\Http\Controllers\Admin\House\HousesDatatable')->name('housesTables');
     Route::get('getHousesByBranchId', [HouseController::class, 'getHousesByBranchId'])->name('getHousesByBranchId');
 
     /**Category**/
-    Route::get('school/category', [CategoryController::class, 'index'])->name('admin_school_category');
-    Route::post('school/category', [CategoryController::class, 'store'])->name('new-category');
-    Route::get('school/category/edit', [CategoryController::class, 'edit'])->name('edit-category');
-    Route::put('school/category/update', [CategoryController::class, 'update'])->name('update-category');
-    Route::delete('school/category/delete', [CategoryController::class, 'delete'])->name('delete-category');
+    Route::get('category', [CategoryController::class, 'index'])->name('admin_school_category');
+    Route::post('category', [CategoryController::class, 'store'])->name('new-category');
+    Route::get('category/edit', [CategoryController::class, 'edit'])->name('edit-category');
+    Route::put('category/update', [CategoryController::class, 'update'])->name('update-category');
+    Route::delete('category/delete', [CategoryController::class, 'delete'])->name('delete-category');
     Route::get('categoriesTables', 'App\Http\Controllers\Admin\Category\CategoriesDatatable')->name('categoriesTables');
     Route::get('getCategoriesBySchoolId', [CategoryController::class, 'getCategoriesBySchoolId'])->name('getCategoriesBySchoolId');
 
@@ -220,7 +232,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     ('StudentsEndTermDataTables');
 
     /**Subject**/
-    Route::get('school/subject', [SubjectsController::class, 'index'])->name('admin_school_subject');
+    Route::get('subject', [SubjectsController::class, 'index'])->name('admin_school_subject');
     Route::post('new-subject', [SubjectsController::class, 'store'])->name('new_subject');
     Route::get('edit-subject', [SubjectsController::class, 'edit'])->name('edit_subject');
     Route::put('update-subject', [SubjectsController::class, 'update'])->name('update_subject');
@@ -237,22 +249,20 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Mock**/
     Route::get("report/mock", [MockReportController::class, 'index'])->name("admin_student_mock_report");
-    Route::post('report/mock/view', [MockReportController::class, 'preview_mock_report'])->name('preview_mock_report');
-    Route::post('report/mock/download', [MockReportController::class, 'download_mock_report'])->name('download_mock_report');
+    Route::post('report/mock/view', [MockReportController::class, 'preview_mock_report'])->name('admin_preview_mock_report');
+    Route::post('report/mock/download', [MockReportController::class, 'download_mock_report'])->name('admin_download_mock_report');
     /**Mid-Term**/
     Route::get("report/mid-term", [MidTermReportController::class, 'index'])->name("admin_student_mid_term_report");
-    Route::post("report/mid-term/view", [MidTermReportController::class, 'get_mid_term_report'])->name("get_mid_term_report");
-    Route::post("report/mid-term/download", [MidTermReportController::class, 'download_mid_term_report'])->name("download_mid_term_report");
-
+    Route::post("report/mid-term/view", [MidTermReportController::class, 'get_mid_term_report'])->name("admin_get_mid_term_report");
+    Route::post("report/mid-term/download", [MidTermReportController::class, 'download_mid_term_report'])->name("admin_download_mid_term_report");
     /**End 0f Term**/
     Route::get("report/end-of-term", [EndTermReportController::class, 'index'])->name("admin_student_end_term_report");
-    Route::post("report/end-of-term/view", [EndTermReportController::class, 'get_end_of_term_report'])->name("get_end_of_term_report");
-    Route::post("report/end-of-term/download", [EndTermReportController::class, 'download_end_of_term_report'])->name
-    ("download_end_of_term_report");
+    Route::post("report/end-of-term/view", [EndTermReportController::class, 'get_end_of_term_report'])->name("admin_get_end_of_term_report");
+    Route::post("report/end-of-term/download", [EndTermReportController::class, 'download_end_of_term_report'])
+        ->name("admin_download_end_of_term_report");
 
     /**Account Permission**/
-    Route::get('users/permission', [AccountPermissionController::class,
-        'index'])->name('admin_user_account_permission');
+    Route::get('users/permission', [AccountPermissionController::class, 'index'])->name('admin_user_account_permission');
     Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
 
 });

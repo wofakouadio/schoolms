@@ -16,6 +16,9 @@
                 data:{assessment_id: id},
                 success:(Response)=>{
                     modal.find('input[name=assessment_id]').val(id)
+                    modal.find('input[name=academic_year_name]').val
+                    (Response['school_academic_year']['academic_year_start']+"/"+Response['school_academic_year' +
+                    '']['academic_year_end'])
                     modal.find('input[name=academic_year]').val(Response['academic_year'])
                     modal.find('input[name=class_percentage]').val(Response['class_percentage'])
                     modal.find('input[name=exam_percentage]').val(Response['exam_percentage'])
@@ -47,6 +50,9 @@
                 data:{grading_system_id: id},
                 success:(Response)=>{
                     modal.find('input[name=grading_system_id]').val(id)
+                    modal.find('input[name=academic_year_name]').val
+                    (Response['school_academic_year']['academic_year_start']+"/"+Response['school_academic_year' +
+                    '']['academic_year_end'])
                     modal.find('input[name=academic_year]').val(Response['academic_year'])
                     modal.find('input[name=score_from]').val(Response['score_from'])
                     modal.find('input[name=score_to]').val(Response['score_to'])

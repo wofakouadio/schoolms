@@ -17,19 +17,10 @@
                         <div class="col-xl-12 mb-4">
                             <div class="form-group">
                                 <label  class="form-label font-w600">Academic Year</label>
-                                <input type="text" class="form-control solid" name="academic_year"
-                                       value="{{$schoolTerm['term_academic_year']}}"
+                                <input type="text" class="form-control solid" name="academic_year_name"
+                                       value="{{$schoolTerm['academic_year']['academic_year_start'] . '/' . $schoolTerm['academic_year']['academic_year_end']}}"
                                        readonly>
-                                {{--                            <select class="form-control" name="academic_year">--}}
-                                {{--                                <option value="">Choose</option>--}}
-                                {{--                                @php--}}
-                                {{--                                    $years = range(1960, date('Y'));--}}
-                                {{--                                    foreach ($years as $year){--}}
-                                {{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
-                                {{--                                        .'/'.$year + 1 .'</option>';--}}
-                                {{--                                    }--}}
-                                {{--                                @endphp--}}
-                                {{--                            </select>--}}
+                                <input type="hidden" name="academic_year" value="{{$schoolTerm['term_academic_year']}}">
                             </div>
                         </div>
                         <div class="col-xl-12 mb-4">
@@ -76,19 +67,9 @@
                         <div class="col-xl-12 mb-4">
                             <div class="form-group">
                                 <label  class="form-label font-w600">Academic Year</label>
-                                <input type="text" class="form-control solid" name="academic_year"
-                                       readonly>
+                                <input type="text" class="form-control solid" name="academic_year_name" readonly>
+                                <input type="hidden" name="academic_year" value="{{$schoolTerm['term_academic_year']}}">
                                 <input type="hidden" name="assessment_id">
-                                {{--                            <select class="form-control" name="academic_year">--}}
-                                {{--                                <option value="">Choose</option>--}}
-                                {{--                                @php--}}
-                                {{--                                    $years = range(1960, date('Y'));--}}
-                                {{--                                    foreach ($years as $year){--}}
-                                {{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
-                                {{--                                        .'/'.$year + 1 .'</option>';--}}
-                                {{--                                    }--}}
-                                {{--                                @endphp--}}
-                                {{--                            </select>--}}
                             </div>
                         </div>
                         <div class="col-xl-12 mb-4">
@@ -169,19 +150,10 @@
                         <div class="col-xl-12 mb-4">
                             <div class="form-group">
                                 <label  class="form-label font-w600">Academic Year</label>
-                                <input type="text" class="form-control solid" name="academic_year"
-                                       value="{{$schoolTerm['term_academic_year']}}"
+                                <input type="text" class="form-control solid" name="academic_year_name"
+                                       value="{{$schoolTerm['academic_year']['academic_year_start'] . '/' . $schoolTerm['academic_year']['academic_year_end']}}"
                                        readonly>
-                                {{--                            <select class="form-control" name="academic_year">--}}
-                                {{--                                <option value="">Choose</option>--}}
-                                {{--                                @php--}}
-                                {{--                                    $years = range(1960, date('Y'));--}}
-                                {{--                                    foreach ($years as $year){--}}
-                                {{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
-                                {{--                                        .'/'.$year + 1 .'</option>';--}}
-                                {{--                                    }--}}
-                                {{--                                @endphp--}}
-                                {{--                            </select>--}}
+                                <input type="hidden" name="academic_year" value="{{$schoolTerm['term_academic_year']}}">
                             </div>
                         </div>
                         <div class="col-xl-6 mb-4">
@@ -232,19 +204,9 @@
                         <div class="col-xl-12 mb-4">
                             <div class="form-group">
                                 <label  class="form-label font-w600">Academic Year</label>
-                                <input type="text" class="form-control solid" name="academic_year"
-                                       readonly>
+                                <input type="text" class="form-control solid" name="academic_year_name" readonly>
+                                <input type="hidden" name="academic_year" value="{{$schoolTerm['term_academic_year']}}">
                                 <input type="hidden" name="grading_system_id">
-                                {{--                            <select class="form-control" name="academic_year">--}}
-                                {{--                                <option value="">Choose</option>--}}
-                                {{--                                @php--}}
-                                {{--                                    $years = range(1960, date('Y'));--}}
-                                {{--                                    foreach ($years as $year){--}}
-                                {{--                                        echo '<option value="'.$year.'/'.$year + 1 .'">'.$year--}}
-                                {{--                                        .'/'.$year + 1 .'</option>';--}}
-                                {{--                                    }--}}
-                                {{--                                @endphp--}}
-                                {{--                            </select>--}}
                             </div>
                         </div>
                         <div class="col-xl-6 mb-4">
