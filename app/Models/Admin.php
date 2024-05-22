@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements HasMedia
 {
-    use HasFactory, UUID, SoftDeletes;
+    use HasFactory, UUID, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
         'admin_firstName',
@@ -33,6 +35,11 @@ class Admin extends Authenticatable
     public function getAuthPassword()
     {
         return $this->admin_password;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('admin_profile')->useDisk('media');
     }
 
 
