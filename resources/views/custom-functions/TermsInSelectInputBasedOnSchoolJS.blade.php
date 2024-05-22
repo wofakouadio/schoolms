@@ -21,6 +21,8 @@
                         $("#new-bill-form select[name=term]").html(Response)
                         $("#update-bill-form select[name=term]").html(Response)
                         $("#end_of_term_report_form").find("select[name=term]").html(Response)
+                        $("#new-cas-modal").find('select[name=term]').html(Response)
+                        $("#edit-cas-modal").find('select[name=term]').html(Response)
                     @elseif(Auth::guard('teacher')->check())
                         $("#end_of_term_report_form").find("select[name=term]").html(Response)
                     @endif
