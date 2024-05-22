@@ -126,6 +126,7 @@
                         <li><a href="{{route('admin_school')}}">Profile</a></li>
                         <li><a href="{{route('admin_academic_year')}}">Academic-Year</a></li>
                         <li><a href="{{route('admin_school_term')}}">Term</a></li>
+                        <li><a href="{{route('admin_class_assessment_size')}}">Class Assessment Size</a></li>
                     </ul>
                 </li>
                 <li>
