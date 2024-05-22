@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AcademicYear\AcademicYearController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Assessment\Attendance\StudentAttendanceController;
+use App\Http\Controllers\Admin\Assessment\Class\ClassAssessmentController;
 use App\Http\Controllers\Admin\Assessment\EndTerm\EndOfTermController;
 use App\Http\Controllers\Admin\Assessment\MidTerm\MidTermController;
 use App\Http\Controllers\Admin\Assessment\Mock\StudentMockController;
@@ -219,6 +220,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('StudentsMockDatatable', 'App\Http\Controllers\Admin\Assessment\Mock\StudentsMockDatatable')->name('StudentsMockDatatable');
     Route::get('export-students-mock-list-in-excel', [StudentMockController::class, 'export_Students_mock_list'])->name('export-students-mock-list-in-excel');
 
+    /**Level Assessment**/
+    Route::get('assessment/level', [ClassAssessmentController::class, 'index'])->name('admin_assessment_level');
+    Route::get('getSubjectsBasedOnLevel', [ClassAssessmentController::class, 'getSubjectsBasedOnLevel'])->name('getSubjectsBasedOnLevel');
+    Route::get('get-student-to-level-assessment', [ClassAssessmentController::class, 'create'])->name('get_student_to_level_assessment');
+    Route::post('new-student-class-assessment-entry', [ClassAssessmentController::class, 'store'])->name('new_student_class_assessment_entry');
+
     /**Mid-Term**/
     Route::get("student/mid-term", [MidTermController::class, 'index'])->name('admin_student_mid_term');
     Route::get("student/mid-term/create", [MidTermController::class, 'create'])->name('get-student-to-mid-term');
@@ -267,11 +274,11 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
 
     /**Class Assessment Size**/
-    Route::get('class-assessment-size',[ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');
-    Route::post('class-assessment-size/new', [ClassAssessmentSizeController::class, 'store'])->name('add_new_class_assessment_size');
-    Route::get('class-assessment-size/edit', [ClassAssessmentSizeController::class, 'edit'])->name('edit_class_assessment_size');
-    Route::put('class-assessment-size/update', [ClassAssessmentSizeController::class, 'update'])->name('update_class_assessment_size');
-    Route::put('class-assessment-size/status', [ClassAssessmentSizeController::class, 'update_status'])->name('update_class_assessment_size_status');
-    Route::delete('class-assessment-size/delete', [ClassAssessmentSizeController::class, 'delete'])->name('delete_class_assessment_size');
+    Route::get('level-assessment-size',[ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');
+    Route::post('level-assessment-size/new', [ClassAssessmentSizeController::class, 'store'])->name('add_new_class_assessment_size');
+    Route::get('level-assessment-size/edit', [ClassAssessmentSizeController::class, 'edit'])->name('edit_class_assessment_size');
+    Route::put('level-assessment-size/update', [ClassAssessmentSizeController::class, 'update'])->name('update_class_assessment_size');
+    Route::put('level-assessment-size/status', [ClassAssessmentSizeController::class, 'update_status'])->name('update_class_assessment_size_status');
+    Route::delete('level-assessment-size/delete', [ClassAssessmentSizeController::class, 'delete'])->name('delete_class_assessment_size');
 
 });
