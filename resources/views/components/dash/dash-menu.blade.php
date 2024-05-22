@@ -101,6 +101,7 @@
                                 <li><a href="{{route('admin_student_mock_examination')}}">Examination</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{route('admin_assessment_level')}}">Level Assessment</a></li>
                         <li><a href="{{route('admin_student_mid_term')}}">Mid-Term Exams</a></li>
                         <li><a href="{{route('admin_student_end_term')}}">End of Term Exams</a></li>
                     </ul>
