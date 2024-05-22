@@ -31,6 +31,7 @@
                         $("#mid_term_report_form").find("select[name=level]").html(Response)
                         $("#end_of_term_report_form").find("select[name=level]").html(Response)
                         $("#new-assign-level-teacher-form").find("select[name=level]").html(Response)
+                        $("#new-level-assessment-form").find("select[name=level]").html(Response)
                     @elseif(Auth::guard('teacher')->check())
                         $("#new-student-mock-modal").find("select[name=level]").html(Response)
                         $("#new-student-mid-term-modal").find("select[name=level]").html(Response)
