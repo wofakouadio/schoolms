@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Assessment\EndTerm\EndOfTermController;
 use App\Http\Controllers\Admin\Assessment\MidTerm\MidTermController;
 use App\Http\Controllers\Admin\Assessment\Mock\StudentMockController;
 use App\Http\Controllers\Admin\Assessment\Settings\AssessmentSettingsController;
+use App\Http\Controllers\Admin\Assessment\Settings\ClassAssessmentSizeController;
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\CustomJSController;
@@ -264,5 +265,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Account Permission**/
     Route::get('users/permission', [AccountPermissionController::class, 'index'])->name('admin_user_account_permission');
     Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
+
+    /**Class Assessment Size**/
+    Route::get('class-assessment-size',[ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');
+    Route::post('class-assessment-size/new', [ClassAssessmentSizeController::class, 'store'])->name('add_new_class_assessment_size');
+    Route::get('class-assessment-size/edit', [ClassAssessmentSizeController::class, 'edit'])->name('edit_class_assessment_size');
+    Route::put('class-assessment-size/update', [ClassAssessmentSizeController::class, 'update'])->name('update_class_assessment_size');
+    Route::put('class-assessment-size/status', [ClassAssessmentSizeController::class, 'update_status'])->name('update_class_assessment_size_status');
+    Route::delete('class-assessment-size/delete', [ClassAssessmentSizeController::class, 'delete'])->name('delete_class_assessment_size');
 
 });
