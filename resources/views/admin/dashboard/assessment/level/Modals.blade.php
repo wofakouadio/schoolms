@@ -49,7 +49,7 @@
 </div>
 
 
-{{--insert new student mock--}}
+{{--insert new student level assessment--}}
 <div class="modal fade" id="insert-level-assessment-modal">
     <form method="post" id="insert-level-assessment-form" action="{{route('new_student_class_assessment_entry')}}">
         @csrf
@@ -129,6 +129,122 @@
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="btn-save-close">Save & Close</button>
                     <button type="submit" class="btn btn-primary" id="btn-save-add-more">Save & Add More</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{--Edit level assessment--}}
+<div class="modal fade" id="edit-level-assessment-modal">
+    <form method="post" id="edit-level-assessment-form" action="{{route('update_student_class_assessment_entry')}}">
+        @csrf
+        @method('PUT')
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Student Level Assessment Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="alert menu-alert">
+                            <ul></ul>
+                        </div>
+                        <h4 class="text-primary">Student Data</h4>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Student ID<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input type="text" class="form-control solid" name="student_id" readonly>
+                            <input type="hidden" name="studentId">
+                            <input type="hidden" name="branch_id">
+                            <input type="hidden" name="level_assessment_id">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Name<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input type="text" class="form-control solid" name="student_name" readonly>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Gender<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input type="text" class="form-control solid" name="student_gender" readonly>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Level<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input type="text" class="form-control solid" name="student_level" readonly>
+                            <input type="hidden" name="level_id">
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Residency<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input class="form-control solid" name="student_residency" type="text" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="text-primary">Calendar</h4>
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Term<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input class="form-control solid" name="term" type="text" readonly>
+                            <input type="hidden" name="term_id">
+                        </div>
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Academic Year<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input class="form-control solid" name="academic_year" type="text" readonly>
+                            <input type="hidden" name="academic_year_id">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="text-primary">Class Score Assessment</h4>
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Subject<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input class="form-control solid" name="subject" type="text" readonly>
+                            <input type="hidden" name="subject_id">
+                        </div>
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Score<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <input class="form-control solid" name="score" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{--Delete level assessment--}}
+<div class="modal fade" id="delete-level-assessment-modal">
+    <form method="post" id="delete-level-assessment-form" action="{{route('delete_student_class_assessment_entry')}}">
+        @csrf
+        @method('DELETE')
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Student Level Assessment Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <h4 class="text-primary">Are you sure of deleting this class assessment record?</h4>
+                    <small>Note that this action is irreversible</small>
+                    <input type="hidden" name="level_assessment_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
                 </div>
             </div>
         </div>

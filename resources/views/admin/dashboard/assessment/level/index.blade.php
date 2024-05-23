@@ -76,10 +76,10 @@
                                                     </button>
                                                     <div class="dropdown-menu" style="">
                                                         <a class="dropdown-item" data-bs-toggle="modal"
-                                                           data-bs-target="#edit-academic-year-modal"
+                                                           data-bs-target="#edit-level-assessment-modal"
                                                            data-id="{{$record->id}}">Edit Class Score</a>
                                                         <a class="dropdown-item"  data-bs-toggle="modal"
-                                                           data-bs-target="#delete-academic-year-modal"
+                                                           data-bs-target="#delete-level-assessment-modal"
                                                            data-id="{{$record->id}}">Delete Class Score</a>
                                                     </div>
                                                 </div>

@@ -14,6 +14,7 @@ use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 use function App\Helpers\TermAndAcademicYear;
 
 class ClassAssessmentController extends Controller
@@ -103,9 +104,17 @@ class ClassAssessmentController extends Controller
 
             //check if size was inputted. else use the default class assessment size from the env file
             if(!empty($classAssessmentSettings)){
-                $classSize = $classAssessmentSettings->class_assessment_size;
+                if($classAssessmentSettings->add_mid_term == 'on'){
+                    $classSize = $classAssessmentSettings->class_assessment_size - 1;
+                }else{
+                    $classSize = $classAssessmentSettings->class_assessment_size;
+                }
             }else{
-                $classSize = config('assessment-settings.class_assessment_size');
+                if($classAssessmentSettings->add_mid_term == 'on'){
+                    $classSize = config('assessment-settings.class_assessment_size') - 1;
+                }else{
+                    $classSize = config('assessment-settings.class_assessment_size');
+                }
             }
 
             //let check if class assessment has been recorded
@@ -152,5 +161,42 @@ class ClassAssessmentController extends Controller
             ];
         }
         return response()->json($data);
+    }
+
+    public function edit(Request $request){
+        $data = ClassAssessment::with('student', 'level', 'term', 'academicYear', 'subject')
+            ->where('id', $request->id)->first();
+        return response()->json($data);
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'score' => 'required|min:0|numeric'
+        ]);
+        DB::beginTransaction();
+        try {
+            ClassAssessment::where('id', $request->level_assessment_id)->update([
+                'score' => $request->score,
+            ]);
+            DB::commit();
+            Alert::success('Success', 'Class Assessment updated successfully.');
+            return redirect()->route('admin_assessment_level');
+        }catch(\Exception $th){
+            DB::rollBack();
+            return back()->withErrors('Something went wrong. Details : ' . $th->getMessage());
+        }
+    }
+
+    public function delete(Request $request){
+        DB::beginTransaction();
+        try {
+            ClassAssessment::where('id', $request->level_assessment_id)->delete();
+            DB::commit();
+            Alert::success('Success', 'Class Assessment deleted successfully.');
+            return redirect()->route('admin_assessment_level');
+        }catch(\Exception $th){
+            DB::rollBack();
+            return back()->withErrors('Something went wrong. Details : ' . $th->getMessage());
+        }
     }
 }

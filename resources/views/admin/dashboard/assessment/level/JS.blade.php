@@ -210,5 +210,50 @@
                 }
             })
         })
+
+        //edit class assessment record
+        $("#edit-level-assessment-modal").on('show.bs.modal', (event)=>{
+            let str = $(event.relatedTarget)
+            let modal = $("#edit-level-assessment-modal")
+            let id = str.data('id')
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{route('edit_student_class_assessment_entry')}}',
+                method:'GET',
+                cache: false,
+                data:{id:id},
+                success:(Response)=>{
+                    modal.find('input[name=level_assessment_id]').val(id)
+                    modal.find('input[name=student_id]').val(Response['student']['student_id'])
+                    modal.find('input[name=studentId]').val(Response['student_id'])
+                    modal.find('input[name=branch_id]').val(Response['branch_id'])
+                    modal.find('input[name=student_name]').val(Response['student']['student_firstname'])
+                    modal.find('input[name=student_gender]').val(Response['student']['student_gender'])
+                    modal.find('input[name=student_level]').val(Response['level']['level_name'])
+                    modal.find('input[name=level_id]').val(Response['student']['student_level'])
+                    modal.find('input[name=student_residency]').val(Response['student']['student_residency_type'])
+                    modal.find('input[name=term]').val(Response['term']['term_name'])
+                    modal.find('input[name=term_id]').val(Response['term_id'])
+                    modal.find('input[name=academic_year]').val
+                    (Response['academic_year']['academic_year_start']+'/'+Response['academic_year' +
+                    '']['academic_year_end'])
+                    modal.find('input[name=academic_year_id]').val(Response['academic_year_id'])
+                    modal.find('input[name=subject]').val(Response['subject']['subject_name'])
+                    modal.find('input[name=subject_id]').val(Response['subject_id'])
+                    modal.find('input[name=score]').val(Response['score'])
+                }
+            })
+        })
+
+        $("#delete-level-assessment-modal").on("show.bs.modal", (event)=>{
+            let str = $(event.relatedTarget)
+            let modal = $("#delete-level-assessment-modal")
+            let id = str.data('id')
+            modal.find('input[name=level_assessment_id]').val(id)
+        })
     })
 </script>

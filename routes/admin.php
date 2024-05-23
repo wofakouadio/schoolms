@@ -224,7 +224,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('assessment/level', [ClassAssessmentController::class, 'index'])->name('admin_assessment_level');
     Route::get('getSubjectsBasedOnLevel', [ClassAssessmentController::class, 'getSubjectsBasedOnLevel'])->name('getSubjectsBasedOnLevel');
     Route::get('get-student-to-level-assessment', [ClassAssessmentController::class, 'create'])->name('get_student_to_level_assessment');
-    Route::post('new-student-class-assessment-entry', [ClassAssessmentController::class, 'store'])->name('new_student_class_assessment_entry');
+    Route::post('assessment/level/new', [ClassAssessmentController::class, 'store'])->name('new_student_class_assessment_entry');
+    Route::get('assessment/level/edit', [ClassAssessmentController::class, 'edit'])->name('edit_student_class_assessment_entry');
+    Route::put('assessment/level/update', [ClassAssessmentController::class, 'update'])->name('update_student_class_assessment_entry');
+    Route::delete('assessment/level/delete', [ClassAssessmentController::class, 'delete'])->name('delete_student_class_assessment_entry');
 
     /**Mid-Term**/
     Route::get("student/mid-term", [MidTermController::class, 'index'])->name('admin_student_mid_term');
