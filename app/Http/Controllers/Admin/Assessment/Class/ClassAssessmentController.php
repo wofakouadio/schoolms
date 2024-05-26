@@ -7,6 +7,7 @@ use App\Models\AssessmentSettings;
 use App\Models\AssignSubjectToLevel;
 use App\Models\ClassAssessment;
 use App\Models\ClassAssessmentSettings;
+use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\Level;
 use App\Models\StudentsAdmissions;
 use App\Models\Subject;
@@ -131,16 +132,63 @@ class ClassAssessmentController extends Controller
 //            dd($classSize);
 
             if($chkClassAssessmentRecorded <= $classSize){
-                ClassAssessment::create([
+                $chkClassAssessmentTotalRecords = ClassAssessmentTotalScoreRecord::where([
                     'student_id' => $student_id,
                     'term_id' => $term_id,
                     'level_id' => $level_id,
                     'academic_year_id' => $academic_year_id,
                     'subject_id' => $subject_id,
-                    'score' => $score,
                     'school_id' => $school_id,
                     'branch_id' => $branch_id
-                ]);
+                ])->first();
+
+                if(empty($chkClassAssessmentTotalRecords)){
+                    ClassAssessment::create([
+                        'student_id' => $student_id,
+                        'term_id' => $term_id,
+                        'level_id' => $level_id,
+                        'academic_year_id' => $academic_year_id,
+                        'subject_id' => $subject_id,
+                        'score' => $score,
+                        'school_id' => $school_id,
+                        'branch_id' => $branch_id
+                    ]);
+
+                    ClassAssessmentTotalScoreRecord::create([
+                        'student_id' => $student_id,
+                        'term_id' => $term_id,
+                        'level_id' => $level_id,
+                        'academic_year_id' => $academic_year_id,
+                        'subject_id' => $subject_id,
+                        'score' => $score,
+                        'school_id' => $school_id,
+                        'branch_id' => $branch_id
+                    ]);
+                }else{
+                    $lastScoreRecorded = $chkClassAssessmentTotalRecords->score;
+                    $newScore = $lastScoreRecorded + $score;
+
+                    $newRecord = ClassAssessment::create([
+                        'student_id' => $student_id,
+                        'term_id' => $term_id,
+                        'level_id' => $level_id,
+                        'academic_year_id' => $academic_year_id,
+                        'subject_id' => $subject_id,
+                        'score' => $score,
+                        'school_id' => $school_id,
+                        'branch_id' => $branch_id
+                    ]);
+                    ClassAssessmentTotalScoreRecord::where([
+//                        'id' => $newRecord->id,
+                        'student_id' => $student_id,
+                        'term_id' => $term_id,
+                        'level_id' => $level_id,
+                        'academic_year_id' => $academic_year_id,
+                        'subject_id' => $subject_id,
+                        'school_id' => $school_id,
+                        'branch_id' => $branch_id
+                    ])->update(['score' => $newScore]);
+                }
                 DB::commit();
                 $data = [
                     'status' => 200,
@@ -176,7 +224,7 @@ class ClassAssessmentController extends Controller
         DB::beginTransaction();
         try {
             ClassAssessment::where('id', $request->level_assessment_id)->update([
-                'score' => $request->score,
+                'score' => $request->score
             ]);
             DB::commit();
             Alert::success('Success', 'Class Assessment updated successfully.');

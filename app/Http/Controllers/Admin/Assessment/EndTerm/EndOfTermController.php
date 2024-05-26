@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Assessment\EndTerm;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignSubjectToLevel;
+use App\Models\ClassAssessment;
+use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\EndOfTerm;
 use App\Models\EndOfTermBreakdown;
 use App\Models\StudentsAdmissions;
@@ -28,6 +30,8 @@ class EndOfTermController extends Controller
             'student' => 'required'
         ]);
 
+        $schoolTerm = TermAndAcademicYear();
+
         //let get student data
         $studentData = StudentsAdmissions::with('level')
             ->where('id', $request->student)
@@ -40,19 +44,68 @@ class EndOfTermController extends Controller
             ->where('level_id', $request->level)
             ->where("school_id", Auth::guard('admin')->user()->school_id)
             ->get();
-//        dd($studentSubjectsLevel);
+
         //let get academic year
         $academicYearSession = Term::with('academic_year')->where("school_id", Auth::guard('admin')->user()->school_id)
             ->where("is_active", 1)
             ->first();
 
-        $data = [
-            'StudentData' => $studentData,
-            'Subjects' => $studentSubjectsLevel,
-            'Term' => $academicYearSession
-        ];
-        return response()->json($data);
-//        dd($studentSubjectsLevel);
+        //let get student class records
+        $studentClassAssessment = ClassAssessmentTotalScoreRecord::with('subject')->where([
+                'student_id' => $request->student,
+                'term_id' => $academicYearSession->id,
+                'level_id' => $request->level,
+                'academic_year_id' => $academicYearSession->term_academic_year,
+                'school_id' => Auth::guard('admin')->user()->school_id
+            ])->get();
+
+//        dd($studentClassAssessment);
+
+        //get student class assessment level
+//        foreach($studentSubjectsLevel as $subject){
+////            $studentClassAssessment[] = ClassAssessment::select('subject_id', 'score')->with('subject')->where([
+//            $studentClassAssessment[] = ClassAssessment::select('subject_id', 'score')->where([
+//                'student_id' => $request->student,
+//                'term_id' => $academicYearSession->id,
+//                'level_id' => $request->level,
+//                'academic_year_id' => $academicYearSession->term_academic_year,
+//                'subject_id' => $subject->subject_id,
+//                'school_id' => Auth::guard('admin')->user()->school_id
+//            ])->get();
+//
+//            $subjectsData[] = [
+//                'id' => $subject->subject_id,
+//                'name' => $subject->subject->subject_name
+//            ];
+//
+//            foreach ($studentClassAssessment as $key => $index){
+//                foreach ($index as $value)
+//                $classAssessmentsData[] = [
+//                    'id' => $value->subject_id,
+//                    'score' => $value->score
+//                ];
+//            }
+//        }
+
+//        foreach($classAssessmentsData as $ye => $ke){
+//            if(in_array($key->id, $subjectsData)){
+//                $totalScore = '';
+//            }
+//        }
+//        foreach ($studentClassAssessment as $key => $value){
+//            $classAssessmentsData[] = [
+//                'id' => $value->subject_id,
+//                'score' => $value->score
+//            ];
+//        }
+//        dd($subjectsData);
+//        dd($classAssessmentsData);
+//        dd('SubjectsData = '. $subjectsData .'<br>'. 'ClassAssessmentsData = '.$classAssessmentsData);
+
+
+        return view('admin.dashboard.assessment.end-of-term.EndTermForm', compact('studentData','studentSubjectsLevel', 'academicYearSession', 'studentClassAssessment', 'schoolTerm'));
+//        return response()->json($data);
+//        dd($data);
     }
 
     public function store(Request $request){
