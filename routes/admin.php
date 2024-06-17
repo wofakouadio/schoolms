@@ -237,7 +237,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**End of Sem**/
     Route::get("student/end-of-term", [EndOfTermController::class, 'index'])->name("admin_student_end_term");
-    Route::get("get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
+    Route::post("student/end-of-term/get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
     Route::post("new-student-end-term-entry", [EndOfTermController::class, 'store'])->name("new-student-end-term-entry");
     Route::get('StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\EndTerm\StudentsEndTermDataTables')->name
     ('StudentsEndTermDataTables');
