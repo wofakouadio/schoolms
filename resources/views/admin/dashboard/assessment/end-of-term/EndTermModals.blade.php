@@ -1,6 +1,6 @@
 {{--New Student Mock--}}
 <div class="modal fade" id="new-end-term-setup-modal">
-    <form method="post" id="new-end-term-setup-form">
+    <form method="post" id="new-end-term-setup-form" action="{{route('get-student-to-end-term')}}">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">

@@ -49,4 +49,8 @@ class ClassAssessmentTotalScoreRecord extends Model
     public function branch(){
         return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
+
+    public function mid_term(){
+        return $this->hasOne(MidTermBreakdown::class, 'subject_id', 'subject_id');
+    }
 }

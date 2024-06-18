@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin\Assessment\EndTerm;
 use App\Http\Controllers\Controller;
 use App\Models\AssignSubjectToLevel;
 use App\Models\ClassAssessment;
+use App\Models\ClassAssessmentSettings;
 use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\EndOfTerm;
 use App\Models\EndOfTermBreakdown;
+use App\Models\MidTermBreakdown;
+use App\Models\MockBreakdown;
 use App\Models\StudentsAdmissions;
 use App\Models\Term;
 use Illuminate\Http\Request;
@@ -51,61 +54,37 @@ class EndOfTermController extends Controller
             ->first();
 
         //let get student class records
-        $studentClassAssessment = ClassAssessmentTotalScoreRecord::with('subject')->where([
-                'student_id' => $request->student,
-                'term_id' => $academicYearSession->id,
-                'level_id' => $request->level,
-                'academic_year_id' => $academicYearSession->term_academic_year,
-                'school_id' => Auth::guard('admin')->user()->school_id
-            ])->get();
+        $studentClassAssessment = ClassAssessmentTotalScoreRecord::with(['subject', 'mid_term'])->where([
+            'student_id' => $request->student,
+            'term_id' => $academicYearSession->id,
+            'level_id' => $request->level,
+            'academic_year_id' => $academicYearSession->term_academic_year,
+            'school_id' => Auth::guard('admin')->user()->school_id
+        ])->get();
 
-//        dd($studentClassAssessment);
+        //get school Assessment set
+        $schoolAssessmentSettings = ClassAssessmentSettings::where([
+            'school_id' => Auth::guard('admin')->user()->school_id,
+            'academic_year_id' => $academicYearSession->term_academic_year,
+        ])->first();
 
-        //get student class assessment level
-//        foreach($studentSubjectsLevel as $subject){
-////            $studentClassAssessment[] = ClassAssessment::select('subject_id', 'score')->with('subject')->where([
-//            $studentClassAssessment[] = ClassAssessment::select('subject_id', 'score')->where([
-//                'student_id' => $request->student,
-//                'term_id' => $academicYearSession->id,
-//                'level_id' => $request->level,
-//                'academic_year_id' => $academicYearSession->term_academic_year,
-//                'subject_id' => $subject->subject_id,
-//                'school_id' => Auth::guard('admin')->user()->school_id
-//            ])->get();
-//
-//            $subjectsData[] = [
-//                'id' => $subject->subject_id,
-//                'name' => $subject->subject->subject_name
-//            ];
-//
-//            foreach ($studentClassAssessment as $key => $index){
-//                foreach ($index as $value)
-//                $classAssessmentsData[] = [
-//                    'id' => $value->subject_id,
-//                    'score' => $value->score
-//                ];
-//            }
-//        }
+        if(empty($schoolAssessmentSettings)){
+            $classPercentage = config('assessment-settings.class_percentage');
+            $examPercentage = config('assessment-settings.exam_percentage');
+        }else{
+            $classPercentage = $schoolAssessmentSettings->class_percentage;
+            $examPercentage = $schoolAssessmentSettings->exam_percentage;
+        }
 
-//        foreach($classAssessmentsData as $ye => $ke){
-//            if(in_array($key->id, $subjectsData)){
-//                $totalScore = '';
-//            }
-//        }
-//        foreach ($studentClassAssessment as $key => $value){
-//            $classAssessmentsData[] = [
-//                'id' => $value->subject_id,
-//                'score' => $value->score
-//            ];
-//        }
-//        dd($subjectsData);
-//        dd($classAssessmentsData);
-//        dd('SubjectsData = '. $subjectsData .'<br>'. 'ClassAssessmentsData = '.$classAssessmentsData);
-
-
-        return view('admin.dashboard.assessment.end-of-term.EndTermForm', compact('studentData','studentSubjectsLevel', 'academicYearSession', 'studentClassAssessment', 'schoolTerm'));
-//        return response()->json($data);
-//        dd($data);
+        return view('admin.dashboard.assessment.end-of-term.EndTermForm',
+            compact('studentData',
+                'studentSubjectsLevel',
+                'academicYearSession',
+                'studentClassAssessment',
+                'schoolTerm',
+                'classPercentage',
+                'examPercentage',
+            ));
     }
 
     public function store(Request $request){
