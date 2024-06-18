@@ -47,7 +47,7 @@ class StudentsAdmissionsDatatable extends Controller
 //                $department_status =;
                 if( $row->admission_status == 0 ){
                     return '<div class="bootstrap-badge">
-                                <span class="badge badge-xl light badge-warning text-uppercase">pending</span>
+                                <span class="badge badge-xl light badge-warning text-uppercase">pending admission</span>
                            </div>';
                 }elseif( $row->admission_status == 1 ){
                     return '<div class="bootstrap-badge">

@@ -74,8 +74,7 @@
                             <select class="form-control solid" name="student_level"></select>
                         </div>
                         <div class="col-xl-4 mb-4">
-                            <label  class="form-label font-w600">House<span class="text-danger scale5
-                            ms-2">*</span></label>
+                            <label  class="form-label font-w600">House</label>
                             <select class="form-control solid" name="student_house"></select>
                         </div>
                     </div>
