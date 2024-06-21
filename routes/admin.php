@@ -66,8 +66,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("teacher/edit", [TeacherController::class, 'edit'])->name('edit-teacher');
     Route::put('teacher/update', [TeacherController::class, 'update'])->name('update-teacher');
     Route::delete('teacher/delete', [TeacherController::class, 'delete'])->name('delete-teacher');
-    Route::get('teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name
-    ('teachersTables');
+    Route::get('teachersTables', 'App\Http\Controllers\Admin\Teacher\TeachersDatatable')->name('teachersTables');
     /**Assign level to teacher**/
     Route::get('teacher/assign-levels-to-teacher', [TeacherController::class, 'assignLevelsToTeacherIndex'])
         ->name('assign-levels-to-teacher');
@@ -81,8 +80,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("subject/edit", [SubjectController::class, 'edit'])->name('edit-subject');
     Route::put('subject/update', [SubjectController::class, 'update'])->name('update-subject');
     Route::delete('subject/delete', [SubjectController::class, 'delete'])->name('delete-subject');
-    Route::get('subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name
-    ('subjectsTables');
+    Route::get('subjectsTables', 'App\Http\Controllers\Admin\Subjects\SubjectsDatatable')->name('subjectsTables');
     Route::get('getSubjectInCheckboxBySchoolId', [SubjectController::class, 'getSubjectInCheckboxBySchoolId'])->name('getSubjectInCheckboxBySchoolId');
 
     Route::get("assignSubjectToLevel/create", [AssignSubjectToLevelController::class, 'create'])->name('assign-subject-to-level');
@@ -187,13 +185,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     Route::post('assessment/grading-system/new', [AssessmentSettingsController::class, 'new_grading_system'])
         ->name('new_grading_system');
-    Route::get('assessment/grading-system/edit', [AssessmentSettingsController::class, 'edit_grading_system'])->name
-    ('edit_grading_system');
-    Route::put('assessment/grading-system/update', [AssessmentSettingsController::class, 'update_grading_system'])->name
-    ('update_grading_system');
+    Route::get('assessment/grading-system/edit', [AssessmentSettingsController::class, 'edit_grading_system'])->name('edit_grading_system');
+    Route::put('assessment/grading-system/update', [AssessmentSettingsController::class, 'update_grading_system'])->name('update_grading_system');
     Route::delete('assessment/grading-system/delete', [AssessmentSettingsController::class, 'delete_grading_system'])
-        ->name
-    ('delete_grading_system');
+        ->name('delete_grading_system');
 
 
     /**Attendance**/
@@ -239,8 +234,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("student/end-of-term", [EndOfTermController::class, 'index'])->name("admin_student_end_term");
     Route::post("student/end-of-term/get-student-to-end-term", [EndOfTermController::class, 'create'])->name("get-student-to-end-term");
     Route::post("new-student-end-term-entry", [EndOfTermController::class, 'store'])->name("new-student-end-term-entry");
-    Route::get('StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\EndTerm\StudentsEndTermDataTables')->name
-    ('StudentsEndTermDataTables');
+    Route::get('StudentsEndTermDataTables', 'App\Http\Controllers\Admin\Assessment\EndTerm\StudentsEndTermDataTables')->name('StudentsEndTermDataTables');
 
     /**Subject**/
     Route::get('subject', [SubjectsController::class, 'index'])->name('admin_school_subject');
@@ -277,7 +271,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
 
     /**Class Assessment Size**/
-    Route::get('level-assessment-size',[ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');
+    Route::get('level-assessment-size', [ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');
     Route::post('level-assessment-size/new', [ClassAssessmentSizeController::class, 'store'])->name('add_new_class_assessment_size');
     Route::get('level-assessment-size/edit', [ClassAssessmentSizeController::class, 'edit'])->name('edit_class_assessment_size');
     Route::put('level-assessment-size/update', [ClassAssessmentSizeController::class, 'update'])->name('update_class_assessment_size');
