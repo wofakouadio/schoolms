@@ -21,6 +21,7 @@
                     '']['academic_year_end'])
                     modal.find('input[name=academic_year]').val(Response['academic_year'])
                     modal.find('input[name=class_percentage]').val(Response['class_percentage'])
+                    modal.find('input[name=mid_term_percentage]').val(Response['mid_term_percentage'])
                     modal.find('input[name=exam_percentage]').val(Response['exam_percentage'])
                     modal.find('select[name=assessment_status]').val(Response['is_active'])
                 }
