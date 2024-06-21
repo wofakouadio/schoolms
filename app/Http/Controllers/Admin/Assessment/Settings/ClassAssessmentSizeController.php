@@ -85,25 +85,13 @@ class ClassAssessmentSizeController extends Controller
                 'school_id' => Auth::guard('admin')->user()->school_id
             ])->first();
 
-            if($request->has('add_mid_term')) {
-                ClassAssessmentSettings::where('id', $request->id)->update([
-                    'term_id' => $request->term,
-                    'academic_year_id' => $getAcademicYear->term_academic_year,
-                    'class_assessment_size' => $request->assessment_size,
-                    'add_mid_term' => $request->add_mid_term
-                ]);
-                DB::commit();
-                Alert::success('Success', 'Class Assessment Size updated successfully');
-            } else {
-                ClassAssessmentSettings::where('id', $request->id)->update([
-                    'term_id' => $request->term,
-                    'academic_year_id' => $getAcademicYear->term_academic_year,
-                    'class_assessment_size' => $request->assessment_size,
-                    'add_mid_term' => 'off'
-                ]);
-                DB::commit();
-                Alert::success('Success', 'Class Assessment Size updated successfully');
-            }
+            ClassAssessmentSettings::where('id', $request->id)->update([
+                'term_id' => $request->term,
+                'academic_year_id' => $getAcademicYear->term_academic_year,
+                'class_assessment_size' => $request->assessment_size
+            ]);
+            DB::commit();
+            Alert::success('Success', 'Class Assessment Size updated successfully');
             return redirect()->route('admin_class_assessment_size');
         } catch (\Exception $th) {
             DB::rollBack();
