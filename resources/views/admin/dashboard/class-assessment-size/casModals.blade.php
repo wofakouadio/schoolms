@@ -21,14 +21,6 @@
                         <input type="number" class="form-control solid" aria-label="name" name="assessment_size"
                                value="{{old('assessment_size')}}">
                     </div>
-                    <div class="form-group mb-4">
-                        <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl">
-                            <input type="checkbox" class="form-check-input" id="customCheckBox2"
-                                   name="add_mid_term">
-                            <label class="form-check-label" for="customCheckBox2">Add Mid-Term as part of Class
-                                Assessment</label>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
@@ -63,14 +55,6 @@
                             ms-2">*</span></label>
                         <input type="number" class="form-control solid" aria-label="name" name="assessment_size"
                                value="{{old('assessment_size')}}">
-                    </div>
-                    <div class="form-group mb-4">
-                        <div class="form-check custom-checkbox mb-3 checkbox-primary check-xl">
-                            <input type="checkbox" class="form-check-input" id="customCheckBox3"
-                                   name="add_mid_term">
-                            <label class="form-check-label" for="customCheckBox3">Add Mid-Term as part of Class
-                                Assessment</label>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
