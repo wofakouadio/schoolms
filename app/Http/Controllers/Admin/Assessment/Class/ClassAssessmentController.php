@@ -23,7 +23,9 @@ class ClassAssessmentController extends Controller
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
-        $AssessmentRecords = ClassAssessment::with('student', 'level', 'term', 'academicYear', 'subject')
+        // $AssessmentRecords = ClassAssessment::with('student', 'level', 'term', 'academicYear', 'subject')
+        //     ->where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'desc')->get();
+        $AssessmentRecords = ClassAssessmentTotalScoreRecord::with('student', 'level', 'term', 'academicYear', 'subject')
             ->where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'desc')->get();
 
         return view('admin.dashboard.assessment.level.index', compact('schoolTerm', 'AssessmentRecords'));

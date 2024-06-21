@@ -30,33 +30,44 @@ class AssessmentSettingsController extends Controller
 
     public function new_assessment_setup(Request $request){
         $request->validate([
-            'class_percentage' => 'required|numeric|min:30|max:50',
-            'exam_percentage' => 'required|numeric|min:50|max:100',
+            'class_percentage' => 'required|numeric',
+            'mid_term_percentage' => 'required|numeric',
+            'exam_percentage' => 'required|numeric',
         ]);
-        DB::beginTransaction();
-        try {
-            //check if assessment exists for the current academic year and is active
-            $chkClassAssessment = AssessmentSettings::where(['is_active' => 1, 'school_id' => Auth::guard('admin')
-                ->user()->school_id, 'academic_year' => $request->academic_year])->first();
 
-            if(!$chkClassAssessment){
-                AssessmentSettings::create([
-                    'academic_year' => $request->academic_year,
-                    'class_percentage' => $request->class_percentage,
-                    'exam_percentage' => $request->exam_percentage,
-                    'school_id' => Auth::guard('admin')->user()->school_id
-                ]);
-                DB::commit();
-                Alert::success('Success', 'Percentage Assessment created successfully');
-                return redirect()->route('admin_assessment_settings');
-            }else{
+        $totalPercentage = $request->class_percentage + $request->mid_term_percentage + $request->exam_percentage;
 
-                return back()->withErrors(['error' => 'You cannot create two assessments for the same academic year']);
+        if($totalPercentage > 100){
+            return back()->withErrors(['error' => 'Please make sure all percentages entered add up to 100%']);
+        }else{
+
+            DB::beginTransaction();
+            try {
+                //check if assessment exists for the current academic year and is active
+                $chkClassAssessment = AssessmentSettings::where(['is_active' => 1, 'school_id' => Auth::guard('admin')
+                    ->user()->school_id, 'academic_year' => $request->academic_year])->first();
+
+                if(!$chkClassAssessment){
+                    AssessmentSettings::create([
+                        'academic_year' => $request->academic_year,
+                        'class_percentage' => $request->class_percentage,
+                        'mid_term_percentage' => $request->mid_term_percentage,
+                        'exam_percentage' => $request->exam_percentage,
+                        'school_id' => Auth::guard('admin')->user()->school_id
+                    ]);
+                    DB::commit();
+                    Alert::success('Success', 'Percentage Assessment created successfully');
+                    return redirect()->route('admin_assessment_settings');
+                }else{
+
+                    return back()->withErrors(['error' => 'You cannot create two assessments for the same academic year']);
+                }
+
+            }catch(\Exception $th){
+                DB::rollBack();
+                return back()->withErrors(['error' => 'Something went wrong. Details : '.$th->getMessage()]);
             }
 
-        }catch(\Exception $th){
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Something went wrong. Details : '.$th->getMessage()]);
         }
     }
 

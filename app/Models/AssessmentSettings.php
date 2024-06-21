@@ -15,6 +15,7 @@ class AssessmentSettings extends Model
         'academic_year',
         'class_percentage',
         'exam_percentage',
+        'mid_term_percentage',
         'is_active',
         'school_id'
     ];

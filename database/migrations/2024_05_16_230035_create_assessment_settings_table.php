@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('academic_year')->nullable();
             $table->string('class_percentage')->nullable();
             $table->string('exam_percentage')->nullable();
+            $table->string('mid_term_percentage')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->timestamps();
