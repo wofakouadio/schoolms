@@ -112,6 +112,7 @@ class OnBoardingController extends Controller
                 'msg' => 'Account created successfully. You will be redirected to the login page'
             ]);
         }catch(\Exception $th){
+            DB::rollBack();
             return response()->json([
                 'status' => 201,
                 'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
