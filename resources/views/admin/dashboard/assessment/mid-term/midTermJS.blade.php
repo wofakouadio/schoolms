@@ -60,18 +60,17 @@
                     modal.find('input[name=branch_id]').val(Response['StudentData']['student_branch'])
                     $.each(Response['Subjects'], function (index, value){
                         $("#insert-student-mid-term-modal #Subjects").append
-                        ('<div class="col-md-4">' +
-                            '<label  class="form-label font-w600">Subject '+(index + 1)+'</label>' +
-                            '<input type="text" name="mid_term['+(index + 1)+'][subject]" class="form-control solid" ' +
-                            ' ' +
-                            'value="'+value['subject']['subject_name']+'" readonly>' +
-                            '<input type="hidden" name="mid_term['+(index + 1)+'][subject_id]" ' +
-                            'value="'+value['subject_id']+'">' +
-                            '</div>' +
-                            '<div class="col-md-2">' +
+                        ('<div class="col-md-4"><label  class="form-label font-w600">Subject '+(index + 1)+'</label>' +
+                            '<input type="text" name="mid_term['+(index + 1)+'][subject]" class="form-control solid" value="'+value['subject']['subject_name']+'" readonly>' +
+                            '<input type="hidden" name="mid_term['+(index + 1)+'][subject_id]" value="'+value['subject_id']+'">' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
                             '<label  class="form-label font-w600">Score</label>' +
-                            '<input type="text" name="mid_term['+(index + 1)+'][score]" class="form-control ' +
-                            'solid"></div>')
+                            '<div class="input-group">'+
+                                '<input type="text" name="mid_term['+(index + 1)+'][score]" class="form-control ' +
+                            'solid">'+
+                            '<span class="input-group-text">/100</span>'+
+                            '</div></div>')
                     })
                 }
             })

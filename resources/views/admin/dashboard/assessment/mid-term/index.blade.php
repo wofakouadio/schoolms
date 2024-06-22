@@ -75,11 +75,27 @@
                                         <th>Term</th>
                                         <th>Student Name</th>
                                         <th>Student Level</th>
-                                        <th>Total Score</th>
-                                        <th>Action</th>
+                                        <th>Subject</th>
+                                        <th>Score</th>
+                                        <th>Percentage {{ $midTermPercentage }}%</th>
+                                        {{-- <th>Action</th> --}}
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        {{-- @dd($midTermRecords) --}}
+                                        @unless(count($midTermRecords) == 0)
+                                            @foreach($midTermRecords as $record)
+                                                <tr>
+                                                    <td>{{ $record->mid_term }}</td>
+                                                    <td>{{ $record->term->term_name }} - {{ $record->term->academic_year->academic_year_start .'/'. $record->term->academic_year->academic_year_end}}</td>
+                                                    <td>{{ $record->student->student_firstname .' '. $record->student->student_lastname }}</td>
+                                                    <td>{{ $record->mid_term }}</td>
+                                                    <td>{{ $record->subject->subject_name }}</td>
+                                                    <td>{{ $record->score }}</td>
+                                                    <td>{{ $record->percentage }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endunless
                                     </tbody>
                                 </table>
                             </div>

@@ -13,19 +13,19 @@
                 infoEmpty: "No records available",
                 infoFiltered: ""
             },
-            processing: true,
-            serverSide: true,
-            ajax:{
-                url:"{{route('StudentsMidTermTable')}}",
-            },
-            columns: [
-                {data: 'mid_term', name:'mid_term'},
-                {data:'term',name:'term'},
-                {data: 'student_name', name: 'student_name'},
-                {data: 'student_level', name: 'student_level'},
-                {data: 'total_score', name: 'total_score'},
-                {data: 'action', name: 'action'},
-            ],
+            // processing: true,
+            // serverSide: true,
+            // ajax:{
+            //     url:"{{route('StudentsMidTermTable')}}",
+            // },
+            // columns: [
+            //     {data: 'mid_term', name:'mid_term'},
+            //     {data:'term',name:'term'},
+            //     {data: 'student_name', name: 'student_name'},
+            //     {data: 'student_level', name: 'student_level'},
+            //     {data: 'total_score', name: 'total_score'},
+            //     {data: 'action', name: 'action'},
+            // ],
             searching: true,
             paging: true,
             lengthChange: true,

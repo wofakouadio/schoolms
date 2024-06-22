@@ -17,6 +17,7 @@ class MidTerm extends Model
         'mid_term',
         'term_id',
         'total_score',
+        'total_percentage',
         'school_id',
         'branch_id',
     ];

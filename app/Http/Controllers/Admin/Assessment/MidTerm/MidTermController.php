@@ -12,13 +12,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolAssessmentPercentageSettings;
 
 class MidTermController extends Controller
 {
     //index
     public function index(){
+        $SchoolAssessmentPercentageSettings = SchoolAssessmentPercentageSettings();
+        $midTermPercentage = $SchoolAssessmentPercentageSettings->getData()->mid_term_percentage;
         $schoolTerm = TermAndAcademicYear();
-        return view('admin.dashboard.assessment.mid-term.index', compact('schoolTerm'));
+        $midTermRecords = MidTermBreakdown::with('mid_term', 'student', 'branch', 'term')
+        ->where('school_id', Auth::guard('admin')->user()->school_id)
+        ->orderBy('created_at', 'DESC')
+        ->get();
+        // dd($midTermRecords);
+        return view('admin.dashboard.assessment.mid-term.index', compact('schoolTerm', 'midTermPercentage', 'midTermRecords'));
     }
 
     public function create(Request $request)
@@ -57,7 +65,13 @@ class MidTermController extends Controller
     }
 
     public function store(Request $request){
-//        dd($request->all());
+        $request->validate([
+            'mid_term.*.score' => 'required|min:0|max:100|numeric'
+        ]);
+
+        $SchoolAssessmentPercentageSettings = SchoolAssessmentPercentageSettings();
+        $midTermPercentage = $SchoolAssessmentPercentageSettings->getData()->mid_term_percentage;
+
         DB::beginTransaction();
         try {
             $midTermScore = 0;
@@ -67,8 +81,18 @@ class MidTermController extends Controller
                 $midTermEntry[] = [
                     'subject_id' => $value['subject_id'],
                     'score' => $value['score'],
+                    'percentage' => ($value['score']/100) * $midTermPercentage
                 ];
             }
+            // get the total count of the mid term recorded based on the number of subjects
+            // by default the mid-term score is over 100
+            $totalMidTermScore = count($midTermEntry) * 100;
+            // get the total strike percentage value by the count of available score to be recorded
+            $totalStrikePercentage = $midTermPercentage * count($midTermEntry);
+            //after getting the above we use the computation to get the total percentage mid term percentage dynamically
+            $midTermTotalPercentage = ($midTermScore/$totalMidTermScore) * $totalStrikePercentage;
+
+            // dd(count($midTermEntry) * 100);
 
             $midTerm = MidTerm::create([
                 'student_id' => $request->studentId,
@@ -76,6 +100,7 @@ class MidTermController extends Controller
                 'mid_term' => $request->mid_term_name,
                 'term_id' => $request->term_id,
                 'total_score' => $midTermScore,
+                'total_percentage' => $midTermTotalPercentage,
                 'school_id' => Auth::guard('admin')->user()->school_id,
                 'branch_id' => $request->branch_id
             ]);
@@ -88,6 +113,7 @@ class MidTermController extends Controller
                     'term_id' => $request->term_id,
                     'subject_id' => $value['subject_id'],
                     'score' => $value['score'],
+                    'percentage' => $value['percentage'],
                     'school_id' => Auth::guard('admin')->user()->school_id,
                     'branch_id' => $request->branch_id
                 ]);

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('mid_term')->nullable();
             $table->string('term_id')->nullable();
             $table->string('total_score')->nullable();
+            $table->string('total_percentage')->nullable();
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->timestamps();
