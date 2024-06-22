@@ -18,6 +18,7 @@ class ClassAssessmentTotalScoreRecord extends Model
         'level_id',
         'subject_id',
         'score',
+        'percentage',
         'school_id',
         'branch_id'
     ];
