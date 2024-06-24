@@ -21,7 +21,7 @@ class MidTermController extends Controller
         $SchoolAssessmentPercentageSettings = SchoolAssessmentPercentageSettings();
         $midTermPercentage = $SchoolAssessmentPercentageSettings->getData()->mid_term_percentage;
         $schoolTerm = TermAndAcademicYear();
-        $midTermRecords = MidTermBreakdown::with('mid_term', 'student', 'branch', 'term')
+        $midTermRecords = MidTermBreakdown::with('midTerm', 'student', 'branch', 'term')
         ->where('school_id', Auth::guard('admin')->user()->school_id)
         ->orderBy('created_at', 'DESC')
         ->get();
@@ -118,8 +118,6 @@ class MidTermController extends Controller
                     'branch_id' => $request->branch_id
                 ]);
             }
-
-//            dd($mockEntry);
 
             DB::commit();
             return response()->json([
