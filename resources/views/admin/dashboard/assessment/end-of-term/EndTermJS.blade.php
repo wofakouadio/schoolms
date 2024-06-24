@@ -24,75 +24,69 @@
         })
 
         //student end of term form
-        {{--$("#new-end-term-setup-form").on("submit", (e)=>{--}}
-        {{--    e.preventDefault()--}}
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--    let form = $("#new-end-term-setup-form").serialize()--}}
-        {{--    $.ajax({--}}
-        {{--        url:'{{route('get-student-to-end-term')}}',--}}
-        {{--        method:'GET',--}}
-        {{--        cache: false,--}}
-        {{--        data: form,--}}
-        {{--        success:(Response)=>{--}}
-        {{--            $("#new-end-term-setup-modal").modal('hide')--}}
-        {{--            $("#insert-student-end-term-modal").modal('show')--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=student_id]').val--}}
-        {{--            (Response['StudentData']['student_id'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=studentId]').val--}}
-        {{--            (Response['StudentData']['id'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=student_name]').val--}}
-        {{--            (Response['StudentData']['student_firstname'] + ' ' +--}}
-        {{--                Response['StudentData']['student_othername'] + ' '--}}
-        {{--                +Response['StudentData']['student_lastname'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=student_gender]').val--}}
-        {{--            (Response['StudentData']['student_gender'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=student_level]').val--}}
-        {{--            (Response['StudentData']['level']['level_name'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=level_id]').val--}}
-        {{--            (Response['StudentData']['student_level'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=student_residency]').val--}}
-        {{--            (Response['StudentData']['student_residency_type'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=term_name]').val--}}
-        {{--            (Response['Term']['term_name'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=term_id]').val--}}
-        {{--            (Response['Term']['id'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=academic_year]').val--}}
-        {{--            (Response['Term']['academic_year']['academic_year_start']+'/'+Response['Term']['academic_year' +--}}
-        {{--            '']['academic_year_end'])--}}
-        {{--            $("#insert-student-end-term-modal").find('input[name=branch_id]').val--}}
-        {{--            (Response['StudentData']['student_branch'])--}}
-        {{--            console.log(Response['Subjects'])--}}
-        {{--            console.log(Response['ClassAssessment'])--}}
-        {{--            $.each(Response['Subjects'], function (index, value){--}}
-        {{--                $.each(Response['ClassAssessment'], function(index2, value2){--}}
-        {{--                    if(value['subject_id'] == value2['ClassAssessment']['subject_id']){--}}
-        {{--                        console.log(true)--}}
-        {{--                    }else{--}}
-        {{--                        console.log(false)--}}
-        {{--                    }--}}
-        {{--                })--}}
-        {{--                // $("#insert-student-end-term-modal #Subjects").append--}}
-        {{--                // ('<div class="col-md-4">' +--}}
-        {{--                //     '<label  class="form-label font-w600">Subject '+(index + 1)+'</label>' +--}}
-        {{--                //     '<input type="text" name="end_term['+(index + 1)+'][subject]" class="form-control solid" value="'+value['subject']['subject_name']+'" readonly>' +--}}
-        {{--                //     '<input type="hidden" name="end_term['+(index + 1)+'][subject_id]" value="'+value['subject_id']+'">' +--}}
-        {{--                //     '</div>' +--}}
-        {{--                //     '<div class="col-md-2">' +--}}
-        {{--                //     '<label  class="form-label font-w600">Class Score</label>' +--}}
-        {{--                //     '<input type="text" name="end_term['+(index + 1)+'][class_score]" class="form-control ' +--}}
-        {{--                //     'solid">' +--}}
-        {{--                //     '<label  class="form-label font-w600">Exam Score</label>' +--}}
-        {{--                //     '<input type="text" name="end_term['+(index + 1)+'][exam_score]" class="form-control ' +--}}
-        {{--                //     'solid">' +--}}
-        {{--                //     '</div>')--}}
-        {{--            })--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--})--}}
+        $("#new-end-term-setup-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let form = $("#new-end-term-setup-form").serialize()
+            $.ajax({
+                url:'{{route('get-student-to-end-term')}}',
+                method:'GET',
+                cache: false,
+                data: form,
+                success:(Response)=>{
+                    // console.log(Response['StudentData'])
+                    $("#new-end-term-setup-modal").modal('hide')
+                    $("#insert-student-end-term-modal").modal('show')
+                    $("#insert-student-end-term-modal").find('input[name=student_id]').val
+                    (Response['StudentData']['student_id'])
+                    $("#insert-student-end-term-modal").find('input[name=studentId]').val
+                    (Response['StudentData']['id'])
+                    $("#insert-student-end-term-modal").find('input[name=student_name]').val
+                    (Response['StudentData']['student_firstname'] + ' ' +
+                        Response['StudentData']['student_othername'] + ' '
+                        +Response['StudentData']['student_lastname'])
+                    $("#insert-student-end-term-modal").find('input[name=student_gender]').val
+                    (Response['StudentData']['student_gender'])
+                    $("#insert-student-end-term-modal").find('input[name=student_level]').val
+                    (Response['StudentData']['level']['level_name'])
+                    $("#insert-student-end-term-modal").find('input[name=level_id]').val
+                    (Response['StudentData']['student_level'])
+                    $("#insert-student-end-term-modal").find('input[name=student_residency]').val
+                    (Response['StudentData']['student_residency_type'])
+                    $("#insert-student-end-term-modal").find('input[name=term_name]').val
+                    (Response['Term']['term_name'])
+                    $("#insert-student-end-term-modal").find('input[name=term_id]').val
+                    (Response['Term']['id'])
+                    $("#insert-student-end-term-modal").find('input[name=academic_year]').val
+                    (Response['Term']['academic_year']['academic_year_start']+'/'+Response['Term']['academic_year' +
+                    '']['academic_year_end'])
+                    $("#insert-student-end-term-modal").find('input[name=branch_id]').val
+                    (Response['StudentData']['student_branch'])
+                    // console.log(Response['Subjects'])
+                    // console.log(Response['ClassAssessment'])
+                    $.each(Response['Subjects'], function (index, value){
+                        $("#insert-student-end-term-modal #Subjects").append
+                        ('<div class="col-md-4">' +
+                        '<label  class="form-label font-w600">Subject '+(index + 1)+'</label>' +
+                        '<input type="text" name="end_term['+(index + 1)+'][subject]" class="form-control solid" value="'+value['subject']['subject_name']+'" readonly>' +
+                        '<input type="hidden" name="end_term['+(index + 1)+'][subject_id]" value="'+value['subject_id']+'">' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
+                        '<label  class="form-label font-w600">Exam Score</label>' +
+                        '<div class="input-group">'+
+                        '<input type="text" name="end_term['+(index + 1)+'][score]" class="form-control ' +
+                        'solid">' +
+                        '<span class="input-group-text">/100</span>'+
+                        '</div>'+
+                        '</div>')
+                    })
+                }
+            })
+        })
 
         //save student mock data
         $("#insert-student-end-term-form").on("submit", (e)=>{
