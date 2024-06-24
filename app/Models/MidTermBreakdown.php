@@ -42,7 +42,7 @@ class MidTermBreakdown extends Model
         return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 
-    public function mid_term(){
+    public function midTerm(){
         return $this->belongsTo(MidTerm::class,'mid_term_student_id', 'id');
     }
 }
