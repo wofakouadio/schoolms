@@ -16,13 +16,29 @@ class EndOfTermBreakdown extends Model
         'student_id',
         'term_id',
         'subject_id',
-        'class_score',
-        'exam_score',
+        'score',
+        'percentage',
         'school_id',
         'branch_id',
     ];
 
     public function subject(){
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
+
+    public function end_term(){
+        return $this->belongsTo(EndOfTerm::class, 'end_term_student_id', 'id');
+    }
+
+    public function student(){
+        return $this->belongsTo(StudentsAdmissions::class, 'student_id', 'id');
+    }
+
+    public function term(){
+        return $this->belongsTo(Term::class, 'term_id', 'id');
+    }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 }
