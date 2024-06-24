@@ -37,8 +37,8 @@
                                             <th>#</th>
                                             <th>Term</th>
                                             <th>Student ID</th>
-                                            <th>Student Name</th>
-                                            <th>Student Level</th>
+                                            <th>Name</th>
+                                            <th>Level</th>
                                             <th>Subject</th>
                                             <th>Score</th>
                                             <th>Percentage({{ $classAssessmentPercentage }}%)</th>
