@@ -121,7 +121,10 @@
                         <div class="col-xl-6 mb-4">
                             <label  class="form-label font-w600">Score<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <input class="form-control solid" name="score" type="text">
+                            <div class="input-group">
+                                <input class="form-control solid" name="score" type="text">
+                                <span class="input-group-text">/10</span>
+                            </div>
                         </div>
                     </div>
                 </div>
