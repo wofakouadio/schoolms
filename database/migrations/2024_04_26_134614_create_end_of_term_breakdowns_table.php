@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('student_id')->nullable();
             $table->string('term_id')->nullable();
             $table->string('subject_id')->nullable();
-            $table->string('class_score')->nullable();
-            $table->string('exam_score')->nullable();
+            $table->string('score')->nullable();
+            $table->string('percentage')->nullable();
             $table->string('school_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->timestamps();
