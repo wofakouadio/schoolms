@@ -4,88 +4,113 @@ namespace App\Http\Controllers\Admin\Report\EndTerm;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssessmentSettings;
+use App\Models\MidTerm;
+use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\EndOfTerm;
 use App\Models\EndOfTermBreakdown;
 use App\Models\GradingSystem;
 use App\Models\Level;
+use App\Models\MidTermBreakdown;
 use App\Models\School;
 use App\Models\StudentsAdmissions;
 use App\Models\Term;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolAssessmentPercentageSettings;
 
 class EndTermReportController extends Controller
 {
     //index
-    public function index(){
+    public function index()
+    {
         $schoolTerm = TermAndAcademicYear();
+        $schoolAssessmentsPercentageSettings = SchoolAssessmentPercentageSettings();
+        $schoolAssessmentPercentage = $schoolAssessmentsPercentageSettings->getData();
         $data = [] ?? null;
-        return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
+        return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data', 'schoolAssessmentPercentage'));
     }
 
-    public function get_end_of_term_report(Request $request){
+    public function get_end_of_term_report(Request $request)
+    {
         $term = $request->term;
         $level = $request->level;
         $student = $request->student;
         $schoolTerm = TermAndAcademicYear();
+        $schoolAssessmentsPercentageSettings = SchoolAssessmentPercentageSettings();
+        $schoolAssessmentPercentage = $schoolAssessmentsPercentageSettings->getData();
 
         //get end of term first entry
-        $endTermFirst = EndOfTerm::where("level_id", $level)
-        ->where("term_id", $term)
-        ->where("student_id", $student)
-        ->where('school_id', Auth::guard('admin')->user()->school_id)
-        ->first();
+        $endTermFirst = EndOfTerm::where([
+                "level_id" => $level,
+                "term_id" => $term,
+                "student_id" => $student,
+                "school_id" => Auth::guard('admin')->user()->school_id
+                ])
+            ->first();
 
-        if(!empty($endTermFirst)){
+        if (!empty($endTermFirst)) {
             //get school data
             $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
             //get school profile
-            if($schoolData->getMedia('school_logo')->count() == 0){
+            if ($schoolData->getMedia('school_logo')->count() == 0) {
                 $schoolProfile = asset('assets/images/avatar/1.jpg');
-            }else{
+            } else {
                 $schoolProfile = $schoolData->getFirstMediaUrl('school_logo');
             }
             //get level details
             $levelData = Level::where('id', $level)->first();
             //get term details
-            $termData = Term::with('academic_year')->where('school_id', Auth::guard('admin')->user()->school_id)
-                ->where('id', $term)
+            $termData = Term::with('academic_year')
+                ->where(['school_id' => Auth::guard('admin')->user()->school_id, 'id' => $term])
                 ->first();
             //get student details
-            $studentData = StudentsAdmissions::with('house')
-                ->with('category')
-                ->with('branch')
-                ->where("id", $student)->first();
+            $studentData = StudentsAdmissions::with('house', 'category', 'branch')
+                ->where("id", $student)
+                ->first();
             //student profile
-            if($studentData->getMedia('student_profile')->count() == 0){
+            if ($studentData->getMedia('student_profile')->count() == 0) {
                 $studentProfile = asset('assets/images/profile/small/pic1.jpg');
-            }else{
+            } else {
                 $studentProfile = $studentData->getFirstMediaUrl('student_profile');
             }
 
-            //get end of term breakdown entry
-            $endTermBreakdown = EndOfTermBreakdown::with('subject')
-                ->where("end_term_student_id", $endTermFirst->id)
-                ->where("term_id", $term)
-                ->where("student_id", $student)
-                ->where('school_id', Auth::guard('admin')->user()->school_id)
-                ->where('branch_id', $studentData->student_branch)
-                ->get();
-
-            //get assessment settings
-            $assessmentSettings = AssessmentSettings::where([
+            // get class assessment total entry
+            $classTotalAssessment = ClassAssessmentTotalScoreRecord::with('student', 'level', 'term', 'academicYear', 'subject')->where([
+                'student_id' => $student,
+                'term_id' => $term,
                 'school_id' => Auth::guard('admin')->user()->school_id,
-                'academic_year' => $termData->term_academic_year,
-                'is_active' => 1
+                'academic_year_id' => $termData->term_academic_year,
+                'level_id' => $level
+            ])->get();
+
+            // $classPercentageScore = 0;
+            // foreach($classTotalAssessment as $key => $class) {
+            //     $classPercentageScore += $class->percentage;
+            // }
+
+            // get mid term summary
+            $midTermSummary = MidTerm::with('level', 'student', 'term')->where([
+                'student_id' => $student,
+                'level_id' => $level,
+                'term_id' => $term,
             ])->first();
 
-            if($assessmentSettings->count() == 0){
-                $schoolAssessmentSettings = config('assessment-settings');
-            }else{
-                $schoolAssessmentSettings = $assessmentSettings;
-            }
+            // get mid term breakdown
+            $midTermBreakdown = MidTermBreakdown::with('midTerm', 'subject')->where([
+                'mid_term_student_id' => $midTermSummary->id
+            ])->get();
+
+
+            //get end of term breakdown entry
+            $endTermBreakdown = EndOfTermBreakdown::with('subject', 'end_term', 'student', 'term')
+                ->where(["end_term_student_id" => $endTermFirst->id,
+                        "term_id" => $term,
+                        "student_id" => $student,
+                        "school_id" => Auth::guard('admin')->user()->school_id
+                ])->get();
 
             //get grading
             $gradingSystem = GradingSystem::where([
@@ -93,6 +118,66 @@ class EndTermReportController extends Controller
                 'academic_year' => $termData->term_academic_year,
                 'is_active' => 1
             ])->get();
+
+            // Group Class Assessment by Subject
+            $classAssessmentGrouped = $classTotalAssessment->groupBy('subject_id');
+
+            // Group Mid Term Breakdown by Subject
+            $midTermBreakdownGrouped = $midTermBreakdown->groupBy('subject_id');
+
+            // Group End Term Breakdown by Subject
+            $endTermBreakdownGrouped = $endTermBreakdown->groupBy('subject_id');
+
+            // Prepare final data structure
+            $finalData = [];
+
+            foreach($classTotalAssessment as $data){
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                $finalData[$subject]['class_assessment'] = $data->percentage;
+            }
+
+            foreach($midTermBreakdown as $data){
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                $finalData[$subject]['mid_term'] = $data->percentage;
+            }
+
+            foreach($endTermBreakdown as $data){
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                $finalData[$subject]['end_term'] = $data->percentage;
+            }
+
+            dd($finalData);
+
+        //    foreach($finalData as $key => $data){
+        //     $subject = $finalData[$key];
+        //     $finalData['subject_name'] = $data['subject_name'];
+        //     $finalData['total'] = $data['class_assessment'] + $data['mid_term'] + $data['end_term'];
+        //    }
+
+            // foreach($finalData as $ky => $data){
+            //     foreach($gradingSystem as $key => $value){
+            //         if($value->score_to <= $data->total || $value->total >= $data->total){
+            //             $finalData['grade'] = $value->grade;
+            //             $finalData['level_of_proficiency'] = $value->level_of_proficiency;
+            //         }
+            //     }
+            // }
+
+            // foreach ($classAssessmentGrouped as $subjectId => $classAssessments) {
+            //     $subject = $classAssessments->first()->subject->subject_name; // Assuming subject relationship is loaded
+            //     $finalData[$subjectId] = [
+            //         'subject' => $subject,
+            //         'class_assessment' => $classAssessments,
+            //         'mid_term' => $midTermBreakdownGrouped->get($subjectId, collect()), // get returns a collection or an empty collection if not found
+            //         'end_term' => $endTermBreakdownGrouped->get($subjectId, collect()),
+            //     ];
+            // }
+
+            // dd($finalData);
+
 
 
             $data[] = [
@@ -103,43 +188,50 @@ class EndTermReportController extends Controller
                 'studentData' => $studentData,
                 'schoolProfile' => $schoolProfile,
                 'studentProfile' => $studentProfile,
+                // 'classPercentageScore' => $classPercentageScore,
+                'classTotalAssessment' => $classTotalAssessment,
+                'midTermSummary' => $midTermSummary,
+                'midTermBreakdown' => $midTermBreakdown,
                 'endTermBreakdown' => $endTermBreakdown,
                 'schoolData' => $schoolData,
                 'termData' => $termData,
-                'schoolAssessmentSettings' => $schoolAssessmentSettings,
-                'gradingSystem' => $gradingSystem
+                'schoolAssessmentPercentage' => $schoolAssessmentPercentage,
+                'gradingSystem' => $gradingSystem,
+                // 'finalData' => $finalData
+
             ];
-        }else{
+        } else {
             $data[] = [
                 'status' => 0,
                 'notice' => 'No record found'
             ];
         }
 
-//        dd($data);
+        //        dd($data);
 
         return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
     }
 
-    public function download_end_of_term_report(Request $request){
+    public function download_end_of_term_report(Request $request)
+    {
         $term = $request->term;
         $level = $request->level;
         $student = $request->student;
 
         //get end of term first entry
         $endTermFirst = EndOfTerm::where("level_id", $level)
-        ->where("term_id", $term)
-        ->where("student_id", $student)
-        ->where('school_id', Auth::guard('admin')->user()->school_id)
-        ->first();
+            ->where("term_id", $term)
+            ->where("student_id", $student)
+            ->where('school_id', Auth::guard('admin')->user()->school_id)
+            ->first();
 
-        if(!empty($endTermFirst)){
+        if (!empty($endTermFirst)) {
             //get school data
             $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
             //get school profile
-            if($schoolData->getMedia('school_logo')->count() == 0){
+            if ($schoolData->getMedia('school_logo')->count() == 0) {
                 $schoolProfile = asset('assets/images/avatar/1.jpg');
-            }else{
+            } else {
                 $schoolProfile = $schoolData->getFirstMediaUrl('school_logo');
             }
             //get level details
@@ -154,9 +246,9 @@ class EndTermReportController extends Controller
                 ->with('branch')
                 ->where("id", $student)->first();
             //student profile
-            if($studentData->getMedia('student_profile')->count() == 0){
+            if ($studentData->getMedia('student_profile')->count() == 0) {
                 $studentProfile = asset('assets/images/profile/small/pic1.jpg');
-            }else{
+            } else {
                 $studentProfile = $studentData->getFirstMediaUrl('student_profile');
             }
 
@@ -181,15 +273,15 @@ class EndTermReportController extends Controller
                 'schoolData' => $schoolData,
                 'termData' => $termData
             ];
-        }else{
+        } else {
             $data[] = [
                 'status' => 0,
                 'notice' => 'No record found'
             ];
         }
-        $pdf = Pdf::loadView("admin.dashboard.report.end-of-term.StudentEndTermReportDownload",compact('data'))
+        $pdf = Pdf::loadView("admin.dashboard.report.end-of-term.StudentEndTermReportDownload", compact('data'))
             ->setOptions(['defaultFont' => 'sans-serif']);
-        return $pdf->stream($studentData->student_id.'_'.$studentData->student_firstname.'_'
-            .$studentData->student_lastname.'_End_of_Term_Report.pdf');
+        return $pdf->stream($studentData->student_id . '_' . $studentData->student_firstname . '_'
+            . $studentData->student_lastname . '_End_of_Term_Report.pdf');
     }
 }

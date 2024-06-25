@@ -34,6 +34,10 @@ class MidTerm extends Model
         return $this->belongsTo(Term::class, 'term_id', 'id');
     }
 
+    public function school(){
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
+
     public function branch(){
         return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
