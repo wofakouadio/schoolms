@@ -41,6 +41,7 @@ class EndTermReportController extends Controller
         $schoolTerm = TermAndAcademicYear();
         $schoolAssessmentsPercentageSettings = SchoolAssessmentPercentageSettings();
         $schoolAssessmentPercentage = $schoolAssessmentsPercentageSettings->getData();
+        $data = [] ?? null;
 
         //get end of term first entry
         $endTermFirst = EndOfTerm::where([
@@ -86,10 +87,10 @@ class EndTermReportController extends Controller
                 'level_id' => $level
             ])->get();
 
-            // $classPercentageScore = 0;
-            // foreach($classTotalAssessment as $key => $class) {
-            //     $classPercentageScore += $class->percentage;
-            // }
+            $classPercentageScore = 0;
+            foreach($classTotalAssessment as $key => $class) {
+                $classPercentageScore += $class->percentage;
+            }
 
             // get mid term summary
             $midTermSummary = MidTerm::with('level', 'student', 'term')->where([
@@ -117,97 +118,93 @@ class EndTermReportController extends Controller
                 'school_id' => Auth::guard('admin')->user()->school_id,
                 'academic_year' => $termData->term_academic_year,
                 'is_active' => 1
-            ])->get();
-
-            // Group Class Assessment by Subject
-            $classAssessmentGrouped = $classTotalAssessment->groupBy('subject_id');
-
-            // Group Mid Term Breakdown by Subject
-            $midTermBreakdownGrouped = $midTermBreakdown->groupBy('subject_id');
-
-            // Group End Term Breakdown by Subject
-            $endTermBreakdownGrouped = $endTermBreakdown->groupBy('subject_id');
+            ])->orderBy('grade', 'asc')->get();
 
             // Prepare final data structure
             $finalData = [];
-
+            $grading = [];
+            // FIRST SAMPLE TRY
             foreach($classTotalAssessment as $data){
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                $finalData[$subject]['class_assessment'] = $data->percentage;
+                // $finalData[$subject]['class_assessment'] = $data->percentage;
+                if(!isset($finalData[$subject])){
+                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                }
+                $finalData[$subject]['class_assessment'] =+ $data->percentage;
             }
-
             foreach($midTermBreakdown as $data){
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                $finalData[$subject]['mid_term'] = $data->percentage;
+                if(!isset($finalData[$subject])){
+                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                }
+                $finalData[$subject]['mid_term'] =+ $data->percentage;
             }
-
             foreach($endTermBreakdown as $data){
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                $finalData[$subject]['end_term'] = $data->percentage;
+                if(!isset($finalData[$subject])){
+                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                }
+                $finalData[$subject]['end_term'] =+ $data->percentage;
+            }
+            foreach ($finalData as $subject => $scores) {
+                $finalData[$subject]['total'] = $scores['class_assessment'] + $scores['mid_term'] + $scores['end_term'];
+            }
+            foreach($gradingSystem as $key => $value){
+                $level = $value['level_of_proficiency'];
+                $grading[$level] = [
+                    'grade' => $value['grade'],
+                    'from' => $value['score_from'],
+                    'to' => $value['score_to'],
+                    'proficiency' => $value['level_of_proficiency']
+                ];
+            }
+            foreach($finalData as $subject => $score) {
+                foreach($grading as $level => $value){
+                    if($score['total'] >= $value['from'] && $score['total'] <= $value['to']){
+                        $finalData[$subject]['grade'] = $value['grade'];
+                        $finalData[$subject]['level'] = $value['proficiency'];
+                    }
+                }
             }
 
-            dd($finalData);
 
-        //    foreach($finalData as $key => $data){
-        //     $subject = $finalData[$key];
-        //     $finalData['subject_name'] = $data['subject_name'];
-        //     $finalData['total'] = $data['class_assessment'] + $data['mid_term'] + $data['end_term'];
-        //    }
 
-            // foreach($finalData as $ky => $data){
-            //     foreach($gradingSystem as $key => $value){
-            //         if($value->score_to <= $data->total || $value->total >= $data->total){
-            //             $finalData['grade'] = $value->grade;
-            //             $finalData['level_of_proficiency'] = $value->level_of_proficiency;
-            //         }
-            //     }
-            // }
 
-            // foreach ($classAssessmentGrouped as $subjectId => $classAssessments) {
-            //     $subject = $classAssessments->first()->subject->subject_name; // Assuming subject relationship is loaded
-            //     $finalData[$subjectId] = [
-            //         'subject' => $subject,
-            //         'class_assessment' => $classAssessments,
-            //         'mid_term' => $midTermBreakdownGrouped->get($subjectId, collect()), // get returns a collection or an empty collection if not found
-            //         'end_term' => $endTermBreakdownGrouped->get($subjectId, collect()),
-            //     ];
-            // }
+            // dd($grading);
 
             // dd($finalData);
 
-
-
-            $data[] = [
+            $data = [
                 'status' => 1,
                 'notice' => 'record found',
-                'endTermFirst' => $endTermFirst,
                 'levelData' => $levelData,
                 'studentData' => $studentData,
                 'schoolProfile' => $schoolProfile,
                 'studentProfile' => $studentProfile,
-                // 'classPercentageScore' => $classPercentageScore,
+                'classPercentageScore' => $classPercentageScore,
                 'classTotalAssessment' => $classTotalAssessment,
                 'midTermSummary' => $midTermSummary,
-                'midTermBreakdown' => $midTermBreakdown,
-                'endTermBreakdown' => $endTermBreakdown,
+                'endTermFirst' => $endTermFirst,
+                // 'midTermBreakdown' => $midTermBreakdown,
+                // 'endTermBreakdown' => $endTermBreakdown,
                 'schoolData' => $schoolData,
                 'termData' => $termData,
                 'schoolAssessmentPercentage' => $schoolAssessmentPercentage,
                 'gradingSystem' => $gradingSystem,
-                // 'finalData' => $finalData
+                'finalData' => $finalData
 
             ];
         } else {
-            $data[] = [
+            $data = [
                 'status' => 0,
                 'notice' => 'No record found'
             ];
         }
 
-        //        dd($data);
+        // dd($data);
 
         return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
     }
