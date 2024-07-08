@@ -35,7 +35,7 @@ class AssignLevelToDepartmentController extends Controller
             ];
         }
         AssignLevelToDepartment::upsert($data);
-        dd($data);
+        // dd($data);
     }
 
 //    public function store(Request $request){

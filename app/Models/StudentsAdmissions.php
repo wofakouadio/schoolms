@@ -36,7 +36,10 @@ class StudentsAdmissions extends Model implements HasMedia
         'admission_status',
         'student_status',
         'is_active',
-        'school_id'
+        'school_id',
+        'previous_arrears',
+        'current_bill_amount',
+        'total_bill_amount',
     ];
 
     public function school(){
