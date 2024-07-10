@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\CustomJSController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\Finance\BillsController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
+use App\Http\Controllers\Admin\Finance\AdmissionFeeController;
+use App\Http\Controllers\Admin\Finance\TransactionsController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\Permission\AccountPermissionController;
@@ -166,6 +168,14 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Finance**/
     Route::get('finance', [FinanceController::class, 'index'])->name('admin_finance');
     Route::get('finance/expenditure', [FinanceController::class, 'expenditureView'])->name('admin_expenditure');
+
+    /**Admission Fee**/
+    Route::get("finance/admission-fees", [AdmissionFeeController::class,"index"])->name("admin_finance_admission_fee");
+    Route::post("finance/new-admission-fee", [AdmissionFeeController::class,"store"])->name("new_admission_fee");
+
+    /**Transactions**/
+    Route::get("finance/transactions", [TransactionsController::class,"index"])->name("admin_finance_transactions");
+    Route::post("finance/transactions/get-student", [TransactionsController::class,"create"])->name("admin_get_student_transaction");
 
     /**Bills**/
     Route::get('finance/student/bills/', [FinanceController::class, 'billsView'])

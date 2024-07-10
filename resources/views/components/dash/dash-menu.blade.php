@@ -72,6 +72,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{route('admin_finance')}}">Dashboard</a></li>
+                        <li><a href="{{route('admin_finance_admission_fee')}}">Admission Fees</a></li>
+                        <li><a href="{{route('admin_finance_transactions')}}">Transactions</a></li>
                         <li>
                             <a class="has-arrow " href="javascript:void()" aria-expanded="false">
                                 <span class="nav-text">Students</span>
@@ -176,6 +178,7 @@
                     <ul aria-expanded="false">
 {{--                        <li><a href="{{route('admin_student_attendance')}}">Attendance</a></li>--}}
                         <li><a href="{{route('teacher_mock_assessment')}}">Mock</a></li>
+                        <li><a href="{{route('teacher_level_assessment')}}">Level/Class</a></li>
                         <li><a href="{{route('teacher_mid_term_assessment')}}">Mid-Term</a></li>
                         <li><a href="{{route('teacher_end_term_assessment')}}">End of Term</a></li>
                     </ul>

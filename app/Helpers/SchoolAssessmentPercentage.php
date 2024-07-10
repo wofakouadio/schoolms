@@ -5,17 +5,18 @@ namespace App\Helpers;
 use App\Models\AssessmentSettings;
 use Illuminate\Support\Facades\Auth;
 
-if (!function_exists("SchoolAssessmentPercentageSettings")) {
+
+
+if(!function_exists("SchoolAssessmentPercentageSettings")) {
     function SchoolAssessmentPercentageSettings()
     {
-        if (Auth::guard('admin')->check()) {
+        if(Auth::guard('admin')->check()) {
             $authUser = Auth::guard('admin')->user()->school_id;
-        } elseif (Auth::guard('teacher')->check()) {
+        } elseif(Auth::guard('teacher')->check()) {
             $authUser = Auth::guard('teacher')->user()->school_id;
         } else {
             $authUser = '';
         }
-        
         $check = AssessmentSettings::with('school_academic_year')->where([
             'school_id' => $authUser,
             'is_active' => 1
@@ -23,7 +24,7 @@ if (!function_exists("SchoolAssessmentPercentageSettings")) {
 
         // dd($check);
 
-        if ($check) {
+        if($check) {
             return response()->json([
                 'class_percentage' => $check->class_percentage,
                 'mid_term_percentage' => $check->mid_term_percentage,

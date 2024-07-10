@@ -20,11 +20,19 @@ class AdmissionFee extends Model
         'department_id'
     ];
 
-    // public function school(){
-    //     return $this->hasOne(School::class, 'id', 'school_id');
-    // }
+    public function school(){
+        return $this->hasOne(School::class, 'school_id', 'id');
+    }
 
-    // public function branch(){
-    //     return $this->hasOne(Branch::class, 'id', 'branch_id');
-    // }
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function academic_year(){
+        return $this->belongsTo(AcademicYear::class,'academic_year_id', 'id');
+    }
 }
