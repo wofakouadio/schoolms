@@ -33,6 +33,7 @@ class TransactionsController extends Controller
         ])->get();
 
         $studentData = [
+            'student_uuid' => $getStudent->id,
             'student_id' => $student_id,
             'student_name' => $getStudent->student_firstname .' ' . $getStudent->student_othername . ' ' . $getStudent->lastname,
             'student_level' => $getStudent->level->level_name,

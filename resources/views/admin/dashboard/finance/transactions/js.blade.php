@@ -3,67 +3,28 @@
     $(document).ready(()=>{
         $(".menu-alert").hide()
 
-        // create new admission fee
-        $("#new-admission-fee-form").on("submit", (e)=>{
-            e.preventDefault()
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        // check if amount paid is equal to the sum of all items in the transactions list of the student
+        // Function to calculate the sum
+        function calculateSum() {
+            let sum = 0;
+            $('.amount_to_pay').each(function() {
+                let value = $(this).val();
+                if (!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
                 }
             });
-            $.ajax({
-                url:'{{route('new_admission_fee')}}',
-                method:'POST',
-                cache:false,
-                data: $("#new-admission-fee-form").serialize(),
-                success:(Response)=>{
-                    // console.log(Response)
-                    let StringResults = JSON.stringify(Response)
-                    let DecodedResults = JSON.parse(StringResults)
-                    if(DecodedResults.status === 201){
-                        $("#new-admission-fee-modal .menu-alert").removeClass('alert-warning')
-                        $("#new-admission-fee-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
-                    }else{
-                        $("#new-admission-fee-modal .menu-alert").removeClass('alert-danger')
-                        $("#new-admission-fee-modal .menu-alert").removeClass('alert-warning')
+            return sum;
+        }
 
-                        Swal.fire({
-                            title: 'Notification',
-                            html: DecodedResults.msg,
-                            type: 'success',
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            confirmButtonText: 'Close',
-                        }).then((result) => {
-                            if (result) {
-                                // window.location.reload()
-                                $("#new-admission-fee-modal").modal('hide')
-                                $("#new-admission-fee-modal .menu-alert").removeClass('alert-danger')
-                                $("#new-admission-fee-modal .menu-alert").removeClass('alert-warning')
-                                $("#new-admission-fee-modal .menu-alert").html('')
-                                $("#new-admission-fee-form")[0].reset()
-                                $("#AdmissionFeesDataTables").DataTable().draw();
-                            }
-                        })
-                    }
-                },
-                error:(Response)=>{
-                    console.log(Response)
-
-                    $.each( Response.responseJSON.errors, function( key, value ) {
-                        $('#new-admission-fee-modal').find(".menu-alert").show().addClass('alert-warning').find("ul")
-                            .append
-                            ('<li>'+value+'</li>');
-                    });
-                }
-            })
-        })
-
-        // view admission fee
-        $("#edit-admission-fee-modal").on("show.bs.modal", (event)=>{
-            let str = $(event.relatedTarget)
-            let id = str.data('id')
-            let modal = $("#edit-admission-fee-modal")
+        $("#btn_process_transaction").on("click", (e) => {
+            e.preventDefault()
+            $(".menu-alert").hide()
+            let amount_paid = parseFloat($("input[name='amount_paid']").val());
+            if(amount_paid === calculateSum()){
+                $(".menu-alert").hide()
+            }else{
+                $(".menu-alert").show().addClass("alert-warning").html("Total Sum of amount to allocate has to be equal to amount paid")
+            }
         })
     })
 

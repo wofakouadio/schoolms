@@ -22,7 +22,7 @@
             @endif
             <div class="row">
                 <div class="col-3">
-                    <div class="card">
+                    <div class="card" style="height: auto">
                         <div class="card-header">
                             <h5>Search by Student ID</h5>
                         </div>
@@ -51,12 +51,16 @@
                                 <div class="alert alert-danger"><h5>No Record found</h5></div>
                             @else
                                 {{-- {{ dd($studentData) }} --}}
-                               <form class="form-group" method="">
+                               <form class="form-group" method="" id="transaction_form">
+                                    <div class="alert menu-alert">
+                                        <ul></ul>
+                                    </div>
                                     @csrf
                                     <div class="row">
                                         <div class="col-6">
                                             <label>Student ID</label>
-                                            <input type="text" name="student_id" value="{{ $studentData['student_id'] }}" readonly class="form-control solid">
+                                            <input type="text" name="studentId" value="{{ $studentData['student_id'] }}" readonly class="form-control solid">
+                                            <input type="hidden" name="student_id" value="{{ $studentData['student_uuid'] }}">
                                         </div>
                                         <div class="col-6">
                                             <label>Level</label>
@@ -71,39 +75,52 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <label>Term</label>
-                                            <input type="text" name="term" value="" readonly class="form-control solid">
+                                            <label>Amount Paid</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">{{ config("assessment-settings.currency") }}</span>
+                                                <input type="text" name="amount_paid" value="" class="form-control solid">
+                                            </div>
                                         </div>
                                         <div class="col-6">
-                                            <label>Academic Year</label>
-                                            <input type="text" name="academic_year" value="" readonly class="form-control solid">
+                                            <label>Payment Method</label>
+                                            <select class="form-control solid" name="payment_method">
+                                                <option>Choose</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Mobile Money">Mobile Money</option>
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                            </select>
                                         </div>
                                     </div>
-
+                                    <h4 class="mb-2 mt-2">Description</h4>
                                     {{-- <div class="row"> --}}
                                         <ol class="mt-4">
-                                            @foreach($transactions as $value)
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <input value="{{ $value->invoice_id }}" name="" class="form-control solid mb-4" readonly>
+                                            @foreach($transactions as $key => $value)
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <label>Invoice Number</label>
+                                                            <input value="{{ $value->invoice_id }}" name="" class="form-control solid mb-4" readonly>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label>Item</label>
+                                                            <input value="{{ $value->description }}" name="" class="form-control solid mb-4" readonly>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <label>Amount Due</label>
+                                                            <input type="text" name="amount_due" class="form-control solid mb-4" readonly value="{{ $value->amount_due }}">
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <label>Amount to allocate</label>
+                                                            <input type="number" name="amount_to_pay[{{ $key }}]" class="form-control solid mb-4 amount_to_pay" id="amount_to_pay">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-3">
-                                                        <input value="{{ $value->description }}" name="" class="form-control solid mb-4" readonly>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <input type="text" name="amount_due" class="form-control solid mb-4" readonly value="{{ $value->amount_due }}">
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <input type="text" name="amount_to_pay" class="form-control solid mb-4">
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button type="submit" class="btn btn-primary">Update</button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        @endforeach
+                                                </li>
+                                            @endforeach
                                         </ol>
+                                        <div class="mb-4">
+                                            <button type="submit" class="btn btn-primary" id="btn_process_transaction">Process</button>
+                                        </div>
                                     {{-- </div> --}}
                                </form>
                             @endempty
