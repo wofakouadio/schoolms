@@ -114,6 +114,10 @@
                                                             <label>Amount to allocate</label>
                                                             <input type="number" name="amount_to_pay[{{ $key }}]" class="form-control solid mb-4 amount_to_pay" id="amount_to_pay">
                                                         </div>
+                                                        <div class="col-2">
+                                                            <label>Transaction ID/Reference</label>
+                                                            <input type="number" name="transaction_id[{{ $key }}]" class="form-control solid mb-4">
+                                                        </div>
                                                     </div>
                                                 </li>
                                             @endforeach
