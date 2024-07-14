@@ -77,7 +77,8 @@
                                         <div class="col-6">
                                             <label>Amount Paid</label>
                                             <div class="input-group">
-                                                <span class="input-group-text">{{ config("assessment-settings.currency") }}</span>
+                                            {{-- {{ dd($schoolCurrency) }} --}}
+                                                <span class="input-group-text">{{ $schoolCurrency->getData()->default_currency_symbol }}</span>
                                                 <input type="text" name="amount_paid" value="" class="form-control solid">
                                             </div>
                                         </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolCurrency;
 
 
 class TransactionsController extends Controller
@@ -23,7 +24,8 @@ class TransactionsController extends Controller
     public function create(Request $request){
         $schoolTerm = TermAndAcademicYear();
         $student_id = $request->student_id;
-
+        $schoolCurrency = SchoolCurrency();
+        // dd($schoolCurrency);
         $getStudent = StudentsAdmissions::with('level')->where("student_id" , $student_id)->first();
 
         // get student transactions based on student id
@@ -40,7 +42,7 @@ class TransactionsController extends Controller
 
         ];
         // dd($transactions);
-        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions", "studentData"));
+        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions", "studentData", "schoolCurrency"));
         // $transactions = [
         //     'studentTransactions' =>
         // ];

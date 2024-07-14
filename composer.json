@@ -37,7 +37,8 @@
         },
         "files": [
             "app/Helpers/SchoolTermHelper.php",
-            "app/Helpers/SchoolAssessmentPercentage.php"
+            "app/Helpers/SchoolAssessmentPercentage.php",
+            "app/Helpers/SchoolCurrency.php"
         ]
     },
     "autoload-dev": {
