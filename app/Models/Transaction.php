@@ -53,7 +53,7 @@ class Transaction extends Model
             $model->id = Str::uuid();
             $model->invoice_id = $invoice_id;
             $model->payment_status = 'awaiting_payment';
-            $model->currency = 'GHC';
+            $model->currency = config('assessment-settings.currency_symbol');
             $model->school_id = $user->school_id;
             $model->branch_id = $user->branch_id;
             $model->term_id = $current_term->id;

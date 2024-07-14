@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Currency;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class SchoolController extends Controller
 
         $adminData = Admin::where('school_id', $school_id)->first();
         $adminData->getMedia("admin_profile")->first();
+
+        $currencies = Currency::where("school_id", Auth::guard("admin")->user()->school_id)->orderBy('name', 'asc')->get();
 //        dd($adminData);
         $schoolTerm = TermAndAcademicYear();
         return view('admin.dashboard.portfolio.index',
@@ -29,6 +32,7 @@ class SchoolController extends Controller
                 'schoolData' => $schoolData,
                 'schoolTerm' => $schoolTerm,
                 'adminData' => $adminData,
+                'currencies' => $currencies
             ]
         );
     }
