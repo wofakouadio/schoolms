@@ -47,4 +47,8 @@ class TransactionsController extends Controller
         //     'studentTransactions' =>
         // ];
     }
+
+    public function store(Request $request){
+        dd($request->all());
+    }
 }

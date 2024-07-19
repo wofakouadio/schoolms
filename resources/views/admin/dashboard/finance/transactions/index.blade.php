@@ -1,12 +1,12 @@
 @extends('layouts.dash-layout')
 
 @push('title')
-    <title>Transactions | School Mgt Sys</title>
+    <title>Fee Collection | School Mgt Sys</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Transactions
+        Fee Collection
     </div>
 @endpush
 
@@ -43,7 +43,7 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Student Transactions</h5>
+                            <h5>Fee Collection</h5>
                         </div>
                         {{-- {{ dd($admissionFees) }} --}}
                         <div class="card-body">
@@ -51,11 +51,11 @@
                                 <div class="alert alert-danger"><h5>No Record found</h5></div>
                             @else
                                 {{-- {{ dd($studentData) }} --}}
-                               <form class="form-group" method="" id="transaction_form">
+                               <form class="form-group" method="POST" id="transaction_form" action="{{ route('admin_student_new_fee_collection') }}">
+                                @csrf
                                     <div class="alert menu-alert">
                                         <ul></ul>
                                     </div>
-                                    @csrf
                                     <div class="row">
                                         <div class="col-6">
                                             <label>Student ID</label>
@@ -124,7 +124,7 @@
                                             @endforeach
                                         </ol>
                                         <div class="mb-4">
-                                            <button type="submit" class="btn btn-primary" id="btn_process_transaction">Process</button>
+                                            <button type="button" class="btn btn-primary" id="btn_process_transaction">Process</button>
                                         </div>
                                     {{-- </div> --}}
                                </form>
