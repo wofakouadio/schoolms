@@ -45,7 +45,7 @@ Route::middleware(['auth' => 'teacher'])->controller(TeacherUserController::clas
 
     //Level/Class Assessment
     Route::get('assessment/level', [LevelAssessmentController::class, 'index'])->name('teacher_level_assessment');
-    Route::get('getSubjectsBasedOnLevel', [LevelAssessmentController::class, 'getSubjectsBasedOnLevel'])->name('getSubjectsBasedOnLevel');
+    Route::get('getSubjectsBasedOnLevel', [LevelAssessmentController::class, 'getSubjectsBasedOnLevel'])->name('teacher_getSubjectsBasedOnLevel');
     Route::get('teacher-get-student-for-level-assessment', [LevelAssessmentController::class,'create'])->name('teacher-get-student-for-level-assessment');
     Route::post('assessment/level/new', [LevelAssessmentController::class,'store'])->name('teacher_new_level_assessment_entry');
     // Route::get('getTeacherLevelsBySchoolId', [LevelAssessmentController::class, 'getTeacherLevelsBySchoolId'])->name('getTeacherLevelsBySchoolId');
