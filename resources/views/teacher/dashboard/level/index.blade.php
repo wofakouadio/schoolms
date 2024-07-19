@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Level</label>
-{{--                                {{dd($teacherLevels)}}--}}
+                               {{-- {{dd($teacherLevels)}} --}}
                                 <select class="form-control" name="teacher_level" id="teacher_level">
                                     <option>Choose</option>
                                     @foreach($teacherLevels as $teacherLevel)
@@ -55,20 +55,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-{{--                                    {{dd($teacherStudents)}}--}}
+                                   {{-- {{dd($teacherStudents)}} --}}
 {{--                                    @if(is_array($teacherStudents) || is_object($teacherStudents))--}}
 {{--                                        @unless($teacherStudents->isEmpty())--}}
                                             @foreach($teacherStudents as $teacherStudent)
                                                 <tr>
-                                                    <td>{{$teacherStudent->student_id}}</td>
-                                                    <td>{{$teacherStudent->student_firstname.' '
-                                                    .$teacherStudent->student_lastname}}</td>
-                                                    <td>{{$teacherStudent->student_gender}}</td>
-                                                    <td>{{$teacherStudent->level->level_name}}</td>
-                                                    <td>{{$teacherStudent->student_residency_type}}</td>
+                                                    <td>{{$teacherStudent['student_id']}}</td>
+                                                    <td>{{$teacherStudent['student_firstname'].' '
+                                                    .$teacherStudent['student_lastname']}}</td>
+                                                    <td>{{$teacherStudent['student_gender']}}</td>
+                                                    <td>{{$teacherStudent['level']['level_name']}}</td>
+                                                    <td>{{$teacherStudent['student_residency_type']}}</td>
                                                     <td>
                                                         <button class="btn btn-primary light" data-bs-toggle="modal"
-                                                                data-bs-target="" data-student_id="{{$teacherStudent->student_id}}">
+                                                                data-bs-target="" data-student_id="{{$teacherStudent['student_id']}}">
                                                             View
                                                         </button>
                                                     </td>
