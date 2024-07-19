@@ -12,7 +12,7 @@ use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
 
 
-class TransactionsController extends Controller
+class FeesCollectionController extends Controller
 {
     //index()
     public function index(){
