@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\Report\Attendance\AttendanceReportController;
 use App\Http\Controllers\Admin\Report\EndTerm\EndTermReportController;
 use App\Http\Controllers\Admin\Report\MidTerm\MidTermReportController;
 use App\Http\Controllers\Admin\Report\Mock\MockReportController;
+use App\Http\Controllers\Admin\School\CurrencyController;
 use App\Http\Controllers\Admin\School\SchoolController;
 use App\Http\Controllers\Admin\School\TermController;
 use App\Http\Controllers\Admin\Student\StudentController;
@@ -91,6 +92,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('school', [SchoolController::class, 'index'])->name('admin_school');
     Route::get('school_data', [SchoolController::class, 'school_data'])->name('school_data');
     Route::put('update', [SchoolController::class, 'update'])->name('admin_school_update');
+
+    /**Currency**/
+    Route::post("currency/new", [CurrencyController::class,"store"])->name("admin_new_currency");
+    Route::get("currency/edit", [CurrencyController::class,"edit"])->name("admin_edit_currency");
+    Route::put("currency/update", [CurrencyController::class,"update"])->name("admin_update_currency");
+    Route::put("currency/default", [CurrencyController::class, "set_selected_currency_as_default"])->name("admin_set_selected_currency_as_default");
+    Route::delete("currency/delete", [CurrencyController::class,"delete"])->name("admin_delete_currency");
 
     /**Term**/
     Route::get('term', [TermController::class, 'index'])->name('admin_school_term');

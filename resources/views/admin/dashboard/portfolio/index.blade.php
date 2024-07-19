@@ -141,6 +141,82 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-6">
+                    <div class="card" style="height: auto">
+                        <div class="card-header">
+                            <h4>Currency Management</h4>
+                        </div>
+                        <div class="card-body">
+                            <a class="btn btn-rounded btn-primary mb-4" data-bs-toggle="modal"
+                               data-bs-target="#new-currency-modal">
+                                <span class="btn-icon-start text-primary">
+                                    <i class="fa fa-plus color-primary"></i>
+                                </span> New Currency
+                            </a>
+                            <table class="table table-responsive" id="currencyDataTables">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Symbol</th>
+                                    <th>Is Default</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    {{-- {{ $counter = 1 }} --}}
+                                    @foreach($currencies as $currency)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $currency->name }}</td>
+                                            <td>{{ $currency->symbol }}</td>
+                                            <td>
+                                                @if($currency->is_default_currency == 1)
+                                                    <div class="bootstrap-badge">
+                                                        <span class="badge badge-xl light badge-success text-uppercase">yes</span>
+                                                    </div>
+                                                @else
+                                                    <div class="bootstrap-badge">
+                                                        <span class="badge badge-xl light badge-danger text-uppercase">no</span>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($currency->is_active == 1)
+                                                    <div class="bootstrap-badge">
+                                                        <span class="badge badge-xl light badge-success text-uppercase">active</span>
+                                                    </div>
+                                                @else
+                                                    <div class="bootstrap-badge">
+                                                        <span class="badge badge-xl light badge-danger text-uppercase">disabled</span>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                                <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                                                <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                                                <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                    <div class="dropdown-menu" style="">
+                                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-currency-modal" data-id="{{ $currency->id }}">Edit Currency</a>
+                                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#default-currency-modal" data-id="{{ $currency->id }}">Set as Default Currency</a>
+                                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete-currency-modal" data-id="{{ $currency->id }}">Delete Currency</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {{--Modals--}}
@@ -154,5 +230,5 @@
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-
+    @include('admin/dashboard/portfolio/portfolioDataTables')
 @endpush

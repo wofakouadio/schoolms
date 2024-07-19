@@ -349,5 +349,289 @@
                 }
             })
         })
+
+        // new currency
+        $("#new-currency-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            let form_data = $("#new-currency-form").serialize()
+            $.ajax({
+                url:'{{ route('admin_new_currency') }}',
+                method:'POST',
+                cache:false,
+                data: form_data,
+                success:(Response)=>{
+                    // console.log(Response)
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        $("#new-currency-form .menu-alert").removeClass('alert-warning')
+                        $("#new-currency-form .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                    }else{
+                        $("#new-currency-form .menu-alert").removeClass('alert-danger')
+                        $("#new-currency-form .menu-alert").removeClass('alert-warning')
+
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                $("#new-currency-modal").modal('hide')
+                                $("#new-currency-form .menu-alert").removeClass('alert-danger')
+                                $("#new-currency-form .menu-alert").removeClass('alert-warning')
+                                $("#new-currency-form .menu-alert").html('')
+                                window.location.reload()
+                                $("#currencyDataTables").DataTable().draw()
+                            }
+                        })
+                    }
+                },
+                error:(Response)=>{
+
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#new-currency-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
+                }
+            })
+        })
+    })
+
+    $("#edit-currency-modal").on("show.bs.modal", (event) => {
+        let str = $(event.relatedTarget)
+        let currency_id = str.data("id")
+        let modal = $("#edit-currency-modal")
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url:'{{ route('admin_edit_currency') }}',
+            method:'GET',
+            cache: false,
+            data:{currency_id:currency_id},
+            success:(Response)=>{
+                modal.find("input[name=currency_id]").val(currency_id)
+                modal.find("input[name=currency_name]").val(Response['name'])
+                modal.find("input[name=currency_symbol]").val(Response['symbol'])
+                modal.find("select[name=currency_is_active]").val(Response['is_active'])
+            }
+        })
+    })
+
+    $("#edit-currency-form").on("submit", (e)=>{
+        e.preventDefault()
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        let form_data = $("#edit-currency-form").serialize()
+        $.ajax({
+            url:'{{ route('admin_update_currency') }}',
+            method:'POST',
+            cache:false,
+            data: form_data,
+            success:(Response)=>{
+                // console.log(Response)
+                let StringResults = JSON.stringify(Response)
+                let DecodedResults = JSON.parse(StringResults)
+                if(DecodedResults.status === 201){
+                    $("#edit-currency-form .menu-alert").removeClass('alert-warning')
+                    $("#edit-currency-form .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                }else{
+                    $("#edit-currency-form .menu-alert").removeClass('alert-danger')
+                    $("#edit-currency-form .menu-alert").removeClass('alert-warning')
+
+                    Swal.fire({
+                        title: 'Notification',
+                        html: DecodedResults.msg,
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonText: 'Close',
+                    }).then((result) => {
+                        if (result) {
+                            $("#edit-currency-modal").modal('hide')
+                            $("#edit-currency-form .menu-alert").removeClass('alert-danger')
+                            $("#edit-currency-form .menu-alert").removeClass('alert-warning')
+                            $("#edit-currency-form .menu-alert").html('')
+                            window.location.reload()
+                            $("#currencyDataTables").DataTable().draw()
+                        }
+                    })
+                }
+            },
+            error:(Response)=>{
+
+                $.each( Response.responseJSON.errors, function( key, value ) {
+                    $('#edit-currency-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        .append
+                        ('<li>'+value+'</li>');
+                });
+            }
+        })
+    })
+
+    $("#default-currency-modal").on("show.bs.modal", (event) => {
+        let str = $(event.relatedTarget)
+        let currency_id = str.data("id")
+        let modal = $("#default-currency-modal")
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url:'{{ route('admin_edit_currency') }}',
+            method:'GET',
+            cache: false,
+            data:{currency_id:currency_id},
+            success:(Response)=>{
+                modal.find("input[name=currency_id]").val(currency_id)
+                modal.find("input[name=currency_name]").val(Response['name'])
+                modal.find("input[name=currency_symbol]").val(Response['symbol'])
+                modal.find("select[name=is_default_currency]").val(Response['is_default_currency'])
+            }
+        })
+    })
+
+    $("#default-currency-form").on("submit", (e)=>{
+        e.preventDefault()
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        let form_data = $("#default-currency-form").serialize()
+        $.ajax({
+            url:'{{ route('admin_set_selected_currency_as_default') }}',
+            method:'POST',
+            cache:false,
+            data: form_data,
+            success:(Response)=>{
+                // console.log(Response)
+                let StringResults = JSON.stringify(Response)
+                let DecodedResults = JSON.parse(StringResults)
+                if(DecodedResults.status === 201){
+                    $("#default-currency-form .menu-alert").removeClass('alert-warning')
+                    $("#default-currency-form .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                }else{
+                    $("#default-currency-form .menu-alert").removeClass('alert-danger')
+                    $("#default-currency-form .menu-alert").removeClass('alert-warning')
+
+                    Swal.fire({
+                        title: 'Notification',
+                        html: DecodedResults.msg,
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonText: 'Close',
+                    }).then((result) => {
+                        if (result) {
+                            $("#default-currency-modal").modal('hide')
+                            $("#default-currency-form .menu-alert").removeClass('alert-danger')
+                            $("#default-currency-form .menu-alert").removeClass('alert-warning')
+                            $("#default-currency-form .menu-alert").html('')
+                            window.location.reload()
+                            $("#currencyDataTables").DataTable().draw()
+                        }
+                    })
+                }
+            },
+            error:(Response)=>{
+
+                $.each( Response.responseJSON.errors, function( key, value ) {
+                    $('#default-currency-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        .append
+                        ('<li>'+value+'</li>');
+                });
+            }
+        })
+    })
+
+    $("#delete-currency-modal").on("show.bs.modal", (event) => {
+        let str = $(event.relatedTarget)
+        let currency_id = str.data("id")
+        let modal = $("#delete-currency-modal")
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url:'{{ route('admin_edit_currency') }}',
+            method:'GET',
+            cache: false,
+            data:{currency_id:currency_id},
+            success:(Response)=>{
+                modal.find("input[name=currency_id]").val(currency_id)
+                modal.find(".delete-notice").html("Are you sure of deleting " +Response['name']+' currency ?')
+            }
+        })
+    })
+
+    $("#delete-currency-form").on("submit", (e)=>{
+        e.preventDefault()
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        let form_data = $("#delete-currency-form").serialize()
+        $.ajax({
+            url:'{{ route('admin_delete_currency') }}',
+            method:'POST',
+            cache:false,
+            data: form_data,
+            success:(Response)=>{
+                // console.log(Response)
+                let StringResults = JSON.stringify(Response)
+                let DecodedResults = JSON.parse(StringResults)
+                if(DecodedResults.status === 201){
+                    $("#delete-currency-form .menu-alert").removeClass('alert-warning')
+                    $("#delete-currency-form .menu-alert").show().addClass('alert-danger').html(DecodedResults.msg)
+                }else{
+                    $("#delete-currency-form .menu-alert").removeClass('alert-danger')
+                    $("#delete-currency-form .menu-alert").removeClass('alert-warning')
+
+                    Swal.fire({
+                        title: 'Notification',
+                        html: DecodedResults.msg,
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonText: 'Close',
+                    }).then((result) => {
+                        if (result) {
+                            $("#delete-currency-modal").modal('hide')
+                            $("#delete-currency-form .menu-alert").removeClass('alert-danger')
+                            $("#delete-currency-form .menu-alert").removeClass('alert-warning')
+                            $("#delete-currency-form .menu-alert").html('')
+                            window.location.reload()
+                            $("#currencyDataTables").DataTable().draw()
+                        }
+                    })
+                }
+            },
+            error:(Response)=>{
+
+                $.each( Response.responseJSON.errors, function( key, value ) {
+                    $('#delete-currency-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+                        .append
+                        ('<li>'+value+'</li>');
+                });
+            }
+        })
     })
 </script>
