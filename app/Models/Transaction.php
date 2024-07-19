@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use function App\Helpers\SchoolCurrency;
 
 class Transaction extends Model
 {
@@ -39,6 +40,7 @@ class Transaction extends Model
         static::saving(function ($model) {
 
             $user = Auth::guard('admin')->user();
+            $schoolCurrency = SchoolCurrency();
             //get current academic year
             $current_academic_year = AcademicYear::where(['school_id' => $user->school_id, 'is_active' => 1])->first();
 
@@ -53,7 +55,7 @@ class Transaction extends Model
             $model->id = Str::uuid();
             $model->invoice_id = $invoice_id;
             $model->payment_status = 'awaiting_payment';
-            $model->currency = config('assessment-settings.currency_symbol');
+            $model->currency = $schoolCurrency->getData()->default_currency_symbol;
             $model->school_id = $user->school_id;
             $model->branch_id = $user->branch_id;
             $model->term_id = $current_term->id;
