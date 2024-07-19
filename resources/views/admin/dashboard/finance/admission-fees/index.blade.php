@@ -52,7 +52,7 @@
                                                 <td>{{ $value->academic_year->academic_year_start.'/'.$value->academic_year->academic_year_end }}</td>
                                                 <td>{{ $value->branch->branch_name }}</td>
                                                 <td>{{ $value->department->name }}</td>
-                                                <td>{{ $value->amount }}</td>
+                                                <td>{{ money($value->amount) }}</td>
                                                 <td>{{ date("l F j, Y", strtotime($value->updated_at)) }}</td>
                                                 <td>
                                                     @if($value->is_active == 1)
