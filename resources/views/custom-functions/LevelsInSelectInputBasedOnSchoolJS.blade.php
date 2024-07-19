@@ -34,6 +34,7 @@
                         $("#new-level-assessment-form").find("select[name=level]").html(Response)
                     @elseif(Auth::guard('teacher')->check())
                         $("#new-student-mock-modal").find("select[name=level]").html(Response)
+                        $("#new-level-assessment-form").find("select[name=level]").html(Response)
                         $("#new-student-mid-term-modal").find("select[name=level]").html(Response)
                         $("#new-end-term-setup-modal").find("select[name=level]").html(Response)
                         $("#mock_report_form").find("select[name=level]").html(Response)
