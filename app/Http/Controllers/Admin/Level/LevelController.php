@@ -123,16 +123,24 @@ class LevelController extends Controller
     //get levels based on school id
     public function getLevelsBySchoolId(){
         $output = [];
-        $levels = Level::with('branch')->where('school_id', Auth::guard('admin')
-            ->user()
-            ->school_id)
-            ->where
-        ('is_active', 1)
-            ->get();
-        $output[] .= "<option value=''>Choose</option>";
-        foreach ($levels as $level){
-            $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+        if(Auth::guard("admin")->check()){
+            $levels = Level::with('branch')
+                    ->where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' => 1])
+                    ->get();
+            $output[] .= "<option value=''>Choose</option>";
+            foreach ($levels as $level){
+                $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+            }
+        }else{
+            // $levels = Level::with('branch')
+            // ->where(['school_id' => Auth::guard('teacher')->user()->school_id, 'is_active' => 1])
+            // ->get();
+            // $output[] .= "<option value=''>Choose</option>";
+            // foreach ($levels as $level){
+            //     $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+            // }
         }
+
         return $output;
     }
 
