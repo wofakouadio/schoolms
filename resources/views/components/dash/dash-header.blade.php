@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<!-- Mobile Specific -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=0.75">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<!-- Page Title -->
@@ -39,6 +39,12 @@
 
 	<!-- Globlal CSS -->
     <link href= "{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+	<style>
+		body{
+			zoom: 85%;
+		}
+	</style>
 
 </head>
 <body>
