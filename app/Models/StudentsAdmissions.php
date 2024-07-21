@@ -40,6 +40,7 @@ class StudentsAdmissions extends Model implements HasMedia
         'previous_arrears',
         'current_bill_amount',
         'total_bill_amount',
+        'wallet',
     ];
 
     public function school(){

@@ -259,9 +259,11 @@ class StudentsAdmissionsController extends Controller
                     $admission_bill = Transaction::create([
                         "academic_year_id" => $current_academic_year->id,
                         "amount_due" => $getAdmissionBill->amount,
+                        "payment_status" => 'awaiting_payment',
                         "student_id" => $newAdmittedStudent->id,
                         "level_id" => $newAdmittedStudent->student_level,
-                        "description" => "Admission Fee"
+                        "description" => "Admission Fee",
+                        "items" => "Admission Fee"
                     ]);
                 }
 
@@ -295,9 +297,11 @@ class StudentsAdmissionsController extends Controller
                         Transaction::create([
                             "academic_year_id" => $current_academic_year->id,
                             "amount_due" => $x->amount,
+                            "payment_status" => 'awaiting_payment',
                             "student_id" => $newAdmittedStudent->id,
                             "level_id" => $newAdmittedStudent->student_level,
-                            "description" => $x->item
+                            "description" => $x->item,
+                            "items" => $x->item,
                         ]);
                     }
                 }

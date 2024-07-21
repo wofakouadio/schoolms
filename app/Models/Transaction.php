@@ -24,6 +24,7 @@ class Transaction extends Model
         'description',
         'amount_due',
         'amount_paid',
+        'transaction_type',
         'balance',
         'items',
         'payment_status',
@@ -54,7 +55,6 @@ class Transaction extends Model
 
             $model->id = Str::uuid();
             $model->invoice_id = $invoice_id;
-            $model->payment_status = 'awaiting_payment';
             $model->currency = $schoolCurrency->getData()->default_currency_symbol;
             $model->school_id = $user->school_id;
             $model->branch_id = $user->branch_id;
