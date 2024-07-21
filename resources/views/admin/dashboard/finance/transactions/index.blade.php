@@ -91,7 +91,7 @@
                                                 <span
                                                     class="input-group-text">{{ $schoolCurrency->getData()->default_currency_symbol }}</span>
                                                 <input type="text" name="amount_paid" value="" required
-                                                    class="form-control solid">
+                                                    class="form-control solid" placeholder="Enter Amount">
                                             </div>
                                         </div>
                                         <div class="col-6">
