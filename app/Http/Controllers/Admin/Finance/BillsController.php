@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillsBreakdown;
 use App\Models\Level;
+use App\Models\StudentsAdmissions;
+use App\Models\Transaction;
 use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolCurrency;
 
 class BillsController extends Controller
 {
@@ -163,5 +167,53 @@ class BillsController extends Controller
                 'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
             ]);
         }
+    }
+
+    // student bill
+    // get student data for new billing
+    public function get_student_data(Request $request){
+        $request->validate([
+            'student_id' => 'required'
+        ]);
+        $schoolTerm = TermAndAcademicYear();
+        $schoolCurrency = SchoolCurrency();
+        $studentData = null;
+
+        $student_id = $request->student_id;
+
+        $school_id = Auth::guard('admin')->user()->school_id;
+
+        $studentData = StudentsAdmissions::with('level', 'house', 'category')->where(['student_id' => $student_id, 'school_id' => $school_id])->first();
+
+        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData'));
+    }
+
+    public function new_student_bill(Request $request){
+        $request->validate([
+            'bill_description' => 'required',
+            'bill_amount' => 'required|numeric'
+        ]);
+
+        try{
+            Transaction::create([
+                "academic_year_id" => $request->academic_year_id,
+                "amount_due" => $request->bill_amount,
+                "payment_status" => 'awaiting_payment',
+                "student_id" => $request->student_id,
+                "level_id" => $request->level_id,
+                "description" => ucfirst($request->bill_description),
+                "items" => ucfirst($request->bill_description)
+            ]);
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Bill added successfully'
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $e->getMessage()
+            ]);
+        }
+
     }
 }

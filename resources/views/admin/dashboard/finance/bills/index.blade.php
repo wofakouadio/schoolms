@@ -56,16 +56,16 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/finance/student/bills/BillsModals')
+        @include('admin/dashboard/finance/bills/BillsModals')
     @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
     @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
     @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
-    @include('admin/dashboard/finance/student/bills/billsJS')
+    @include('admin/dashboard/finance/bills/billsJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/finance/student/bills/billsDataTables')
+    @include('admin/dashboard/finance/bills/billsDataTables')
 @endpush

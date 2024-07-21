@@ -72,16 +72,10 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{route('admin_finance')}}">Dashboard</a></li>
+                        <li><a href="{{route('admin_term_bill')}}">Term Billings</a></li>
                         <li><a href="{{route('admin_finance_admission_fee')}}">Admission Fees</a></li>
+                        <li><a href="{{ route('admin_student_bill') }}">Student Billing</a></li>
                         <li><a href="{{route('admin_finance_fee_collection')}}">Fee Collection</a></li>
-                        <li>
-                            <a class="has-arrow " href="javascript:void()" aria-expanded="false">
-                                <span class="nav-text">Students</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a href="{{route('admin_student_bill')}}">Bills</a></li>
-                            </ul>
-                        </li>
                         <li><a href="{{route('admin_expenditure')}}">Expenditure</a></li>
                         <li><a href="#">Activity Log</a></li>
                     </ul>
