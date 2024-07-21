@@ -78,7 +78,7 @@
                                                 readonly class="form-control solid">
                                         </div>
                                         <div class="col-6">
-                                            <label>Wallet Amount({{ $schoolCurrency->getData()->default_currency_symbol }})</label>
+                                            <label>OverPaid Amount({{ $schoolCurrency->getData()->default_currency_symbol }})</label>
                                             <input type="text" name="wallet" value="{{ $studentData['wallet'] }}"
                                                 readonly class="form-control solid">
                                         </div>
