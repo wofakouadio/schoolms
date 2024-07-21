@@ -62,6 +62,11 @@ class FeesCollectionController extends Controller
             $amount_paid = $item['amount_to_pay'] + $amount_paid;
         }
 
+        if($request->payment_method == 'Choose'){
+            toastr()->error('Select a payment option.');
+            return redirect()->back();
+        }
+
         if ($amount_paid != $request->amount_paid) {
             toastr()->error('Total Amount paid is not equal to the total allocation.');
             return redirect()->back();
@@ -149,7 +154,7 @@ class FeesCollectionController extends Controller
                 'current_bill_amount' => $student->current_bill_amount - $request->amount_paid
             ]);
 
-            //if mode of payment is wallet deduct from wallet
+            //if mode of payment is wallet deduct from wallet. Note that wallet is a negative value signifying overpayment
             if ($request->payment_method == "Wallet") {
                 $student->update([
                     'wallet' => $student->wallet + $request->amount_paid
