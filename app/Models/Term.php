@@ -23,4 +23,9 @@ class Term extends Model
     public function academic_year(){
         return $this->belongsTo(AcademicYear::class, 'term_academic_year', 'id');
     }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id');
+    }
 }

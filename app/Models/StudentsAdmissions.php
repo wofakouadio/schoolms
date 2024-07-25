@@ -71,6 +71,11 @@ class StudentsAdmissions extends Model implements HasMedia
         return $this->hasOne(StudentAttendance::class, 'student_id', 'student_id')->whereDay('created_at', now()->day);
     }
 
+    public function billingLogs()
+    {
+        return $this->hasMany(BillingLog::class,'student_id','id');
+    }
+
     public function registerMediaCollections(): void
     {
         $this

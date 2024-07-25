@@ -57,24 +57,24 @@ class FeesCollectionController extends Controller
     public function store(Request $request)
     {
         $amount_paid = 0;
-
-        foreach ($request->transaction_allocations as $k => $item) {
-            $amount_paid = $item['amount_to_pay'] + $amount_paid;
+        if ($request->transaction_allocations) {
+            foreach ($request->transaction_allocations as $k => $item) {
+                $amount_paid = $item['amount_to_pay'] + $amount_paid;
+            }
         }
+        // dd($request->all());
 
-        if($request->payment_method == 'Choose'){
+        if ($request->payment_method == 'Choose') {
             toastr()->error('Select a payment option.');
-            return redirect()->back();
+            // Alert::alert('Notification', 'Select a payment option');
+            // return redirect()->back();
+            return redirect()->route('admin_finance_fee_collection');
         }
 
         if ($amount_paid != $request->amount_paid) {
             toastr()->error('Total Amount paid is not equal to the total allocation.');
-            return redirect()->back();
-
-            // return response()->json([
-            //     'status' => 201,
-            //     'msg' => "Error: Total Amount paid is not equal to the total allocation."
-            // ]);
+            // return redirect()->back();
+            return redirect()->route('admin_finance_fee_collection');
         }
 
         DB::beginTransaction();
@@ -82,6 +82,14 @@ class FeesCollectionController extends Controller
         try {
             $schoolTerm = TermAndAcademicYear();
             $student = StudentsAdmissions::where('id', $request->student_id)->first();
+
+            if ($request->payment_method == "Wallet") {
+                if ($amount_paid != $student->wallet) {
+                    toastr()->error('Total Amount paid is not equal to the total allocation.');
+                    // return redirect()->back();
+                    return redirect()->route('admin_finance_fee_collection');
+                }
+            }
 
             foreach ($request->transaction_allocations as $k => $item) {
 

@@ -28,7 +28,7 @@
                                data-bs-target="#new-bill-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> New Bill
+                                </span> New Bill 
                             </a>
                         </div>
                         <div class="card-body">

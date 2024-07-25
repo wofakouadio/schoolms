@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin\Finance;
 
-use App\Http\Controllers\Controller;
 use App\Models\Bill;
-use App\Models\BillsBreakdown;
-use App\Models\Level;
-use App\Models\StudentsAdmissions;
-use App\Models\Transaction;
 use App\Models\Term;
+use App\Models\Level;
+use App\Models\School;
+use App\Models\BillingLog;
+use App\Models\Transaction;
+use Illuminate\Support\Str;
+use App\Models\AcademicYear;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\BillsBreakdown;
+use App\Models\StudentsAdmissions;
 use Illuminate\Support\Facades\DB;
-use function App\Helpers\TermAndAcademicYear;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use function App\Helpers\SchoolCurrency;
+use function App\Helpers\TermAndAcademicYear;
 
 class BillsController extends Controller
 {
@@ -30,7 +34,7 @@ class BillsController extends Controller
         try {
             $bill_amount = 0;
             $bill_description = [];
-            foreach ($request->addMore as $key => $value){
+            foreach ($request->addMore as $key => $value) {
 
                 $bill_amount += $value['bill_amount'];
                 $bill_description[] = [
@@ -40,14 +44,14 @@ class BillsController extends Controller
             }
             $academicYear = Term::select('term_academic_year')->where('id', $request->term)->first();
             $branch = Level::select('branch_id')->where('id', $request->level)->first();
-            if($request->is_for_academic_year == 1 ?? 0){
+            if ($request->is_for_academic_year == 1 ?? 0) {
                 $is_for_academic_year = 1;
-            }else{
+            } else {
                 $is_for_academic_year = 0;
             }
             $bill = Bill::create([
                 'bill_amount' => $bill_amount,
-//                'bill_description' => $bill_description,
+                //                'bill_description' => $bill_description,
                 'term_id' => $request->term,
                 'academic_year' => $academicYear->term_academic_year,
                 'is_for_academic_year' => $is_for_academic_year,
@@ -55,7 +59,7 @@ class BillsController extends Controller
                 'school_id' => Auth::guard('admin')->user()->school_id,
                 'branch_id' => $branch->branch_id
             ]);
-            foreach ($bill_description as $key => $value){
+            foreach ($bill_description as $key => $value) {
                 BillsBreakdown::create([
                     'item' => $value['description'],
                     'amount' => $value['amount'],
@@ -69,7 +73,7 @@ class BillsController extends Controller
                 'status' => 200,
                 'msg' => 'Bill created successfully'
             ]);
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -79,7 +83,8 @@ class BillsController extends Controller
     }
 
     //edit
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         $data = Bill::with('billsbreakdown')->where('id', $request->bill_id)->first();
         return response()->json($data);
     }
@@ -97,7 +102,7 @@ class BillsController extends Controller
         try {
             $bill_amount = 0;
             $bill_description = [];
-            foreach ($request->addMore as $key => $value){
+            foreach ($request->addMore as $key => $value) {
 
                 $bill_amount += $value['bill_amount'];
                 $bill_description[] = [
@@ -108,21 +113,21 @@ class BillsController extends Controller
             }
             Bill::where('id', $request->bill_id)->update([
                 'bill_amount' => $bill_amount,
-//                'bill_description' => $bill_description,
+                //                'bill_description' => $bill_description,
                 'term_id' => $request->term,
                 'level_id' => $request->level,
                 'is_active' => $request->bill_is_active,
             ]);
-            foreach ($bill_description as $key => $value){
-                if(empty($value['id'])){
+            foreach ($bill_description as $key => $value) {
+                if (empty($value['id'])) {
                     BillsBreakdown::create([
-                    'item' => $value['description'],
-                    'amount' => $value['amount'],
-                    'bill_id' => $request->bill_id,
-                    'school_id' => Auth::guard('admin')->user()->school_id,
-                    'branch_id' => $request->branch_id
+                        'item' => $value['description'],
+                        'amount' => $value['amount'],
+                        'bill_id' => $request->bill_id,
+                        'school_id' => Auth::guard('admin')->user()->school_id,
+                        'branch_id' => $request->branch_id
                     ]);
-                }else{
+                } else {
                     BillsBreakdown::where('id', $value['id'])->update([
                         'item' => $value['description'],
                         'amount' => $value['amount'],
@@ -138,7 +143,7 @@ class BillsController extends Controller
                 'status' => 200,
                 'msg' => 'Bill updated successfully'
             ]);
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -160,7 +165,7 @@ class BillsController extends Controller
                 'status' => 200,
                 'msg' => 'Bill deleted successfully'
             ]);
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 201,
@@ -171,7 +176,8 @@ class BillsController extends Controller
 
     // student bill
     // get student data for new billing
-    public function get_student_data(Request $request){
+    public function get_student_data(Request $request)
+    {
         $request->validate([
             'student_id' => 'required'
         ]);
@@ -188,13 +194,14 @@ class BillsController extends Controller
         return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData'));
     }
 
-    public function new_student_bill(Request $request){
+    public function new_student_bill(Request $request)
+    {
         $request->validate([
             'bill_description' => 'required',
             'bill_amount' => 'required|numeric'
         ]);
 
-        try{
+        try {
             Transaction::create([
                 "academic_year_id" => $request->academic_year_id,
                 "amount_due" => $request->bill_amount,
@@ -208,12 +215,11 @@ class BillsController extends Controller
                 'status' => 200,
                 'msg' => 'Bill added successfully'
             ]);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 201,
                 'msg' => 'Error: something went wrong. More Details : ' . $e->getMessage()
             ]);
         }
-
     }
 }

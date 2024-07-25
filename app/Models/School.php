@@ -36,4 +36,9 @@ class School extends Model implements HasMedia
             ->addMediaCollection('school_logo')
             ->useDisk('media');
     }
+
+    public function billingLogs()
+    {
+        return $this->hasMany(BillingLog::class, 'student_id');
+    }
 }
