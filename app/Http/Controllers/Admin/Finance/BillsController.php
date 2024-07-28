@@ -200,8 +200,9 @@ class BillsController extends Controller
             'bill_description' => 'required',
             'bill_amount' => 'required|numeric'
         ]);
-
+        DB::beginTransaction();
         try {
+            $student = StudentsAdmissions::where('id', $request->student_id)->first();
             Transaction::create([
                 "academic_year_id" => $request->academic_year_id,
                 "amount_due" => $request->bill_amount,
@@ -211,11 +212,17 @@ class BillsController extends Controller
                 "description" => ucfirst($request->bill_description),
                 "items" => ucfirst($request->bill_description)
             ]);
+            $student->update([
+                'total_bill_amount' => $student->total_bill_amount + $request->bill_amount,
+                'current_bill_amount' => $student->current_bill_amount + $request->bill_amount
+            ]);
+            DB::commit();
             return response()->json([
                 'status' => 200,
                 'msg' => 'Bill added successfully'
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'status' => 201,
                 'msg' => 'Error: something went wrong. More Details : ' . $e->getMessage()

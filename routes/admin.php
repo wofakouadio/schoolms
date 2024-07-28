@@ -181,7 +181,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("finance/admission-fees", [AdmissionFeeController::class,"index"])->name("admin_finance_admission_fee");
     Route::post("finance/new-admission-fee", [AdmissionFeeController::class,"store"])->name("new_admission_fee");
 
-    /**Transactions**/
+    /**Fee Collection**/
     Route::get("finance/fee-collection", [FeesCollectionController::class,"index"])->name("admin_finance_fee_collection");
     Route::post("finance/transactions/get-student", [FeesCollectionController::class,"create"])->name("admin_get_student_transaction");
     Route::post("finance/fee-collection/store", [FeesCollectionController::class, "store"])->name("admin_student_new_fee_collection");
@@ -198,6 +198,12 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("finance/student-bill", [FinanceController::class, "studentBillView"])->name("admin_student_bill");
     Route::post("finance/student/student-data", [BillsController::class, "get_student_data"])->name("admin_get_student_data");
     Route::post("finance/student/new-bill", [BillsController::class, "new_student_bill"])->name("new-student-bill");
+
+    /** View Student Transaction **/
+    Route::get("finance/student-transactions", [FeesCollectionController::class, 'view_student_transactions'])->name("admin_student_transactions");
+    Route::post("finance/student-transactions/get", [FeesCollectionController::class, 'get_student_transactions'])->name("admin_get_student_transactions");
+    Route::put("finance/student-transactions/update", [FeesCollectionController::class, 'update_transaction_data'])->name("admin_update_student_transaction");
+    Route::delete("finance/student-transactions/delete", [FeesCollectionController::class, 'delete_transaction_data'])->name("admin_delete_student_transaction");
 
     /**Assessment Settings**/
     Route::get('assessment', [AssessmentSettingsController::class, 'index'])->name('admin_assessment_settings');
