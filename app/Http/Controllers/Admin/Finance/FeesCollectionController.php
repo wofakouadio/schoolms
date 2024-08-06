@@ -180,4 +180,100 @@ class FeesCollectionController extends Controller
             return redirect()->back();
         }
     }
+
+    public function view_student_transactions(){
+        $schoolTerm = TermAndAcademicYear();
+        $schoolCurrency = SchoolCurrency();
+        return view("admin.dashboard.finance.student-transactions.index", compact("schoolTerm", "schoolCurrency"));
+    }
+
+    public function get_student_transactions(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required'
+        ]);
+        $student_id = $request->student_id;
+        $getStudent = StudentsAdmissions::with('level', 'house')->where("student_id", $student_id)->first();
+        $schoolCurrency = SchoolCurrency();
+        // get student transactions based on student id
+        $transactions = Transaction::where([
+            'student_id' => $getStudent->id,
+            'payment_status' => 'awaiting_payment',
+            'school_id' => Auth::guard('admin')->user()->school_id
+        ])->get();
+
+        $data = [
+            'studentData' => $getStudent,
+            'transactions' => $transactions,
+            'currency_symbol' => $schoolCurrency->getData()->default_currency_symbol
+        ];
+
+        return response()->json($data);
+    }
+
+    // update transaction data
+    public function update_transaction_data(Request $request){
+        $student_uuid = $request->student_uuid;
+        $transaction_id = $request->transaction_id;
+        // $item = $request->item;
+        // $invoice_id = $request->invoice_id;
+        $new_amount_due = $request->amount_due;
+        DB::beginTransaction();
+        try{
+            // get amount due already in the system
+            $old_amount_due = Transaction::where('id', $transaction_id)->first()->amount_due;
+
+            $amount_difference = $old_amount_due - $new_amount_due;
+
+            $student = StudentsAdmissions::where('id', $student_uuid)->first();
+
+            $student->update([
+                'total_bill_amount' => $student->total_bill_amount - $amount_difference,
+                'current_bill_amount' => $student->current_bill_amount - $amount_difference
+            ]);
+
+            Transaction::where('id', $transaction_id)->update([
+                "amount_due" => $new_amount_due
+            ]);
+
+            DB::commit();
+            toastr()->success('Transaction Updated successfully!');
+            return redirect()->route('admin_student_transactions');
+
+        }catch(\Exception $th){
+            DB::rollBack();
+            toastr()->error('Error!' . $th->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    // delete transaction data
+    public function delete_transaction_data(Request $request){
+        $student_uuid = $request->student_uuid;
+        $transaction_id = $request->transaction_id;
+
+        DB::beginTransaction();
+        try{
+            // get amount due already in the system
+            $old_amount_due = Transaction::where('id', $transaction_id)->first()->amount_due;
+
+            $student = StudentsAdmissions::where('id', $student_uuid)->first();
+
+            $student->update([
+                'total_bill_amount' => $student->total_bill_amount - $old_amount_due,
+                'current_bill_amount' => $student->current_bill_amount - $old_amount_due
+            ]);
+
+            Transaction::where('id', $transaction_id)->delete();
+
+            DB::commit();
+            toastr()->success('Transaction Deleted successfully!');
+            return redirect()->route('admin_student_transactions');
+        }catch(\Exception $th){
+            DB::rollBack();
+            toastr()->error('Error!' . $th->getMessage());
+            return redirect()->back();
+        }
+    }
+
 }
