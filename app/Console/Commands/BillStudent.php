@@ -100,7 +100,9 @@ class BillStudent extends Command implements ShouldQueue
                                 'id' => Str::uuid(),
                                 'student_id' => $student->id,
                                 'academic_year_id' => $activeAcademicYear->id,
-                                'term_id' => $activeTerm->id
+                                'term_id' => $activeTerm->id,
+                                'school_id' => $school->id,
+                                'branch_id' => $student->student_branch
                             ]);
                         }
                     });
