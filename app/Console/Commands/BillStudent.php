@@ -57,14 +57,14 @@ class BillStudent extends Command implements ShouldQueue
                 if (!$activeAcademicYear || !$activeTerm) {
                     continue;
                 }
-
+                // dd($activeTerm);
                 $students = StudentsAdmissions::where('school_id', $school->id)
                     ->where('student_status', 1) // Adjust the condition if necessary
                     ->whereDoesntHave('billingLogs', function ($query) use ($activeAcademicYear, $activeTerm) {
                         $query->where('academic_year_id', $activeAcademicYear->id)
                             ->where('term_id', $activeTerm->id);
                     })
-                    ->take(1000)
+                    // ->take(1000)
                     ->get();
 
                 foreach ($students as $student) {
@@ -111,6 +111,8 @@ class BillStudent extends Command implements ShouldQueue
             DB::commit();
             $this->info('All Students have been billed.');
         } catch (\Exception $e) {
+            $this->info('Failed Billing.');
+            $this->info($e->getMessage());
             DB::rollBack();
         }
     }

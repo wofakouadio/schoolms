@@ -43,10 +43,10 @@ class Transaction extends Model
             $user = Auth::guard('admin')->user();
             $schoolCurrency = SchoolCurrency();
             //get current academic year
-            $current_academic_year = AcademicYear::where(['school_id' => $user->school_id, 'is_active' => 1])->first();
+            $current_academic_year = AcademicYear::where(['school_id' => $model->school_id ?? $user->school_id, 'is_active' => 1])->first();
 
             //get current Term
-            $current_term = Term::where(['school_id' => $user->school_id, 'is_active' => 1])->first();
+            $current_term = Term::where(['school_id' => $model->school_id ?? $user->school_id, 'is_active' => 1])->first();
 
             $date_stamp = Carbon::now()->timestamp . '0'; //.Carbon::now()->format('dmYis').'0';
             $new_transaction = Transaction::all()->count() + 1;
@@ -56,10 +56,10 @@ class Transaction extends Model
             $model->id = Str::uuid();
             $model->invoice_id = $invoice_id;
             $model->currency = $schoolCurrency->getData()->default_currency_symbol;
-            $model->school_id = $user->school_id;
-            $model->branch_id = $user->branch_id;
-            $model->term_id = $current_term->id;
-            $model->academic_year_id = $current_academic_year->id;
+            $model->school_id = $model->school_id ?? $user->school_id;
+            $model->branch_id = $model->branch_id ?? $user->branch_id;
+            $model->term_id = $model->term_id ?? $current_term->id;
+            $model->academic_year_id = $model->academic_year_id ?? $current_academic_year->id;
             // $model->transaction_type = "DR";
         });
     }
