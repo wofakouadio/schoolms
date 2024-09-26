@@ -77,7 +77,7 @@
                                         <th>Level</th>
                                         <th>Subject</th>
                                         <th>Score</th>
-                                        <th>Percentage {{ $midTermPercentage }}%</th>
+                                        <th>Percentage ({{ $midTermPercentage }}%)</th>
                                         {{-- <th>Action</th> --}}
                                     </tr>
                                     </thead>

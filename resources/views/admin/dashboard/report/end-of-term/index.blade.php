@@ -259,17 +259,33 @@
                                                 <p class="fw-bolder text-uppercase text-center"><u>Grading System</u></p>
                                             </div>
                                             <div class="row text-center">
-                                                @foreach($data['gradingSystem'] as $key => $grading)
-                                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                        <span class="fw-bolder">{{ $grading['score_from'].'-'.$grading['score_to']}}</span> | <span class="fw-bolder">{{ $grading['grade']}}</span> | <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
-                                                    </div>
-                                                    {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                        <span class="fw-bolder">{{ $grading['grade']}}</span>
-                                                    </div>
-                                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                        <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
-                                                    </div> --}}
-                                                @endforeach
+                                                <table class="table table-striped" style="width: 500px;">
+                                                    <thead>
+                                                        <th>Score</th>
+                                                        <th>Grade</th>
+                                                        <th>Proficiency</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($data['gradingSystem'] as $key => $grading)
+
+                                                            <tr>
+                                                                <td><span class="fw-bolder">{{ $grading['score_from'].' - '.$grading['score_to']}}</span></td>
+                                                                <td><span class="fw-bolder">{{ $grading['grade']}}</span></td>
+                                                                <td><span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span></td>
+                                                            </tr>
+
+                                                        {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                                            <span class="fw-bolder">{{ $grading['score_from'].'-'.$grading['score_to']}}</span> | <span class="fw-bolder">{{ $grading['grade']}}</span> | <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
+                                                        </div> --}}
+                                                        {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                                            <span class="fw-bolder">{{ $grading['grade']}}</span>
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                                            <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
+                                                        </div> --}}
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
