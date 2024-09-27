@@ -108,9 +108,9 @@ class CategoryController extends Controller
         $output = [];
         $categories = Category::select('id', 'category_name')->where('school_id', $school_id)->where('is_active', 1)
             ->get();
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         foreach ($categories as $category) {
-            $output[] .= "<option value='" . $category->id . "'>" . $category->category_name . "</option>";
+            $output[] = "<option value='" . $category->id . "'>" . $category->category_name . "</option>";
         }
         return $output;
     }

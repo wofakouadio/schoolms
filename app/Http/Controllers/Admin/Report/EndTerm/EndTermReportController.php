@@ -52,6 +52,9 @@ class EndTermReportController extends Controller
                 ])
             ->first();
 
+        // check if there is end of term first entry
+        // then we proceed to get the remaining data
+        // else we throw an empty response
         if (!empty($endTermFirst)) {
             //get school data
             $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
@@ -88,9 +91,11 @@ class EndTermReportController extends Controller
             ])->get();
 
             $classPercentageScore = 0;
-            foreach($classTotalAssessment as $key => $class) {
+            foreach ($classTotalAssessment as $key => $class) {
                 $classPercentageScore += $class->percentage;
             }
+
+            // dd($studentData);
 
             // get mid term summary
             $midTermSummary = MidTerm::with('level', 'student', 'term')->where([
@@ -124,35 +129,35 @@ class EndTermReportController extends Controller
             $finalData = [];
             $grading = [];
             // FIRST SAMPLE TRY
-            foreach($classTotalAssessment as $data){
+            foreach ($classTotalAssessment as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
                 // $finalData[$subject]['class_assessment'] = $data->percentage;
-                if(!isset($finalData[$subject])){
+                if (!isset($finalData[$subject])) {
                     $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
                 }
-                $finalData[$subject]['class_assessment'] =+ $data->percentage;
+                $finalData[$subject]['class_assessment'] = + $data->percentage;
             }
-            foreach($midTermBreakdown as $data){
+            foreach ($midTermBreakdown as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                if(!isset($finalData[$subject])){
+                if (!isset($finalData[$subject])) {
                     $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
                 }
-                $finalData[$subject]['mid_term'] =+ $data->percentage;
+                $finalData[$subject]['mid_term'] = + $data->percentage;
             }
-            foreach($endTermBreakdown as $data){
+            foreach ($endTermBreakdown as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                if(!isset($finalData[$subject])){
+                if (!isset($finalData[$subject])) {
                     $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
                 }
-                $finalData[$subject]['end_term'] =+ $data->percentage;
+                $finalData[$subject]['end_term'] = + $data->percentage;
             }
             foreach ($finalData as $subject => $scores) {
                 $finalData[$subject]['total'] = $scores['class_assessment'] + $scores['mid_term'] + $scores['end_term'];
             }
-            foreach($gradingSystem as $key => $value){
+            foreach ($gradingSystem as $key => $value) {
                 $level = $value['level_of_proficiency'];
                 $grading[$level] = [
                     'grade' => $value['grade'],
@@ -161,9 +166,9 @@ class EndTermReportController extends Controller
                     'proficiency' => $value['level_of_proficiency']
                 ];
             }
-            foreach($finalData as $subject => $score) {
-                foreach($grading as $level => $value){
-                    if($score['total'] >= $value['from'] && $score['total'] <= $value['to']){
+            foreach ($finalData as $subject => $score) {
+                foreach ($grading as $level => $value) {
+                    if ($score['total'] >= $value['from'] && $score['total'] <= $value['to']) {
                         $finalData[$subject]['grade'] = $value['grade'];
                         $finalData[$subject]['level'] = $value['proficiency'];
                     }
@@ -206,7 +211,7 @@ class EndTermReportController extends Controller
 
         // dd($data);
 
-        return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
+        return view('admin.dashboard.report.end-of-term.index', compact('schoolTerm', 'data', 'schoolAssessmentPercentage'));
     }
 
     public function download_end_of_term_report(Request $request)

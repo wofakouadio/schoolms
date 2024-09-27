@@ -180,9 +180,9 @@ class TermController extends Controller
             ->user()
             ->school_id)
             ->get();
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         foreach ($terms as $term){
-            $output[] .= "<option value='".$term->id."'>".$term->term_name.' - '
+            $output[] = "<option value='".$term->id."'>".$term->term_name.' - '
                 .$term->academic_year->academic_year_start."/".$term->academic_year->academic_year_end."</option>";
         }
         return $output;

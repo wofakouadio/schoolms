@@ -81,6 +81,7 @@ class SchoolController extends Controller
         $data = School::where('id', Auth::guard('admin')->user()->school_id)->first();
         $data->getMedia("school_logo")->first();
         $acronym = Str::of($data->school_name)->headline()->acronym();
+        // dd($data);
         $result = [
             'school_data' => $data,
             'acronym' => $acronym

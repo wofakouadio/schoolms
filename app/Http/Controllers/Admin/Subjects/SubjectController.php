@@ -111,7 +111,7 @@ class SubjectController extends Controller
         $output = [];
         $subjects = Subject::where('school_id', Auth::guard('admin')->user()->school_id)->get();
         foreach ($subjects as $subject){
-            $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+            $output[] = '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="subject[]" value="'.$subject->id.'">
                                 <label class="form-check-label">'.$subject->subject_name.'</label>

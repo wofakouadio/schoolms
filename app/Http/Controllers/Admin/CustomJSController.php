@@ -15,11 +15,11 @@ class CustomJSController extends Controller
     public function getLevelsByDepartmentBranchSchoolId(Request $request){
         $department = $request->department_id;
         $output = [];
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         $levels = AssignLevelToDepartment::with('AssignLevel')->where('department_id', $department)->get();
 //        dd($levels);
         foreach ($levels as $level) {
-            $output[] .= "<option value='".$level->level_id."'>".$level->AssignLevel->level_name."</option>";
+            $output[] = "<option value='".$level->level_id."'>".$level->AssignLevel->level_name."</option>";
         }
         return $output;
     }
@@ -27,10 +27,10 @@ class CustomJSController extends Controller
     public function getSubjectsByLevelDepartmentBranchSchoolId(Request $request){
         $level_id = $request->level_id;
         $output = [];
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         $subjects = AssignSubjectToLevel::with('subject')->where('level_id', $level_id)->get();
         foreach ($subjects as $subject) {
-            $output[] .= "<option value='".$subject->subject_id."'>".$subject->subject->subject_name."</option>";
+            $output[] = "<option value='".$subject->subject_id."'>".$subject->subject->subject_name."</option>";
         }
         return $output;
     }

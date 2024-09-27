@@ -136,9 +136,9 @@ class DepartmentsController extends Controller
         $output = [];
         $departments = Department::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
         ('is_active', 1)->get();
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         foreach ($departments as $department){
-            $output[] .= "<option value='".$department->id."'>".$department->name . ' - ' .
+            $output[] = "<option value='".$department->id."'>".$department->name . ' - ' .
                 $department->branch->branch_name . ' Branch'
                 ."</option>";
         }
@@ -163,7 +163,7 @@ class DepartmentsController extends Controller
                 ('school_id', Auth::guard('admin')->user()->school_id)->where('department_id', $department_id)->get();
 
             if($s2->isEmpty()){
-                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'">
                                 <label class="form-check-label">'.$value->level_name.'</label>
@@ -173,7 +173,7 @@ class DepartmentsController extends Controller
                 foreach ($s2 as $value){
 
                 }
-                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'" checked>
                                 <label class="form-check-label">'.$value->AssignLevel->level_name.'</label>

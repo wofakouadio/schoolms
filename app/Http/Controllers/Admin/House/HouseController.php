@@ -115,9 +115,9 @@ class HouseController extends Controller
         $houses = House::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
         ('is_active', 1)
                 ->get();
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         foreach ($houses as $house){
-            $output[] .= "<option value='".$house->id."'>".$house->branch->branch_name . ' Branch -  '
+            $output[] = "<option value='".$house->id."'>".$house->branch->branch_name . ' Branch -  '
                 .$house->house_name."</option>";
         }
         return $output;

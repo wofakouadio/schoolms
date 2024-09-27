@@ -117,7 +117,7 @@ class SubjectsController extends Controller
             }
 
             if($stepTwo->isEmpty()){
-                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
                     .'">
@@ -127,7 +127,7 @@ class SubjectsController extends Controller
                         </div>';
             }else{
                 foreach($stepTwo as $valueTwo){
-                    $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                    $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
                         .'" checked>
@@ -164,7 +164,7 @@ class SubjectsController extends Controller
             }
 
             if($stepTwo->isEmpty()){
-                $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
                     .'">
@@ -174,7 +174,7 @@ class SubjectsController extends Controller
                         </div>';
             }else{
                 foreach($stepTwo as $valueTwo){
-                    $output[] .= '<div class="col-xl-4 col-xxl-6 col-6">
+                    $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
                                     <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
                         .'" checked>

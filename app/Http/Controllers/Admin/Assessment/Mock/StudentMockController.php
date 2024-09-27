@@ -117,9 +117,9 @@ class StudentMockController extends Controller
     {
         $output = [];
         $mocks = Mock::where('school_id', Auth::guard('admin')->user()->school_id)->get();
-        $output[] .= '<option value="">Choose</option>';
+        $output[] = '<option value="">Choose</option>';
         foreach ($mocks as $mock) {
-            $output[] .= '<option value="' . $mock->id . '">' . $mock->mock_type . '</option>';
+            $output[] = '<option value="' . $mock->id . '">' . $mock->mock_type . '</option>';
         }
         return $output;
     }
@@ -174,7 +174,7 @@ class StudentMockController extends Controller
                 ->get();
 //dd($secondChk);
             if ($secondChk->isEmpty()) {
-                $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+                $output[] = '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="subject[]" value="' .
                     $value->subject_id . '">
@@ -182,7 +182,7 @@ class StudentMockController extends Controller
                             </div>
                         </div>';
             } else {
-                $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+                $output[] = '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="subject[]" value="' .
                     $value->subject_id . '" checked>
@@ -246,10 +246,10 @@ class StudentMockController extends Controller
             ->where('admission_status', 1)
             ->orderBy('student_firstname', 'ASC')
             ->get();
-        $output[] .= '<option value="">Choose</option>';
+        $output[] = '<option value="">Choose</option>';
         foreach ($students as $student) {
 //            dd($student);
-            $output[] .= '<option value="' . $student->id . '">' . $student->student_firstname . ' '
+            $output[] = '<option value="' . $student->id . '">' . $student->student_firstname . ' '
                 . $student->student_othername . ' '
                 . $student->student_lastname . '</option>';
         }

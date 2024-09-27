@@ -111,9 +111,9 @@ class LevelController extends Controller
         $output = [];
         $levels = Level::with('branch')->where('school_id', Auth::guard('admin')->user()->school_id)->where
         ('is_active', 1)->get();
-        $output[] .= "<option value=''>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         foreach ($levels as $level){
-            $output[] .= "<option value='".$level->id."'>".$level->branch->branch_name . ' Branch - ' .
+            $output[] = "<option value='".$level->id."'>".$level->branch->branch_name . ' Branch - ' .
                 $level->level_name
             ."</option>";
         }
@@ -127,9 +127,9 @@ class LevelController extends Controller
             $levels = Level::with('branch')
                     ->where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' => 1])
                     ->get();
-            $output[] .= "<option value=''>Choose</option>";
+            $output[] = "<option value=''>Choose</option>";
             foreach ($levels as $level){
-                $output[] .= "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
+                $output[] = "<option value='".$level->id."'>".$level->level_name. " / " .$level->branch->branch_name." Branch</option>";
             }
         }else{
             // $levels = Level::with('branch')
@@ -153,7 +153,7 @@ class LevelController extends Controller
             ('is_active', 1)
             ->get();
         foreach ($levels as $level){
-            $output[] .= '<div class="col-xl-4 col-xxl-4 col-4">
+            $output[] = '<div class="col-xl-4 col-xxl-4 col-4">
                             <div class="form-check custom-checkbox mb-3">
                                 <input type="checkbox" class="form-check-input" name="level[]" value="'
                         .$level->id.'">
