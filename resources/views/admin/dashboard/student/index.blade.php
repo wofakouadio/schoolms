@@ -72,10 +72,10 @@
 @push('page-js')
     @include('admin/dashboard/student/studentsJS')
 {{--    @include('custom-functions/StudentIdBasedOnSchoolJS')--}}
-    @include('custom-functions/BranchesInSelectInputJS')
-    @include('custom-functions/LevelsInSelectInputBasedOnBranchJS')
-    @include('custom-functions/HousesInSelectInputBasedOnBranchJS')
-    @include('custom-functions/CategoriesInSelectInputJS')
+    @include('custom-functions/admin/BranchesInSelectInputJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnBranchJS')
+    @include('custom-functions/admin/HousesInSelectInputBasedOnBranchJS')
+    @include('custom-functions/admin/CategoriesInSelectInputJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

@@ -106,7 +106,7 @@
 {{--page js script--}}
 @push('page-js')
     @include('admin/dashboard/users-account/usersJS')
-    @include('custom-functions/TeachersInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/TeachersInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

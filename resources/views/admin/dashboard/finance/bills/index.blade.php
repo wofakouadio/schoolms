@@ -28,7 +28,7 @@
                                data-bs-target="#new-bill-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> New Bill 
+                                </span> New Bill
                             </a>
                         </div>
                         <div class="card-body">
@@ -61,8 +61,8 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
     @include('admin/dashboard/finance/bills/billsJS')
 @endpush
 {{--page datatable script--}}

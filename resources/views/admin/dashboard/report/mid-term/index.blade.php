@@ -196,7 +196,7 @@
 {{--page js script--}}
 @push('page-js')
     @include("admin/dashboard/report/mid-term/jsScript")
-    @include("custom-functions/LevelsInSelectInputBasedOnSchoolJS")
+    @include("custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS")
 {{--    @include('custom-functions/BranchesInSelectInputJS')--}}
 {{--    @include('admin/dashboard/level/levelsJS')--}}
 @endpush

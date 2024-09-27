@@ -58,10 +58,10 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/LevelsInCheckboxBasedOnSchoolJS')
-    @include('admin/dashboard/department/assign/assignDepartmentToLevelJS')
+    @include('custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInCheckboxBasedOnSchoolJS')
+    @include('admin/dashboard/admin/department/assign/assignDepartmentToLevelJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

@@ -63,8 +63,8 @@
 {{--page js script--}}
 @push('page-js')
     @include('admin/dashboard/teacher/teachersJS')
-    @include('custom-functions/TeachersInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/TeachersInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

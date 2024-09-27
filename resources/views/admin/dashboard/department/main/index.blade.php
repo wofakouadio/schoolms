@@ -58,7 +58,7 @@
 {{--page js script--}}
 @push('page-js')
     @include('admin/dashboard/department/main/departmentsJS')
-    @include('custom-functions/BranchesInSelectInputJS')
+    @include('custom-functions/admin/BranchesInSelectInputJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

@@ -120,7 +120,7 @@
 {{--page js script--}}
 @push('page-js')
     @include('admin/dashboard/term/termJS')
-    @include('custom-functions/AcademicYearsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/AcademicYearsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

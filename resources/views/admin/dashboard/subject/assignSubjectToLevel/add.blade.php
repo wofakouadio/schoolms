@@ -88,7 +88,7 @@
     @endsection
     {{--page js script--}}
     @push('page-js')
-        @include('custom-functions.DepartmentsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS')
         @include('admin/dashboard/subject/subjectsJS')
     @endpush
     {{--page datatable script--}}

@@ -135,8 +135,8 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
     @include('admin/dashboard/finance/student-bill/StudentBillJS')
 @endpush
 {{--page datatable script--}}

@@ -120,7 +120,7 @@
     {{-- page js script --}}
     @push('page-js')
         @include('admin/dashboard/class-assessment-size/casJS')
-        @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions.admin.TermsInSelectInputBasedOnSchoolJS')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')

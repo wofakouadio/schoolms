@@ -168,8 +168,8 @@
     @endsection
     {{-- page js script --}}
     @push('page-js')
-        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-        @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
         @include('admin/dashboard/finance/transactions/js')
     @endpush
     {{-- page datatable script --}}

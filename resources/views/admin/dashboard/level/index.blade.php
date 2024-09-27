@@ -58,7 +58,7 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/BranchesInSelectInputJS')
+    @include('custom-functions/admin/BranchesInSelectInputJS')
     @include('admin/dashboard/level/levelsJS')
 @endpush
 {{--page datatable script--}}

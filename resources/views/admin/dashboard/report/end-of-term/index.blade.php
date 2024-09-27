@@ -304,8 +304,8 @@
     {{-- page js script --}}
     @push('page-js')
         @include('admin/dashboard/report/end-of-term/jsScript')
-        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-        @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
         {{--    @include('admin/dashboard/level/levelsJS') --}}
     @endpush
     {{-- page datatable script --}}

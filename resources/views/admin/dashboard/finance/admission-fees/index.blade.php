@@ -100,9 +100,9 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/TermsInSelectInputBasedOnSchoolJS')
-    @include('admin/dashboard/finance/admission-fees/js')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
+    @include('admin/dashboard/admin/finance/admission-fees/js')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

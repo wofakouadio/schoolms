@@ -76,7 +76,7 @@
 {{--page js script--}}
 @push('page-js')
     @include("admin/dashboard/report/attendance/jsScript")
-    @include("custom-functions/DepartmentsInSelectInputBasedOnSchoolJS")
+    @include("custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS")
 {{--    @include('custom-functions/BranchesInSelectInputJS')--}}
 {{--    @include('admin/dashboard/level/levelsJS')--}}
 @endpush
