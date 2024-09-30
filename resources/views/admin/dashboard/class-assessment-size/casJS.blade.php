@@ -11,7 +11,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('edit_class_assessment_size')}}',
+                url: "{{route('edit_class_assessment_size')}}",
                 method: 'GET',
                 cache:false,
                 data:{id:id},
@@ -37,7 +37,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('edit_class_assessment_size')}}',
+                url: "{{route('edit_class_assessment_size')}}",
                 method: 'GET',
                 cache:false,
                 data:{id:id},
