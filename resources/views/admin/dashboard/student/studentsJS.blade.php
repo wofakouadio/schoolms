@@ -14,7 +14,7 @@
 
             let form_data = $("#new-student-admission-form")[0]
             $.ajax({
-                url:'{{route('new-student-admission')}}',
+                url:"{{route('new-student-admission')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -78,7 +78,7 @@
 
             let form_data = $("#new-student-admission-using-excel-form")[0]
             $.ajax({
-                url:'{{route('new-student-admission-bulk')}}',
+                url:"{{route('new-student-admission-bulk')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -141,7 +141,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-student-admission')}}',
+                url:"{{route('edit-student-admission')}}",
                 method:'GET',
                 cache:false,
                 data: {admission_id:admission_id},
@@ -190,7 +190,7 @@
             })
         })
 
-        {{--update student admission data--}}
+        // {{--update student admission data--}}
         $("#update-student-admission-form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
@@ -201,7 +201,7 @@
 
             let form_data = $("#update-student-admission-form")[0]
             $.ajax({
-                url:'{{route('update-student-admission')}}',
+                url:"{{route('update-student-admission')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -262,7 +262,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-student-admission')}}',
+                url:"{{route('edit-student-admission')}}",
                 method:'GET',
                 cache:false,
                 data: {admission_id:admission_id},
@@ -287,7 +287,7 @@
 
             let form_data = $("#edit-student-admission-status-form").serialize()
             $.ajax({
-                url:'{{route('update-student-admission-status')}}',
+                url:"{{route('update-student-admission-status')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -346,7 +346,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-student-admission')}}',
+                url:"{{route('edit-student-admission')}}",
                 method:'GET',
                 cache:false,
                 data: {admission_id:admission_id},
@@ -370,7 +370,7 @@
 
             let form_data = $("#delete-student-admission-form")
             $.ajax({
-                url:'{{route('delete-student-admission')}}',
+                url:"{{route('delete-student-admission')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
