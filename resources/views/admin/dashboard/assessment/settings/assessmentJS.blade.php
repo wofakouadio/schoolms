@@ -10,7 +10,7 @@
                 }
             })
             $.ajax({
-                url: '{{route('edit_assessment_setup')}}',
+                url: "{{route('edit_assessment_setup')}}",
                 method: 'GET',
                 cache:false,
                 data:{assessment_id: id},
@@ -45,7 +45,7 @@
                 }
             })
             $.ajax({
-                url: '{{route('edit_grading_system')}}',
+                url: "{{route('edit_grading_system')}}",
                 method: 'GET',
                 cache:false,
                 data:{grading_system_id: id},
