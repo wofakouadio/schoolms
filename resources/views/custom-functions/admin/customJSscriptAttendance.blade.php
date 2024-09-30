@@ -10,7 +10,7 @@
             });
             let department_id = $("#get-attendance-sheet-form select[name=department_id]").val()
             $.ajax({
-                url:'{{route('getLevelsByDepartmentBranchSchoolId')}}',
+                url:'{{route("getLevelsByDepartmentBranchSchoolId")}}',
                 method:'GET',
                 cache:false,
                 data:{department_id: department_id},
@@ -30,7 +30,7 @@
             });
             let level_id = $("#get-attendance-sheet-form select[name=level_id]").val()
             $.ajax({
-                url:'{{route('getSubjectsByLevelDepartmentBranchSchoolId')}}',
+                url:'{{route("getSubjectsByLevelDepartmentBranchSchoolId")}}',
                 method:'GET',
                 cache:false,
                 data:{level_id: level_id},
