@@ -115,7 +115,7 @@
     {{-- page js script --}}
     @push('page-js')
         @include('admin/dashboard/assessment/level/JS')
-        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')
