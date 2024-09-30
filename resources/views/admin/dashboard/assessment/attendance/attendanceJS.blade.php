@@ -95,7 +95,7 @@
             $("#StudentAttendanceDataTables").DataTable().ajax.reload()
             let subject_id = $("#get-attendance-sheet-form select[name=subject_id]").val()
             $.ajax({
-                url:'{{route('get-subject')}}',
+                url:'{{route("get-subject")}}',
                 method:'GET',
                 cache: false,
                 data: {subject_id: subject_id},
@@ -127,7 +127,7 @@
                 let level_id = $("#mark-attendance-sheet").find('input[name=level_id]').val()
 
                 $.ajax({
-                    url:'{{route('mark-student-attendance')}}',
+                    url:"{{route('mark-student-attendance')}}",
                     method:'POST',
                     cache:false,
                     data:{
