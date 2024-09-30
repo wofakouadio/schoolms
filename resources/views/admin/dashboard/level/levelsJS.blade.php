@@ -14,7 +14,7 @@
 
             let form_data = $("#new-level-form").serialize()
             $.ajax({
-                url:'{{route('new-level')}}',
+                url:"{{route('new-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -72,7 +72,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-level')}}',
+                url:"{{route('edit-level')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -97,7 +97,7 @@
 
             let form_data = $("#update-level-form").serialize()
             $.ajax({
-                url:'{{route('update-level')}}',
+                url:"{{route('update-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -154,7 +154,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-level')}}',
+                url:"{{route('edit-level')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -177,7 +177,7 @@
 
             let form_data = $("#delete-level-form")
             $.ajax({
-                url:'{{route('delete-level')}}',
+                url:"{{route('delete-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
@@ -235,7 +235,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('get_subjects_in_checkboxes')}}',
+                url:"{{route('get_subjects_in_checkboxes')}}",
                 method:'GET',
                 cache:false,
                 data:{level_id: level_id},
@@ -256,7 +256,7 @@
 
             let form_data = $("#assign-subjects-to-level-form").serialize()
             $.ajax({
-                url:'{{route('assign_subjects_to_level')}}',
+                url:"{{route('assign_subjects_to_level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
