@@ -13,7 +13,7 @@
 
             let form_data = $("#new-subject-form").serialize()
             $.ajax({
-                url:'{{route('new-subject')}}',
+                url:"{{route('new-subject')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
