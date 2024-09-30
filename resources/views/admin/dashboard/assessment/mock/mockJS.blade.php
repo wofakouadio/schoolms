@@ -12,7 +12,7 @@
                 }
             })
             $.ajax({
-                url:'{{route('new-mock-setup')}}',
+                url:"{{route('new-mock-setup')}}",
                 method:'POST',
                 cache:false,
                 data:$("#new-mock-setup-form").serialize(),
@@ -68,7 +68,7 @@
                 }
             })
             $.ajax({
-                url:'{{route('edit-mock-setup')}}',
+                url:"{{route('edit-mock-setup')}}",
                 method:'GET',
                 cache:false,
                 data:{mock_id: mock_id},
@@ -89,7 +89,7 @@
                 }
             })
             $.ajax({
-                url:'{{route('update-mock-setup')}}',
+                url:"{{route('update-mock-setup')}}",
                 method:'POST',
                 cache:false,
                 data:$("#update-mock-setup-form").serialize(),
@@ -144,7 +144,7 @@
                 }
             })
             $.ajax({
-                url:'{{route('edit-mock-setup')}}',
+                url:"{{route('edit-mock-setup')}}",
                 method:'GET',
                 cache:false,
                 data:{mock_id: mock_id},
@@ -164,7 +164,7 @@
                 }
             })
             $.ajax({
-                url:'{{route('delete-mock-setup')}}',
+                url:"{{route('delete-mock-setup')}}",
                 method:'POST',
                 cache:false,
                 data:$("#delete-mock-setup-form").serialize(),
@@ -217,20 +217,6 @@
             let modal = $("#assign-subjects-to-mock-modal")
             modal.find('input[name=mock_type]').val(mock_type)
             modal.find('input[name=mock_id]').val(mock_id)
-            {{--$.ajaxSetup({--}}
-            {{--    headers: {--}}
-            {{--        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-            {{--    }--}}
-            {{--});--}}
-            {{--$.ajax({--}}
-            {{--    url:'{{route('getSubjectsBasedOnMock')}}',--}}
-            {{--    method:'GET',--}}
-            {{--    cache:false,--}}
-            {{--    data: {mock_id: mock_id},--}}
-            {{--    success:(Response)=>{--}}
-            {{--        modal.find("#subject_checkbox").html(Response)--}}
-            {{--    }--}}
-            {{--})--}}
         })
 
         $("#assign-subjects-to-mock-form select[name=level]").on("change", (e)=>{
@@ -243,7 +229,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getSubjectsBasedOnMock')}}',
+                url:"{{route('getSubjectsBasedOnMock')}}",
                 method:'GET',
                 cache:false,
                 data: {mock_id: mock_id, level_id:level_id},
@@ -263,7 +249,7 @@
             });
             let form = $("#assign-subjects-to-mock-form").serialize()
             $.ajax({
-                url:'{{route('assign-subject-to-mock')}}',
+                url:"{{route('assign-subject-to-mock')}}",
                 method:'POST',
                 cache:false,
                 data: form,
@@ -318,7 +304,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getStudentsBasedOnLevel')}}',
+                url:"{{route('getStudentsBasedOnLevel')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -338,7 +324,7 @@
             });
             let form = $("#new-student-mock-form").serialize()
             $.ajax({
-                url:'{{route('get-student-to-mock')}}',
+                url:"{{route('get-student-to-mock')}}",
                 method:'GET',
                 cache: false,
                 data: form,
@@ -399,7 +385,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('new-student-mock-entry')}}',
+                url:"{{route('new-student-mock-entry')}}",
                 method:'POST',
                 cache: false,
                 data: $("#insert-student-mock-form").serialize(),
@@ -452,7 +438,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('export-students-mock-list-in-excel')}}',
+                url: "{{route('export-students-mock-list-in-excel')}}",
                 method:'GET',
                 cache:false,
                 data: $("#new-student-mock-with-bulk-upload-form").serialize(),
