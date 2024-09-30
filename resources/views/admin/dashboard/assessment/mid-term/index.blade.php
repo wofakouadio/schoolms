@@ -113,7 +113,7 @@
 @push('page-js')
     @include('admin/dashboard/assessment/mid-term/midTermJS')
 {{--    @include('custom-functions/MocksInSelectInputBasedOnSchoolJS')--}}
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
