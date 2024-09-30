@@ -14,7 +14,7 @@
 
             let form_data = $("#new-teacher-form")[0]
             $.ajax({
-                url:'{{route('new-teacher')}}',
+                url:"{{route('new-teacher')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -76,7 +76,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-teacher')}}',
+                url:"{{route('edit-teacher')}}",
                 method:'GET',
                 cache:false,
                 data: {teacher_id:teacher_id},
@@ -138,7 +138,7 @@
 
             let form_data = $("#update-teacher-form")[0]
             $.ajax({
-                url:'{{route('update-teacher')}}',
+                url:"{{route('update-teacher')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -196,7 +196,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-teacher')}}',
+                url:"{{route('edit-teacher')}}",
                 method:'GET',
                 cache:false,
                 data: {teacher_id:teacher_id},
@@ -220,7 +220,7 @@
 
             let form_data = $("#delete-teacher-form")
             $.ajax({
-                url:'{{route('delete-teacher')}}',
+                url:"{{route('delete-teacher')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
@@ -274,7 +274,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('get_subjects_by_level')}}',
+                url:"{{route('get_subjects_by_level')}}",
                 method:'GET',
                 cache: false,
                 data:{level:level, teacher:teacher},
