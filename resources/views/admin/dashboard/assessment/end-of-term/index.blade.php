@@ -103,8 +103,8 @@
     {{-- page js script --}}
     @push('page-js')
         @include('admin/dashboard/assessment/end-of-term/EndTermJS')
-        @include('custom-functions/ActiveTermInputBasedOnSchoolJS')
-        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/admin/ActiveTermInputBasedOnSchoolJS')
+        @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')
