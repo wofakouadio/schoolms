@@ -14,7 +14,7 @@
 
             let form_data = $("#new-department-form").serialize()
             $.ajax({
-                url:'{{route('new-department')}}',
+                url:"{{route('new-department')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -70,7 +70,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-department')}}',
+                url:"{{route('edit-department')}}",
                 method:'GET',
                 cache:false,
                 data: {department_id: department_id},
@@ -96,7 +96,7 @@
 
             let form_data = $("#update-department-form").serialize()
             $.ajax({
-                url:'{{route('update-department')}}',
+                url:"{{route('update-department')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -158,7 +158,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getLevelsBasedOnDepartmentAndBranch')}}',
+                url:"{{route('getLevelsBasedOnDepartmentAndBranch')}}",
                 method:'GET',
                 cache:false,
                 data: {department_id: department_id, branch_id: branch_id},
@@ -179,7 +179,7 @@
             });
             let form = $("#assign-leveltodepartment-form").serialize()
             $.ajax({
-                url:'{{route('new-assign-department-to-level')}}',
+                url:"{{route('new-assign-department-to-level')}}",
                 method:'POST',
                 cache:false,
                 data: form,
@@ -235,7 +235,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-department')}}',
+                url:"{{route('edit-department')}}",
                 method:'GET',
                 cache:false,
                 data: {department_id: department_id},
@@ -259,7 +259,7 @@
 
             let form_data = $("#delete-department-form").serialize()
             $.ajax({
-                url:'{{route('delete-department')}}',
+                url:"{{route('delete-department')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
