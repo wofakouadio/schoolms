@@ -98,8 +98,8 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('custom-functions/DepartmentsInSelectInputBasedOnSchoolJS')
-    @include('custom-functions/customJSscriptAttendance')
+    @include('custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/admin/customJSscriptAttendance')
     @include('admin/dashboard/assessment/attendance/attendanceJS')
 @endpush
 {{--page datatable script--}}
