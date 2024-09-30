@@ -14,7 +14,7 @@
 
             let form_data = $("#new-branch-form").serialize()
             $.ajax({
-                url:'{{route('new-branch')}}',
+                url:"{{route('new-branch')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -71,7 +71,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-branch')}}',
+                url:"{{route('edit-branch')}}",
                 method:'GET',
                 cache:false,
                 data: {branch_id:branch_id},
@@ -98,7 +98,7 @@
 
             let form_data = $("#update-branch-form").serialize()
             $.ajax({
-                url:'{{route('update-branch')}}',
+                url:"{{route('update-branch')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -155,7 +155,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-branch')}}',
+                url:"{{route('edit-branch')}}",
                 method:'GET',
                 cache:false,
                 data: {branch_id:branch_id},
@@ -178,7 +178,7 @@
 
             let form_data = $("#delete-branch-form")
             $.ajax({
-                url:'{{route('delete-branch')}}',
+                url:"{{route('delete-branch')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
