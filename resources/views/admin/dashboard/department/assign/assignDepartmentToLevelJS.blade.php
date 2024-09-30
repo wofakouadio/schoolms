@@ -14,7 +14,7 @@
 
             let form_data = $("#new-dl-form").serialize()
             $.ajax({
-                url:'{{route('new-assign-department-to-level')}}',
+                url:"{{route('new-assign-department-to-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -73,7 +73,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-assign-department-to-level')}}',
+                url:"{{route('edit-assign-department-to-level')}}",
                 method:'GET',
                 cache:false,
                 data: {dl_id:dl_id},
@@ -98,7 +98,7 @@
 
             let form_data = $("#update-dl-form").serialize()
             $.ajax({
-                url:'{{route('update-assign-department-to-level')}}',
+                url:"{{route('update-assign-department-to-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -155,7 +155,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-assign-department-to-level')}}',
+                url:"{{route('edit-assign-department-to-level')}}",
                 method:'GET',
                 cache:false,
                 data: {dl_id:dl_id},
@@ -178,7 +178,7 @@
 
             let form_data = $("#delete-dl-form")
             $.ajax({
-                url:'{{route('delete-assign-department-to-level')}}',
+                url:"{{route('delete-assign-department-to-level')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
