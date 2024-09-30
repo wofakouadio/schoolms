@@ -9,16 +9,9 @@
         $("#addMoreBtn").on('click', (e)=>{
             e.preventDefault()
             i++
-            $("#new-bill-modal .modal-body").append('<div class="row AddMoreFields">' +
-                '<div class="col-5 mb-4">' +
-                '<label  class="form-label ' +
-                'font-w600">Description<span class="text-danger scale5 ms-2">*</span></label>' +
-                '<input type="text" ' +
-                'name="addMore['+i+'][bill_description]" value="{{old('bill_description')}}" class="form-control " '+
-            '"solid"></div><div class="col-5 mb-4"><label  class="form-label font-w600">Amount<span ' +
-                'class="text-danger scale5 ms-2">*</span></label><input type="text" name="addMore['+i+'][bill_amount]" value="{{old
-            ('bill_amount')}}" class="form-control solid"></div><div class="col-2"><button type="button" class="btn "' +
-            '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>')
+            let html = '<div class="row AddMoreFields"><div class="col-5 mb-4"><label  class="form-label font-w600">Description<span class="text-danger scale5 ms-2">*</span></label><input type="text" name="addMore['+i+'][bill_description]" value="{{old('bill_description')}}" class="form-control solid"></div><div class="col-5 mb-4"><label  class="form-label font-w600">Amount<span class="text-danger scale5 ms-2">*</span></label><input type="text" name="addMore['+i+'][bill_amount]" value="{{old('bill_amount')}}" class="form-control solid"></div><div class="col-2"><button type="button" class="btn btn-xs btn-danger" id="removeBtn">Remove</button></div></div>'
+
+            $("#new-bill-modal .modal-body").append(html)
         })
 
         $(document).on('click', '#removeBtn', function(){
@@ -35,7 +28,7 @@
             });
             let form_data = $("#new-bill-form").serialize()
             $.ajax({
-                url:'{{route('new-bill')}}',
+                url:"{{route('new-bill')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -101,7 +94,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('edit-bill')}}',
+                url: "{{route('edit-bill')}}",
                 method:'GET',
                 cache:false,
                 data: {bill_id:bill_id},
@@ -124,7 +117,7 @@
                     $("#EditaddMoreBtn").on('click', (e)=>{
                         e.preventDefault()
                         i++
-                        $("#edit-bill-modal .modal-body .Fields").append('<div class="row AddMoreFields">' +
+                        let html = '<div class="row AddMoreFields">' +
                             '<div class="col-5 mb-4">' +
                             '<label  class="form-label ' +
                             'font-w600">Description<span class="text-danger scale5 ms-2">*</span></label>' +
@@ -139,11 +132,12 @@
                             'font-w600">Amount<span ' +
                             'class="text-danger scale5 ms-2">*</span></label><input type="text" ' +
                             'name="addMore['+i+'][bill_amount]" value="{{old('bill_amount')}}" class="form-control solid"></div><div class="col-2"><button type="button" class="btn "' +
-                            '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>')
+                            '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>'
+                        $("#edit-bill-modal .modal-body .Fields").append(html)
                     })
 
                     for (let i = 0; i <= Response['billsbreakdown'].length; i++ ){
-                        $("#edit-bill-modal .modal-body .Fields").append('<div class="row AddMoreFields">' +
+                        let html ='<div class="row AddMoreFields">' +
                             '<div class="col-5 mb-4">' +
                             '<label  class="form-label ' +
                             'font-w600">Description<span class="text-danger scale5 ms-2">*</span></label>' +
@@ -161,7 +155,8 @@
                             'name="addMore['+i+'][bill_amount]" value="'+Response['billsbreakdown'][i]
                                 .amount+'" class="form-control ' +
                             'solid"></div><div class="col-2"><button type="button" class="btn "' +
-                            '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>')
+                            '"btn-xs btn-danger" id="removeBtn">Remove</button></div></div>'
+                        $("#edit-bill-modal .modal-body .Fields").append(html)
                     }
 
                     $(document).on('click', '#removeBtn', function(){
@@ -182,7 +177,7 @@
             });
             let form_data = $("#update-bill-form").serialize()
             $.ajax({
-                url:'{{route('update-bill')}}',
+                url:"{{route('update-bill')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -239,7 +234,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('edit-bill')}}',
+                url: "{{route('edit-bill')}}",
                 method:'GET',
                 cache:false,
                 data: {bill_id:bill_id},
@@ -262,7 +257,7 @@
             });
             let form_data = $("#delete-bill-form").serialize()
             $.ajax({
-                url:'{{route('delete-bill')}}',
+                url:"{{route('delete-bill')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
