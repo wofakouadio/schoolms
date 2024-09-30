@@ -12,7 +12,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit_admin_academic_year')}}',
+                url:'{{route("edit_admin_academic_year")}}',
                 method:'GET',
                 cache:false,
                 data:{academic_year_id : academic_year_id},
@@ -35,7 +35,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit_admin_academic_year')}}',
+                url:'{{route("edit_admin_academic_year")}}',
                 method:'GET',
                 cache:false,
                 data:{academic_year_id : academic_year_id},
