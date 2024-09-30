@@ -12,7 +12,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('new_admission_fee')}}',
+                url:"{{route('new_admission_fee')}}",
                 method:'POST',
                 cache:false,
                 data: $("#new-admission-fee-form").serialize(),
