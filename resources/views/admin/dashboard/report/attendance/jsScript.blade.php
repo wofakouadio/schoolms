@@ -9,7 +9,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('get_attendance_dates')}}',
+                url: "{{route('get_attendance_dates')}}",
                 method:'get',
                 cache: false,
                 success:(Response)=>{
@@ -33,7 +33,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('get_levels_by_department')}}',
+                url:"{{route('get_levels_by_department')}}",
                 method:'GET',
                 cache: false,
                 data:{department_id: $("#attendance_report_form select[name=department]").val()},
