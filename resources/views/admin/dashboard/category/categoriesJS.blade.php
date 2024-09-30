@@ -14,7 +14,7 @@
 
             let form_data = $("#new-category-form").serialize()
             $.ajax({
-                url:'{{route('new-category')}}',
+                url:"{{route('new-category')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -71,7 +71,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-category')}}',
+                url:"{{route('edit-category')}}",
                 method:'GET',
                 cache:false,
                 data: {category_id:category_id},
@@ -95,7 +95,7 @@
 
             let form_data = $("#update-category-form").serialize()
             $.ajax({
-                url:'{{route('update-category')}}',
+                url:"{{route('update-category')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -152,7 +152,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-category')}}',
+                url:"{{route('edit-category')}}",
                 method:'GET',
                 cache:false,
                 data: {category_id:category_id},
@@ -175,7 +175,7 @@
 
             let form_data = $("#delete-category-form")
             $.ajax({
-                url:'{{route('delete-category')}}',
+                url:"{{route('delete-category')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
