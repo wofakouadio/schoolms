@@ -13,7 +13,7 @@
             });
             let form_data = $("#search_student_form").serialize()
             $.ajax({
-                url:'{{ route('admin_get_student_transactions') }}',
+                url:"{{ route('admin_get_student_transactions') }}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -32,7 +32,7 @@
                     }else{
                         $(".student-fee-collection-holder").find("#items").html('').show()
                         $.each(Response.transactions, (key, index) => {
-                            $("#items").append('<div class="row">'
+                            let html = '<div class="row">'
                                                     +'<div class="col-3">'
                                                         +'<label>Invoice Number</label>'
                                                         +'<input type="text" name="transaction_allocations" value="'+index.invoice_id+'" readonly class="form-control solid mb-4">'
@@ -53,7 +53,8 @@
                                                         +'<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-transaction-data-modal" data-transaction_id="'+index.id+'" data-invoice_number="'+index.invoice_id+'" data-item_name="'+index.description+'" data-amount_due="'+index.amount_due+'" data-student_uuid="'+Response.studentData.id+'" data-currency_symbol="'+Response.currency_symbol+'">Edit</a> '
                                                         +'<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-transaction-data-modal" data-transaction_id="'+index.id+'" data-invoice_number="'+index.invoice_id+'" data-item_name="'+index.description+'" data-amount_due="'+index.amount_due+'" data-student_uuid="'+Response.studentData.id+'" data-currency_symbol="'+Response.currency_symbol+'">Delete</a>'
                                                     +'</div>'
-                                                +'</div>')
+                                                +'</div>'
+                            $("#items").append(html)
                         })
                     }
                 },
