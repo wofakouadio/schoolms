@@ -13,7 +13,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getStudentsBasedOnLevel')}}',
+                url:"{{route('getStudentsBasedOnLevel')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -34,7 +34,7 @@
             let form = $("#new-student-mid-term-form").serialize()
             let modal = $("#insert-student-mid-term-modal")
             $.ajax({
-                url:'{{route('get-student-to-mid-term')}}',
+                url:"{{route('get-student-to-mid-term')}}",
                 method:'GET',
                 cache: false,
                 data: form,
@@ -85,7 +85,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('new-student-mid-term-entry')}}',
+                url:"{{route('new-student-mid-term-entry')}}",
                 method:'POST',
                 cache: false,
                 data: $("#insert-student-mid-term-form").serialize(),
@@ -140,7 +140,7 @@
                 }
             });
             $.ajax({
-                url: '{{route('export-students-mock-list-in-excel')}}',
+                url: "{{route('export-students-mock-list-in-excel')}}",
                 method:'GET',
                 cache:false,
                 data: $("#new-student-mock-with-bulk-upload-form").serialize(),
