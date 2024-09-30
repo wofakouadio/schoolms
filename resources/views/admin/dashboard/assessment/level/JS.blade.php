@@ -13,7 +13,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getStudentsBasedOnLevel')}}',
+                url:"{{route('getStudentsBasedOnLevel')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -33,7 +33,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getSubjectsBasedOnLevel')}}',
+                url:"{{route('getSubjectsBasedOnLevel')}}",
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -58,7 +58,7 @@
             });
             let form = $("#new-level-assessment-form").serialize()
             $.ajax({
-                url:'{{route('get_student_to_level_assessment')}}',
+                url:"{{route('get_student_to_level_assessment')}}",
                 method:'GET',
                 cache: false,
                 data: form,
@@ -111,7 +111,7 @@
             });
             let form = $("#insert-level-assessment-form").serialize()
             $.ajax({
-                url:'{{route('new_student_class_assessment_entry')}}',
+                url:"{{route('new_student_class_assessment_entry')}}",
                 method:'POST',
                 cache: false,
                 data: form,
@@ -166,7 +166,7 @@
             });
             let form = $("#insert-level-assessment-form").serialize()
             $.ajax({
-                url:'{{route('new_student_class_assessment_entry')}}',
+                url:"{{route('new_student_class_assessment_entry')}}",
                 method:'POST',
                 cache: false,
                 data: form,
@@ -222,7 +222,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit_student_class_assessment_entry')}}',
+                url:"{{route('edit_student_class_assessment_entry')}}",
                 method:'GET',
                 cache: false,
                 data:{id:id},
