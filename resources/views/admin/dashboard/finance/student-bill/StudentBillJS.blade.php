@@ -13,7 +13,7 @@
             });
             let form_data = $("#student_bill_form").serialize()
             $.ajax({
-                url:'{{route('new-student-bill')}}',
+                url:"{{route('new-student-bill')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
