@@ -14,7 +14,7 @@
 
             let form_data = $("#new-house-form").serialize()
             $.ajax({
-                url:'{{route('new-house')}}',
+                url:"{{route('new-house')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -71,7 +71,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-house')}}',
+                url:"{{route('edit-house')}}",
                 method:'GET',
                 cache:false,
                 data: {house_id:house_id},
@@ -97,7 +97,7 @@
 
             let form_data = $("#update-house-form").serialize()
             $.ajax({
-                url:'{{route('update-house')}}',
+                url:"{{route('update-house')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -154,7 +154,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-house')}}',
+                url:"{{route('edit-house')}}",
                 method:'GET',
                 cache:false,
                 data: {house_id:house_id},
@@ -177,7 +177,7 @@
 
             let form_data = $("#delete-house-form")
             $.ajax({
-                url:'{{route('delete-house')}}',
+                url:"{{route('delete-house')}}",
                 method:'POST',
                 cache:false,
                 data: form_data.serialize(),
