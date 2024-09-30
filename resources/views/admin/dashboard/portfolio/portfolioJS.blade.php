@@ -14,7 +14,7 @@
 
             let form_data = $("#school-basic-form")[0]
             $.ajax({
-                url:'{{route('admin_school_update')}}',
+                url:"{{route('admin_school_update')}}",
                 method:'POST',
                 cache:false,
                 data: new FormData(form_data),
@@ -70,7 +70,7 @@
 
             let form_data = $("#new-term-form").serialize()
             $.ajax({
-                url:'{{route('new-term')}}',
+                url:"{{route('new-term')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -126,7 +126,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-term')}}',
+                url:"{{route('edit-term')}}",
                 method:'GET',
                 cache:false,
                 data:{term_id : term_id},
@@ -151,7 +151,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-term')}}',
+                url:"{{route('edit-term')}}",
                 method:'GET',
                 cache:false,
                 data:{term_id : term_id},
@@ -173,7 +173,7 @@
             });
             let form_data = $("#update-term-form").serialize()
             $.ajax({
-                url:'{{route('update-term')}}',
+                url:"{{route('update-term')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -228,7 +228,7 @@
             });
             let form_data = $("#update-term-status-form").serialize()
             $.ajax({
-                url:'{{route('update-term-status')}}',
+                url:"{{route('update-term-status')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -285,7 +285,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit-term')}}',
+                url:"{{route('edit-term')}}",
                 method:'GET',
                 cache:false,
                 data:{term_id : term_id},
@@ -306,7 +306,7 @@
             });
             let form_data = $("#delete-term-form").serialize()
             $.ajax({
-                url:'{{route('delete-term')}}',
+                url:"{{route('delete-term')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -360,7 +360,7 @@
             });
             let form_data = $("#new-currency-form").serialize()
             $.ajax({
-                url:'{{ route('admin_new_currency') }}',
+                url:"{{ route('admin_new_currency') }}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -416,7 +416,7 @@
             }
         });
         $.ajax({
-            url:'{{ route('admin_edit_currency') }}',
+            url:"{{ route('admin_edit_currency') }}",
             method:'GET',
             cache: false,
             data:{currency_id:currency_id},
@@ -438,7 +438,7 @@
         });
         let form_data = $("#edit-currency-form").serialize()
         $.ajax({
-            url:'{{ route('admin_update_currency') }}',
+            url:"{{ route('admin_update_currency') }}",
             method:'POST',
             cache:false,
             data: form_data,
@@ -493,7 +493,7 @@
             }
         });
         $.ajax({
-            url:'{{ route('admin_edit_currency') }}',
+            url:"{{ route('admin_edit_currency') }}",
             method:'GET',
             cache: false,
             data:{currency_id:currency_id},
@@ -515,7 +515,7 @@
         });
         let form_data = $("#default-currency-form").serialize()
         $.ajax({
-            url:'{{ route('admin_set_selected_currency_as_default') }}',
+            url:"{{ route('admin_set_selected_currency_as_default') }}",
             method:'POST',
             cache:false,
             data: form_data,
@@ -570,7 +570,7 @@
             }
         });
         $.ajax({
-            url:'{{ route('admin_edit_currency') }}',
+            url:"{{ route('admin_edit_currency') }}",
             method:'GET',
             cache: false,
             data:{currency_id:currency_id},
@@ -590,7 +590,7 @@
         });
         let form_data = $("#delete-currency-form").serialize()
         $.ajax({
-            url:'{{ route('admin_delete_currency') }}',
+            url:"{{ route('admin_delete_currency') }}",
             method:'POST',
             cache:false,
             data: form_data,
