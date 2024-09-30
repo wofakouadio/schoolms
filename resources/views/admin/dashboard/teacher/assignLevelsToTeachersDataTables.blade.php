@@ -13,11 +13,11 @@
                 infoEmpty: "No records available",
                 infoFiltered: ""
             },
-            {{--processing: true,--}}
-            {{--serverSide: true,--}}
-            {{--ajax:{--}}
-            {{--    url:"{{route('teachersTables')}}",--}}
-            {{--},--}}
+            // {{--processing: true,--}}
+            // {{--serverSide: true,--}}
+            // {{--ajax:{--}}
+            // {{--    url:"{{route('teachersTables')}}",--}}
+            // {{--},--}}
             // columns: [
             //     {data: 'profile', name: 'profile', },
             //     {data: 'name', name: 'name'},
