@@ -13,7 +13,7 @@
 
             let form_data = $("#new-subject-form").serialize()
             $.ajax({
-                url:'{{route('new_subject')}}',
+                url:"{{route('new_subject')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
@@ -74,7 +74,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit_subject')}}',
+                url:"{{route('edit_subject')}}",
                 method:'GET',
                 cache:false,
                 data:{subject_id:subject_id},
@@ -97,7 +97,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('edit_subject')}}',
+                url:"{{route('edit_subject')}}",
                 method:'GET',
                 cache:false,
                 data:{subject_id:subject_id},
@@ -117,7 +117,7 @@
             });
             let form_data = $("#update_subject_form").serialize()
             $.ajax({
-                url:'{{route('update_subject')}}',
+                url:"{{route('update_subject')}}",
                 method:'POST',
                 cache:false,
                 data: form_data,
