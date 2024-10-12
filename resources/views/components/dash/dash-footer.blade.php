@@ -83,11 +83,19 @@ function JobickCarousel()
 			JobickCarousel();
 		}, 1000);
 	});
+
+    $(".page-reload-button").on("click", ()=>{
+        window.location.reload();
+    })
 </script>
 
 {{-- custom scripts --}}
 @include('custom-functions/ThemeScriptJS')
-@include('custom-functions/admin/SchoolDataJS')
+@if(Auth::guard('admin')->check())
+    @include('custom-functions/admin/SchoolDataJS')
+@elseif(Auth::guard('teacher')->check())
+    @include('custom-functions/teacher/SchoolDataJS')
+@endif
 @stack('page-js')
 @stack('datatable')
 
