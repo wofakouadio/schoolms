@@ -7,11 +7,7 @@
                 }
             });
             $.ajax({
-            @if(Auth::guard('admin')->check())
-                url: '{{route('school_data')}}',
-            @elseif(Auth::guard('teacher')->check())
-                url: '{{route('teacher_school_data')}}',
-            @endif
+                url: "{{route('teacher_school_data')}}",
                 method: 'GET',
                 cache: false,
                 success: (Response)=>{
@@ -21,7 +17,7 @@
                             Response['school_data']['media'][0]['original_url'])
                     }else{
                         $(".nav-header .brand-logo").find('#school_logo').attr("src",
-                            '{{asset('storage/school/logo/profile.png')}}')
+                            "{{asset('storage/school/logo/profile.png')}}")
                     }
                     $("#new-teacher-form").find("input[name=teacher_present_school]").val(Response['school_data']['school_name']);
                     $(".nav-header .brand-title").html("<h6 " +
