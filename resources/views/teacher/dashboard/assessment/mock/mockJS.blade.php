@@ -1,4 +1,4 @@
- <script>
+<script>
     $(document).ready(()=> {
         // alert
         $(" .menu-alert").hide()
@@ -81,63 +81,66 @@
                             '<label  class="form-label font-w600">Score</label>' +
                             '<input type="text" name="mock['+(index + 1)+'][score]" class="form-control solid"></div>')
                     })
+                },
+                error:(Response) => {
+                    console.log(Response)
                 }
             })
         })
 
         //save student mock data
-        {{--$("#insert-student-mock-form").on("submit", (e)=>{--}}
-        {{--    e.preventDefault()--}}
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--    $.ajax({--}}
-        {{--        url:'{{route('new-teacher-student-mock-entry')}}',--}}
-        {{--        method:'POST',--}}
-        {{--        cache: false,--}}
-        {{--        data: $("#insert-student-mock-form").serialize(),--}}
-        {{--        success:(Response)=>{--}}
-        {{--            let StringResults = JSON.stringify(Response)--}}
-        {{--            let DecodedResults = JSON.parse(StringResults)--}}
-        {{--            if(DecodedResults.status === 201){--}}
-        {{--                $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')--}}
-        {{--                $("#insert-student-mock-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults--}}
-        {{--                    .msg)--}}
-        {{--            }else{--}}
-        {{--                $("#insert-student-mock-modal .menu-alert").removeClass('alert-danger')--}}
-        {{--                $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')--}}
+        // $("#insert-student-mock-form").on("submit", (e)=>{
+        //     e.preventDefault()
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+        //     $.ajax({
+        //         url:'{{route('new-teacher-student-mock-entry')}}',
+        //         method:'POST',
+        //         cache: false,
+        //         data: $("#insert-student-mock-form").serialize(),
+        //         success:(Response)=>{
+        //             let StringResults = JSON.stringify(Response)
+        //             let DecodedResults = JSON.parse(StringResults)
+        //             if(DecodedResults.status === 201){
+        //                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')
+        //                 $("#insert-student-mock-modal .menu-alert").show().addClass('alert-danger').html(DecodedResults
+        //                     .msg)
+        //             }else{
+        //                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-danger')
+        //                 $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')
 
-        {{--                Swal.fire({--}}
-        {{--                    title: 'Notification',--}}
-        {{--                    html: DecodedResults.msg,--}}
-        {{--                    type: 'success',--}}
-        {{--                    allowOutsideClick: false,--}}
-        {{--                    allowEscapeKey: false,--}}
-        {{--                    confirmButtonText: 'Close',--}}
-        {{--                }).then((result) => {--}}
-        {{--                    if (result) {--}}
-        {{--                        $("#insert-student-mock-modal").modal('hide')--}}
-        {{--                        $("#insert-student-mock-modal .menu-alert").removeClass('alert-danger')--}}
-        {{--                        $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')--}}
-        {{--                        $("#insert-student-mock-modal .menu-alert").html('')--}}
-        {{--                        $("#StudentMockDataTables").DataTable().draw()--}}
-        {{--                        window.location.reload()--}}
-        {{--                    }--}}
-        {{--                })--}}
-        {{--            }--}}
-        {{--        },--}}
-        {{--        error:(Response)=>{--}}
-        {{--            console.log(Response)--}}
-        {{--            $.each( Response.responseJSON.errors, function( key, value ) {--}}
-        {{--                $('#insert-student-mock-form').find(".menu-alert").show().addClass('alert-warning').find("ul")--}}
-        {{--                    .append--}}
-        {{--                    ('<li>'+value+'</li>');--}}
-        {{--            });--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--})--}}
+        //                 Swal.fire({
+        //                     title: 'Notification',
+        //                     html: DecodedResults.msg,
+        //                     type: 'success',
+        //                     allowOutsideClick: false,
+        //                     allowEscapeKey: false,
+        //                     confirmButtonText: 'Close',
+        //                 }).then((result) => {
+        //                     if (result) {
+        //                         $("#insert-student-mock-modal").modal('hide')
+        //                         $("#insert-student-mock-modal .menu-alert").removeClass('alert-danger')
+        //                         $("#insert-student-mock-modal .menu-alert").removeClass('alert-warning')
+        //                         $("#insert-student-mock-modal .menu-alert").html('')
+        //                         $("#StudentMockDataTables").DataTable().draw()
+        //                         window.location.reload()
+        //                     }
+        //                 })
+        //             }
+        //         },
+        //         error:(Response)=>{
+        //             console.log(Response)
+        //             $.each( Response.responseJSON.errors, function( key, value ) {
+        //                 $('#insert-student-mock-form').find(".menu-alert").show().addClass('alert-warning').find("ul")
+        //                     .append
+        //                     ('<li>'+value+'</li>');
+        //             });
+        //         }
+        //     })
+        // })
 
         $("#new-student-mock-with-bulk-upload-form").on("submit", (e)=>{
             e.preventDefault()
