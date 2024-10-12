@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Flasher\Prime\FlasherInterface;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TeacherAuthController extends Controller
@@ -33,14 +34,14 @@ class TeacherAuthController extends Controller
             $teacher = Teacher::where('teacher_email', $request->input('teacher_email'))->first();
             if($teacher->is_active == 1){
                 Auth::guard('teacher')->login($teacher);
-                Alert::success('Notification', 'Login Successfully');
+                flash()->success( 'Login Successfully');
                 return redirect()->route('teacher_dashboard');
             }else{
-                Alert::error('Notification', 'The account has been disabled');
+                flash()->error('The account has been disabled');
                 return back();
             }
         } else {
-            Alert::error('Notification', 'Login failed');
+            flash()->error('Login failed');
             return back();
         }
     }
