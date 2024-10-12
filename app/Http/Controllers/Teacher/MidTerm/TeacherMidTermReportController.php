@@ -81,7 +81,7 @@ class TeacherMidTermReportController extends Controller
                 'levelData' => $levelData,
                 'studentData' => $studentData,
                 'schoolProfile' => $schoolProfile,
-                'midTerm' => $mid_term,
+                'midTermData' => $mid_term,
                 'studentProfile' => $studentProfile,
                 'schoolData' => $schoolData,
                 'termData' => $termData,
