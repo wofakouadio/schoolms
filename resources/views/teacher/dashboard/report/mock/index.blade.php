@@ -202,8 +202,8 @@
 {{--page js script--}}
 @push('page-js')
     @include("teacher/dashboard/report/mock/jsScript")
-    @include("custom-functions/MocksInSelectInputBasedOnSchoolJS")
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+    @include("custom-functions/teacher/MocksInSelectInputBasedOnSchoolJS")
+    @include('custom-functions/teacher/LevelsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
