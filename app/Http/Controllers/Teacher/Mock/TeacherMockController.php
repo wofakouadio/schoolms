@@ -43,9 +43,9 @@ class TeacherMockController extends Controller
     {
         $output = [];
         $mocks = Mock::where('school_id', Auth::guard('teacher')->user()->school_id)->get();
-        $output[] .= '<option value="">Choose</option>';
+        $output[] = '<option value="">Choose</option>';
         foreach ($mocks as $mock) {
-            $output[] .= '<option value="' . $mock->id . '">' . $mock->mock_type . '</option>';
+            $output[] = '<option value="' . $mock->id . '">' . $mock->mock_type . '</option>';
         }
         return $output;
     }
@@ -58,10 +58,10 @@ class TeacherMockController extends Controller
             ->where('admission_status', 1)
             ->orderBy('student_firstname', 'ASC')
             ->get();
-        $output[] .= '<option value="">Choose</option>';
+        $output[] = '<option value="">Choose</option>';
         foreach ($students as $student) {
 //            dd($student);
-            $output[] .= '<option value="' . $student->id . '">' . $student->student_firstname . ' '
+            $output[] = '<option value="' . $student->id . '">' . $student->student_firstname . ' '
                 . $student->student_othername . ' '
                 . $student->student_lastname . '</option>';
         }
