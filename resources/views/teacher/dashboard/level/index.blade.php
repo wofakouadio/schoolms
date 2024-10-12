@@ -24,6 +24,22 @@
                 <div class="col-2">
                     <div class="card" style="height: auto">
                         <div class="card-body">
+                            <div class="form-group mt-3">
+                                <h5>{{ count($teacherLevels) }} Levels/Classes Taught</h5>
+                                <ol class="item-list">
+                                    @foreach ($teacherLevels as $teacherLevel)
+                                        <li>{{ $teacherLevel->level->level_name }}</li>
+                                    @endforeach
+                                </ol>
+                            </div>
+                            <div class="form-group mt-3">
+                                <h5>{{ count($subjectsTaught) }} Subjects Taught</h5>
+                                <ol class="item-list">
+                                    @foreach ($subjectsTaught as $subject)
+                                        <li>{{ $subject->subject->subject_name }}</li>
+                                    @endforeach
+                                </ol>
+                            </div>
                             <div class="form-group">
                                 <label>Level</label>
                                {{-- {{dd($teacherLevels)}} --}}
