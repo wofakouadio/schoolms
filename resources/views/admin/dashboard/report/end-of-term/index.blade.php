@@ -219,10 +219,10 @@
                                                         @foreach($data['finalData'] as $key => $value)
                                                             <tr>
                                                                 <td>{{ $value['subject_name'] }}</td>
-                                                                <td class="text-center">{{ $value['class_assessment'] }}</td>
-                                                                <td class="text-center">{{ $value['mid_term'] }}</td>
-                                                                <td class="text-center">{{ $value['end_term'] }}</td>
-                                                                <td class="text-center">{{ $value['total'] }}</td>
+                                                                <td class="text-center">{{ $value['class_assessment'] ?? 0 }}</td>
+                                                                <td class="text-center">{{ $value['mid_term'] ?? 0}}</td>
+                                                                <td class="text-center">{{ $value['end_term'] ?? 0}}</td>
+                                                                <td class="text-center">{{ $value['total'] ?? 0}}</td>
                                                                 <td class="text-center">{{ $value['grade'] }}</td>
                                                                 <td class="text-center">{{ $value['level'] }}</td>
                                                             </tr>
