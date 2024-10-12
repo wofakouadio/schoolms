@@ -132,30 +132,47 @@ class EndTermReportController extends Controller
             foreach ($classTotalAssessment as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
-                // $finalData[$subject]['class_assessment'] = $data->percentage;
                 if (!isset($finalData[$subject])) {
-                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['class_assessment'] = + $data->percentage;
                 }
-                $finalData[$subject]['class_assessment'] = + $data->percentage;
             }
             foreach ($midTermBreakdown as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
                 if (!isset($finalData[$subject])) {
-                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['mid_term'] = + $data->percentage;
                 }
-                $finalData[$subject]['mid_term'] = + $data->percentage;
             }
             foreach ($endTermBreakdown as $data) {
                 $subject = $data->subject_id;
                 $finalData[$subject]['subject_name'] = $data->subject->subject_name;
                 if (!isset($finalData[$subject])) {
-                    $finalData[$subject] = ['class_assessment' => 0, 'mid_term' => 0, 'end_term' => 0];
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['end_term'] = + $data->percentage;
                 }
-                $finalData[$subject]['end_term'] = + $data->percentage;
             }
             foreach ($finalData as $subject => $scores) {
-                $finalData[$subject]['total'] = $scores['class_assessment'] + $scores['mid_term'] + $scores['end_term'];
+                if(isset($scores['class_assessment'])){
+                    $scores['class_assessment'] ? $scores['class_assessment'] : 0;
+                }else{
+                    $scores['class_assessment'] = 0.0;
+                }
+                if(isset($scores['mid_term'])){
+                    $scores['mid_term'] ? $scores['mid_term'] : 0;
+                }else{
+                    $scores['mid_term'] = 0.0;
+                }
+                if(isset($scores['end_term'])){
+                    $scores['end_term'] ? $scores['end_term'] : 0;
+                }else{
+                    $scores['end_term'] = 0.0;
+                }
+                $finalData[$subject]['total'] = $scores['class_assessment'] + $scores['mid_term'] + $scores['end_term'] ;
             }
             foreach ($gradingSystem as $key => $value) {
                 $level = $value['level_of_proficiency'];
