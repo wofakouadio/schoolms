@@ -12,20 +12,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolAssessmentPercentageSettings;
 
 class TeacherEndOfTermController extends Controller
 {
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
-        $data = EndOfTerm::with('level')
-            ->with('student')
-            ->with('branch')
-            ->with('term')
-            ->where('school_id', Auth::guard('teacher')->user()->school_id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-        return view('teacher.dashboard.assessment.end-of-term.index', compact('schoolTerm', 'data'));
+        $SchoolAssessmentPercentageSettings = SchoolAssessmentPercentageSettings();
+        $exam_percentage = $SchoolAssessmentPercentageSettings->getData()->exam_percentage;
+        $EndTermRecords = EndOfTermBreakdown::with('end_term', 'student', 'branch', 'term')
+        ->where('school_id', Auth::guard('teacher')->user()->school_id)
+        ->orderBy('created_at', 'DESC')
+        ->get();
+        return view('teacher.dashboard.assessment.end-of-term.index', compact('schoolTerm', 'exam_percentage', 'EndTermRecords'));
     }
 
     public function create(Request $request)
@@ -63,30 +63,41 @@ class TeacherEndOfTermController extends Controller
     }
 
     public function store(Request $request){
-//        dd($request->all());
+    //    dd($request->all());
+        $request->validate([
+            'end_term.*.score' => 'required|numeric|min:0|max:100'
+        ]);
         DB::beginTransaction();
+        $SchoolAssessmentPercentageSettings = SchoolAssessmentPercentageSettings();
+        $exam_percentage = $SchoolAssessmentPercentageSettings->getData()->exam_percentage;
         try {
-            $class_score = 0;
-            $exam_score = 0;
+            // $class_score = 0;
+            // $exam_score = 0;
             $total_score = 0;
             $endTermEntry = [];
             foreach($request->end_term as $key => $value){
-                $class_score += $value['class_score'];
-                $exam_score += $value['exam_score'];
+                $total_score += $value['score'];
                 $endTermEntry[] = [
                     'subject_id' => $value['subject_id'],
-                    'class_score' => $value['class_score'],
-                    'exam_score' => $value['exam_score']
+                    'score' => $value['score'],
+                    'percentage' => ($value['score']/100) * $exam_percentage
                 ];
             }
+
+            // get the total count of the end of term recorded based on the number of subjects
+            // by default the end of term is over 100
+            $totalEndTermOverScore = count($endTermEntry) * 100;
+            // get the total strike percentage value by the count of available score to be recorded
+            $totalStrikePercentage = $exam_percentage * count($endTermEntry);
+            // after getting the above we use the computation to get the total percentage end of term percentage dynamically
+            $endTermTotalPercentage = ($total_score/$totalEndTermOverScore) * $totalStrikePercentage;
 
             $EndTerm = EndOfTerm::create([
                 'student_id' => $request->studentId,
                 'level_id' => $request->level_id,
                 'term_id' => $request->term_id,
-                'total_class_score' => $class_score,
-                'total_exam_score' => $exam_score,
-                'total_score' => $class_score + $exam_score,
+                'total_score' => $total_score,
+                'total_percentage' => $endTermTotalPercentage,
                 'conduct' => $request->conduct,
                 'attitude' => $request->attitude,
                 'interest' => $request->interest,
@@ -101,8 +112,8 @@ class TeacherEndOfTermController extends Controller
                     'student_id' => $request->studentId,
                     'term_id' => $request->term_id,
                     'subject_id' => $value['subject_id'],
-                    'class_score' => $value['class_score'],
-                    'exam_score' => $value['exam_score'],
+                    'score' => $value['score'],
+                    'percentage' => $value['percentage'],
                     'school_id' => Auth::guard('teacher')->user()->school_id,
                     'branch_id' => $request->branch_id
                 ]);
