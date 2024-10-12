@@ -28,6 +28,11 @@
                                     <i class="fa fa-plus color-primary"></i>
                                 </span> New Level Assessment Entry
                             </a>
+                            <a class="btn btn-rounded btn-primary page-reload-button">
+                                <span class="btn-icon-start text-primary">
+                                    <i class="fa fa-refresh color-primary"></i>
+                                </span> Reload Data
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -115,7 +120,7 @@
     {{-- page js script --}}
     @push('page-js')
         @include('teacher/dashboard/assessment/level/JS')
-        @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions/teacher/LevelsInSelectInputBasedOnSchoolJS')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')
