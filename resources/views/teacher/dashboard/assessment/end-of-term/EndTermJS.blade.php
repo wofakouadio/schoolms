@@ -33,7 +33,7 @@
             });
             let form = $("#new-end-term-setup-form").serialize()
             $.ajax({
-                url:'{{route('get-teacher-student-to-end-term')}}',
+                url:"{{route('get-teacher-student-to-end-term')}}",
                 method:'GET',
                 cache: false,
                 data: form,
@@ -74,11 +74,11 @@
                             '</div>' +
                             '<div class="col-md-2">' +
                             '<label  class="form-label font-w600">Class Score</label>' +
-                            '<input type="text" name="end_term['+(index + 1)+'][class_score]" class="form-control ' +
+                            '<div class="input-group">'+
+                            '<input type="text" name="end_term['+(index + 1)+'][score]" class="form-control ' +
                             'solid">' +
-                            '<label  class="form-label font-w600">Exam Score</label>' +
-                            '<input type="text" name="end_term['+(index + 1)+'][exam_score]" class="form-control ' +
-                            'solid">' +
+                            '<span class="input-group-text">/100</span>' +
+                            '</div>'+
                             '</div>')
                     })
                 }
@@ -86,80 +86,80 @@
         })
 
         //save student mock data
-        {{--$("#insert-student-end-term-form").on("submit", (e)=>{--}}
-        {{--    e.preventDefault()--}}
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--    $.ajax({--}}
-        {{--        url:'{{route('new-student-end-term-entry')}}',--}}
-        {{--        method:'POST',--}}
-        {{--        cache: false,--}}
-        {{--        data: $("#insert-student-end-term-form").serialize(),--}}
-        {{--        success:(Response)=>{--}}
-        {{--            let StringResults = JSON.stringify(Response)--}}
-        {{--            let DecodedResults = JSON.parse(StringResults)--}}
-        {{--            if(DecodedResults.status === 201){--}}
-        {{--                $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')--}}
-        {{--                $("#insert-student-end-term-modal .menu-alert").show().addClass('alert-danger').html--}}
-        {{--                (DecodedResults--}}
-        {{--                    .msg)--}}
-        {{--            }else{--}}
-        {{--                $("#insert-student-end-term-modal .menu-alert").removeClass('alert-danger')--}}
-        {{--                $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')--}}
+        $("#insert-student-end-term-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:"{{route('new-teacher-student-end-term-entry')}}",
+                method:'POST',
+                cache: false,
+                data: $("#insert-student-end-term-form").serialize(),
+                success:(Response)=>{
+                    let StringResults = JSON.stringify(Response)
+                    let DecodedResults = JSON.parse(StringResults)
+                    if(DecodedResults.status === 201){
+                        $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')
+                        $("#insert-student-end-term-modal .menu-alert").show().addClass('alert-danger').html
+                        (DecodedResults
+                            .msg)
+                    }else{
+                        $("#insert-student-end-term-modal .menu-alert").removeClass('alert-danger')
+                        $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')
 
-        {{--                Swal.fire({--}}
-        {{--                    title: 'Notification',--}}
-        {{--                    html: DecodedResults.msg,--}}
-        {{--                    type: 'success',--}}
-        {{--                    allowOutsideClick: false,--}}
-        {{--                    allowEscapeKey: false,--}}
-        {{--                    confirmButtonText: 'Close',--}}
-        {{--                }).then((result) => {--}}
-        {{--                    if (result) {--}}
-        {{--                        $("#insert-student-end-term-modal").modal('hide')--}}
-        {{--                        $("#insert-student-end-term-modal .menu-alert").removeClass('alert-danger')--}}
-        {{--                        $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')--}}
-        {{--                        $("#insert-student-end-term-modal .menu-alert").html('')--}}
-        {{--                        $("#StudentsEndTermDataTables").DataTable().draw()--}}
-        {{--                        window.location.reload()--}}
-        {{--                    }--}}
-        {{--                })--}}
-        {{--            }--}}
-        {{--        },--}}
-        {{--        error:(Response)=>{--}}
-        {{--            console.log(Response)--}}
-        {{--            $.each( Response.responseJSON.errors, function( key, value ) {--}}
-        {{--                $('#insert-student-end-term-form').find(".menu-alert").show().addClass('alert-warning').find--}}
-        {{--                ("ul")--}}
-        {{--                    .append--}}
-        {{--                    ('<li>'+value+'</li>');--}}
-        {{--            });--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--})--}}
+                        Swal.fire({
+                            title: 'Notification',
+                            html: DecodedResults.msg,
+                            type: 'success',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            confirmButtonText: 'Close',
+                        }).then((result) => {
+                            if (result) {
+                                $("#insert-student-end-term-modal").modal('hide')
+                                $("#insert-student-end-term-modal .menu-alert").removeClass('alert-danger')
+                                $("#insert-student-end-term-modal .menu-alert").removeClass('alert-warning')
+                                $("#insert-student-end-term-modal .menu-alert").html('')
+                                $("#StudentsEndTermDataTables").DataTable().draw()
+                                window.location.reload()
+                            }
+                        })
+                    }
+                },
+                error:(Response)=>{
+                    console.log(Response)
+                    $.each( Response.responseJSON.errors, function( key, value ) {
+                        $('#insert-student-end-term-form').find(".menu-alert").show().addClass('alert-warning').find
+                        ("ul")
+                            .append
+                            ('<li>'+value+'</li>');
+                    });
+                }
+            })
+        })
 
-        {{--$("#new-student-mock-with-bulk-upload-form").on("submit", (e)=>{--}}
-        {{--    e.preventDefault()--}}
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--    $.ajax({--}}
-        {{--        url: '{{route('export-students-mock-list-in-excel')}}',--}}
-        {{--        method:'GET',--}}
-        {{--        cache:false,--}}
-        {{--        data: $("#new-student-mock-with-bulk-upload-form").serialize(),--}}
-        {{--        success:(Response)=>{--}}
-        {{--            // console.log(Response)--}}
-        {{--        },--}}
-        {{--        error:(Response)=>{--}}
-        {{--            console.log(Response)--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--})--}}
+        $("#new-student-mock-with-bulk-upload-form").on("submit", (e)=>{
+            e.preventDefault()
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route('export-students-mock-list-in-excel')}}',
+                method:'GET',
+                cache:false,
+                data: $("#new-student-mock-with-bulk-upload-form").serialize(),
+                success:(Response)=>{
+                    // console.log(Response)
+                },
+                error:(Response)=>{
+                    console.log(Response)
+                }
+            })
+        })
     })
 </script>
