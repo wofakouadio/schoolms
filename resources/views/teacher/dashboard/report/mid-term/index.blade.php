@@ -54,6 +54,7 @@
                     <div id="mid_term_report_display" style="display: flex; justify-content: center;">
                         <div class="row">
                             <div class="col-lg-12">
+                                {{-- {{ dd($data) }} --}}
                                 @empty($data)
                                 @else
                                     @foreach($data as $value)
@@ -196,7 +197,7 @@
 {{--page js script--}}
 @push('page-js')
     @include("teacher/dashboard/report/mid-term/jsScript")
-    @include("custom-functions/LevelsInSelectInputBasedOnSchoolJS")
+    @include("custom-functions/teacher/LevelsInSelectInputBasedOnSchoolJS")
 {{--    @include('custom-functions/BranchesInSelectInputJS')--}}
 {{--    @include('admin/dashboard/level/levelsJS')--}}
 @endpush
