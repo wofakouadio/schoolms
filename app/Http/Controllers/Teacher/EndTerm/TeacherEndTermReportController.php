@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\Teacher\EndTerm;
 
 use App\Http\Controllers\Controller;
+use App\Models\MidTerm;
+use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\EndOfTerm;
 use App\Models\EndOfTermBreakdown;
 use App\Models\Level;
 use App\Models\School;
 use App\Models\StudentsAdmissions;
+use App\Models\GradingSystem;
 use App\Models\Term;
+use App\Models\MidTermBreakdown;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function App\Helpers\TermAndAcademicYear;
+use function App\Helpers\SchoolAssessmentPercentageSettings;
 
 class TeacherEndTermReportController extends Controller
 {
     //index
     public function index(){
         $schoolTerm = TermAndAcademicYear();
+        $schoolAssessmentsPercentageSettings = SchoolAssessmentPercentageSettings();
+        $schoolAssessmentPercentage = $schoolAssessmentsPercentageSettings->getData();
         $data = [] ?? null;
-        return view('teacher.dashboard.report.end-of-term.index', compact('schoolTerm', 'data'));
+        return view('teacher.dashboard.report.end-of-term.index', compact('schoolTerm', 'data', 'schoolAssessmentPercentage'));
     }
 
     public function preview_end_of_term_report(Request $request){
@@ -28,6 +35,9 @@ class TeacherEndTermReportController extends Controller
         $level = $request->level;
         $student = $request->student;
         $schoolTerm = TermAndAcademicYear();
+        $schoolAssessmentsPercentageSettings = SchoolAssessmentPercentageSettings();
+        $schoolAssessmentPercentage = $schoolAssessmentsPercentageSettings->getData();
+        $data = [] ?? null;
 
         //get end of term first entry
         $endTermFirst = EndOfTerm::where("level_id", $level)
@@ -36,7 +46,10 @@ class TeacherEndTermReportController extends Controller
         ->where('school_id', Auth::guard('teacher')->user()->school_id)
         ->first();
 
-        if($endTermFirst){
+        // check if there is end of term first entry
+        // then we proceed to get the remaining data
+        // else we throw an empty response
+        if(!empty($endTermFirst)){
             //get school data
             $schoolData = School::where("id", Auth::guard('teacher')->user()->school_id)->first();
             //get school profile
@@ -63,26 +76,138 @@ class TeacherEndTermReportController extends Controller
                 $studentProfile = $studentData->getFirstMediaUrl('student_profile');
             }
 
-            //get end of term breakdown entry
-            $endTermBreakdown = EndOfTermBreakdown::with('subject')
-                ->where("end_term_student_id", $endTermFirst->id)
-                ->where("term_id", $term)
-                ->where("student_id", $student)
-                ->where('school_id', Auth::guard('teacher')->user()->school_id)
-                ->where('branch_id', $studentData->student_branch)
-                ->get();
+            // get class assessment total entry
+            $classTotalAssessment = ClassAssessmentTotalScoreRecord::with('student', 'level', 'term', 'academicYear', 'subject')->where([
+                'student_id' => $student,
+                'term_id' => $term,
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+                'academic_year_id' => $termData->term_academic_year,
+                'level_id' => $level
+            ])->get();
 
-            $data[] = [
+            $classPercentageScore = 0;
+            foreach ($classTotalAssessment as $key => $class) {
+                $classPercentageScore += $class->percentage;
+            }
+            // get mid term summary
+            $midTermSummary = MidTerm::with('level', 'student', 'term')->where([
+                'student_id' => $student,
+                'level_id' => $level,
+                'term_id' => $term,
+            ])->first();
+
+            // get mid term breakdown
+            $midTermBreakdown = MidTermBreakdown::with('midTerm', 'subject')->where([
+                'mid_term_student_id' => $midTermSummary->id
+            ])->get();
+
+
+            //get end of term breakdown entry
+            $endTermBreakdown = EndOfTermBreakdown::with('subject', 'end_term', 'student', 'term')
+                ->where(["end_term_student_id" => $endTermFirst->id,
+                        "term_id" => $term,
+                        "student_id" => $student,
+                        "school_id" => Auth::guard('teacher')->user()->school_id
+                ])->get();
+
+            //get grading
+            $gradingSystem = GradingSystem::where([
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+                'academic_year' => $termData->term_academic_year,
+                'is_active' => 1
+            ])->orderBy('grade', 'asc')->get();
+
+            // Prepare final data structure
+            $finalData = [];
+            $grading = [];
+            // FIRST SAMPLE TRY
+            foreach ($classTotalAssessment as $data) {
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                if (!isset($finalData[$subject])) {
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['class_assessment'] = + $data->percentage;
+                }
+            }
+            foreach ($midTermBreakdown as $data) {
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                if (!isset($finalData[$subject])) {
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['mid_term'] = + $data->percentage;
+                }
+            }
+            foreach ($endTermBreakdown as $data) {
+                $subject = $data->subject_id;
+                $finalData[$subject]['subject_name'] = $data->subject->subject_name;
+                if (!isset($finalData[$subject])) {
+                    $finalData[$subject] = ['class_assessment' => 0.0, 'mid_term' => 0.0, 'end_term' => 0.0];
+                }else{
+                    $finalData[$subject]['end_term'] = + $data->percentage;
+                }
+            }
+            foreach ($finalData as $subject => $scores) {
+                if(isset($scores['class_assessment'])){
+                    $scores['class_assessment'] ? $scores['class_assessment'] : 0;
+                }else{
+                    $scores['class_assessment'] = 0.0;
+                }
+                if(isset($scores['mid_term'])){
+                    $scores['mid_term'] ? $scores['mid_term'] : 0;
+                }else{
+                    $scores['mid_term'] = 0.0;
+                }
+                if(isset($scores['end_term'])){
+                    $scores['end_term'] ? $scores['end_term'] : 0;
+                }else{
+                    $scores['end_term'] = 0.0;
+                }
+                $finalData[$subject]['total'] = $scores['class_assessment'] + $scores['mid_term'] + $scores['end_term'] ;
+            }
+            foreach ($gradingSystem as $key => $value) {
+                $level = $value['level_of_proficiency'];
+                $grading[$level] = [
+                    'grade' => $value['grade'],
+                    'from' => $value['score_from'],
+                    'to' => $value['score_to'],
+                    'proficiency' => $value['level_of_proficiency']
+                ];
+            }
+            foreach ($finalData as $subject => $score) {
+                foreach ($grading as $level => $value) {
+                    if ($score['total'] >= $value['from'] && $score['total'] <= $value['to']) {
+                        $finalData[$subject]['grade'] = $value['grade'];
+                        $finalData[$subject]['level'] = $value['proficiency'];
+                    }
+                }
+            }
+
+
+            // dd($grading);
+
+            // dd($finalData);
+
+            $data = [
                 'status' => 1,
                 'notice' => 'record found',
-                'endTermFirst' => $endTermFirst,
                 'levelData' => $levelData,
                 'studentData' => $studentData,
                 'schoolProfile' => $schoolProfile,
                 'studentProfile' => $studentProfile,
+                'classPercentageScore' => $classPercentageScore,
+                'classTotalAssessment' => $classTotalAssessment,
+                'midTermSummary' => $midTermSummary,
+                'endTermFirst' => $endTermFirst,
+                // 'midTermBreakdown' => $midTermBreakdown,
+                // 'endTermBreakdown' => $endTermBreakdown,
                 'schoolData' => $schoolData,
                 'termData' => $termData,
-                'endTermBreakdown' => $endTermBreakdown
+                'schoolAssessmentPercentage' => $schoolAssessmentPercentage,
+                'gradingSystem' => $gradingSystem,
+                'finalData' => $finalData
+
             ];
         }else{
             $data[] = [
