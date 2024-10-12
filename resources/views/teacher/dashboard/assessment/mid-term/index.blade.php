@@ -30,6 +30,11 @@
                                     <i class="fa fa-plus color-primary"></i>
                                 </span> New Student Mid-Term
                             </a>
+                            <a class="btn btn-rounded btn-primary page-reload-button">
+                                <span class="btn-icon-start text-primary">
+                                    <i class="fa fa-refresh color-primary"></i>
+                                </span> Reload Data
+                            </a>
 
 {{--                            <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"--}}
 {{--                               data-bs-target="#new-student-mock-with-bulk-upload-modal">--}}
@@ -73,31 +78,27 @@
                                     <tr>
                                         <th>Mid-Term</th>
                                         <th>Term</th>
-                                        <th>Student Name</th>
-                                        <th>Student Level</th>
-                                        <th>Total Score</th>
-                                        <th>Action</th>
+                                        <th>Name</th>
+                                        <th>Level</th>
+                                        <th>Subject</th>
+                                        <th>Score</th>
+                                        <th>Percentage ({{ $midTermPercentage }}%)</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data as $value)
-                                        <tr>
-                                            <td>{{$value->mid_term}}</td>
-                                            <td>{{$value->term->term_name . ' - ' .
-                                            $value->term->academic_year->academic_year_start.'/'
-                                                .$value->term->academic_year->academic_year_end}}</td>
-                                            <td>{{$value->student->student_firstname.' '
-                                            .$value->student->student_lastname}}</td>
-                                            <td>{{$value->level->level_name}}</td>
-                                            <td>{{$value->total_score}}</td>
-                                            <td>
-                                                <button class="btn btn-primary light" data-bs-toggle="modal"
-                                                        data-bs-target="" data-midterm_id="{{$value->id}}">
-                                                    View
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                        @unless(count($midTermRecords) == 0)
+                                            @foreach($midTermRecords as $record)
+                                                <tr>
+                                                    <td>{{ $record->mid_term }}</td>
+                                                    <td>{{ $record->term->term_name }} - {{ $record->term->academic_year->academic_year_start .'/'. $record->term->academic_year->academic_year_end}}</td>
+                                                    <td>{{ $record->student->student_firstname .' '. $record->student->student_lastname }}</td>
+                                                    <td>{{ $record->midTerm->level->level_name }}</td>
+                                                    <td>{{ $record->subject->subject_name }}</td>
+                                                    <td>{{ $record->score }}</td>
+                                                    <td>{{ $record->percentage }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endunless
                                     </tbody>
                                 </table>
                             </div>
@@ -115,7 +116,7 @@
 @push('page-js')
     @include('teacher/dashboard/assessment/mid-term/midTermJS')
 {{--    @include('custom-functions/MocksInSelectInputBasedOnSchoolJS')--}}
-    @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
+    @include('custom-functions/teacher/LevelsInSelectInputBasedOnSchoolJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
