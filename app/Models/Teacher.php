@@ -11,10 +11,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Teacher extends Authenticatable implements HasMedia
+class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Concerns\Onboardable
 {
     use HasFactory, UUID, SoftDeletes;
     use InteractsWithMedia;
+    use \Spatie\Onboard\Concerns\GetsOnboarded;
 
 
 

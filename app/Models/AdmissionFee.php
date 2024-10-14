@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AdmissionFee extends Model
+class AdmissionFee extends Model implements \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID, SoftDeletes;
+    use HasFactory, UUID, SoftDeletes, \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'academic_year_id',

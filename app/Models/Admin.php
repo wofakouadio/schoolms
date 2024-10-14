@@ -11,9 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Admin extends Authenticatable implements HasMedia
+class Admin extends Authenticatable implements HasMedia, \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID, SoftDeletes, InteractsWithMedia;
+    use HasFactory, UUID, SoftDeletes, InteractsWithMedia, \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'admin_firstName',

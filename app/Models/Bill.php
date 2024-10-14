@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Bill extends Model
+class Bill extends Model implements \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID, SoftDeletes;
+    use HasFactory, UUID, SoftDeletes, \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'bill_amount',

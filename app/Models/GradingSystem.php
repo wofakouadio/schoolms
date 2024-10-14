@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GradingSystem extends Model
+class GradingSystem extends Model implements \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID, softDeletes;
+    use HasFactory, UUID, softDeletes,  \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'academic_year',

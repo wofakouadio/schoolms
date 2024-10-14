@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AcademicYear extends Model
+class AcademicYear extends Model implements \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID, softDeletes;
+    use HasFactory;
+    use UUID;
+    use softDeletes;
+    use \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'academic_year_start',
@@ -18,7 +21,12 @@ class AcademicYear extends Model
         'school_id'
     ];
 
-    public function school(){
+    public function academic_years_count(){
+        return $this->hasMany(AcademicYear::class, 'id');
+    }
+
+    public function school()
+    {
         return $this->belongsTo(School::class, 'school_id', 'id');
     }
 }

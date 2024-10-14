@@ -12,6 +12,7 @@ class ClassAssessmentSettings extends Model
     use HasFactory;
     use UUID;
     use softDeletes;
+    use \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'term_id',

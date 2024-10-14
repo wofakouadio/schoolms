@@ -6,9 +6,9 @@ use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubjectsToTeacher extends Model
+class SubjectsToTeacher extends Model implements \Spatie\Onboard\Concerns\Onboardable
 {
-    use HasFactory, UUID;
+    use HasFactory, UUID, \Spatie\Onboard\Concerns\GetsOnboarded;
 
     protected $fillable = [
         'teacher_id',
