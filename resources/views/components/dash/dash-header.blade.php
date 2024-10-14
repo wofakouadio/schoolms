@@ -41,9 +41,9 @@
     <link href= "{{asset('assets/css/style.css')}}" rel="stylesheet">
 
 	<style>
-		body{
+		/* body{
 			zoom: 85%;
-		}
+		} */
 	</style>
 
 </head>
