@@ -206,7 +206,7 @@
                             <th>Proficiency Level</th>
                         </tr>
                         @foreach($data['finalData'] as $key => $value)
-                            <tr>
+                            <tr style="text-align: center;">
                                 <td style="border: 1px solid black; padding-left:10px">
                                     {{ $value['subject_name'] }}
                                 </td>
