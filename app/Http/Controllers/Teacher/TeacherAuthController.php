@@ -11,7 +11,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class TeacherAuthController extends Controller
 {
-
     public function teacher_login()
     {
         return view('teacher.auth.login');
@@ -32,16 +31,16 @@ class TeacherAuthController extends Controller
         if (Auth::guard('teacher')->attempt(['teacher_email' => $request->teacher_email, 'password' =>
             $request->teacher_password])) {
             $teacher = Teacher::where('teacher_email', $request->input('teacher_email'))->first();
-            if($teacher->is_active == 1){
+            if ($teacher->is_active == 1) {
                 Auth::guard('teacher')->login($teacher);
-                flash()->success( 'Login Successfully');
+                Alert::success('Login Successfully');
                 return redirect()->route('teacher_dashboard');
-            }else{
-                flash()->error('The account has been disabled');
+            } else {
+                Alert::error('The account has been disabled');
                 return back();
             }
         } else {
-            flash()->error('Login failed');
+            Alert::error('Login failed');
             return back();
         }
     }
