@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Contracts\Auth;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use Flasher\SweetAlert\Prime\SweetAlertInterface;
 
 class AdminAuthController extends Controller
 {
@@ -37,11 +39,15 @@ class AdminAuthController extends Controller
             $admin = Admin::where('admin_email', $request->input('admin_email'))->first();
             if($admin->is_active == 1){
                 Auth::guard('admin')->login($admin);
-                return redirect()->route('admin_dashboard')->with('message', 'login successful');
+                Alert::success('Login Successfully...');
+                // return redirect()->route('admin_dashboard')->with('message', 'login successful');
+                return redirect()->route('admin_dashboard');
             }else{
+                Alert::error('The account has been disabled...');
                 return back()->withErrors(['error' => 'The account has been disabled']);
             }
         } else {
+            Alert::error('Login failed...');
             return back()->withErrors(['error' => 'login failed']);
         }
     }
