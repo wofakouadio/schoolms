@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Finance\BillsController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\Finance\AdmissionFeeController;
 use App\Http\Controllers\Admin\Finance\FeesCollectionController;
+use App\Http\Controllers\Admin\Finance\FinanceReportController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\Permission\AccountPermissionController;
@@ -204,6 +205,11 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::post("finance/student-transactions/get", [FeesCollectionController::class, 'get_student_transactions'])->name("admin_get_student_transactions");
     Route::put("finance/student-transactions/update", [FeesCollectionController::class, 'update_transaction_data'])->name("admin_update_student_transaction");
     Route::delete("finance/student-transactions/delete", [FeesCollectionController::class, 'delete_transaction_data'])->name("admin_delete_student_transaction");
+
+    /** Finance Report **/
+    Route::get("finance/reports", [FinanceReportController::class, 'index'])->name("admin_finance_report");
+    Route::post("finance/reports/get_student_data", [FinanceReportController::class, 'get_student_finance_data'])->name("admin_finance_student_report_data");
+    Route::post("finance/reports/download", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
 
     /**Assessment Settings**/
     Route::get('assessment', [AssessmentSettingsController::class, 'index'])->name('admin_assessment_settings');
