@@ -60,13 +60,13 @@
                                 @else
                                     <div class="card">
                                         <div class="card-header">
-                                            {{-- <form action="{{ route('admin_download_end_of_term_report') }}" method="post">
+                                            <form action="{{ route('admin_download_end_of_term_report') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="term" value="{{ $data['termData']['id'] }}">
                                                 <input type="hidden" name="level" value="{{ $data['levelData']['id'] }}">
                                                 <input type="hidden" name="student" value="{{ $data['studentData']['id'] }}">
                                                 <button class="btn btn-primary" type="submit">Download</button>
-                                            </form> --}}
+                                            </form>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
