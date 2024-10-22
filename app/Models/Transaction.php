@@ -73,4 +73,17 @@ class Transaction extends Model
         $invoice_id = $date_stamp . $new_transaction . $invoice_sequence;
         return $invoice_id;
     }
+
+    public function level(){
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
+
+    public function academic_year(){
+        return $this->belongsTo(AcademicYear::class, 'academic_year_id', 'id');
+    }
+
+    public function term(){
+        return $this->belongsTo(Term::class, 'term_id', 'id');
+    }
+
 }
