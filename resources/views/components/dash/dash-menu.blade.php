@@ -77,8 +77,9 @@
                         <li><a href="{{ route('admin_student_bill') }}">Student Billing</a></li>
                         <li><a href="{{route('admin_finance_fee_collection')}}">Fee Collection</a></li>
                         <li><a href="{{ route('admin_student_transactions') }}">Student Fee Collection</a></li>
-                        <li><a href="{{route('admin_expenditure')}}">Expenditure</a></li>
-                        <li><a href="#">Activity Log</a></li>
+                        <li><a href="{{ route('admin_finance_report') }}">Financial Report</a></li>
+                        {{-- <li><a href="{{route('admin_expenditure')}}">Expenditure</a></li> --}}
+                        {{-- <li><a href="#">Activity Log</a></li> --}}
                     </ul>
                 </li>
                 <li>
