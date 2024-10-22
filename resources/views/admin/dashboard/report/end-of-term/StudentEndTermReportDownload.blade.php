@@ -4,7 +4,7 @@
 
     <!-- Meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Page Title -->
-     <title id="page_title">Dashboard</title>
+     <title id="page_title">End of Term Report</title>
 
     <!-- Favicon icon -->
     <!-- <link rel="shortcut icon" type="image/png" href="images/favicon.png"> -->
@@ -38,6 +38,9 @@
     <!-- Globlal CSS -->
     <link href= "{{asset('assets/css/style.css')}}" rel="stylesheet">
     <style>
+        body{
+            font-size: 8pt;
+        }
         table{
             border-collapse: collapse;
         }
@@ -58,6 +61,18 @@
             transform-origin: 50% 50%;
             z-index: -1000;
         }
+        #tableGrading{
+            text-align: center;
+        }
+        #tableGrading table{
+            border: 1px solid gray
+        }
+        #tableGrading thead{
+            border: 1px solid gray
+        }
+        #tableGrading tbody td{
+            border: 1px solid gray
+        }
     </style>
 </head>
 <body>
@@ -76,163 +91,195 @@
 {{--                    <div id="watermark">--}}
 {{--                        <img src="/public/assets/images/ghana-emblem.jpg">--}}
 {{--                    </div>--}}
-                    @foreach($data as $value)
-                        <table  style="width: 100%; align-self: center;">
+                    {{-- {{ dd($data) }} --}}
+                    <table  style="width: 100%; align-self: center; font-size=">
+                        <tr>
+                            <td style="text-align: center">
+                                <img style="text-align: right" src="{{public_path($data['schoolProfile'])}}" class='rounded-circle' width=55>
+                            </td>
+                            <td style="text-align: center">
+                                <p class="text-center fw-bolder text-danger" style="text-align: center; color:orangered; font-size: large;">
+                                    <b>{{$data['schoolData']['school_name']}}</b>
+                                </p>
+                                <p class="text-center" style="text-align: center; font-size: 9pt;">
+                                    {{$data['schoolData']['school_location']}}
+                                </p>
+                                <p class="text-center" style="text-align: center; font-size: 9pt;">
+                                    {{$data['schoolData']['school_email'] . ' / '.$data['schoolData']['school_phoneNumber']}}
+                                </p>
+                                <p class="text-center text-info" style="text-align: center; font-size: 9pt; color: red;">
+                                    {{$data['studentData']['branch']['branch_name']}} Branch
+                                </p>
+                            </td>
+                            <td style="text-align: center">
+                                <img src="{{public_path($data['schoolProfile'])}}" class='rounded-circle' width=55>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p style="text-align: center; text-transform: uppercase; font-size: 8pt">
+                                    Student Assessment Record
+                                </p>
+                                <p style="text-align: center; text-transform: uppercase; font-size: 9pt; color:orangered;">
+                                    <b>End of Term {{$data['termData']['term_name']}} Performance Summary</b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="border-top:2px dashed orangered; border-bottom:2px dashed orangered;
+                    border-right:0; border-left:0; padding: 1px">
+                    <table style="width: 100%; text-align: center">
+                        <tr style="text-align: center;">
+                            <td style="text-align: left;">
+                                Student ID: {{$data['studentData']['student_id']}}
+                            </td>
+                            <td style="text-align: left;">
+                                Student Name: {{$data['studentData']['student_firstname'] . ' ' . $data['studentData']['student_othername'] . ' ' . $data['studentData']['student_lastname']}}
+                            </td>
+                            <td style="text-align: left;">
+                                Level: {{$data['levelData']['level_name']}}
+                            </td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td style="text-align: left;">
+                                Residency: {{$data['studentData']['student_residency_type']}}
+                            </td>
+                            <td style="text-align: left;">
+                                House: {{$data['studentData']['house']['house_name']}}
+                            </td>
+                            <td style="text-align: left;">
+                                Category: {{$data['studentData']['category']['category_name']}}
+                            </td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td style="text-align: left;">
+                                Term: {{$data['termData']['term_name']}}
+                            </td>
+                            <td style="text-align: left;">
+                                Academic Year: {{$data['termData']['academic_year']['academic_year_start'] .'/'.$data['termData']['academic_year']['academic_year_end']}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <table class="table" style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            Total Class Score: {{$data['classPercentageScore']}}
+                                        </td>
+                                        <td>
+                                            Total Mid-Term Score: {{$data['midTermSummary']['total_percentage']}}
+                                        </td>
+                                        <td>
+                                            Total Exam Score: {{$data['endTermFirst']['total_percentage']}}
+                                        </td>
+                                        <td>
+                                            Total Score: {{$data['endTermFirst']['total_percentage'] + $data['midTermSummary']['total_percentage'] + $data['classPercentageScore']}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <p style="text-transform: uppercase; text-align:center;">
+                        <b><u><i>Details of Result</i></u></b>
+                    </p>
+                    <table style="width: 100%; border: 1px solid black">
+                        <tr style="text-align: center; border: 1px solid black">
+                            <th style="border-right: 1px solid black">
+                                Subject
+                            </th>
+                            <th style="border-right: 1px solid black">
+                                Class Score ({{ $data['schoolAssessmentPercentage']->class_percentage }}%)
+                            </th>
+                            <th style="border-right: 1px solid black">
+                                Mid-Term Score ({{ $data['schoolAssessmentPercentage']->mid_term_percentage }}%)
+                            </th>
+                            <th style="border-right: 1px solid black">
+                                Exam Score ({{ $data['schoolAssessmentPercentage']->exam_percentage }}%)
+                            </th>
+                            <th style="border-right: 1px solid black">
+                                Total Score ({{ $data['schoolAssessmentPercentage']->exam_percentage + $data['schoolAssessmentPercentage']->mid_term_percentage + $data['schoolAssessmentPercentage']->class_percentage }}%)
+                            </th>
+                            <th style="border-right: 1px solid black">
+                                Grade
+                            </th>
+                            <th>Proficiency Level</th>
+                        </tr>
+                        @foreach($data['finalData'] as $key => $value)
                             <tr>
-                                <td colspan="3">
-                                    <p class="text-center fw-bolder
-                                    text-danger" style="text-align: center; color:orangered; font-size: large;
-                                    "><b>{{$value['schoolData']['school_name']}}</b></p>
+                                <td style="border: 1px solid black; padding-left:10px">
+                                    {{ $value['subject_name'] }}
+                                </td>
+                                <td style="border: 1px solid black; padding-left:10px">
+                                    {{ $value['class_assessment'] ?? 0 }}
+                                </td>
+                                <td style="border: 1px solid black; padding-left:10px">
+                                    {{ $value['mid_term'] ?? 0}}
+                                </td>
+                                <td style="border: 1px solid black; padding-left:10px">
+                                    {{ $value['end_term'] ?? 0}}
+                                </td>
+                                <td style="text-align: center; border: 1px solid black;">
+                                    {{ $value['total'] ?? 0}}
+                                </td>
+                                <td style="text-align: center; border: 1px solid black;">
+                                    {{ $value['grade'] }}
+                                </td>
+                                <td style="text-align: center; border: 1px solid black;">
+                                    {{ $value['level'] }}
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <table width="100%" style="text-align: center">
-                                        <tr>
-                                            <td width="15%" style="text-align: right">
-                                                <img style="text-align: right" src="{{public_path($value['schoolProfile'])}}"
-                                                     class='rounded-circle' width=55>
-                                            </td>
-                                            <td width="70%" style="text-align: center; ">
-                                                <p class="text-center" style="text-align: center; font-size: 9pt;
-                                    ">{{$value['schoolData']['school_location']}}</p>
-                                                <p class="text-center" style="text-align: center; font-size: 9pt;
-                                    ">{{$value['schoolData']['school_email'] . ' / '.
-                                        $value['schoolData']['school_phoneNumber']}}</p>
-                                                <p class="text-center
-                                    text-info" style="text-align: center; font-size: 9pt; color: red;
-                                    ">{{$value['studentData']['branch']['branch_name']}} Branch</p>
-                                            </td>
-                                            <td width="15%" style="text-align: left">
-                                                <img style="text-align: left" src="{{public_path($value['studentProfile'])}}"
-                                                     class='rounded-circle'
-                                                     width=55 alt="pic">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <p style="text-align: center; text-transform: uppercase; font-size: 8pt">Student
-                                        Assessment Record</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <p style="text-align: center; text-transform: uppercase; font-size: 9pt; color:orangered;
-                                    "><b>End of Term {{$value['termData']['term_name']}} Performance Summary</b></p>
-                                </td>
-                            </tr>
-                        </table>
-                        <hr style="border-top:2px dashed orangered; border-bottom:2px dashed orangered;
-                        border-right:0; border-left:0; padding: 1px">
-                        <table style="width: 100%; border: 1px solid black; text-align: center">
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border-right: 1px solid black; text-align: left; padding-left:10px">Student
-                                    ID:</td>
-                                <td style="border-right: 1px solid black; text-align:
-                                left; padding-left:10px">{{$value['studentData']['student_id']}}</td>
-                                <td style="border-right: 1px solid black; text-align: left; padding-left:10px">Student
-                                    Name:</td>
-                                <td style="border-right: 1px solid
-                                black; text-align: left; padding-left:10px">{{$value['studentData']['student_firstname']
-                                 . '
-                                 ' .
-                                                $value['studentData']['student_othername'] . ' ' .
-                                                $value['studentData']['student_lastname']}}</td>
-                            </tr>
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border-right: 1px solid black; text-align: left; padding-left:10px">Level:</td>
-                                <td style="border-right: 1px solid black; text-align: left; padding-left:10px">{{$value['levelData']['level_name']}}</td>
-                                <td style="border-right: 1px solid black; text-align: left; padding-left:10px">Residency:</td>
-                                <td style="border-right: 1px solid
-                                black; text-align: left; padding-left:10px">{{$value['studentData']['student_residency_type']}}</td>
-                            </tr>
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">House:</td>
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">{{$value['studentData']['house']['house_name']}}</td>
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">Category:</td>
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">{{$value['studentData']['category']['category_name']}}</td>
-                            </tr>
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border: 1px solid black; text-align: left; padding-left:10px">Term:</td>
-                                <td style="border: 1px solid black; text-align: left; padding-left:10px">{{$value['termData']['term_name']}}</td>
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">Academic Year:</td>
-                                <td style="border: 1px solid black; text-align: left; padding-left:10px">{{$value['termData']['academic_year']['academic_year_start']
-                                                        .'/'
-                                                        .$value['termData']['academic_year']['academic_year_end']}}</td>
-                            </tr>
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">Total Class Score:</td>
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px">{{$value['endTermFirst']['total_class_score']}}</td>
-                                <td style="text-align: left;
-                                padding-left:10px; border: 1px solid black;">Total Class Score:</td>
-                                <td style="text-align: left;
-                                padding-left:10px;
-                                border: 1px solid black;">{{$value['endTermFirst']['total_exam_score']}}</td>
-                            </tr>
-                            <tr style="text-align: center; border: 1px solid black">
-                                <td style="border: 1px solid black; text-align: left;
-                                padding-left:10px" colspan="2">Total Score:</td>
-                                <td  colspan="2" style="border: 1px solid black; text-align: left;
-                                padding-left:10px">{{$value['endTermFirst']['total_score']}}</td>
-                            </tr>
-                        </table>
-                        <p style="text-transform: uppercase; text-align:center;"><b><u><i>Details of
-                                        Result</i></u></b></p>
-                        <table style="width: 100%; border: 1px solid black">
-                            <tr style="text-align: center; border: 1px solid black">
-                                <th style="border-right: 1px solid black">Subject</th>
-                                <th style="border-right: 1px solid black">Class Score</th>
-                                <th style="border-right: 1px solid black">Exam Score</th>
-                                <th>Proficiency Level</th>
-                            </tr>
-                            @foreach($value['endTermBreakdown'] as $breakdown)
-                                <tr>
-                                    <td style="border: 1px solid black; padding-left:10px">
-                                        {{$breakdown['subject']['subject_name']}}
-                                    </td>
-                                    <td style="text-align: center; border: 1px solid black;">
-                                        {{$breakdown['class_score']}}
-                                    </td>
-                                    <td style="text-align: center; border: 1px solid black;">
-                                        {{$breakdown['exam_score']}}
-                                    </td>
-                                    <td style="text-align: center; border: 1px solid black;">
-                                        -
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
-                        <p style="text-transform: uppercase; text-align:center;"><b><u><i>Appraisal </i></u></b></p>
-                        <table style="width: 100%; border: 1px solid black;"
-                               cellspacing="0" cellpadding="0">
-                            <tr style="border: 1px solid black">
-                                <td style="border: 1px solid black; padding-left:10px"><b>Conduct</b></td>
-                                <td style="border: 1px solid black;
-                                padding-left:10px;">{{$value['endTermFirst']['conduct']}}</td>
-                                <td style="border: 1px solid black; padding-left:10px"><b>Attitude</b></td>
-                                <td style="border: 1px solid black;
-                                padding-left:10px">{{$value['endTermFirst']['attitude']}}</td>
-                            </tr>
-                            <tr style="border: 1px solid black">
-                                <td style="border: 1px solid black; padding-left:10px"><b>Interest</b></td>
-                                <td style="border: 1px solid black;
-                                padding-left:10px">{{$value['endTermFirst']['interest']}}</td>
-                                <td style="border: 1px solid black; padding-left:10px"><b>General Remarks</b></td>
-                                <td style="border: 1px solid black; padding-left:10px
-                                ">{{$value['endTermFirst']['general_remarks']}}</td>
-                            </tr>
-                        </table>
-                    @endforeach
+                        @endforeach
+                    </table>
+                    <table class="table" style="width: 100%">
+                        <tr>
+                            <td>
+                                <p style="text-transform: uppercase;">
+                                    <b><u><i>Appraisal </i></u></b>
+                                </p>
+                                <table class="table"  id="tableAppraisal" style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            Conduct: <b>{{$data['endTermFirst']['conduct']}}</b>
+                                        </td>
+                                        <td>
+                                            Attitude: <b>{{$data['endTermFirst']['attitude']}}</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Interest: <b>{{$data['endTermFirst']['interest']}}</b>
+                                        </td>
+                                        <td>
+                                            General Remarks: <b>{{$data['endTermFirst']['general_remarks']}}</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <p style="text-transform: uppercase; text-align:center;">
+                                    <b><u><i>Grading System </i></u></b>
+                                </p>
+                                <table class="table table-striped" style="width: 100%" id="tableGrading">
+                                    <thead>
+                                        <th>Score</th>
+                                        <th>Grade</th>
+                                        <th>Proficiency</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($data['gradingSystem'] as $key => $grading)
+                                            <tr>
+                                                <td><span class="fw-bolder">{{ $grading['score_from'].' - '.$grading['score_to']}}</span></td>
+                                                <td><span class="fw-bolder">{{ $grading['grade']}}</span></td>
+                                                <td><span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
                 </div>
             </div>
         </div>
