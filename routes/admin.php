@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\Finance\FinanceController;
 use App\Http\Controllers\Admin\Finance\AdmissionFeeController;
 use App\Http\Controllers\Admin\Finance\FeesCollectionController;
 use App\Http\Controllers\Admin\Finance\FinanceReportController;
+use App\Http\Controllers\Admin\Finance\FeedingFeeController;
 use App\Http\Controllers\Admin\House\HouseController;
 use App\Http\Controllers\Admin\Level\LevelController;
 use App\Http\Controllers\Admin\Permission\AccountPermissionController;
@@ -210,6 +211,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("finance/reports", [FinanceReportController::class, 'index'])->name("admin_finance_report");
     Route::post("finance/reports/get_student_data", [FinanceReportController::class, 'get_student_finance_data'])->name("admin_finance_student_report_data");
     Route::post("finance/reports/download", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
+
+    /** Feeding Fee **/
+    Route::get("finance/feeding-fee", [FeedingFeeController::class, 'index'])->name('admin_finance_feeding_fee');
+    Route::post("finance/new-feeding-fee-setup", [FeedingFeeController::class, 'new_feeding_fee_setup'])->name('admin_finance_feeding_fee_setup');
+    Route::get("finance/get-feeding-fee-data", [FeedingFeeController::class, 'get_feeding_fee_data'])->name('admin_finance_feeding_fee_data');
+    Route::put("finance/update-feeding-fee-data", [FeedingFeeController::class, 'update_feeding_fee_data'])->name('admin_finance_update_feeding_fee_data');
+    Route::delete("finance/delete-feeding-fee-data", [FeedingFeeController::class, 'delete_feeding_fee_data'])->name('admin_finance_delete_feeding_fee_data');
 
     /**Assessment Settings**/
     Route::get('assessment', [AssessmentSettingsController::class, 'index'])->name('admin_assessment_settings');
