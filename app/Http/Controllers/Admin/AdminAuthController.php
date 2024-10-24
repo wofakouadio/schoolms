@@ -39,16 +39,21 @@ class AdminAuthController extends Controller
             $admin = Admin::where('admin_email', $request->input('admin_email'))->first();
             if($admin->is_active == 1){
                 Auth::guard('admin')->login($admin);
-                Alert::success('Login Successfully...');
+                // Alert::success('Login Successfully...');
                 // return redirect()->route('admin_dashboard')->with('message', 'login successful');
+
+                flash()->option('timeout', 5000)->addSuccess('Login Successful');
+                // return redirect()->route('admin_dashboard')->with('success', 'Login Successful');
                 return redirect()->route('admin_dashboard');
             }else{
                 Alert::error('The account has been disabled...');
-                return back()->withErrors(['error' => 'The account has been disabled']);
+                // return back()->withErrors(['error' => 'The account has been disabled']);
+                return back()->with('error', 'The account has been disabled');
             }
         } else {
             Alert::error('Login failed...');
-            return back()->withErrors(['error' => 'login failed']);
+            // return back()->withErrors(['error' => 'login failed']);
+            return back()->with('warning', 'The account has been disabled');
         }
     }
 
