@@ -20,6 +20,110 @@
                                   :academic_year_start="$schoolTerm['academic_year']['academic_year_start']"
                                   :academic_year_end="$schoolTerm['academic_year']['academic_year_end']"/>
             @endif
+            {{-- {{ dd($dashRecords['studentsGirls']) }} --}}
+            <div class="row">
+                {{-- students --}}
+                <div class="col-xl-4 col-lg-12 col-sm-12">
+                    <div class="card overflow-hidden">
+                        <div class="text-center p-5 overlay-box" style="background-image: url(images/big/img5.jpg);">
+                            <img src="images/profile/profile.png" width="100" class="img-fluid rounded-circle" alt="">
+                            <h3 class="mt-3 mb-0 text-white">Students</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <div class="bgl-primary rounded p-3">
+                                        <h4 class="mb-0">Female</h4>
+                                        <small>{{ $dashRecords['studentsGirls'] }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bgl-primary rounded p-3">
+                                        <h4 class="mb-0">Male</h4>
+                                        <small>{{ $dashRecords['studentsBoys'] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer mt-0">
+                            <button class="btn btn-primary btn-lg btn-block">{{ $dashRecords['studentsCount'] }}</button>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- teachers --}}
+                <div class="col-xl-4 col-lg-12 col-sm-12">
+                    <div class="card overflow-hidden">
+                        <div class="text-center p-5 overlay-box" style="background-image: url(images/big/img5.jpg);">
+                            <img src="images/profile/profile.png" width="100" class="img-fluid rounded-circle" alt="">
+                            <h3 class="mt-3 mb-0 text-white">Teachers</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <div class="bgl-primary rounded p-3">
+                                        <h4 class="mb-0">Female</h4>
+                                        <small>{{ $dashRecords['teachersGirls'] }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bgl-primary rounded p-3">
+                                        <h4 class="mb-0">Male</h4>
+                                        <small>{{ $dashRecords['teachersBoys'] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer mt-0">
+                            <button class="btn btn-primary btn-lg btn-block">{{ $dashRecords['teachersCount'] }}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-12 col-sm-12">
+                    <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
+						<div class="widget-stat card">
+							<div class="card-body p-4">
+								<div class="media ai-icon">
+									<span class="me-3 bgl-primary text-primary">
+										<!-- <i class="ti-user"></i> -->
+										<svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</span>
+									<div class="media-body">
+										<p class="mb-1">Candidate</p>
+										<h4 class="mb-0">3280</h4>
+										<span class="badge badge-primary">+3.5%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                    <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
+						<div class="widget-stat card">
+							<div class="card-body p-4">
+								<div class="media ai-icon">
+									<span class="me-3 bgl-primary text-primary">
+										<!-- <i class="ti-user"></i> -->
+										<svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</span>
+									<div class="media-body">
+										<p class="mb-1">Candidate</p>
+										<h4 class="mb-0">3280</h4>
+										<span class="badge badge-primary">+3.5%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+
+            </div>
 
 {{--            <div class="row">--}}
 {{--                <div class="col-xl-6">--}}
