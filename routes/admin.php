@@ -218,6 +218,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get("finance/get-feeding-fee-data", [FeedingFeeController::class, 'get_feeding_fee_data'])->name('admin_finance_feeding_fee_data');
     Route::put("finance/update-feeding-fee-data", [FeedingFeeController::class, 'update_feeding_fee_data'])->name('admin_finance_update_feeding_fee_data');
     Route::delete("finance/delete-feeding-fee-data", [FeedingFeeController::class, 'delete_feeding_fee_data'])->name('admin_finance_delete_feeding_fee_data');
+    Route::post('finance/feeding-fee/new-collection', [FeedingFeeController::class, 'feeding_fee_new_collection'])->name('admin_feeding_fee_new_collection');
+    Route::get('finance/feeding-fee/get-collection', [FeedingFeeController::class, 'feeding_fee_get_collection'])->name('admin_feeding_fee_get_collection');
+    Route::put('finance/feeding-fee/update-collection', [FeedingFeeController::class, 'feeding_fee_update_collection'])->name('admin_feeding_fee_update_collection');
+    Route::delete('finance/feeding-fee/delete-collection', [FeedingFeeController::class, 'feeding_fee_delete_collection'])->name('admin_feeding_fee_delete_collection');
 
     /**Assessment Settings**/
     Route::get('assessment', [AssessmentSettingsController::class, 'index'])->name('admin_assessment_settings');
@@ -226,12 +230,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::put('assessment/update', [AssessmentSettingsController::class, 'update_assessment_setup'])->name('update_assessment_setup');
     Route::delete('assessment/delete', [AssessmentSettingsController::class, 'delete_assessment_setup'])->name('delete_assessment_setup');
 
-    Route::post('assessment/grading-system/new', [AssessmentSettingsController::class, 'new_grading_system'])
-        ->name('new_grading_system');
+    Route::post('assessment/grading-system/new', [AssessmentSettingsController::class, 'new_grading_system'])->name('new_grading_system');
     Route::get('assessment/grading-system/edit', [AssessmentSettingsController::class, 'edit_grading_system'])->name('edit_grading_system');
     Route::put('assessment/grading-system/update', [AssessmentSettingsController::class, 'update_grading_system'])->name('update_grading_system');
-    Route::delete('assessment/grading-system/delete', [AssessmentSettingsController::class, 'delete_grading_system'])
-        ->name('delete_grading_system');
+    Route::delete('assessment/grading-system/delete', [AssessmentSettingsController::class, 'delete_grading_system'])->name('delete_grading_system');
 
 
     /**Attendance**/
