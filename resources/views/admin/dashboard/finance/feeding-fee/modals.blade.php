@@ -90,7 +90,6 @@
     </form>
 </div>
 
-
 {{--Delete feeding-fee--}}
 <div class="modal fade" id="delete_feeding_fee_setup">
     <form method="post" id="delete_feeding_fee_setup_form" action="{{ route('admin_finance_delete_feeding_fee_data') }}">
@@ -114,6 +113,92 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{-- new feeding fee collection --}}
+<div class="modal fade" id="feeding_fee_new_collection">
+    <form method="post" id="feeding_fee_new_collection_form" action="{{ route('admin_feeding_fee_new_collection') }}">
+        @csrf
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Feeding Fee Collection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert menu-alert">
+                        <ul></ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Term & Academic Year</label>
+                            <input type="hidden" name="academic_year_id" value="{{ $academicYear->id }}"/>
+                            <input type="hidden" name="term_id" value="{{ $term->id }}"/>
+                            <input type="text" value="{{ $term->term_name . ' - ' . $academicYear->academic_year_start .'/'.$academicYear->academic_year_start }}" readonly class="form-control"/>
+                        </div>
+                        <div class="col-xl-6 mb-4">
+                            <label  class="form-label font-w600">Feeding Fee</label>
+                            <div class="input-group">
+                                <span class="input-group-text">{{ $currency->symbol }}</span>
+                                <input type="text" name="feeding_fee" value="{{$feeding_fee->fee}}" class="form-control solid" readonly>
+                                <input type="hidden" name="feeding_fee_id" value="{{ $feeding_fee->id }}"/>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Level/Class<span class="text-danger scale5 ms-2">*</span></label>
+                            <select class="form-control" name="level_id"></select>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Week<span class="text-danger scale5 ms-2">*</span></label>
+                            <select class="form-control" name="week">
+                                <option value="">Choose</option>
+                                @for($x = 1; $x <= 56; $x++)
+                                    <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Date<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="date" class="form-control solid" name="date"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Number of presents<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="number" class="form-control solid" name="number_of_presents" value="0"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Number of who don't pay<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="number" class="form-control solid" name="number_of_do_not_pay" value="0"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Number of credits<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="number" class="form-control solid" name="number_of_credits" value="0"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Arrears Clearance<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="number" class="form-control solid" name="arrears_clearance" value="0"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Advance Payment<span class="text-danger scale5 ms-2">*</span></label>
+                            <input type="number" class="form-control solid" name="advance_payment" value="0"/>
+                        </div>
+                        <div class="col-xl-4 mb-4">
+                            <label  class="form-label font-w600">Amount Realized<span class="text-danger scale5 ms-2">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">{{ $currency->symbol }}</span>
+                                <input type="text" name="amount_realized" value="0" class="form-control solid" readonly>
+                                <button class="btn btn-sm btn-primary input-group-text" type="button" id="btn_sync"><i class="fas fa-sync"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
