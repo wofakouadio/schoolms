@@ -27,6 +27,9 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Feeding Fee Collection</a>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" data-bs-toggle="tab" href="#export_import" aria-selected="false" role="tab" tabindex="-1">Export & Import</a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="home" role="tabpanel" style="">
@@ -128,6 +131,53 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="export_import" role="tabpanel" style="">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card" style="height: auto">
+                                    <div class="card-header">
+                                        <h5>Export Feeding Fee Collection Sheet</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="form-group" action="{{ route('admin_feeding_fee_collection_export') }}" method="POST">
+                                            @csrf
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Term & Academic Year</label>
+                                                <input type="hidden" name="academic_year_id" value="{{ $academicYear->id }}"/>
+                                                <input type="hidden" name="term_id" value="{{ $term->id }}"/>
+                                                <input type="text" value="{{ $term->term_name . ' - ' . $academicYear->academic_year_start .'/'.$academicYear->academic_year_start }}" readonly class="form-control"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Feeding Fee</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">{{ $currency->symbol }}</span>
+                                                    <input type="text" name="feeding_fee" value="{{$feeding_fee->fee}}" class="form-control solid" readonly>
+                                                    <input type="hidden" name="feeding_fee_id" value="{{ $feeding_fee->id }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Week<span class="text-danger scale5 ms-2">*</span></label>
+                                                <select class="form-control" name="week">
+                                                    <option value="">Choose</option>
+                                                    @for($x = 1; $x <= 56; $x++)
+                                                        <option value="{{ $x }}">{{ $x }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Date<span class="text-danger scale5 ms-2">*</span></label>
+                                                <input type="date" class="form-control solid" name="date"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <button class="btn btn-primary" type="submit" name="download_sheet">Download Sheet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
