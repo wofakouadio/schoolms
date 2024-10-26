@@ -223,6 +223,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::put('finance/feeding-fee/update-collection', [FeedingFeeController::class, 'feeding_fee_update_collection'])->name('admin_feeding_fee_update_collection');
     Route::delete('finance/feeding-fee/delete-collection', [FeedingFeeController::class, 'feeding_fee_delete_collection'])->name('admin_feeding_fee_delete_collection');
     Route::post("finance/feeding-fee-collection/export", [FeedingFeeController::class, 'feeding_fee_collection_export'])->name('admin_feeding_fee_collection_export');
+    Route::post("finance/feeding-fee-collection/import", [FeedingFeeController::class, 'feeding_fee_collection_import'])->name('admin_feeding_fee_collection_import');
 
     /**Assessment Settings**/
     Route::get('assessment', [AssessmentSettingsController::class, 'index'])->name('admin_assessment_settings');

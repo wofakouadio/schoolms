@@ -177,7 +177,55 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-6">
+                                <div class="card" style="height: auto">
+                                    <div class="card-header">
+                                        <h5>Import Feeding Fee Collection Sheet</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="form-group" action="{{ route('admin_feeding_fee_collection_import') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="mb-4">
+                                                <div class="alert alert-primary solid alert-square"><strong>Notice</strong><br> Before Upload the imported file downloaded, make to select the right week and date.</div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Term & Academic Year</label>
+                                                <input type="hidden" name="academic_year_id" value="{{ $academicYear->id }}"/>
+                                                <input type="hidden" name="term_id" value="{{ $term->id }}"/>
+                                                <input type="text" value="{{ $term->term_name . ' - ' . $academicYear->academic_year_start .'/'.$academicYear->academic_year_start }}" readonly class="form-control"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Feeding Fee</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">{{ $currency->symbol }}</span>
+                                                    <input type="text" name="feeding_fee" value="{{$feeding_fee->fee}}" class="form-control solid" readonly>
+                                                    <input type="hidden" name="feeding_fee_id" value="{{ $feeding_fee->id }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Week<span class="text-danger scale5 ms-2">*</span></label>
+                                                <select class="form-control" name="week">
+                                                    <option value="">Choose</option>
+                                                    @for($x = 1; $x <= 56; $x++)
+                                                        <option value="{{ $x }}">{{ $x }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Date<span class="text-danger scale5 ms-2">*</span></label>
+                                                <input type="date" class="form-control solid" name="date"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  class="form-label font-w600">Upload Imported Excel File<span class="text-danger scale5 ms-2">*</span></label>
+                                                <input type="file" class="form-control solid" name="import_file"/>
+                                            </div>
+                                            <div class="mb-4">
+                                                <button class="btn btn-primary" type="submit" name="upload_sheet">Upload Sheet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

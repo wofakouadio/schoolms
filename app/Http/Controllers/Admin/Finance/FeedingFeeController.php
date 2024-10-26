@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Finance;
 
 use App\Http\Controllers\Controller;
+use App\Imports\FeedingFeeCollectionImport;
 use Illuminate\Http\Request;
 use App\Models\Currency;
 use App\Models\AcademicYear;
@@ -234,6 +235,27 @@ class FeedingFeeController extends Controller
         $week = $request->week;
         $date = $request->date;
         $school_id = Auth::guard('admin')->user()->school_id;
-        return Excel::download(new FeedingFeeCollectionExport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), 'feeding_fee_collection_week_'.$week.'.xlsx');
+        return Excel::download(new FeedingFeeCollectionExport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), 'week_'.$week.'_'.$date.'_feeding_fee_collection_.xlsx');
+    }
+
+    public function feeding_fee_collection_import(Request $request){
+        $term_id = $request->term_id;
+        $academic_year_id = $request->academic_year_id;
+        $feeding_fee_id = $request->feeding_fee_id;
+        $week = $request->week;
+        $date = $request->date;
+        $school_id = Auth::guard('admin')->user()->school_id;
+        DB::beginTransaction();
+        try{
+            Excel::import(new FeedingFeeCollectionImport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), $request->file('import_file'));
+            DB::commit();
+            return redirect()->route('admin_finance_feeding_fee')->with('info', 'Feeding Fee collection record saved');
+        // dd($t);
+        }catch(\Exception $th){
+            DB::rollBack();
+            return redirect()->route('admin_finance_feeding_fee')->with('error', $th->getMessage());
+        // dd($t);
+        }
+
     }
 }

@@ -21,9 +21,9 @@
         </tr>
         <tr>
             <th style="text-align: center">#</th>
-            <th style="text-align: center">Class/Level</th>
+            <th style="text-align: center">Level</th>
             <th style="text-align: center">Number of Presents</th>
-            <th style="text-align: center">Number of Who don't Pay</th>
+            <th style="text-align: center">Number of Who do not Pay</th>
             <th style="text-align: center">Number of Credits</th>
             <th style="text-align: center">Arrears Clearance</th>
             <th style="text-align: center">Advance Payment</th>
