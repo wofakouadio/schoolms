@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\StudentMock;
+use App\Models\Mock;
 use App\Models\StudentsAdmissions;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class StudentsMockExport implements FromCollection, Responsable
     * @return \Illuminate\Support\Collection
     */
 
-    public function mock($mock){
+    public function mock(Mock $mock){
         $this->mock = $mock;
         return $mock;
     }
