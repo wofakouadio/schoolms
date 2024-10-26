@@ -12,6 +12,8 @@ use App\Models\FeedingFeeCollectionSummary;
 use App\Models\Term;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Exports\FeedingFeeCollectionExport;
+use Maatwebsite\Excel\Facades\Excel;
 use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
 
@@ -222,5 +224,16 @@ class FeedingFeeController extends Controller
                 return redirect()->route('admin_finance_feeding_fee')->with('warning', 'Something went wrong: Details :'.$th->getMessage());
             }
         }
+    }
+
+    // export feeding fee sheet
+    public function feeding_fee_collection_export(Request $request){
+        $term_id = $request->term_id;
+        $academic_year_id = $request->academic_year_id;
+        $feeding_fee_id = $request->feeding_fee_id;
+        $week = $request->week;
+        $date = $request->date;
+        $school_id = Auth::guard('admin')->user()->school_id;
+        return Excel::download(new FeedingFeeCollectionExport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), 'feeding_fee_collection_week_'.$week.'.xlsx');
     }
 }
