@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+
 use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
-
 
 class FeesCollectionController extends Controller
 {
@@ -129,8 +129,8 @@ class FeesCollectionController extends Controller
                             'payment_status' => 'awaiting_payment',
                             "student_id" => $request->student_id,
                             "level_id" => $student->student_level,
-                            "description" => 'New Balance for ' . $transaction->items,
-                            "items" => $transaction->items
+                            "description" => 'New Balance for ' . $transaction->item,
+                            "items" => $transaction->item
                         ]);
                     }
                 }
@@ -181,7 +181,8 @@ class FeesCollectionController extends Controller
         }
     }
 
-    public function view_student_transactions(){
+    public function view_student_transactions()
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         return view("admin.dashboard.finance.student-transactions.index", compact("schoolTerm", "schoolCurrency"));
@@ -212,14 +213,15 @@ class FeesCollectionController extends Controller
     }
 
     // update transaction data
-    public function update_transaction_data(Request $request){
+    public function update_transaction_data(Request $request)
+    {
         $student_uuid = $request->student_uuid;
         $transaction_id = $request->transaction_id;
         // $item = $request->item;
         // $invoice_id = $request->invoice_id;
         $new_amount_due = $request->amount_due;
         DB::beginTransaction();
-        try{
+        try {
             // get amount due already in the system
             $old_amount_due = Transaction::where('id', $transaction_id)->first()->amount_due;
 
@@ -240,7 +242,7 @@ class FeesCollectionController extends Controller
             toastr()->success('Transaction Updated successfully!');
             return redirect()->route('admin_student_transactions');
 
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             toastr()->error('Error!' . $th->getMessage());
             return redirect()->back();
@@ -248,12 +250,13 @@ class FeesCollectionController extends Controller
     }
 
     // delete transaction data
-    public function delete_transaction_data(Request $request){
+    public function delete_transaction_data(Request $request)
+    {
         $student_uuid = $request->student_uuid;
         $transaction_id = $request->transaction_id;
 
         DB::beginTransaction();
-        try{
+        try {
             // get amount due already in the system
             $old_amount_due = Transaction::where('id', $transaction_id)->first()->amount_due;
 
@@ -269,7 +272,7 @@ class FeesCollectionController extends Controller
             DB::commit();
             toastr()->success('Transaction Deleted successfully!');
             return redirect()->route('admin_student_transactions');
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             toastr()->error('Error!' . $th->getMessage());
             return redirect()->back();
