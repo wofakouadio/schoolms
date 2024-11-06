@@ -24,102 +24,89 @@
             <div class="row">
                 {{-- students --}}
                 <div class="col-xl-4 col-lg-12 col-sm-12">
-                    <div class="card overflow-hidden">
-                        <div class="text-center p-5 overlay-box" style="background-image: url(images/big/img5.jpg);">
-                            <img src="images/profile/profile.png" width="100" class="img-fluid rounded-circle" alt="">
-                            <h3 class="mt-3 mb-0 text-white">Students</h3>
+                    <div class="card overflow-hidden" style="height: auto">
+                        <div class="text-center p-5 overlay-box">
+                            <h3 class="mt-3 mb-0 text-white">{{ $dashRecords['studentsCount'] }} Students</h3>
                         </div>
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-6">
                                     <div class="bgl-primary rounded p-3">
-                                        <h4 class="mb-0">Female</h4>
-                                        <small>{{ $dashRecords['studentsGirls'] }}</small>
+                                        <h4 class="mb-0">{{ $dashRecords['studentsGirls'] }}</h4>
+                                        <small>Female</small>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="bgl-primary rounded p-3">
-                                        <h4 class="mb-0">Male</h4>
-                                        <small>{{ $dashRecords['studentsBoys'] }}</small>
+                                        <h4 class="mb-0">{{ $dashRecords['studentsBoys'] }}</h4>
+                                        <small>Male</small>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer mt-0">
-                            <button class="btn btn-primary btn-lg btn-block">{{ $dashRecords['studentsCount'] }}</button>
                         </div>
                     </div>
                 </div>
 
                 {{-- teachers --}}
                 <div class="col-xl-4 col-lg-12 col-sm-12">
-                    <div class="card overflow-hidden">
-                        <div class="text-center p-5 overlay-box" style="background-image: url(images/big/img5.jpg);">
-                            <img src="images/profile/profile.png" width="100" class="img-fluid rounded-circle" alt="">
-                            <h3 class="mt-3 mb-0 text-white">Teachers</h3>
+                    <div class="card overflow-hidden" style="height: auto">
+                        <div class="text-center p-5 overlay-box">
+                            <h3 class="mt-3 mb-0 text-white">{{ $dashRecords['teachersCount'] }} Teachers</h3>
                         </div>
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-6">
                                     <div class="bgl-primary rounded p-3">
-                                        <h4 class="mb-0">Female</h4>
-                                        <small>{{ $dashRecords['teachersGirls'] }}</small>
+                                        <h4 class="mb-0">{{ $dashRecords['teachersGirls'] }}</h4>
+                                        <small>Female</small>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="bgl-primary rounded p-3">
-                                        <h4 class="mb-0">Male</h4>
-                                        <small>{{ $dashRecords['teachersBoys'] }}</small>
+                                        <h4 class="mb-0">{{ $dashRecords['teachersBoys'] }}</h4>
+                                        <small>Male</small>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer mt-0">
-                            <button class="btn btn-primary btn-lg btn-block">{{ $dashRecords['teachersCount'] }}</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-4 col-lg-12 col-sm-12">
-                    <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
-						<div class="widget-stat card">
-							<div class="card-body p-4">
-								<div class="media ai-icon">
-									<span class="me-3 bgl-primary text-primary">
-										<!-- <i class="ti-user"></i> -->
-										<svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-											<circle cx="12" cy="7" r="4"></circle>
-										</svg>
-									</span>
-									<div class="media-body">
-										<p class="mb-1">Candidate</p>
-										<h4 class="mb-0">3280</h4>
-										<span class="badge badge-primary">+3.5%</span>
-									</div>
-								</div>
-							</div>
-						</div>
-                    </div>
-                    <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6">
-						<div class="widget-stat card">
-							<div class="card-body p-4">
-								<div class="media ai-icon">
-									<span class="me-3 bgl-primary text-primary">
-										<!-- <i class="ti-user"></i> -->
-										<svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-											<circle cx="12" cy="7" r="4"></circle>
-										</svg>
-									</span>
-									<div class="media-body">
-										<p class="mb-1">Candidate</p>
-										<h4 class="mb-0">3280</h4>
-										<span class="badge badge-primary">+3.5%</span>
-									</div>
-								</div>
-							</div>
-						</div>
+                    <div class="card">
+                        <div class="card-header border-0 pb-0">
+                            <h2 class="card-title">about me</h2>
+                        </div>
+                        <div class="card-body pb-0 text-center">
+                            <div class="row">
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['branchesCount'] }}</h3>
+                                    <span>@if($dashRecords['branchesCount'] == 1) Branch @else Branches @endif</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['departmentsCount'] }}</h3>
+                                    <span>@if($dashRecords['departmentsCount'] == 1) Department @else Departments @endif</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['levelsCount']}}</h3>
+                                    <span>@if($dashRecords['levelsCount'] == 1) Level @else Levels @endif</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['housesCount']}}</h3>
+                                    <span>@if($dashRecords['housesCount'] == 1) House @else Houses @endif</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['subjectsCount']}}</h3>
+                                    <span>@if($dashRecords['subjectsCount'] == 1) Subject @else Subjects @endif</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3">
+                                    <h3 class="mb-1 text-primary">{{ $dashRecords['categoriesCount']}}</h3>
+                                    <span>@if($dashRecords['categoriesCount'] == 1) Category @else Categories @endif</span>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
 
