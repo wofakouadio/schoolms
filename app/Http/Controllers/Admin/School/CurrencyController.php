@@ -83,7 +83,7 @@ class CurrencyController extends Controller
     public function set_selected_currency_as_default(Request $request){
         if($request->is_default_currency == 1){
 
-            $chk_if_there_is_currency_set_as_default = Currency::where('is_default_currency', 1)->exists();
+            $chk_if_there_is_currency_set_as_default = Currency::where(['is_default_currency' => 1, 'school_id' => Auth::guard('admin')->user()->school_id])->exists();
 
             if($chk_if_there_is_currency_set_as_default){
                 $response = [

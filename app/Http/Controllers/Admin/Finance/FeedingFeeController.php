@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Exports\FeedingFeeCollectionExport;
 use Maatwebsite\Excel\Facades\Excel;
+
 use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
 
 class FeedingFeeController extends Controller
 {
     //index
-    public function index(){
+    public function index()
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         $term = Term::where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' => 1])->first();
@@ -42,18 +44,19 @@ class FeedingFeeController extends Controller
     }
 
     // new feeding fee setup
-    public function new_feeding_fee_setup(Request $request){
+    public function new_feeding_fee_setup(Request $request)
+    {
         $request->validate([
             'amount' => 'required'
         ]);
         DB::beginTransaction();
-        try{
+        try {
             // check if feeding fee has already been saved with the current academic year
             $check = FeedingFee::where([
                 'academic_year_id' => $request->academic_year_id,
                 'school_id' => Auth::guard('admin')->user()->school_id
             ])->exists();
-            if($check){
+            if ($check) {
                 return redirect()->route('admin_finance_feeding_fee')->with('error', 'Feeding Fee already setup for this academic year');
             }
             FeedingFee::create([
@@ -64,26 +67,28 @@ class FeedingFeeController extends Controller
             ]);
             DB::commit();
             return redirect()->route('admin_finance_feeding_fee')->with('success', 'New Feeding Fee Setup created');
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->route('admin_finance_feeding_fee')->with('error', 'Something went wrong. Detail: ' . $th->getMessage());
         }
     }
 
     // get feeding fee data
-    public function get_feeding_fee_data(Request $request){
+    public function get_feeding_fee_data(Request $request)
+    {
         $data = FeedingFee::with('school_academic_year', 'school_currency')->where('id', $request->id)->first();
         return response()->json($data);
     }
 
     // update feeding fee data
-    public function update_feeding_fee_data(Request $request){
+    public function update_feeding_fee_data(Request $request)
+    {
         $request->validate([
             'amount' => 'required',
             'is_active' => 'required'
         ]);
         DB::beginTransaction();
-        try{
+        try {
             FeedingFee::where([
                 'id' => $request->feeding_fee_id
             ])->update([
@@ -92,29 +97,42 @@ class FeedingFeeController extends Controller
             ]);
             DB::commit();
             return redirect()->route('admin_finance_feeding_fee')->with('success', 'Feeding Fee Setup updated successfully');
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->route('admin_finance_feeding_fee')->with('error', 'Something went wrong. Detail: ' . $th->getMessage());
         }
     }
 
     // delete feeding fee data
-    public function delete_feeding_fee_data(Request $request){
+    public function delete_feeding_fee_data(Request $request)
+    {
         DB::beginTransaction();
-        try{
+        try {
+            //set the status to 0
+            FeedingFee::where([
+                'id' => $request->feeding_fee_id
+            ])->update([
+                'is_active' => 0
+            ]);
+            // then delete the data
             FeedingFee::where([
                 'id' => $request->feeding_fee_id
             ])->delete();
+            // delete related collection
+            FeedingFeeCollection::where('feeding_fee_id', $request->feeding_fee_id)->delete();
+            // delete related collection summary
+            FeedingFeeCollectionSummary::where('feeding_fee_id', $request->feeding_fee_id)->delete();
             DB::commit();
             return redirect()->route('admin_finance_feeding_fee')->with('success', 'Feeding Fee Setup deleted successfully');
-        }catch(\Exception $th){
+        } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->route('admin_finance_feeding_fee')->with('error', 'Something went wrong. Detail: ' . $th->getMessage());
         }
     }
 
     // new feeding fee collection and summary
-    public function feeding_fee_new_collection(Request $request){
+    public function feeding_fee_new_collection(Request $request)
+    {
         // check if record has already been created
         $checkOne = FeedingFeeCollection::where([
             'feeding_fee_id' => $request->feeding_fee_id,
@@ -126,11 +144,11 @@ class FeedingFeeController extends Controller
             'school_id' => Auth::guard('admin')->user()->school_id
         ])->exists();
 
-        if($checkOne){
+        if ($checkOne) {
             return redirect()->route('admin_finance_feeding_fee')->with('info', 'Feeding Fee collection record already saved');
-        }else{
+        } else {
             DB::beginTransaction();
-            try{
+            try {
                 // check if data is created in collection summary
                 $checkTwo = FeedingFeeCollectionSummary::where([
                     'feeding_fee_id' => $request->feeding_fee_id,
@@ -141,7 +159,7 @@ class FeedingFeeController extends Controller
                     'school_id' => Auth::guard('admin')->user()->school_id
                 ])->exists();
 
-                if(!$checkTwo){
+                if (!$checkTwo) {
                     // save collection
                     FeedingFeeCollection::create([
                         'feeding_fee_id' => $request->feeding_fee_id,
@@ -174,7 +192,7 @@ class FeedingFeeController extends Controller
                         'total_amount_realized' => $request->amount_realized,
                         'school_id' => Auth::guard('admin')->user()->school_id
                     ]);
-                }else{
+                } else {
                     // save collection
                     FeedingFeeCollection::create([
                         'feeding_fee_id' => $request->feeding_fee_id,
@@ -209,7 +227,7 @@ class FeedingFeeController extends Controller
                     $f = $checkThree->total_amount_realized + $request->amount_realized;
 
                     // update collection summary
-                    FeedingFeeCollectionSummary::where('id' ,'=' ,$checkThree->id)->update([
+                    FeedingFeeCollectionSummary::where('id', '=', $checkThree->id)->update([
                         'total_number_of_presents' => $a,
                         'total_number_of_who_do_not_pay' => $b,
                         'total_number_of_credits' => $c,
@@ -220,7 +238,7 @@ class FeedingFeeController extends Controller
                 }
                 DB::commit();
                 return redirect()->route('admin_finance_feeding_fee')->with('success', 'Feeding Fee collection recorded successfully');
-            }catch(\Exception $th){
+            } catch (\Exception $th) {
                 DB::rollBack();
                 return redirect()->route('admin_finance_feeding_fee')->with('warning', 'Something went wrong: Details :'.$th->getMessage());
             }
@@ -228,7 +246,8 @@ class FeedingFeeController extends Controller
     }
 
     // export feeding fee sheet
-    public function feeding_fee_collection_export(Request $request){
+    public function feeding_fee_collection_export(Request $request)
+    {
         $term_id = $request->term_id;
         $academic_year_id = $request->academic_year_id;
         $feeding_fee_id = $request->feeding_fee_id;
@@ -238,7 +257,8 @@ class FeedingFeeController extends Controller
         return Excel::download(new FeedingFeeCollectionExport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), 'week_'.$week.'_'.$date.'_feeding_fee_collection_.xlsx');
     }
 
-    public function feeding_fee_collection_import(Request $request){
+    public function feeding_fee_collection_import(Request $request)
+    {
         $term_id = $request->term_id;
         $academic_year_id = $request->academic_year_id;
         $feeding_fee_id = $request->feeding_fee_id;
@@ -246,15 +266,15 @@ class FeedingFeeController extends Controller
         $date = $request->date;
         $school_id = Auth::guard('admin')->user()->school_id;
         DB::beginTransaction();
-        try{
+        try {
             Excel::import(new FeedingFeeCollectionImport($school_id, $term_id, $academic_year_id, $feeding_fee_id, $week, $date), $request->file('import_file'));
             DB::commit();
             return redirect()->route('admin_finance_feeding_fee')->with('info', 'Feeding Fee collection record saved');
-        // dd($t);
-        }catch(\Exception $th){
+            // dd($t);
+        } catch (\Exception $th) {
             DB::rollBack();
             return redirect()->route('admin_finance_feeding_fee')->with('error', $th->getMessage());
-        // dd($t);
+            // dd($t);
         }
 
     }
