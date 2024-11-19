@@ -170,6 +170,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::put('admissions/student/update-admission-status', [StudentsAdmissionsController::class, 'updateAdmissionStatus'])->name('update-student-admission-status');
     Route::delete('admissions/student/delete', [StudentsAdmissionsController::class, 'delete'])->name('delete-student-admission');
     Route::get('studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name('studentsAdmissionsTables');
+    Route::get('admissions/export-template', [StudentsAdmissionsController::class, 'export_admissions_template'])->name('admin_export_template');
 
     /**Students**/
     Route::get('student', [StudentController::class, 'index'])->name('admin_student');
@@ -207,10 +208,13 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::put("finance/student-transactions/update", [FeesCollectionController::class, 'update_transaction_data'])->name("admin_update_student_transaction");
     Route::delete("finance/student-transactions/delete", [FeesCollectionController::class, 'delete_transaction_data'])->name("admin_delete_student_transaction");
 
-    /** Finance Report **/
+    /** Finance Fee Report **/
     Route::get("finance/reports", [FinanceReportController::class, 'index'])->name("admin_finance_report");
     Route::post("finance/reports/get_student_data", [FinanceReportController::class, 'get_student_finance_data'])->name("admin_finance_student_report_data");
-    Route::post("finance/reports/download", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
+    Route::post("finance/reports/download_student_financial_report", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
+    /** Finance Arrears Report **/
+    Route::post("finance/reports/get_student_arrears_data", [FinanceReportController::class, 'get_student_finance_arrears_data'])->name('admin_finance_student_arrears_report_data');
+    Route::post("finance/reports/download_student_arrears_report", [FinanceReportController::class, 'download_student_finance_arrears_data'])->name('admin_finance_download_student_arrears_report');
 
     /** Feeding Fee **/
     Route::get("finance/feeding-fee", [FeedingFeeController::class, 'index'])->name('admin_finance_feeding_fee');
