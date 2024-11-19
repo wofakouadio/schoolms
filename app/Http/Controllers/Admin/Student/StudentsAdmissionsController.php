@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
+use App\Exports\StudentsAdmissionsExport;
 use App\Models\Bill;
 use App\Models\Student;
 use App\Models\Department;
@@ -121,6 +122,10 @@ class StudentsAdmissionsController extends Controller
                 'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
             ]);
         }
+    }
+
+    public function export_admissions_template(Request $request){
+        return Excel::download(new StudentsAdmissionsExport,'template_admission.xlsx');
     }
 
     //edit student admission
