@@ -76,7 +76,7 @@
                         <li><a href="{{route('admin_finance_admission_fee')}}">Admission Fees</a></li>
                         <li><a href="{{ route('admin_student_bill') }}">Student Billing</a></li>
                         <li><a href="{{route('admin_finance_fee_collection')}}">Fee Collection</a></li>
-                        <li><a href="{{ route('admin_student_transactions') }}">Student Fee Collection</a></li>
+                        <li><a href="{{ route('admin_student_transactions') }}">Fee Management</a></li>
                         <li><a href="{{ route('admin_finance_feeding_fee') }}">Feeding Fee Collection</a></li>
                         <li><a href="{{ route('admin_finance_report') }}">Financial Report</a></li>
                         {{-- <li><a href="{{route('admin_expenditure')}}">Expenditure</a></li> --}}

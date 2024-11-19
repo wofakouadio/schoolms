@@ -1,12 +1,12 @@
 @extends('layouts.dash-layout')
 
 @push('title')
-    <title>Student Fee Collection | School Mgt Sys</title>
+    <title>Fee Management | School Mgt Sys</title>
 @endpush
 
 @push('page_name')
     <div class="dashboard_bar" id="dash_page_name">
-        Student Fee Collection
+        Fee Management
     </div>
 @endpush
 
@@ -45,7 +45,7 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Student Fee Collections</h5>
+                            <h5>Fee Management</h5>
                         </div>
                         <div class="card-body student-fee-collection-holder">
                             <form class="form-group" method="POST" id="transaction_form">

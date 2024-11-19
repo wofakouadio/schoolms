@@ -90,9 +90,10 @@ class FeesCollectionController extends Controller
                     return redirect()->route('admin_finance_fee_collection');
                 }
             }
-
+            // $transaction = [];
             foreach ($request->transaction_allocations as $k => $item) {
 
+                // $transaction[] = Transaction::where('id', $item['id'])->first();
                 $transaction = Transaction::where('id', $item['id'])->first();
 
                 //if student pays exact amount
@@ -129,8 +130,8 @@ class FeesCollectionController extends Controller
                             'payment_status' => 'awaiting_payment',
                             "student_id" => $request->student_id,
                             "level_id" => $student->student_level,
-                            "description" => 'New Balance for ' . $transaction->item,
-                            "items" => $transaction->item
+                            "description" => 'New Balance for ' . $transaction->items,
+                            "items" => $transaction->items
                         ]);
                     }
                 }
@@ -155,6 +156,8 @@ class FeesCollectionController extends Controller
                     }
                 }
             }
+
+            // dd($transaction);
 
             //update student admission with current balances
             $student->update([
