@@ -241,18 +241,23 @@ class StudentMockController extends Controller
     {
         $level_id = $request->level_id;
         $output = [];
-        $students = StudentsAdmissions::where('student_level', $level_id)
-            ->where("school_id", Auth::guard('admin')->user()->school_id)
-            ->where('admission_status', 1)
-            ->orderBy('student_firstname', 'ASC')
+        $students = StudentsAdmissions::where([
+            "student_level" => $level_id,
+            "school_id" => Auth::guard('admin')->user()->school_id,
+            "admission_status" => 1
+            ])->orderBy(column: 'student_firstname')
             ->get();
-        $output[] = '<option value="">Choose</option>';
-        foreach ($students as $student) {
-//            dd($student);
-            $output[] = '<option value="' . $student->id . '">' . $student->student_firstname . ' '
-                . $student->student_othername . ' '
-                . $student->student_lastname . '</option>';
+        if($students->count() > 0){
+            $output[] = '<option value="">Choose</option><option value="all">All the students</option>';
+            foreach ($students as $student) {
+                $output[] = '<option value="' . $student->id . '">' . $student->student_firstname . ' '
+                    . $student->student_othername . ' '
+                    . $student->student_lastname . '</option>';
+            }
+        }else{
+            $output[] = '<option value="">Choose</option>';
         }
+
         return $output;
     }
 
