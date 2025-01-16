@@ -15,9 +15,10 @@
                 $authUser = '';
             }
             return Term::with('academic_year')
-                ->where('school_id', $authUser)
-                ->where('is_active', 1)
-                ->first();
+                ->where([
+                    'school_id' => $authUser,
+                    'is_active' => 1
+                ])->first();
         }
     }
 

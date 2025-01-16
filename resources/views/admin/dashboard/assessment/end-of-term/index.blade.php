@@ -64,7 +64,7 @@
                                             <th>S/N</th>
                                             <th>Name</th>
                                             <th>Level</th>
-                                            <th>Subject</th>
+                                            {{-- <th>Subject</th> --}}
                                             <th>Score</th>
                                             <th>Percentage ({{ $exam_percentage }}%)</th>
                                             {{-- <th>Action</th> --}}
@@ -73,17 +73,16 @@
                                     <tbody>
                                     {{-- {{ dd($EndTermRecords) }} --}}
                                         @unless(count($EndTermRecords) == 0)
-                                            {{ $counter = 1 }}
                                             @foreach($EndTermRecords as $record)
                                                 <tr>
-                                                    <td>{{ $counter++ }}</td>
-                                                    <td>{{ $record->term->term_name }} - {{ $record->term->academic_year->academic_year_start .'/'. $record->term->academic_year->academic_year_end }}</td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $record->term->term_name }} - {{ $record->academic_year->academic_year_start .'/'. $record->academic_year->academic_year_end }}</td>
                                                     <td>{{ $record->student->student_id }}</td>
                                                     <td>{{ $record->student->student_firstname .' '. $record->student->student_lastname }}</td>
-                                                    <td>{{ $record->end_term->level->level_name }}</td>
-                                                    <td>{{ $record->subject->subject_name }}</td>
-                                                    <td>{{ $record->score }}</td>
-                                                    <td>{{ $record->percentage }}</td>
+                                                    <td>{{ $record->level->level_name }}</td>
+                                                    {{-- <td>{{ $record->subject->subject_name }}</td> --}}
+                                                    <td>{{ $record->end_term_total_score }}</td>
+                                                    <td>{{ $record->end_term_total_score_percentage }}</td>
                                                 </tr>
                                             @endforeach
                                         @endunless

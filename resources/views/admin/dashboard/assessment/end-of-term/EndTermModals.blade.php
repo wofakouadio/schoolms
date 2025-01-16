@@ -103,6 +103,7 @@
                             <label  class="form-label font-w600">Academic Year<span class="text-danger scale5
                             ms-2">*</span></label>
                             <input class="form-control solid" name="academic_year" type="text" readonly>
+                            <input type="hidden" name="academic_year_id">
                         </div>
                     </div>
                     <div class="row">

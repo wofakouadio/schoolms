@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-9">
                     <div id="end_of_term_report_display" style="display: flex; justify-content: center;">
-                        {{-- {{ dd($data['status']) }} --}}
+
                         @empty($data)
                         @else
                             {{-- @foreach ($data as $value) --}}
@@ -58,6 +58,7 @@
                                             alert-square text-uppercase">
                                         <strong>{{ $data['notice'] }}</strong></div>
                                 @else
+                                {{-- {{ dd($data) }} --}}
                                     <div class="card">
                                         <div class="card-header">
                                             <form action="{{ route('admin_download_end_of_term_report') }}" method="post">
@@ -163,28 +164,28 @@
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Class Score :
                                                         <span class="fw-bolder">
-                                                            {{ $data['classPercentageScore'] }}
+                                                            {{ $data['studentAssessmentRecordsSummary']['class_total_score'] }}
                                                         </span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Mid-Term Score :
                                                         <span class="fw-bolder">
-                                                            {{ $data['midTermSummary']['total_percentage'] }}
+                                                            {{ $data['studentAssessmentRecordsSummary']['mid_term_total_score'] }}
                                                         </span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Exam Score :
                                                         <span class="fw-bolder">
-                                                            {{ $data['endTermFirst']['total_percentage'] }}
+                                                            {{ $data['studentAssessmentRecordsSummary']['end_term_total_score'] }}
                                                         </span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 p-2.5">
                                                     <p>Total Score :
                                                         <span class="fw-bolder">
-                                                            {{ $data['endTermFirst']['total_percentage'] + $data['midTermSummary']['total_percentage'] + $data['classPercentageScore'] }}
+                                                            {{ $data['studentAssessmentRecordsSummary']['total_score'] }}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -194,7 +195,6 @@
                                             </div>
                                              <div class="table-responsive">
                                                 <table class="table table-striped">
-                                                {{-- {{ dd($value['schoolAssessmentPercentage']) }} --}}
                                                     <thead>
                                                         <tr>
                                                             <th class="center">Subject</th>
@@ -215,16 +215,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                         {{-- {{ dd($data['finalData']) }} --}}
-                                                        @foreach($data['finalData'] as $key => $value)
+                                                        @foreach($data['studentAssessmentRecords'] as $key => $value)
                                                             <tr>
-                                                                <td>{{ $value['subject_name'] }}</td>
-                                                                <td class="text-center">{{ $value['class_assessment'] ?? 0 }}</td>
-                                                                <td class="text-center">{{ $value['mid_term'] ?? 0}}</td>
-                                                                <td class="text-center">{{ $value['end_term'] ?? 0}}</td>
-                                                                <td class="text-center">{{ $value['total'] ?? 0}}</td>
-                                                                <td class="text-center">{{ $value['grade'] }}</td>
-                                                                <td class="text-center">{{ $value['level'] }}</td>
+                                                                <td>{{ $value['subject']['subject_name'] }}</td>
+                                                                <td class="text-center">{{ $value['class_assessment_percentage'] ?? 0 }}</td>
+                                                                <td class="text-center">{{ $value['mid_term_percentage'] ?? 0}}</td>
+                                                                <td class="text-center">{{ $value['end_term_percentage'] ?? 0}}</td>
+                                                                <td class="text-center">{{ $value['total_percentage_score'] ?? 0}}</td>
+                                                                <td class="text-center">{{ $value['grade_level'] }}</td>
+                                                                <td class="text-center">{{ $value['grade_proficiency_level'] }}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -236,22 +235,22 @@
                                             <div class="row">
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Conduct : <span
-                                                            class="fw-bolder">{{ $data['endTermFirst']['conduct'] }}</span>
+                                                            class="fw-bolder">{{ $data['studentAssessmentRecordsSummary']['conduct'] }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Attitude : <span
-                                                            class="fw-bolder">{{ $data['endTermFirst']['attitude'] }}</span>
+                                                            class="fw-bolder">{{ $data['studentAssessmentRecordsSummary']['attitude'] }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>Interest : <span
-                                                            class="fw-bolder">{{ $data['endTermFirst']['interest'] }}</span>
+                                                            class="fw-bolder">{{ $data['studentAssessmentRecordsSummary']['interest'] }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                                     <p>General Remarks : <span
-                                                            class="fw-bolder">{{ $data['endTermFirst']['general_remarks'] }}</span>
+                                                            class="fw-bolder">{{ $data['studentAssessmentRecordsSummary']['general_remarks'] }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -273,17 +272,7 @@
                                                                 <td><span class="fw-bolder">{{ $grading['grade']}}</span></td>
                                                                 <td><span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span></td>
                                                             </tr>
-
-                                                        {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                            <span class="fw-bolder">{{ $grading['score_from'].'-'.$grading['score_to']}}</span> | <span class="fw-bolder">{{ $grading['grade']}}</span> | <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
-                                                        </div> --}}
-                                                        {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                            <span class="fw-bolder">{{ $grading['grade']}}</span>
-                                                        </div>
-                                                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                                            <span class="fw-bolder">{{ $grading['level_of_proficiency']}}</span>
-                                                        </div> --}}
-                                                    @endforeach
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

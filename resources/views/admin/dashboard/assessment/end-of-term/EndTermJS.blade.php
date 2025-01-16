@@ -64,6 +64,7 @@
                     $("#insert-student-end-term-modal").find('input[name=academic_year]').val
                     (Response['Term']['academic_year']['academic_year_start']+'/'+Response['Term']['academic_year' +
                     '']['academic_year_end'])
+                    $("#insert-student-end-term-modal").find('input[name=academic_year_id]').val(Response['Term']['academic_year']['id'])
                     $("#insert-student-end-term-modal").find('input[name=branch_id]').val
                     (Response['StudentData']['student_branch'])
                     // console.log(Response['Subjects'])

@@ -39,23 +39,23 @@
                                             <th>Student ID</th>
                                             <th>Name</th>
                                             <th>Level</th>
-                                            <th>Subject</th>
+                                            {{-- <th>Subject</th> --}}
                                             <th>Score</th>
                                             <th>Percentage({{ $classAssessmentPercentage }}%)</th>
-                                            <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {{-- {{ dd($AssessmentRecords) }} --}}
-                                        {{ $x = 1 }}
+
                                         @foreach ($AssessmentRecords as $record)
                                             <tr>
-                                                <td>{{ $x++ }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $record->term->term_name .
                                                     ' - ' .
-                                                    $record->academicYear->academic_year_start .
+                                                    $record->academic_year->academic_year_start .
                                                     '/' .
-                                                    $record->academicYear->academic_year_end }}
+                                                    $record->academic_year->academic_year_end }}
                                                 </td>
                                                 <td>{{ $record->student->student_id }}</td>
                                                 <td>{{ $record->student->student_firstname .
@@ -65,9 +65,9 @@
                                                     $record->student->student_lastname }}
                                                 </td>
                                                 <td>{{ $record->level->level_name }}</td>
-                                                <td>{{ $record->subject->subject_name }}</td>
-                                                <td>{{ $record->score }}</td>
-                                                <td>{{ $record->percentage }}</td>
+                                                {{-- <td>{{ $record->subject->subject_name }}</td> --}}
+                                                <td>{{ $record->class_total_score }}</td>
+                                                <td>{{ $record->class_total_score_percentage }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn btn-primary light sharp"
@@ -87,14 +87,14 @@
                                                                 </g>
                                                             </svg>
                                                         </button>
-                                                        <div class="dropdown-menu" style="">
+                                                        {{-- <div class="dropdown-menu" style=""> --}}
                                                             {{-- <a class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#edit-level-assessment-modal"
                                                                 data-id="{{ $record->id }}">Edit Class Score</a> --}}
-                                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                            {{-- <a class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#delete-level-assessment-modal"
                                                                 data-id="{{ $record->id }}">Delete Class Score</a>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </td>
                                             </tr>

@@ -112,7 +112,7 @@
                                 </p>
                             </td>
                             <td style="text-align: center">
-                                <img src="{{public_path($data['schoolProfile'])}}" class='rounded-circle' width=55>
+                                <img src="{{public_path($data['studentProfile'])}}" class='rounded-circle' width=55>
                             </td>
                         </tr>
                         <tr>
@@ -164,16 +164,16 @@
                                 <table class="table" style="width: 100%">
                                     <tr>
                                         <td>
-                                            Total Class Score: {{$data['classPercentageScore']}}
+                                            Total Class Score: {{$data['studentAssessmentRecordsSummary']['class_total_score']}}
                                         </td>
                                         <td>
-                                            Total Mid-Term Score: {{$data['midTermSummary']['total_percentage']}}
+                                            Total Mid-Term Score: {{$data['studentAssessmentRecordsSummary']['mid_term_total_score']}}
                                         </td>
                                         <td>
-                                            Total Exam Score: {{$data['endTermFirst']['total_percentage']}}
+                                            Total Exam Score: {{$data['studentAssessmentRecordsSummary']['end_term_total_score']}}
                                         </td>
                                         <td>
-                                            Total Score: {{$data['endTermFirst']['total_percentage'] + $data['midTermSummary']['total_percentage'] + $data['classPercentageScore']}}
+                                            Total Score: {{$data['studentAssessmentRecordsSummary']['total_score'] }}
                                         </td>
                                     </tr>
                                 </table>
@@ -205,28 +205,28 @@
                             </th>
                             <th>Proficiency Level</th>
                         </tr>
-                        @foreach($data['finalData'] as $key => $value)
+                        @foreach($data['studentAssessmentRecords'] as $key => $value)
                             <tr style="text-align: center;">
-                                <td style="border: 1px solid black; padding-left:10px">
-                                    {{ $value['subject_name'] }}
+                                <td style="border: 1px solid black; padding-left:10px; text-align: left;">
+                                    {{ $value['subject']['subject_name'] }}
                                 </td>
                                 <td style="border: 1px solid black; padding-left:10px">
-                                    {{ $value['class_assessment'] ?? 0 }}
+                                    {{ $value['class_assessment_percentage'] ?? 0 }}
                                 </td>
                                 <td style="border: 1px solid black; padding-left:10px">
-                                    {{ $value['mid_term'] ?? 0}}
+                                    {{ $value['mid_term_percentage'] ?? 0}}
                                 </td>
                                 <td style="border: 1px solid black; padding-left:10px">
-                                    {{ $value['end_term'] ?? 0}}
+                                    {{ $value['end_term_percentage'] ?? 0}}
                                 </td>
                                 <td style="text-align: center; border: 1px solid black;">
-                                    {{ $value['total'] ?? 0}}
+                                    {{ $value['total_percentage_score'] ?? 0}}
                                 </td>
                                 <td style="text-align: center; border: 1px solid black;">
-                                    {{ $value['grade'] }}
+                                    {{ $value['grade_level'] }}
                                 </td>
                                 <td style="text-align: center; border: 1px solid black;">
-                                    {{ $value['level'] }}
+                                    {{ $value['grade_proficiency_level'] }}
                                 </td>
                             </tr>
                         @endforeach
@@ -240,18 +240,18 @@
                                 <table class="table"  id="tableAppraisal" style="width: 100%">
                                     <tr>
                                         <td>
-                                            Conduct: <b>{{$data['endTermFirst']['conduct']}}</b>
+                                            Conduct: <b>{{$data['studentAssessmentRecordsSummary']['conduct']}}</b>
                                         </td>
                                         <td>
-                                            Attitude: <b>{{$data['endTermFirst']['attitude']}}</b>
+                                            Attitude: <b>{{$data['studentAssessmentRecordsSummary']['attitude']}}</b>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Interest: <b>{{$data['endTermFirst']['interest']}}</b>
+                                            Interest: <b>{{$data['studentAssessmentRecordsSummary']['interest']}}</b>
                                         </td>
                                         <td>
-                                            General Remarks: <b>{{$data['endTermFirst']['general_remarks']}}</b>
+                                            General Remarks: <b>{{$data['studentAssessmentRecordsSummary']['general_remarks']}}</b>
                                         </td>
                                     </tr>
                                 </table>
