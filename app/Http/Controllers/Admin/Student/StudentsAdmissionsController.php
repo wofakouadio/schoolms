@@ -20,6 +20,8 @@ use App\Models\AssignLevelToDepartment;
 use App\Imports\StudentsAdmissionsImport;
 
 use App\DataTables\StudentAdmissionDataTable;
+use App\Models\StudentsHealthRecords;
+
 use function App\Helpers\TermAndAcademicYear;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -52,13 +54,19 @@ class StudentsAdmissionsController extends Controller
             // 'student_guardian_email' => 'email',
             'student_guardian_occupation' => 'required',
             'student_guardian_id_card' => ['image', 'mimes:jpg,png,jpeg'],
-            'student_profile' => ['image', 'mimes:jpg,png,jpeg']
+            'student_profile' => ['image', 'mimes:jpg,png,jpeg'],
+            'student_birth_type' => 'required',
+            'student_weight' => 'required',
+            'student_having_chronic_disease' => 'required',
+            'student_having_generic_disease' => 'required',
+            'student_having_allergies' => 'required',
+            'student_having_stitches' => 'required'
         ]);
 
         DB::beginTransaction();
 
         try {
-
+            // admit new student
             $new_admission = StudentsAdmissions::create([
                 'student_firstname' => $request->student_firstname,
                 'student_othername' => $request->student_oname,
@@ -77,6 +85,26 @@ class StudentsAdmissionsController extends Controller
                 'student_guardian_email' => $request->student_guardian_email ?? '',
                 'student_guardian_occupation' => $request->student_guardian_occupation,
                 'school_id' => Auth::guard('admin')->user()->school_id
+            ]);
+
+            // add student health report
+            StudentsHealthRecords::create([
+                'student_id' => $new_admission->id,
+                'student_birth_type' => $request->student_birth_type,
+                'student_birth_type_other' => $request->student_birth_type_other,
+                'student_weight' => $request->student_weight,
+                'student_having_chronic_disease' => $request->student_having_chronic_disease,
+                'student_has_chronic_disease' => $request->student_has_chronic_disease,
+                'student_having_generic_disease' => $request->student_having_generic_disease,
+                'student_has_generic_disease' => $request->student_has_generic_disease,
+                'student_having_allergies' => $request->student_having_allergies,
+                'student_has_allergies' => $request->student_has_allergies,
+                'student_having_stitches' => $request->student_having_stitches,
+                'student_has_stitches' => $request->student_has_stitches,
+                'causes_for_student_has_stitches' => $request->causes_for_student_has_stitches,
+                'student_other_health_info' => $request->student_other_health_info,
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'branch_id' => $request->student_branch
             ]);
 
             if ($request->hasFile('student_profile')) {
@@ -131,10 +159,16 @@ class StudentsAdmissionsController extends Controller
     //edit student admission
     public function edit(Request $request)
     {
-        $data = StudentsAdmissions::where('id', $request->admission_id)->first();
-        $data->getMedia('student_profile')->first();
-        $data->getMedia('student_guardian_id_card')->first();
-        return response()->json($data);
+        $student = StudentsAdmissions::where('id', $request->admission_id)->first();
+        $health = StudentsHealthRecords::where('student_id', $request->admission_id)->first();
+        $student->getMedia('student_profile')->first();
+        $student->getMedia('student_guardian_id_card')->first();
+        $response = [
+            'studentData' => $student,
+            'healthData' => $health
+        ];
+        // dd($response);
+        return response()->json($response);
     }
 
     //update student admission
@@ -156,7 +190,13 @@ class StudentsAdmissionsController extends Controller
             'student_guardian_email' => 'email',
             'student_guardian_occupation' => 'required',
             'student_guardian_id_card' => ['image', 'mimes:jpg,png,jpeg'],
-            'student_profile' => ['image', 'mimes:jpg,png,jpeg']
+            'student_profile' => ['image', 'mimes:jpg,png,jpeg'],
+            'student_birth_type' => 'required',
+            'student_weight' => 'required',
+            'student_having_chronic_disease' => 'required',
+            'student_having_generic_disease' => 'required',
+            'student_having_allergies' => 'required',
+            'student_having_stitches' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -180,6 +220,24 @@ class StudentsAdmissionsController extends Controller
                 'student_guardian_address' => $request->student_guardian_address,
                 'student_guardian_email' => $request->student_guardian_email ?? '',
                 'student_guardian_occupation' => $request->student_guardian_occupation
+            ]);
+
+            StudentsHealthRecords::where([
+                'id' => $request->student_health_id,
+            ])->update([
+                'student_birth_type' => $request->student_birth_type,
+                'student_birth_type_other' => $request->student_birth_type_other,
+                'student_weight' => $request->student_weight,
+                'student_having_chronic_disease' => $request->student_having_chronic_disease,
+                'student_has_chronic_disease' => $request->student_has_chronic_disease,
+                'student_having_generic_disease' => $request->student_having_generic_disease,
+                'student_has_generic_disease' => $request->student_has_generic_disease,
+                'student_having_allergies' => $request->student_having_allergies,
+                'student_has_allergies' => $request->student_has_allergies,
+                'student_having_stitches' => $request->student_having_stitches,
+                'student_has_stitches' => $request->student_has_stitches,
+                'causes_for_student_has_stitches' => $request->causes_for_student_has_stitches,
+                'student_other_health_info' => $request->student_other_health_info
             ]);
 
             if ($request->hasFile('student_profile')) {

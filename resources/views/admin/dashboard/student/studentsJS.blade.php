@@ -148,36 +148,36 @@
                 success:(Response)=>{
                     // console.log(Response)
                     modal.find("input[name=admission_id]").val(admission_id)
-                    modal.find("input[name=student_firstname]").val(Response['student_firstname'])
-                    modal.find("input[name=student_lastname]").val(Response['student_lastname'])
-                    modal.find("input[name=student_oname]").val(Response['student_othername'])
-                    modal.find("select[name=student_gender]").val(Response['student_gender'])
-                    modal.find("input[name=student_date_of_birth]").val(Response['student_dob'])
-                    modal.find("input[name=student_place_of_birth]").val(Response['student_pob'])
-                    modal.find("select[name=student_branch]").val(Response['student_branch'])
-                    modal.find("select[name=student_level]").val(Response['student_level'])
-                    modal.find("select[name=student_house]").val(Response['student_house'])
-                    modal.find("select[name=student_category]").val(Response['student_category'])
-                    modal.find("select[name=student_residency_type]").val(Response['student_residency_type'])
-                    modal.find("input[name=student_guardian_name]").val(Response['student_guardian_name'])
-                    modal.find("input[name=student_guardian_contact]").val(Response['student_guardian_contact'])
-                    modal.find("input[name=student_guardian_address]").val(Response['student_guardian_address'])
-                    modal.find("input[name=student_guardian_email]").val(Response['student_guardian_email'])
+                    modal.find("input[name=student_firstname]").val(Response['studentData']['student_firstname'])
+                    modal.find("input[name=student_lastname]").val(Response['studentData']['student_lastname'])
+                    modal.find("input[name=student_oname]").val(Response['studentData']['student_othername'])
+                    modal.find("select[name=student_gender]").val(Response['studentData']['student_gender'])
+                    modal.find("input[name=student_date_of_birth]").val(Response['studentData']['student_dob'])
+                    modal.find("input[name=student_place_of_birth]").val(Response['studentData']['student_pob'])
+                    modal.find("select[name=student_branch]").val(Response['studentData']['student_branch'])
+                    modal.find("select[name=student_level]").val(Response['studentData']['student_level'])
+                    modal.find("select[name=student_house]").val(Response['studentData']['student_house'])
+                    modal.find("select[name=student_category]").val(Response['studentData']['student_category'])
+                    modal.find("select[name=student_residency_type]").val(Response['studentData']['student_residency_type'])
+                    modal.find("input[name=student_guardian_name]").val(Response['studentData']['student_guardian_name'])
+                    modal.find("input[name=student_guardian_contact]").val(Response['studentData']['student_guardian_contact'])
+                    modal.find("input[name=student_guardian_address]").val(Response['studentData']['student_guardian_address'])
+                    modal.find("input[name=student_guardian_email]").val(Response['studentData']['student_guardian_email'])
                     modal.find("select[name=student_guardian_occupation]").val
-                    (Response['student_guardian_occupation'])
+                    (Response['studentData']['student_guardian_occupation'])
 
-                    if(Response['media'].length > 0){
+                    if(Response['studentData']['media'].length > 0){
 
-                        if(Response['media'][0]){
+                        if(Response['studentData']['media'][0]){
                             modal.find('#student-profile').show()
-                            modal.find('#student-profile').attr("src",Response['media'][0]['original_url'])
+                            modal.find('#student-profile').attr("src",Response['studentData']['media'][0]['original_url'])
                         }else{
                             modal.find('#student-profile').hide()
                         }
 
-                        if(Response['media'][1]){
+                        if(Response['studentData']['media'][1]){
                             modal.find('#student-guardian-id').show()
-                            modal.find('#student-guardian-id').attr("src",Response['media'][1]['original_url'])
+                            modal.find('#student-guardian-id').attr("src",Response['studentData']['media'][1]['original_url'])
                         }else{
                             modal.find('#student-guardian-id').hide()
                         }
@@ -186,6 +186,20 @@
                         modal.find('#student-profile').hide()
                         modal.find('#student-guardian-id').hide()
                     }
+                    modal.find("input[name=student_health_id]").val(Response['healthData']['id'])
+                    modal.find("select[name=student_birth_type]").val(Response['healthData']['student_birth_type'])
+                    modal.find("input[name=student_birth_type_other]").val(Response['healthData']['student_birth_type'])
+                    modal.find("input[name=student_weight]").val(Response['healthData']['student_weight'])
+                    modal.find("select[name=student_having_chronic_disease]").val(Response['healthData']['student_having_chronic_disease'])
+                    modal.find("input[name=student_has_chronic_disease]").val(Response['healthData']['student_has_chronic_disease'])
+                    modal.find("select[name=student_having_generic_disease]").val(Response['healthData']['student_having_generic_disease'])
+                    modal.find("input[name=student_has_generic_disease]").val(Response['healthData']['student_has_generic_disease'])
+                    modal.find("select[name=student_having_allergies]").val(Response['healthData']['student_having_allergies'])
+                    modal.find("input[name=student_has_allergies]").val(Response['healthData']['student_has_allergies'])
+                    modal.find("select[name=student_having_stitches]").val(Response['healthData']['student_having_stitches'])
+                    modal.find("input[name=student_has_stitches]").val(Response['healthData']['student_has_stitches'])
+                    modal.find("input[name=causes_for_student_has_stitches]").val(Response['healthData']['causes_for_student_has_stitches'])
+                    modal.find("textarea[name=student_other_health_info]").val(Response['healthData']['student_other_health_info'])
                 }
             })
         })
@@ -334,7 +348,7 @@
             })
         })
 
-        {{--//show delete student modal with data--}}
+        //show delete student modal with data
         $("#delete-student-admission-modal").on("show.bs.modal", (event)=>{
             let str = $(event.relatedTarget);
             let admission_id = str.data('id')
@@ -359,7 +373,7 @@
             })
         })
 
-        {{--//delete student data--}}
+        //delete student data
         $("#delete-student-admission-form").on("submit", (e)=>{
             e.preventDefault()
             $.ajaxSetup({
