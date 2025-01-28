@@ -43,6 +43,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('auth/', [AdminAuthController::class, 'admin_login'])->name('admin_login');
 Route::get('auth/forgot-password', [AdminAuthController::class, 'forgot_password'])->name('forgot_password');
+Route::post('auth/forgot-password', [AdminAuthController::class, 'admin_forgot_password'])->name('admin_forgot_password');
+Route::get('auth/reset-password/{token}/{email}', [AdminAuthController::class, 'admin_reset_password_get'])->name('admin_reset_password_get');
+Route::post('auth/reset-password', [AdminAuthController::class, 'admin_reset_password_post'])->name('admin_reset_password_post');
 Route::post('auth/login', [AdminAuthController::class, 'admin_authentication'])->name('admin_authentication');
 
 //Administrator Controller

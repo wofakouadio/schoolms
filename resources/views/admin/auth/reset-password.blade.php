@@ -1,7 +1,7 @@
 @extends('layouts.auth-layout')
 
 @push('title')
-<title>Forgot Password | School Mgt System</title>
+<title>Reset Password | School Mgt System</title>
 @endpush
 
 @section('content')
@@ -17,12 +17,21 @@
                                 <div class="text-center mb-3">
                                     <a href=""><img src="images/logo-full.png" alt=""></a>
                                 </div>
-                                <h4 class="text-center mb-4">Forgot Password</h4>
-                                <form action="{{ route('admin_forgot_password') }}" method="post">
+                                <h4 class="text-center mb-4">Reset Password</h4>
+                                <form action="{{ route('admin_reset_password_post') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label><strong>Email</strong></label>
-                                        <input type="email" class="form-control" value="{{ old('admin_email') }}" name="admin_email">
+                                        <input type="email" class="form-control" value="{{ $email }}" name="email" readonly>
+                                        <input type="hidden" name="token" value="{{ $token }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label><strong>New Password</strong></label>
+                                        <input type="password" class="form-control" name="new_password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label><strong>Confirm Password</strong></label>
+                                        <input type="password" class="form-control" name="confirm_password">
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
