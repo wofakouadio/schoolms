@@ -1,0 +1,16 @@
+31/01/2025
+ADD NEW TEACHER FORM
+1. Change the "Name of Present School" field in the Employment Details section, to "Most recent Institution taught (if any)". The field should not be required.
+2. In the "Academic Qualification" field, this should be the list; Doctorate Degree, Masters Degree, Bachelor degree, HND, Diploma, Certificate, WASSCE, and SSSCE.
+3. The "Professional Qualification" field should be a textbox for inputting text, not a dropdown list. Also, the field should not be required
+4. In the "Present Rank" field, the list should be [Director General, Deputy Director General, Director I, Director II, Deputy Director, Assistant Director I, Assistant Director II, Principal Superintendent, Senior Superintendent I, Senior Superintendent II, Superintendent I, Superintendent II, Pupil Teacher, Other (Specify)].
+5. The "1st Appointment Date" field should not be required.
+
+ADMIT STUDENT FORM
+1. The interface is showing the words "undefined undefined". It should be removed.
+
+FEE COLLECTION AND FEE MANAGEMENT FORMS
+1. Instead of searching the student by ID, there should be three input fields. The first one should be a text box for Student ID (read-only, initially blank).
+2. The second one should be a dropdown list populated by the class of the students.
+3. The third one should also be a dropdown list populated by the student names for the particular class selected in the previous field.
+4. Upon selection of a particular student, the student's ID should now fill the Student ID textbox.
