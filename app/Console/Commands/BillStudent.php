@@ -90,7 +90,7 @@ class BillStudent extends Command implements ShouldQueue
                                     'description' => $breakdown->item,
                                     'amount_due' => $breakdown->amount,
                                     'items' => $breakdown->item,
-                                    'payment_status' => 'awaiting_pending',
+                                    'payment_status' => 'awaiting_payment',
                                     'school_id' => $student->school_id,
                                     'branch_id' => $student->student_branch
                                 ]);

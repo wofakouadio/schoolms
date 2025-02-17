@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class StudentsAdmissions extends Model implements HasMedia
+class StudentsAdmissions extends Model implements HasMedia, Auditable
 {
     use HasFactory, UUID, SoftDeletes;
     use InteractsWithMedia;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'student_id',

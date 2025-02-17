@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Assessment\Settings;
 use App\Http\Controllers\Controller;
 use App\Models\AssessmentSettings;
 use App\Models\Category;
+use App\Models\Department;
 use App\Models\GradingSystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,7 @@ class AssessmentSettingsController extends Controller
         ])->orderBy('created_at', 'desc')
             ->get();
         // get all categories
-        $SchoolCategories = Category::where([
+        $SchoolCategories = Department::where([
             'school_id' => Auth::guard('admin')->user()->school_id,
             'is_active' => 1
         ])->get();

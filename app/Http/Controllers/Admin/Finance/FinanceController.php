@@ -41,6 +41,7 @@ class FinanceController extends Controller
             'admission_status' => 1
             ])->orderBy('student_id', 'asc')
         ->get()->groupBy('category.category_name');
+        // dd($studentsList);
         return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData', 'studentsList'));
     }
 
