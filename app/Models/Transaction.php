@@ -12,10 +12,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use function App\Helpers\SchoolCurrency;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Transaction extends Model implements Auditable
+class Transaction extends Model // implements Auditable
 {
     use HasFactory, UUID, SoftDeletes;
-    use \OwenIt\Auditing\Auditable;
+    //use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'invoice_id',

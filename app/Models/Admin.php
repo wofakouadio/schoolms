@@ -12,10 +12,10 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Admin extends Authenticatable implements HasMedia, Auditable, \Spatie\Onboard\Concerns\Onboardable
+class Admin extends Authenticatable implements HasMedia,  \Spatie\Onboard\Concerns\Onboardable //, Auditable
 {
     use HasFactory, UUID, SoftDeletes, InteractsWithMedia, \Spatie\Onboard\Concerns\GetsOnboarded;
-    use \OwenIt\Auditing\Auditable;
+    //use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'admin_firstName',

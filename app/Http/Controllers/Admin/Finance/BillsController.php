@@ -16,6 +16,8 @@ use App\Models\StudentsAdmissions;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ArrearsImport;
 use function App\Helpers\SchoolCurrency;
 use function App\Helpers\TermAndAcademicYear;
 
@@ -230,6 +232,52 @@ class BillsController extends Controller
             return response()->json([
                 'status' => 200,
                 'msg' => 'Bill added successfully'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 201,
+                'msg' => 'Error: something went wrong. More Details : ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function upload_arrears(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $file = $request->file('file');
+            $arrears = Excel::toArray(new ArrearsImport, $file);
+
+            foreach ($arrears[0] as $row) {
+                $student = StudentsAdmissions::where('id', $row['student_id'])->first();
+
+                if ($student) {
+                    Transaction::create([
+                        "academic_year_id" => $request->academic_year_id,
+                        "amount_due" => $row['amount'],
+                        "payment_status" => 'awaiting_payment',
+                        "student_id" => $row['student_id'],
+                        "level_id" => $student->level_id,
+                        "description" => 'Arrears',
+                        "items" => 'Arrears'
+                    ]);
+
+                    $student->update([
+                        'previous_arrears' => $student->previous_arrears + $row['amount'],
+                        'total_bill_amount' => $student->total_bill_amount + $row['amount']
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Arrears uploaded successfully'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
