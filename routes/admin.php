@@ -192,8 +192,8 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Fee Collection**/
     Route::get("finance/fee-collection", [FeesCollectionController::class,"index"])->name("admin_finance_fee_collection");
-    Route::post("finance/transactions/get-student", [FeesCollectionController::class,"create"])->name("admin_get_student_transaction");
-    Route::post("finance/fee-collection/store", [FeesCollectionController::class, "store"])->name("admin_student_new_fee_collection");
+    Route::match(['get','post'],"finance/transactions/get-student", [FeesCollectionController::class,"create"])->name("admin_get_student_transaction");
+    Route::match(['get','post'],"finance/fee-collection/store", [FeesCollectionController::class, "store"])->name("admin_student_new_fee_collection");
 
     /**Bills**/
     Route::get('finance/term/bills/', [FinanceController::class, 'billsView'])->name('admin_term_bill');

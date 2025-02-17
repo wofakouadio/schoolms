@@ -40,12 +40,12 @@
                                     <select class="dropdown-groups form-control solid" name="student_id" id="single-select">
                                         <option>Choose</option>
                                         @foreach($studentsList as $key => $students)
-                                        @php $category = $students->first()->category; @endphp
-                                        <optgroup label="{{ $category->category_name }}">
+                                        {{-- @php $category = $students->first()->category; @endphp --}}
+                                        {{-- <optgroup label="{{ $category->category_name }}"> --}}
                                                 @foreach($students as $student)
                                                 <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
                                             @endforeach
-                                        </optgroup>
+                                        {{-- </optgroup> --}}
                                         @endforeach
                                     </select>
                                     {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
@@ -68,7 +68,7 @@
                             {{-- {{ dd($admissionFees) }} --}}
                                 <div class="card-body">
                                     {{-- {{ dd($studentData) }} --}}
-                                    <form class="form-group" method="POST" id="transaction_form"
+                                    <form class="form-group" method="get" id="transaction_form"
                                         action="{{ route('admin_student_new_fee_collection') }}">
                                         @csrf
                                         <div class="alert menu-alert">
@@ -154,7 +154,7 @@
                                                         <div class="col-2">
                                                             <label>Amount to allocate</label>
                                                             <input type="number" name="transaction_allocations[{{ $key }}][amount_to_pay]"
-                                                                class="form-control solid mb-4 amount_to_pay" id="amount_to_pay">
+                                                                class="form-control solid mb-4 amount_to_pay" id="amount_to_pay" value="0">
                                                         </div>
                                                         <div class="col-2">
                                                             <label>Trans. ID/Ref.</label>
@@ -166,8 +166,10 @@
                                             @endforeach
                                         </ol>
                                         <div class="mb-4">
-                                            <button type="button" class="btn btn-primary"
-                                                id="btn_process_transaction">Process</button>
+                                            <input type="submit" class="btn btn-primary"
+                                                id="btn_process_transaction" value="Process" />
+                                            {{-- <button type="button" class="btn btn-primary"
+                                                id="btn_process_transaction">Process</button> --}}
                                         </div>
                                         {{-- </div> --}}
                                     </form>

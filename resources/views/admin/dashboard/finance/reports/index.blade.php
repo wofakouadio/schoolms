@@ -50,12 +50,12 @@
                                                     <select class="dropdown-groups form-control solid" name="student_uuid" id="single-select">
                                                         <option>Choose</option>
                                                         @foreach($studentsList as $key => $students)
-                                                        @php $category = $students->first()->category; @endphp
-                                                        <optgroup label="{{ $category->category_name }}">
+                                                        {{-- @php $category = $students->first()->category; @endphp --}}
+                                                        {{-- <optgroup label="{{ $category->category_name }}"> --}}
                                                                 @foreach($students as $student)
                                                                 <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
                                                             @endforeach
-                                                        </optgroup>
+                                                        {{-- </optgroup> --}}
                                                         @endforeach
                                                     </select>
                                             </div>

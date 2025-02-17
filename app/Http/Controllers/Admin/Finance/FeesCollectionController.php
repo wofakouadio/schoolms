@@ -68,6 +68,7 @@ class FeesCollectionController extends Controller
     //collect fee from students
     public function store(Request $request)
     {
+        // dd($request->all());
         $amount_paid = 0;
         if ($request->transaction_allocations) {
             foreach ($request->transaction_allocations as $k => $item) {
