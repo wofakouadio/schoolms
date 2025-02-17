@@ -281,11 +281,12 @@
                 cache:false,
                 data: {admission_id:admission_id},
                 success:(Response)=>{
-                    let othername = Response['student_othername'] ? Response['student_othername'] : ' ';
+                    // console.log(Response)
+                    let othername = Response['studentData']['student_othername'] ? Response['studentData']['student_othername'] : ' ';
                     modal.find("input[name=admission_id]").val(admission_id)
-                    modal.find(".admission-notice").html(Response['student_firstname'] + ' ' +
-                        ''+othername +' ' +Response['student_lastname'])
-                    modal.find("select[name=admission_status]").val(Response['admission_status'])
+                    modal.find(".admission-notice").html(Response['studentData']['student_firstname'] + ' ' +
+                        ''+othername +' ' +Response['studentData']['student_lastname'])
+                    modal.find("select[name=admission_status]").val(Response['studentData']['admission_status'])
                 }
             })
         })
