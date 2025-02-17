@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin\Finance;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\StudentsAdmissions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
 
@@ -30,7 +34,14 @@ class FinanceController extends Controller
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         $studentData = null;
-        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData'));
+        // $categories = Category::where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' => 1])->get();
+        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        ->where([
+            'school_id' => Auth::guard('admin')->user()->school_id,
+            'admission_status' => 1
+            ])->orderBy('student_id', 'asc')
+        ->get()->groupBy('category.category_name');
+        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData', 'studentsList'));
     }
 
     public function feesView(){

@@ -40,8 +40,20 @@
                                 @endif
                                 <div class="form-group mb-4">
                                     <label>Student ID</label>
-                                    <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                        class="form-control solid" />
+                                    {{-- {{ dd($studentsList)}} --}}
+                                    <select class="dropdown-groups form-control solid" name="student_id" id="single-select">
+                                        <option>Choose</option>
+                                        @foreach($studentsList as $key => $students)
+                                        @php $category = $students->first()->category; @endphp
+                                        <optgroup label="{{ $category->category_name }}">
+                                                @foreach($students as $student)
+                                                <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
+                                        class="form-control solid" /> --}}
                                 </div>
                                 {{-- <div class="form-control"> --}}
                                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -99,6 +111,10 @@
                                         <div class="col-4">
                                             <label>Residency Type</label>
                                             <input type="text" name="residency_type" value="{{ $studentData->student_residency_type }}" readonly class="form-control solid">
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Category</label>
+                                            <input type="text" name="residency_type" value="{{ $studentData->category->category_name }}" readonly class="form-control solid">
                                         </div>
                                     </div>
                                     <h4 class="mb-2 mt-2">Item</h4>

@@ -41,10 +41,7 @@ class TeacherController extends Controller
             'teacher_admission_year' => 'required',
             'teacher_completion_year' => 'required',
             'teacher_country' => 'required',
-            'teacher_first_appointment' => 'required',
-            'teacher_present_school' => 'required',
             'teacher_qualification' => 'required',
-            'teacher_professional' => 'required',
             'teacher_rank' => 'required',
             'teacher_ghana_card' => 'required',
             'teacher_profile' => ['image','mimes:jpg,png,jpeg']
@@ -134,10 +131,7 @@ class TeacherController extends Controller
             'teacher_admission_year' => 'required',
             'teacher_completion_year' => 'required',
             'teacher_country' => 'required',
-            'teacher_first_appointment' => 'required',
-            'teacher_present_school' => 'required',
             'teacher_qualification' => 'required',
-            'teacher_professional' => 'required',
             'teacher_rank' => 'required',
             'teacher_ghana_card' => 'required',
             'teacher_profile' => ['image','mimes:jpg,png,jpeg']
@@ -269,13 +263,13 @@ class TeacherController extends Controller
             DB::table('subjects_to_teachers')->insert($data);
             DB::commit();
 
-            Alert::success('Notification','Subjects assigned to Teacher Successfully');
+            flash()->addSuccess('Subjects assigned to Teacher Successfully');
             return back();
 //            return redirect()->route('assign-levels-to-teacher');
         } catch (\Exception $th) {
             DB::rollBack();
 //            dd($th->getMessage());
-            Alert::alert('Notification',$th->getMessage());
+            flash()->addError($th->getMessage());
             return back();
         }
 

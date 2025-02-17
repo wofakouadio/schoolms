@@ -29,8 +29,8 @@ class CurrencyController extends Controller
         } else {
             try {
                 Currency::create([
-                    'name' => strtoupper($request->currency_name),
-                    'symbol' => strtoupper($request->currency_symbol),
+                    'name' => $request->currency_name,
+                    'symbol' => $request->currency_symbol,
                     'school_id' => $school_id
                 ]);
                 $response = [
@@ -62,8 +62,8 @@ class CurrencyController extends Controller
 
         try {
             Currency::where('id', $request->currency_id)->update([
-                'name' => strtoupper($request->currency_name),
-                'symbol' => strtoupper($request->currency_symbol),
+                'name' => $request->currency_name,
+                'symbol' => $request->currency_symbol,
                 'is_active' => $request->currency_is_active
             ]);
             $response = [

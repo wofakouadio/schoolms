@@ -32,6 +32,8 @@
                             </a>
                         </div>
                         <div class="card-body">
+                            <p>The category section allows system to put the students in this manner based on the IQ level or level of smartness.
+                                .i.e. Category A: Above Average | Category B: Average | Category C: Below Average</p>
                             <div class="table-responsive">
                                 <table id="CategoriesDataTables" class="display" style="min-width: 845px">
                                     <thead>

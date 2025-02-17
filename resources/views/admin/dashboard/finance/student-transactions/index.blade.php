@@ -32,8 +32,19 @@
                                 @csrf
                                 <div class="form-group mb-4">
                                     <label>Student ID</label>
-                                    <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                        class="form-control solid" />
+                                    {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
+                                        class="form-control solid" /> --}}
+                                        <select class="dropdown-groups form-control solid" name="student_id" id="single-select">
+                                            <option>Choose</option>
+                                            @foreach($studentsList as $key => $students)
+                                            @php $category = $students->first()->category; @endphp
+                                            <optgroup label="{{ $category->category_name }}">
+                                                    @foreach($students as $student)
+                                                    <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 {{-- <div class="form-control"> --}}
                                 <button class="btn btn-primary" type="submit">Submit</button>

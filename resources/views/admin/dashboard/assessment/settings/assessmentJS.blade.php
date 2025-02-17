@@ -59,6 +59,7 @@
                     modal.find('input[name=score_to]').val(Response['score_to'])
                     modal.find('input[name=grade]').val(Response['grade'])
                     modal.find('input[name=level_of_proficiency]').val(Response['level_of_proficiency'])
+                    modal.find('select[name=category_applicable_to]').val(Response['category_applicable_to'])
                     modal.find('select[name=grading_system_status]').val(Response['is_active'])
                 }
             })

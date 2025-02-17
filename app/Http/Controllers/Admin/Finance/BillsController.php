@@ -178,6 +178,7 @@ class BillsController extends Controller
     // get student data for new billing
     public function get_student_data(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'student_id' => 'required'
         ]);
@@ -189,9 +190,18 @@ class BillsController extends Controller
 
         $school_id = Auth::guard('admin')->user()->school_id;
 
-        $studentData = StudentsAdmissions::with('level', 'house', 'category')->where(['student_id' => $student_id, 'school_id' => $school_id])->first();
+        $studentData = StudentsAdmissions::with('level', 'house', 'category')->where(['id' => $student_id, 'school_id' => $school_id])->first();
 
-        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData'));
+        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        ->where([
+            'school_id' => $school_id,
+            'admission_status' => 1
+            ])->orderBy('student_id', 'asc')
+        ->get()->groupBy('category.category_name');
+
+        // dd($studentData);
+
+        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData', 'studentsList'));
     }
 
     public function new_student_bill(Request $request)

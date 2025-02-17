@@ -186,6 +186,9 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     /**Admission Fee**/
     Route::get("finance/admission-fees", [AdmissionFeeController::class,"index"])->name("admin_finance_admission_fee");
     Route::post("finance/new-admission-fee", [AdmissionFeeController::class,"store"])->name("new_admission_fee");
+    Route::get("finance/edit-admission-fee", [AdmissionFeeController::class, "edit"])->name("edit_admission_fee");
+    Route::put("finance/update-admission-fee", [AdmissionFeeController::class,"update"])->name("update_admission_fee");
+    Route::delete("finance/delete-admission-fee", [AdmissionFeeController::class,"delete"])->name("delete_admission_fee");
 
     /**Fee Collection**/
     Route::get("finance/fee-collection", [FeesCollectionController::class,"index"])->name("admin_finance_fee_collection");

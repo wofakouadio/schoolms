@@ -81,18 +81,33 @@
                         <div class="col-xl-12 mb-4">
                             <label class="form-label font-w600">Academic Year<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <select class="form-control" name="academic_year"></select>
+                            <select class="form-control" name="academic_year">
+                                <option value="">Choose</option>
+                                @foreach($academicYears as $value)
+                                    <option value="{{ $value->id }}">{{ $value->academic_year_start .'/'. $value->academic_year_end }}</option>
+                                @endforeach
+                            </select>
                             <input type="hidden" name="admission_fee_id">
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Branch<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <select class="form-control" name="branch"></select>
+                            <select class="form-control" name="branch">
+                                <option value="">Choose</option>
+                                @foreach($branches as $value)
+                                    <option value="{{ $value->id }}">{{ $value->branch_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label class="form-label font-w600">Department<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <select class="form-control" name="department"></select>
+                            <select class="form-control" name="department">
+                                <option value="">Choose</option>
+                                @foreach($departments as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label class="form-label font-w600">Amount<span class="text-danger scale5
@@ -102,7 +117,10 @@
                         <div class="col-xl-12 mb-4">
                             <label class="form-label font-w600">Status<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <select class="form-control" name="status"></select>
+                            <select class="form-control" name="status">
+                                <option value="1">ACTIVE</option>
+                                <option value="0">DISABLED</option>
+                            </select>
                         </div>
                     </div>
                 </div>

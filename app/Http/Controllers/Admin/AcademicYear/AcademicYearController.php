@@ -39,7 +39,7 @@ class AcademicYearController extends Controller
                 'school_id' => Auth::guard('admin')->user()->school_id
             ]);
             DB::commit();
-            Alert::success('Success', 'Academic Year created successfully');
+            flash()->addSuccess( 'Academic Year created successfully');
             return redirect()->route('admin_academic_year');
         }catch(\Exception $th){
             DB::rollBack();
@@ -64,7 +64,7 @@ class AcademicYearController extends Controller
                 'academic_year_end' => $request->academic_year_end
             ]);
             DB::commit();
-            Alert::success('Success', 'Academic Year updated successfully');
+            flash()->addSuccess('Academic Year updated successfully');
             return redirect()->route('admin_academic_year');
         }catch(\Exception $th){
             DB::rollBack();
@@ -83,7 +83,7 @@ class AcademicYearController extends Controller
                     'is_active' => $request->academic_status
                 ]);
                 DB::commit();
-                Alert::success('Success', 'Academic Year Status updated successfully');
+                flash()->addSuccess('Academic Year Status updated successfully');
                 return redirect()->route('admin_academic_year');
             }else{
                 $chkActive = AcademicYear::where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' =>
@@ -93,7 +93,7 @@ class AcademicYearController extends Controller
                         'is_active' => $request->academic_status
                     ]);
                     DB::commit();
-                    Alert::success('Success', 'Academic Year Status updated successfully');
+                    flash()->addSuccess('Academic Year Status updated successfully');
                     return redirect()->route('admin_academic_year');
                 }else{
                     return back()->withErrors(['You must disable the Active Academic Year before activating another one.']);
@@ -110,7 +110,7 @@ class AcademicYearController extends Controller
         try {
             AcademicYear::where('id', $request->academic_year_id)->delete();
             DB::commit();
-            Alert::success('Success', 'Academic Year deleted successfully');
+            flash()->addSuccess('Academic Year deleted successfully');
             return redirect()->route('admin_academic_year');
         }catch(\Exception $th){
             DB::rollBack();

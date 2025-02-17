@@ -22,7 +22,8 @@ use App\Models\Teacher;
 use App\Models\SubjectsToTeacher;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Onboard\Facades\Onboard;
+// use Spatie\Onboard\Facades\Onboard;
+use Spatie\Onboard\Facades\Onboard; // Add this at the top of your file
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -136,7 +137,7 @@ class AppServiceProvider extends ServiceProvider
         ->cta('Activate')
         ->completeIf(function () {
             $user = Auth::guard('admin')->user()->school_id;
-            $counts = Currency::where(['school_id' => $user, 'is_active' => 1])->count();
+            $counts = Currency::where(['school_id' => $user, 'is_default_currency' => 1])->count();
             return $counts > 0;
         });
         // create level/class

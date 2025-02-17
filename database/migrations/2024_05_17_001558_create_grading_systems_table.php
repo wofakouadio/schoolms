@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('score_to')->nullable();
             $table->string('grade')->nullable();
             $table->string('level_of_proficiency')->nullable();
+            $table->string('category_applicable_to')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->string('school_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete();
+            $table->foreign('category_applicable_to')->references('id')->on('categories')->cascadeOnDelete();
         });
     }
 

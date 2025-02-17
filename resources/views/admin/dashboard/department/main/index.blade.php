@@ -32,6 +32,8 @@
                             </a>
                         </div>
                         <div class="card-body">
+                            <ar>The department section allows to subjects or and levels/classes in groups .
+                                .i.e. Language department or Primary Department or KG department</ar>
                             <div class="table-responsive">
                                 <table id="DepartmentsDataTables" class="display" style="min-width: 845px">
                                     <thead>

@@ -422,8 +422,8 @@
             data:{currency_id:currency_id},
             success:(Response)=>{
                 modal.find("input[name=currency_id]").val(currency_id)
-                modal.find("input[name=currency_name]").val(Response['name'])
-                modal.find("input[name=currency_symbol]").val(Response['symbol'])
+                modal.find("select[name=currency_name]").val(Response['name'])
+                modal.find("select[name=currency_symbol]").val(Response['symbol'])
                 modal.find("select[name=currency_is_active]").val(Response['is_active'])
             }
         })

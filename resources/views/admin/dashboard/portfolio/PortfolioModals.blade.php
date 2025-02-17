@@ -202,16 +202,26 @@
                         <ul></ul>
                     </div>
                     <div class="form-group">
-                        <label  class="form-label font-w600">Name<span class="text-danger scale5
-                            ms-2">*</span></label>
-                        <input type="text" class="form-control solid" aria-label="name" name="currency_name"
-                               value="{{old('currency_name')}}">
+                        <label  class="form-label font-w600">Name<span class="text-danger scale5 ms-2">*</span></label>
+                        <select class="form-control solid" aria-label="name" name="currency_name">
+                            <option>Choose</option>
+                            <option value="United States Dollar">United States Dollar</option>
+                            <option value="Euro">Euro</option>
+                            <option value="British Pound Sterling">British Pound Sterling</option>
+                            <option value="Ghana Cedis">Ghana Cedis</option>
+                        </select>
+                        {{-- <input type="text" class="form-control solid" aria-label="name" name="currency_name" value="{{old('currency_name')}}"> --}}
                     </div>
                     <div class="form-group">
-                        <label  class="form-label font-w600">Symbol<span class="text-danger scale5
-                            ms-2">*</span></label>
-                        <input type="text" class="form-control solid" aria-label="name" name="currency_symbol"
-                               value="{{old('currency_symbol')}}">
+                        <label  class="form-label font-w600">Symbol<span class="text-danger scale5 ms-2">*</span></label>
+                        <select class="form-control solid" aria-label="name" name="currency_symbol">
+                            <option>Choose</option>
+                            <option value="$">$</option>
+                            <option value="€">€</option>
+                            <option value="£">£</option>
+                            <option value="GHC">GHC</option>
+                        </select>
+                        {{-- <input type="text" class="form-control solid" aria-label="name" name="currency_symbol" value="{{old('currency_symbol')}}"> --}}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -242,15 +252,25 @@
                     <div class="form-group">
                         <label  class="form-label font-w600">Name<span class="text-danger scale5
                             ms-2">*</span></label>
-                        <input type="text" class="form-control solid" aria-label="name" name="currency_name"
-                               value="{{old('currency_name')}}">
+                            <select class="form-control solid" aria-label="name" name="currency_name">
+                                <option>Choose</option>
+                                <option value="United States Dollar">United States Dollar</option>
+                                <option value="Euro">Euro</option>
+                                <option value="British Pound Sterling">British Pound Sterling</option>
+                                <option value="Ghana Cedis">Ghana Cedis</option>
+                            </select>
                         <input type="hidden" name="currency_id">
                     </div>
                     <div class="form-group">
                         <label  class="form-label font-w600">Symbol<span class="text-danger scale5
                             ms-2">*</span></label>
-                        <input type="text" class="form-control solid" aria-label="name" name="currency_symbol"
-                               value="{{old('currency_symbol')}}">
+                            <select class="form-control solid" aria-label="name" name="currency_symbol">
+                                <option>Choose</option>
+                                <option value="$">$</option>
+                                <option value="€">€</option>
+                                <option value="£">£</option>
+                                <option value="GHC">GHC</option>
+                            </select>
                     </div>
                     <div class="form-group">
                         <label  class="form-label font-w600">Status</label>

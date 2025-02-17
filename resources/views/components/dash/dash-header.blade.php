@@ -22,6 +22,10 @@
 	<!-- Datatable -->
     <link href="{{asset('assets/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 
+    {{-- select 2 --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/vendor/select2/css/select2.min.css') }}"> --}}
+    <link href="{{ asset('assets/vendor/select2/css/select2.min.css') }}" rel="stylesheet">
+
 	<!-- Material color picker -->
     <link href="{{asset('assets/vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet">
 

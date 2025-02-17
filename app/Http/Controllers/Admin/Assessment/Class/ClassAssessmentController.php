@@ -316,7 +316,7 @@ class ClassAssessmentController extends Controller
                 'score' => $request->score
             ]);
             DB::commit();
-            Alert::success('Success', 'Class Assessment updated successfully.');
+            flash()->addSuccess( 'Class Assessment updated successfully.');
             return redirect()->route('admin_assessment_level');
         } catch (\Exception $th) {
             DB::rollBack();
@@ -330,7 +330,7 @@ class ClassAssessmentController extends Controller
         try {
             ClassAssessment::where('id', $request->level_assessment_id)->delete();
             DB::commit();
-            Alert::success('Success', 'Class Assessment deleted successfully.');
+            flash()->addSuccess( 'Class Assessment deleted successfully.');
             return redirect()->route('admin_assessment_level');
         } catch (\Exception $th) {
             DB::rollBack();

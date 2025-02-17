@@ -53,7 +53,7 @@ class ClassAssessmentSizeController extends Controller
                     'school_id' => Auth::guard('admin')->user()->school_id
                 ]);
                 DB::commit();
-                Alert::success('Success', 'Class Assessment Size created successfully');
+                flash()->addSuccess('Class Assessment Size created successfully');
                 return redirect()->route('admin_class_assessment_size');
             } else {
                 return back()->withErrors('Class Assessment Settings Already Exist');
@@ -75,7 +75,8 @@ class ClassAssessmentSizeController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'term' => 'required'
+            'term' => 'required',
+            'assessment_size' => 'required'
         ]);
         DB::beginTransaction();
         try {
@@ -91,7 +92,7 @@ class ClassAssessmentSizeController extends Controller
                 'class_assessment_size' => $request->assessment_size
             ]);
             DB::commit();
-            Alert::success('Success', 'Class Assessment Size updated successfully');
+            flash()->addSuccess( 'Class Assessment Size updated successfully');
             return redirect()->route('admin_class_assessment_size');
         } catch (\Exception $th) {
             DB::rollBack();
@@ -124,7 +125,7 @@ class ClassAssessmentSizeController extends Controller
                     'is_active' => $request->is_active
                 ]);
                 DB::commit();
-                Alert::success('Success', 'Class Assessment Size Status updated successfully');
+                flash()->addSuccess('Class Assessment Size Status updated successfully');
                 return redirect()->route('admin_class_assessment_size');
             }
         } catch (\Exception $th) {

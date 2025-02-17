@@ -21,7 +21,13 @@ class FeesCollectionController extends Controller
     {
         $schoolTerm = TermAndAcademicYear();
         $transactions = [] ?? null;
-        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions"));
+        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        ->where([
+            'school_id' => Auth::guard('admin')->user()->school_id,
+            'admission_status' => 1
+            ])->orderBy('student_id', 'asc')
+        ->get()->groupBy('category.category_name');
+        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions", "studentsList"));
     }
 
     public function create(Request $request)
@@ -30,7 +36,7 @@ class FeesCollectionController extends Controller
         $student_id = $request->student_id;
         $schoolCurrency = SchoolCurrency();
         // dd($schoolCurrency);
-        $getStudent = StudentsAdmissions::with('level')->where("student_id", $student_id)->first();
+        $getStudent = StudentsAdmissions::with('level')->where("id", $student_id)->first();
 
         // get student transactions based on student id
         $transactions = Transaction::where([
@@ -40,20 +46,26 @@ class FeesCollectionController extends Controller
         ])->get();
 
         $studentData = [
-            'student_uuid' => $getStudent->id,
-            'student_id' => $student_id,
+            'student_uuid' => $student_id,
+            'student_id' => $getStudent->student_id,
             'student_name' => $getStudent->student_firstname . ' ' . $getStudent->student_othername . ' ' . $getStudent->lastname,
             'student_level' => $getStudent->level->level_name,
             'wallet' => money($getStudent->wallet),
-
         ];
+        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        ->where([
+            'school_id' => Auth::guard('admin')->user()->school_id,
+            'admission_status' => 1
+            ])->orderBy('student_id', 'asc')
+        ->get()->groupBy('category.category_name');
         // dd($transactions);
-        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions", "studentData", "schoolCurrency"));
+        return view("admin.dashboard.finance.transactions.index", compact("schoolTerm", "transactions", "studentData", "schoolCurrency", "studentsList"));
         // $transactions = [
         //     'studentTransactions' =>
         // ];
     }
 
+    //collect fee from students
     public function store(Request $request)
     {
         $amount_paid = 0;
@@ -65,14 +77,16 @@ class FeesCollectionController extends Controller
         // dd($request->all());
 
         if ($request->payment_method == 'Choose') {
-            toastr()->error('Select a payment option.');
+            // toastr()->error('Select a payment option.');
+            flash()->option('timeout', 5000)->addWarning('Select a payment option', 'Notice');
             // Alert::alert('Notification', 'Select a payment option');
             // return redirect()->back();
+            // return back()->withErrors(['error' => 'Select a payment option']);
             return redirect()->route('admin_finance_fee_collection');
         }
 
         if ($amount_paid != $request->amount_paid) {
-            toastr()->error('Total Amount paid is not equal to the total allocation.');
+            flash()->option('timeout', 5000)->addError('Total Amount paid is not equal to the total allocation.');
             // return redirect()->back();
             return redirect()->route('admin_finance_fee_collection');
         }
@@ -85,7 +99,7 @@ class FeesCollectionController extends Controller
 
             if ($request->payment_method == "Wallet") {
                 if ($amount_paid != $student->wallet) {
-                    toastr()->error('Total Amount paid is not equal to the total allocation.');
+                    flash()->option('timeout', 5000)->addError('Total Amount paid is not equal to the total allocation.');
                     // return redirect()->back();
                     return redirect()->route('admin_finance_fee_collection');
                 }
@@ -174,21 +188,29 @@ class FeesCollectionController extends Controller
 
             DB::commit();
 
-            toastr()->success('successful!');
+            flash()->option('timeout', 5000)->addSuccess('Fee collection done successful!');
             return redirect()->route('admin_finance_fee_collection');
         } catch (\Exception $th) {
             DB::rollBack();
 
-            toastr()->error('Error!');
-            return redirect()->back();
+            // toastr()->error('Error!');
+            return back()->withErrors(['error' => 'Something went wrong. Details : '.$th->getMessage()]);
+            // return redirect()->back();
         }
     }
 
+    // view student fee collected
     public function view_student_transactions()
     {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
-        return view("admin.dashboard.finance.student-transactions.index", compact("schoolTerm", "schoolCurrency"));
+        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        ->where([
+            'school_id' => Auth::guard('admin')->user()->school_id,
+            'admission_status' => 1
+            ])->orderBy('student_id', 'asc')
+        ->get()->groupBy('category.category_name');
+        return view("admin.dashboard.finance.student-transactions.index", compact("schoolTerm", "schoolCurrency", "studentsList"));
     }
 
     public function get_student_transactions(Request $request)
@@ -197,7 +219,7 @@ class FeesCollectionController extends Controller
             'student_id' => 'required'
         ]);
         $student_id = $request->student_id;
-        $getStudent = StudentsAdmissions::with('level', 'house')->where("student_id", $student_id)->first();
+        $getStudent = StudentsAdmissions::with('level', 'house')->where("id", $student_id)->first();
         $schoolCurrency = SchoolCurrency();
         // get student transactions based on student id
         $transactions = Transaction::where([
@@ -242,12 +264,12 @@ class FeesCollectionController extends Controller
             ]);
 
             DB::commit();
-            toastr()->success('Transaction Updated successfully!');
+            flash()->option('timeout', 5000)->addSuccess('Transaction Updated successfully!');
             return redirect()->route('admin_student_transactions');
 
         } catch (\Exception $th) {
             DB::rollBack();
-            toastr()->error('Error!' . $th->getMessage());
+            flash()->option('timeout', 10000)->addError('Error!' . $th->getMessage());
             return redirect()->back();
         }
     }
@@ -273,11 +295,11 @@ class FeesCollectionController extends Controller
             Transaction::where('id', $transaction_id)->delete();
 
             DB::commit();
-            toastr()->success('Transaction Deleted successfully!');
+            flash()->option('timeout', 5000)->success('Transaction Deleted successfully!');
             return redirect()->route('admin_student_transactions');
         } catch (\Exception $th) {
             DB::rollBack();
-            toastr()->error('Error!' . $th->getMessage());
+            flash()->option('timeout', 5000)->addError('Error!' . $th->getMessage());
             return redirect()->back();
         }
     }

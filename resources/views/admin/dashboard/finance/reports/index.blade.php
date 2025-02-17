@@ -22,18 +22,18 @@
             <div class="default-tab">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#arrears_report" aria-selected="true" role="tab">
+                        <a class="nav-link @if($is_active == '') active @elseif($is_active =='arrears') active @else @endif" data-bs-toggle="tab" href="#arrears_report" aria-selected="true" role="tab">
                             Arrears Report
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" data-bs-toggle="tab" href="#fees_report" aria-selected="false" role="tab">
+                        <a class="nav-link @if($is_active == 'fees') active @endif" data-bs-toggle="tab" href="#fees_report" aria-selected="false" role="tab">
                             Fee Report
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade active show" id="arrears_report" role="tabpanel">
+                    <div class="tab-pane fade @if($is_active == '') active show @elseif($is_active =='arrears') active show @else @endif" id="arrears_report" role="tabpanel">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card" style="height: auto">
@@ -45,26 +45,38 @@
                                             @csrf
                                             <div class="form-group mb-4">
                                                 <label>Student ID</label>
-                                                <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                                    class="form-control solid" />
+                                                {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
+                                                    class="form-control solid" /> --}}
+                                                    <select class="dropdown-groups form-control solid" name="student_uuid" id="single-select">
+                                                        <option>Choose</option>
+                                                        @foreach($studentsList as $key => $students)
+                                                        @php $category = $students->first()->category; @endphp
+                                                        <optgroup label="{{ $category->category_name }}">
+                                                                @foreach($students as $student)
+                                                                <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                        @endforeach
+                                                    </select>
                                             </div>
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </form>
                                     </div>
                                 </div>
-                                {{-- {{ dd($arrears_records) }} --}}
+                                {{-- {{ dd($student) }} --}}
                                 @empty($arrears_records)
                                     <div class="alert alert-danger alert-dismissible fade show">
                                         <svg class="alert-icon me-2" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                                         <strong>Error!</strong> No record available.
                                     </div>
                                 @else
+                                {{-- {{ dd($data['student']['id']) }} --}}
                                     <div class="card" style="height: auto">
                                         <div class="card-header">
                                             <h5>Student Arrears Statement</h5>
                                             <form action="{{ route('admin_finance_download_student_arrears_report') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="student_uuid" value="{{ $student->id }}">
+                                                <input type="hidden" name="student_uuid" value="{{ $data['student']['id'] }}">
                                                 <button class="btn btn-primary" type="submit">Download</button>
                                             </form>
                                         </div>
@@ -73,20 +85,20 @@
                                                 <tr>
                                                     <td colspan="2"><img src="{{ asset('assets/images/ghana-emblem.jpg') }}"  class='rounded' width="200"/></td>
                                                     <td colspan="2">
-                                                        <p>{{ $schoolData->school_name}}</p>
-                                                        <p>{{ $schoolData->school_location }}</p>
-                                                        <small>{{ $schoolData->school_email }}</small>
-                                                        <small>{{ $schoolData->school_phoneNumber }}</small>
+                                                        <p>{{ $data['schoolData']['school_name']}}</p>
+                                                        <p>{{ $data['schoolData']['school_location'] }}</p>
+                                                        <small>{{ $data['schoolData']['school_email'] }}</small>
+                                                        <small>{{ $data['schoolData']['school_phoneNumber'] }}</small>
                                                     </td>
-                                                    <td colspan="2"><img src="{{ $schoolPhoto }}" class='rounded' width="200"/></td>
+                                                    <td colspan="2"><img src="{{ $data['schoolPhoto'] }}" class='rounded' width="200"/></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Student ID: {{ $student->student_id }}</td>
-                                                    <td>Name: {{ $student->student_firstname . ' ' . $student->student_othername . ' ' . $student->student_lastname }}</td>
-                                                    <td>Level / Class: {{ $student->level->level_name }}</td>
-                                                    <td>House: {{ $student->house->house_name }}</td>
-                                                    <td>Category: {{ $student->category->category_name }}</td>
-                                                    <td>Branch: {{ $student->branch->branch_name }}</td>
+                                                    <td>Student ID: {{ $data['student']['student_id'] }}</td>
+                                                    <td>Name: {{ $data['student']['student_firstname'] . ' ' . $data['student']['student_othername'] . ' ' . $data['student']['student_lastname'] }}</td>
+                                                    <td>Level / Class: {{ $data['student']['level']['level_name'] }}</td>
+                                                    <td>House: {{ $data['student']['house']['house_name'] }}</td>
+                                                    <td>Category: {{ $data['student']['category']['category_name'] }}</td>
+                                                    <td>Branch: {{ $data['student']['branch']['branch_name'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="6">
@@ -133,7 +145,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="fees_report" role="tabpanel">
+                    <div class="tab-pane fade @if($is_active == 'fees') active show @else @endif" id="fees_report" role="tabpanel">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card" style="height: auto">
@@ -145,8 +157,19 @@
                                             @csrf
                                             <div class="form-group mb-4">
                                                 <label>Student ID</label>
-                                                <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                                    class="form-control solid" />
+                                                {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
+                                                    class="form-control solid" /> --}}
+                                                    <select class="dropdown-groups form-control solid" name="student_uuid" id="single-select">
+                                                        <option>Choose</option>
+                                                        @foreach($studentsList as $key => $students)
+                                                        @php $category = $students->first()->category; @endphp
+                                                        <optgroup label="{{ $category->category_name }}">
+                                                                @foreach($students as $student)
+                                                                <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                        @endforeach
+                                                    </select>
                                             </div>
                                             <button class="btn btn-primary" type="submit">Submit</button>
                                         </form>
@@ -163,7 +186,7 @@
                                             <h5>Student Financial Statement</h5>
                                             <form action="{{ route('admin_finance_download_student_report') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="student_uuid" value="{{ $student->id }}">
+                                                <input type="hidden" name="student_uuid" value="{{ $data['student']['id'] }}">
                                                 <button class="btn btn-primary" type="submit">Download</button>
                                             </form>
                                         </div>
@@ -172,20 +195,20 @@
                                                 <tr>
                                                     <td colspan="2"><img src="{{ asset('assets/images/ghana-emblem.jpg') }}"  class='rounded' width="200"/></td>
                                                     <td colspan="2">
-                                                        <p>{{ $schoolData->school_name}}</p>
-                                                        <p>{{ $schoolData->school_location }}</p>
-                                                        <small>{{ $schoolData->school_email }}</small>
-                                                        <small>{{ $schoolData->school_phoneNumber }}</small>
+                                                        <p>{{ $data['schoolData']['school_name']}}</p>
+                                                        <p>{{ $data['schoolData']['school_location'] }}</p>
+                                                        <small>{{ $data['schoolData']['school_email'] }}</small>
+                                                        <small>{{ $data['schoolData']['school_phoneNumber'] }}</small>
                                                     </td>
-                                                    <td colspan="2"><img src="{{ $schoolPhoto }}" class='rounded' width="200"/></td>
+                                                    <td colspan="2"><img src="{{ $data['schoolPhoto'] }}" class='rounded' width="200"/></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Student ID: {{ $student->student_id }}</td>
-                                                    <td>Name: {{ $student->student_firstname . ' ' . $student->student_othername . ' ' . $student->student_lastname }}</td>
-                                                    <td>Level / Class: {{ $student->level->level_name }}</td>
-                                                    <td>House: {{ $student->house->house_name }}</td>
-                                                    <td>Category: {{ $student->category->category_name }}</td>
-                                                    <td>Branch: {{ $student->branch->branch_name }}</td>
+                                                    <td>Student ID: {{ $data['student']['student_id'] }}</td>
+                                                    <td>Name: {{ $data['student']['student_firstname'] . ' ' . $data['student']['student_othername'] . ' ' . $data['student']['student_lastname'] }}</td>
+                                                    <td>Level / Class: {{ $data['student']['level']['level_name'] }}</td>
+                                                    <td>House: {{ $data['student']['house']['house_name'] }}</td>
+                                                    <td>Category: {{ $data['student']['category']['category_name'] }}</td>
+                                                    <td>Branch: {{ $data['student']['branch']['branch_name'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="6">

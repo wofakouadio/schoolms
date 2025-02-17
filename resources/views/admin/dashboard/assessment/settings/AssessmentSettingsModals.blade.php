@@ -206,6 +206,16 @@
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" name="level_of_proficiency">
                         </div>
+                        <div class="col-xl-12 mb-4">
+                            <label class="form-label font-w600">Applicable Category<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control solid" name="category_applicable_to">
+                                <option>Select Category</option>
+                                @foreach($SchoolCategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -263,6 +273,16 @@
                                     class="text-danger scale5
                             ms-2">*</span></label>
                             <input type="text" class="form-control solid" name="level_of_proficiency">
+                        </div>
+                        <div class="col-xl-12 mb-4">
+                            <label class="form-label font-w600">Applicable Category<span class="text-danger scale5
+                            ms-2">*</span></label>
+                            <select class="form-control solid" name="category_applicable_to">
+                                <option>Select Category</option>
+                                @foreach($SchoolCategories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label class="form-label font-w600">Status<span

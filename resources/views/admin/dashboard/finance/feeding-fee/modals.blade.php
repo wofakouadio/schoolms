@@ -1,4 +1,4 @@
-@if(is_null($feeding_fee) ?? null)
+{{-- @if(is_null($feeding_fee) ?? null) --}}
     {{--Create new feeding-fee--}}
     <div class="modal fade" id="add_new_feeding_fee_setup">
         <form method="post" id="add_new_feeding_fee_setup_form" action="{{ route('admin_finance_feeding_fee_setup') }}">
@@ -119,7 +119,7 @@
             </div>
         </form>
     </div>
-@else
+@if(!is_null($feeding_fee) ?? !null)
     {{-- new feeding fee collection --}}
     <div class="modal fade" id="feeding_fee_new_collection">
         <form method="post" id="feeding_fee_new_collection_form" action="{{ route('admin_feeding_fee_new_collection') }}">

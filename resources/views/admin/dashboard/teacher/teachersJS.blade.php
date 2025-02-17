@@ -102,7 +102,7 @@
                     $("input[name=teacher_first_appointment]").val(Response['teacher_first_app'])
                     $("input[name=teacher_present_school]").val(Response['teacher_present_school'])
                     $("select[name=teacher_qualification]").val(Response['teacher_qualification'])
-                    $("select[name=teacher_professional]").val(Response['teacher_professional'])
+                    $("input[name=teacher_professional]").val(Response['teacher_professional'])
                     $("select[name=teacher_rank]").val(Response['teacher_rank'])
                     $("input[name=teacher_circuit]").val(Response['teacher_circuit'])
                     $("input[name=teacher_staff_id]").val(Response['teacher_staff_id'])
