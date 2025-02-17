@@ -12,10 +12,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Admin extends Authenticatable implements HasMedia,  \Spatie\Onboard\Concerns\Onboardable //, Auditable
+class Admin extends Authenticatable implements HasMedia,  \Spatie\Onboard\Concerns\Onboardable,  Auditable
 {
     use HasFactory, UUID, SoftDeletes, InteractsWithMedia, \Spatie\Onboard\Concerns\GetsOnboarded;
-    //use \OwenIt\Auditing\Auditable;
+    use \OwenIt\Auditing\Auditable;
+
+    protected $keyType = 'string';  // Ensure Eloquent treats UUIDs as strings
+    public $incrementing = false;   // Disable auto-incrementing IDs
 
     protected $fillable = [
         'admin_firstName',

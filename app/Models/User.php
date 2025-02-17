@@ -9,10 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable //implements Auditable
+class User extends Authenticatable implements Auditable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    //use \OwenIt\Auditing\Auditable;
+    use \OwenIt\Auditing\Auditable;
+
+    protected $keyType = 'string';  // Ensure Eloquent treats UUIDs as strings
+    public $incrementing = false;   // Disable auto-incrementing IDs
 
     /**
      * The attributes that are mass assignable.
