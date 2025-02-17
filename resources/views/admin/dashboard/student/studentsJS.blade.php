@@ -366,10 +366,11 @@
                 cache:false,
                 data: {admission_id:admission_id},
                 success:(Response)=>{
+                    let othername =  Response['studentData']['student_othername'] ? Response['studentData']['student_othername'] : ' '
                     modal.find("input[name=admission_id]").val(admission_id)
-                    modal.find(".delete-notice").html('Are you sure of deleting '+Response['student_firstname'] +
+                    modal.find(".delete-notice").html('Are you sure of deleting '+Response['studentData']['student_firstname'] +
                         ' ' +
-                        ''+Response['student_othername'] +' ' +Response['student_lastname']+' admission?')
+                        ''+ othername +' ' +Response['studentData']['student_lastname']+' admission?')
                 }
             })
         })
