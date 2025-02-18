@@ -67,4 +67,14 @@ class Admin extends Authenticatable implements HasMedia,  \Spatie\Onboard\Concer
             //->leftJoin('students_admissions','students_admissions.school_id','=','student_attendances.school_id');
     }
 
+    public function userId()
+    {
+        return Auth::id(); // Automatically gets the UUID of the logged-in user
+    }
+
+    public function generateTags(): array
+    {
+        return ['user_id' => Auth::id()];
+    }
+
 }

@@ -10,12 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Concerns\Onboardable
+class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Concerns\Onboardable, Auditable
 {
     use HasFactory, UUID, SoftDeletes;
     use InteractsWithMedia;
     use \Spatie\Onboard\Concerns\GetsOnboarded;
+    use \OwenIt\Auditing\Auditable;
+
+    
+    protected $keyType = 'string';  // Ensure Eloquent treats UUIDs as strings
+    public $incrementing = false;   // Disable auto-incrementing IDs
+
 
 
 
@@ -85,5 +92,10 @@ class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Conce
         $this
             ->addMediaCollection('teacher_profile')
             ->useDisk('media');
+    }
+
+    public function userId()
+    {
+        return Auth::id(); // Automatically gets the UUID of the logged-in user
     }
 }

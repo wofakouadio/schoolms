@@ -48,4 +48,14 @@ class User extends Authenticatable implements Auditable
         'password' => 'hashed',
     ];
 
+    public function userId()
+    {
+        return Auth::id(); // Automatically gets the UUID of the logged-in user
+    }
+
+    public function generateTags(): array
+    {
+        return ['user_id' => Auth::id()];
+    }
+
 }

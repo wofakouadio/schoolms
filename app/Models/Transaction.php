@@ -17,6 +17,14 @@ class Transaction extends Model implements Auditable
     use HasFactory, UUID, SoftDeletes;
     use \OwenIt\Auditing\Auditable;
 
+    public $incrementing = false; // Disable auto-increment
+    protected $keyType = 'string'; // UUID is stored as string
+    
+    public function generateTags(): array
+    {
+        return ['user_id' => Auth::id()];
+    }
+
     protected $fillable = [
         'invoice_id',
         'student_id',
@@ -86,6 +94,11 @@ class Transaction extends Model implements Auditable
 
     public function term(){
         return $this->belongsTo(Term::class, 'term_id', 'id');
+    }
+
+    public function userId()
+    {
+        return Auth::id(); // Automatically gets the UUID of the logged-in user
     }
 
 }
