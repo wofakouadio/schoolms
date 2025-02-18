@@ -25,7 +25,7 @@
                 <div class="col-3">
                     <div class="card" style="height: auto">
                         <div class="card-header">
-                            <h5>Search by Student ID</h5>
+                            <h5>Search Student</h5>
                         </div>
                         <div class="card-body">
                             <form class="form" method="post" action="{{ route("admin_get_student_data") }}" id="get-student-form">
@@ -38,6 +38,20 @@
                                     </div>
                                 @else
                                 @endif
+                                <div class="form-group mb-4">
+                                    <label>Department</label>
+                                    {{-- {{ dd($studentsList)}} --}}
+                                    <select class="dropdown-groups form-control solid" name="department_id" id="single-select">
+                                        <option>Choose</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label>Level / Class</label>
+                                    {{-- {{ dd($studentsList)}} --}}
+                                    <select class="dropdown-groups form-control solid" name="level_id" id="single-select">
+                                        <option>Choose</option>
+                                    </select>
+                                </div>
                                 <div class="form-group mb-4">
                                     <label>Student ID</label>
                                     {{-- {{ dd($studentsList)}} --}}
@@ -151,9 +165,11 @@
 @endsection
 {{--page js script--}}
 @push('page-js')
+    @include("custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS")
     @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
     @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
     @include('admin/dashboard/finance/student-bill/StudentBillJS')
+    @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')

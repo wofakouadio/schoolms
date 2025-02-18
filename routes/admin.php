@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Assessment\Settings\ClassAssessmentSizeController
 use App\Http\Controllers\Admin\Branch\BranchController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\CustomJSController;
+use App\Http\Controllers\Admin\Departments\AssignLevelToDepartmentController;
 use App\Http\Controllers\Admin\Departments\DepartmentsController;
 use App\Http\Controllers\Admin\Finance\BillsController;
 use App\Http\Controllers\Admin\Finance\FinanceController;
@@ -65,6 +66,8 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     route::get('getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
     Route::post('department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])
         ->name('new-assign-department-to-level');
+    Route::get('get-department-levels', [AssignLevelToDepartmentController::class, 'get_department_levels'])->name('get_department_levels');
+
     /**Custom JS Controller**/
     Route::get('getLevelsByDepartmentBranchSchoolId', [CustomJSController::class, 'getLevelsByDepartmentBranchSchoolId'])->name('getLevelsByDepartmentBranchSchoolId');
     Route::get('getSubjectsByLevelDepartmentBranchSchoolId', [CustomJSController::class, 'getSubjectsByLevelDepartmentBranchSchoolId'])->name('getSubjectsByLevelDepartmentBranchSchoolId');

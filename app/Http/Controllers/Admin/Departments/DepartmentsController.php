@@ -151,34 +151,39 @@ class DepartmentsController extends Controller
         $department_id = $request->department_id;
         $output = [];
         //select all levels from table based on branch and school
-        $s1 = Level::select('id', 'level_name')->where('branch_id', $branch_id)->where('school_id', Auth::guard
-        ('admin')->user()->school_id)->get();
-        foreach($s1 as $value){
+        $s1 = Level::select('id', 'level_name')
+                ->where([
+                    'branch_id' => $branch_id,
+                    'school_id' => Auth::guard('admin')->user()->school_id
+                ])->get();
+
+            // dd($s1);
+
+        foreach($s1 as $key => $value){
             $s2 = AssignLevelToDepartment::with('AssignLevel')
-                ->where
-                ('level_id',
-                    $value->id)->where('branch_id',
-                    $branch_id)
-                ->where
-                ('school_id', Auth::guard('admin')->user()->school_id)->where('department_id', $department_id)->get();
+                ->where([
+                    'level_id' => $value['id'],
+                    'branch_id' => $branch_id,
+                    'school_id' => Auth::guard('admin')->user()->school_id,
+                    'department_id' => $department_id
+                ])->get();
 
             if($s2->isEmpty()){
                 $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
-                                    <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'">
-                                <label class="form-check-label">'.$value->level_name.'</label>
-                            </div>
-                        </div>';
+                                    <input type="checkbox" class="form-check-input" name="level['.$key.']" value="'.$value['id'].'">
+                                <label class="form-check-label">'.$value['level_name'].'</label>
+                                </div>
+                            </div>';
             }else{
-                foreach ($s2 as $value){
-
-                }
-                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
+                foreach ($s2 as $key2 => $value2){
+                    $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
                                 <div class="form-check custom-checkbox mb-3">
-                                    <input type="checkbox" class="form-check-input" name="level[]" value="'.$value->id.'" checked>
-                                <label class="form-check-label">'.$value->AssignLevel->level_name.'</label>
-                            </div>
-                        </div>';
+                                    <input type="checkbox" class="form-check-input" name="level['.$key2.']" value="'.$value2['id'].'" checked>
+                                <label class="form-check-label">'.$value2['AssignLevel']['level_name'].'</label>
+                                </div>
+                            </div>';
+                }
             }
 
         }
@@ -188,7 +193,7 @@ class DepartmentsController extends Controller
 
     public function newassignleveltodepartment(Request $request){
 
-//        dd($request->all());
+    //    dd($request->all());
         DB::beginTransaction();
         try {
             $data = [];
@@ -205,7 +210,7 @@ class DepartmentsController extends Controller
                 ];
             }
 //        AssignLevelToDepartment::upsert($data);
-            DB::table('assign_level_to_departments')->insert($data);
+            DB::table('assign_level_to_departments')->updateOrInsert($data);
             DB::commit();
             return response()->json([
                 'status' => 200,

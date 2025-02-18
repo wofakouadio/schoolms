@@ -76,8 +76,8 @@ class StudentsListDatatable extends Controller
                 }
 //                return $remodelledStatus ?? '...';
             })
-            ->addColumn('action', function($row){
-                $student_id = $row->student_id;
+            ->addColumn('action', content: function($row){
+                $student_id = $row->id;
                 return '
                         <div class="dropdown">
                             <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false">

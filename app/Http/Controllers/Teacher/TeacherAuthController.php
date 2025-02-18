@@ -33,14 +33,14 @@ class TeacherAuthController extends Controller
             $teacher = Teacher::where('teacher_email', $request->input('teacher_email'))->first();
             if ($teacher->is_active == 1) {
                 Auth::guard('teacher')->login($teacher);
-                Alert::success('Login Successfully');
+                flash()->addSuccess('Login Successfully');
                 return redirect()->route('teacher_dashboard');
             } else {
-                Alert::error('The account has been disabled');
+                flash()->addError('The account has been disabled');
                 return back();
             }
         } else {
-            Alert::error('Login failed');
+            flash()->addError('Login failed');
             return back();
         }
     }

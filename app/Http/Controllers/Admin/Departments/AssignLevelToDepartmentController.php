@@ -38,6 +38,19 @@ class AssignLevelToDepartmentController extends Controller
         // dd($data);
     }
 
+        // get levels based on selected department
+        public function get_department_levels(Request $request){
+            $request->validate([
+                'department_id' => 'required|exists:departments,id'
+            ]);
+            $levels = AssignLevelToDepartment::with('AssignLevel')->where([
+                'department_id' => $request->department_id,
+                'school_id' => Auth::guard('admin')->user()->school_id
+                ])->get();
+
+            return response()->json($levels);
+        }
+
 //    public function store(Request $request){
 //        $request->validate([
 //            'department' => 'required',

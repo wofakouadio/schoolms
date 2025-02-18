@@ -2,7 +2,7 @@
 
 <div class="row page-titles">
     {{-- {{ dd(Auth::guard('admin'))->user()->school_id }} --}}
-    @if(Auth::guard('admin')->user()->onboarding()->inProgress())
+    @if(Auth::guard('admin')->user() && Auth::guard('admin')->user()->onboarding()->inProgress())
         {{-- @if (auth()->user()->onboarding()->inProgress()) --}}
             <div>
                 <h4>Do the following to properly use your dashboard</h4>
