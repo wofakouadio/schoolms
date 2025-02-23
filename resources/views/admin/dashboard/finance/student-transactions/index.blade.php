@@ -28,23 +28,29 @@
                             <h5>Search by Student ID</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form" method="GET" id="search_student_form">
+                            <form class="form get_student_form" method="GET" id="search_student_form">
                                 @csrf
+                                @if($errors->any())
+                                    <div class="alert menu-alert">
+                                        @foreach($errors->all() as $error)
+                                            <ul>{{ $error }}</ul>
+                                        @endforeach
+                                    </div>
+                                @else
+                                @endif
+                                <div class="form-group mb-4">
+                                    <label>Department</label>
+                                    <select class="dropdown-groups form-control solid" name="department_id" id="single-select">
+                                        <option>Choose</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label>Level / Class</label>
+                                    <select class="dropdown-groups form-control solid" name="level_id" id="single-select"></select>
+                                </div>
                                 <div class="form-group mb-4">
                                     <label>Student ID</label>
-                                    {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                        class="form-control solid" /> --}}
-                                        <select class="dropdown-groups form-control solid" name="student_id" id="single-select">
-                                            <option>Choose</option>
-                                            @foreach($studentsList as $key => $students)
-                                            {{-- @php $category = $students->first()->category; @endphp --}}
-                                            {{-- <optgroup label="{{ $category->category_name }}"> --}}
-                                                    @foreach($students as $student)
-                                                    <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
-                                                @endforeach
-                                            {{-- </optgroup> --}}
-                                            @endforeach
-                                        </select>
+                                    <select class="dropdown-groups form-control solid" name="student_id" id="single-select" required></select>
                                 </div>
                                 {{-- <div class="form-control"> --}}
                                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -123,7 +129,9 @@
     @push('page-js')
         {{-- @include('custom-functions/LevelsInSelectInputBasedOnSchoolJS')
         @include('custom-functions/TermsInSelectInputBasedOnSchoolJS') --}}
+        @include("custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS")
         @include('admin/dashboard/finance/student-transactions/js')
+        @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')

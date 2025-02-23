@@ -83,7 +83,7 @@
 </div>
 
 {{--assign levels to department--}}
-<div class="modal fade" id="assign-leveltodepartment-modal">
+<div class="modal fade" id="assign-leveltodepartment-modal" aria-hidden="true">
     <form method="post" id="assign-leveltodepartment-form">
         @csrf
         <div class="modal-dialog modal-xl" role="document">
@@ -110,6 +110,9 @@
                         </div>
                         <div class="col-xl-12 mb-4">
                             <label  class="form-label font-w600">Level</label>
+                            {{-- <select class="multi-select select2-hidden-accessible form-control solid" name="level_id[]" id="single-select" multiple>
+                                <option>Choose</option>
+                            </select> --}}
                             <div class="row levelCheckboxOne"></div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
                             <h5>Search Student</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form" method="post" action="{{ route("admin_get_student_data") }}" id="get-student-form">
+                            <form class="form get_student_form" method="post" action="{{ route("admin_get_student_data") }}" id="get-student-form">
                                 @csrf
                                 @if($errors->any())
                                     <div class="alert menu-alert">
@@ -40,34 +40,17 @@
                                 @endif
                                 <div class="form-group mb-4">
                                     <label>Department</label>
-                                    {{-- {{ dd($studentsList)}} --}}
                                     <select class="dropdown-groups form-control solid" name="department_id" id="single-select">
                                         <option>Choose</option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label>Level / Class</label>
-                                    {{-- {{ dd($studentsList)}} --}}
-                                    <select class="dropdown-groups form-control solid" name="level_id" id="single-select">
-                                        <option>Choose</option>
-                                    </select>
+                                    <select class="dropdown-groups form-control solid" name="level_id" id="single-select"></select>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label>Student ID</label>
-                                    {{-- {{ dd($studentsList)}} --}}
-                                    <select class="dropdown-groups form-control solid" name="student_id" id="single-select">
-                                        <option>Choose</option>
-                                        @foreach($studentsList as $key => $students)
-                                        {{-- @php $category = $students->first()->category; @endphp --}}
-                                        {{-- <optgroup label="{{ $category->category_name }}"> --}}
-                                                @foreach($students as $student)
-                                                <option value="{{ $student->id }}">{{ $student->student_id . ' ' . $student->student_firstname .' '.$student->student_othername.' '.$student->student_lastname.' '.$student->level->level_name}}</option>
-                                            @endforeach
-                                        {{-- </optgroup> --}}
-                                        @endforeach
-                                    </select>
-                                    {{-- <input type="text" name="student_id" value="{{ old('student_id') }}"
-                                        class="form-control solid" /> --}}
+                                    <select class="dropdown-groups form-control solid" name="student_id" id="single-select" required></select>
                                 </div>
                                 {{-- <div class="form-control"> --}}
                                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -166,7 +149,7 @@
 {{--page js script--}}
 @push('page-js')
     @include("custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS")
-    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    {{-- @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS') --}}
     @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS')
     @include('admin/dashboard/finance/student-bill/StudentBillJS')
     @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS')

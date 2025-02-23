@@ -140,6 +140,15 @@ class AppServiceProvider extends ServiceProvider
             $counts = Currency::where(['school_id' => $user, 'is_default_currency' => 1])->count();
             return $counts > 0;
         });
+        // create department
+        Onboard::addStep('Create department', Admin::class)
+        ->link('/admin/department')
+        ->cta('Create')
+        ->completeIf(function () {
+            $user = Auth::guard('admin')->user()->school_id;
+            $counts = Department::where(['school_id' => $user, 'is_active' => 1])->count();
+            return $counts > 0;
+        });
         // create level/class
         Onboard::addStep('Create level/class', Admin::class)
         ->link('/admin/level')
@@ -156,15 +165,6 @@ class AppServiceProvider extends ServiceProvider
         ->completeIf(function () {
             $user = Auth::guard('admin')->user()->school_id;
             $counts = Category::where(['school_id' => $user, 'is_active' => 1])->count();
-            return $counts > 0;
-        });
-        // create department
-        Onboard::addStep('Create department', Admin::class)
-        ->link('/admin/department')
-        ->cta('Create')
-        ->completeIf(function () {
-            $user = Auth::guard('admin')->user()->school_id;
-            $counts = Department::where(['school_id' => $user, 'is_active' => 1])->count();
             return $counts > 0;
         });
         // create subject

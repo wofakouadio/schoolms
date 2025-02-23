@@ -19,7 +19,7 @@
                 data: form_data,
                 success:(Response)=>{
                     $(".student-fee-collection-holder").show()
-                    console.log(Response.studentData.student_id)
+                    // console.log(Response.studentData.student_id)
                     $(".student-fee-collection-holder").find("#transaction_form input[name=studentId]").val(Response.studentData.student_id)
                     $(".student-fee-collection-holder").find("#transaction_form input[name=student_name]").val(Response.studentData.student_firstname + " " + Response.studentData.student_othername + " " + Response.studentData.student_lastname)
                     $(".student-fee-collection-holder").find("#transaction_form input[name=student_gender]").val(Response.studentData.student_gender)

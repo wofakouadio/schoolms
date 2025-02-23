@@ -35,14 +35,14 @@ class FinanceController extends Controller
         $schoolCurrency = SchoolCurrency();
         $studentData = null;
         // $categories = Category::where(['school_id' => Auth::guard('admin')->user()->school_id, 'is_active' => 1])->get();
-        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
-        ->where([
-            'school_id' => Auth::guard('admin')->user()->school_id,
-            'admission_status' => 1
-            ])->orderBy('student_id', 'asc')
-        ->get()->groupBy('category.category_name');
+        // $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        // ->where([
+        //     'school_id' => Auth::guard('admin')->user()->school_id,
+        //     'admission_status' => 1
+        //     ])->orderBy('student_id', 'asc')
+        // ->get()->groupBy('category.category_name');
         // dd($studentsList);
-        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData', 'studentsList'));
+        return view('admin.dashboard.finance.student-bill.index', compact('schoolTerm', 'schoolCurrency', 'studentData'));
     }
 
     public function feesView(){

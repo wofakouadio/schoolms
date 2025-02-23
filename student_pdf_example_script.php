@@ -14,6 +14,7 @@ $results = DB::table('students_admissions as sa')
              ->on('s.id', '=', 'c.subject_id')
              ->on('l.id', '=', 'c.level_id');
     })
+    ->leftJoin('mid_term_breakdowns as m', function ($join) {
         $join->on('m.student_id', '=', 'sa.id')
              ->on('s.id', '=', 'm.subject_id');
     })

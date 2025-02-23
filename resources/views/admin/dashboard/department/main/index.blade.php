@@ -61,6 +61,8 @@
 @push('page-js')
     @include('admin/dashboard/department/main/departmentsJS')
     @include('custom-functions/admin/BranchesInSelectInputJS')
+    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
+    {{-- @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS') --}}
 @endpush
 {{--page datatable script--}}
 @push('datatable')

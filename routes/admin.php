@@ -64,8 +64,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::get('getDepartmentsBySchoolId', [DepartmentsController::class, 'getDepartmentsBySchoolId'])->name('getDepartmentsBySchoolId');
     Route::get('departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
     route::get('getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
-    Route::post('department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])
-        ->name('new-assign-department-to-level');
+    Route::post('department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])->name('new-assign-department-to-level');
     Route::get('get-department-levels', [AssignLevelToDepartmentController::class, 'get_department_levels'])->name('get_department_levels');
 
     /**Custom JS Controller**/
@@ -177,6 +176,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
     Route::delete('admissions/student/delete', [StudentsAdmissionsController::class, 'delete'])->name('delete-student-admission');
     Route::get('studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name('studentsAdmissionsTables');
     Route::get('admissions/export-template', [StudentsAdmissionsController::class, 'export_admissions_template'])->name('admin_export_template');
+    Route::get('getStudentsByLevelId', [StudentsAdmissionsController::class, 'getStudentsByLevelId'])->name('getStudentsByLevelId');
 
     /**Students**/
     Route::get('student', [StudentController::class, 'index'])->name('admin_student');

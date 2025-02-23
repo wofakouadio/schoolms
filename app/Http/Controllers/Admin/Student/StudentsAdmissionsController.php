@@ -409,6 +409,7 @@ class StudentsAdmissionsController extends Controller
         }
     }
 
+    // delete student admission
     public function delete(Request $request)
     {
         DB::beginTransaction();
@@ -429,5 +430,16 @@ class StudentsAdmissionsController extends Controller
                 'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
             ]);
         }
+    }
+
+    // get students by level id
+    public function getStudentsByLevelId(Request $request)
+    {
+        $students = StudentsAdmissions::where([
+            'student_level' => $request->level_id,
+            'admission_status' => 1,
+            'school_id' => Auth::guard('admin')->user()->school_id
+        ])->get();
+        return response()->json($students);
     }
 }

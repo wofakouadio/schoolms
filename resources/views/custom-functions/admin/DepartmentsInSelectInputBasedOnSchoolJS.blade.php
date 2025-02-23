@@ -17,7 +17,8 @@
                     $("#update-level-form select[name=department]").html(Response)
                     $("#get-attendance-sheet-form select[name=department_id]").html(Response)
                     $("#attendance_report_form").find("select[name=department]").html(Response)
-                    $("#get-student-form").find("select[name=department_id]").html(Response)
+                    $(".get_student_form").find("select[name=department_id]").html(Response)
+                    $(".department_id").html(Response)
                 }
             })
         }
