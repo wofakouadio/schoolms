@@ -24,33 +24,37 @@
                 <div class="col-2">
                     <div class="card" style="height: auto">
                         <div class="card-body">
-                            <div class="form-group mt-3">
+                            {{-- <div class="form-group mt-3">
                                 <h5>{{ count($teacherLevels) }} Levels/Classes Taught</h5>
                                 <ol class="item-list">
                                     @foreach ($teacherLevels as $teacherLevel)
                                         <li>{{ $teacherLevel->level->level_name }}</li>
                                     @endforeach
                                 </ol>
-                            </div>
-                            <div class="form-group mt-3">
-                                <h5>{{ count($subjectsTaught) }} Subjects Taught</h5>
-                                <ol class="item-list">
-                                    @foreach ($subjectsTaught as $subject)
-                                        <li>{{ $subject->subject->subject_name }}</li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                            <div class="form-group">
-                                <label>Level</label>
-                               {{-- {{dd($teacherLevels)}} --}}
-                                <select class="form-control" name="teacher_level" id="teacher_level">
-                                    <option>Choose</option>
-                                    @foreach($teacherLevels as $teacherLevel)
-                                        <option
-                                            value="{{$teacherLevel->level_id}}">{{$teacherLevel->level->level_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            </div> --}}
+                            <form method="get" action="" id="teacher_level_students_form">
+                                @csrf
+                                <div class="form-group mt-3">
+                                    <h5>{{ count($subjectsTaught) }} Subjects Taught</h5>
+                                    <ol class="item-list">
+                                        @foreach ($subjectsTaught as $subject)
+                                            <li>{{ $subject->subject->subject_name }}</li>
+                                        @endforeach
+                                    </ol>
+                                </div>
+                                <div class="form-group">
+                                    <label>Levels/Classes Taught</label>
+                                   {{-- {{dd($teacherLevels)}} --}}
+                                    <select class="form-control" name="teacher_level" id="teacher_level">
+                                        <option>Choose</option>
+                                        @foreach($teacherLevels as $teacherLevel)
+                                            <option
+                                                value="{{$teacherLevel->level_id}}">{{$teacherLevel->level->level_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary mt-2 btn-xl" type="submit">View Students</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -74,7 +78,7 @@
                                    {{-- {{dd($teacherStudents)}} --}}
 {{--                                    @if(is_array($teacherStudents) || is_object($teacherStudents))--}}
 {{--                                        @unless($teacherStudents->isEmpty())--}}
-                                            @foreach($teacherStudents as $teacherStudent)
+                                            {{-- @foreach($teacherStudents as $teacherStudent)
                                                 <tr>
                                                     <td>{{$teacherStudent['student_id']}}</td>
                                                     <td>{{$teacherStudent['student_firstname'].' '
@@ -89,7 +93,7 @@
                                                         </button>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
 {{--                                        @endunless--}}
 {{--                                    @endif--}}
                                     </tbody>

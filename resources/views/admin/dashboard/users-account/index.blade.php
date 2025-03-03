@@ -25,10 +25,10 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                               data-bs-target="#new-user-modal">
+                               data-bs-target="#new-teacher-user-permission-modal">
                                 <span class="btn-icon-start text-primary">
                                     <i class="fa fa-plus color-primary"></i>
-                                </span> New User
+                                </span> New User Teacher
                             </a>
                         </div>
                         <div class="card-body">
@@ -43,24 +43,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @unless($users->isEmpty())
-                                        @foreach($users as $user)
+                                    @unless($Teachers->isEmpty())
+                                        @foreach($Teachers as $TeacherUser)
                                             <tr>
-                                                <td>{{$user->teacher->teacher_firstname .' '.
-                                                $user->teacher->teacher_lastname}}</td>
-                                                <td>{{$user->teacher->teacher_email}}</td>
+                                                <td>{{$TeacherUser->teacher->teacher_firstname .' '.
+                                                $TeacherUser->teacher->teacher_lastname}}</td>
+                                                <td>{{$TeacherUser->teacher->teacher_email}}</td>
                                                 <td>
-                                                    @if($user->status == 1)
+                                                    @if($TeacherUser->status == 1)
                                                         <div class="bootstrap-badge">
                                                             <span class="badge badge-xl light badge-success
                                                             text-uppercase">Can login</span>
                                                         </div>
-                                                    @elseif($user->status == 2)
+                                                    @elseif($TeacherUser->status == 2)
                                                         <div class="bootstrap-badge">
                                                             <span class="badge badge-xl light badge-warning
                                                             text-uppercase">Lock Account</span>
                                                         </div>
-                                                    @elseif($user->status == 3)
+                                                    @elseif($TeacherUser->status == 3)
                                                         <div class="bootstrap-badge">
                                                             <span class="badge badge-xl light badge-danger
                                                             text-uppercase">Disabled Account</span>
@@ -81,9 +81,9 @@
                                                         </button>
                                                         <div class="dropdown-menu" style="">
                                                             <a class="dropdown-item" data-bs-toggle="modal"
-                                                               data-bs-target="#edit-user-modal" data-id=>Edit User</a>
+                                                               data-bs-target="#edit-teacher-user-permission-modal" data-id="{{$TeacherUser->id}}">Edit User</a>
                                                             <a class="dropdown-item"  data-bs-toggle="modal"
-                                                               data-bs-target="#delete-user-modal" data-id=>Delete User</a>
+                                                               data-bs-target="#delete-teacher-user-permission-modal" data-id="{{$TeacherUser->id}}">Delete User</a>
                                                         </div>
                                                     </div>
                                                 </td>

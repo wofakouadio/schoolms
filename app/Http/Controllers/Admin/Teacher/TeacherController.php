@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\SubjectsToTeacher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -223,7 +224,22 @@ class TeacherController extends Controller
     public function assignLevelsToTeacherIndex()
     {
         $schoolTerm = TermAndAcademicYear();
-        return view('admin.dashboard.teacher.assign_level_to_teacher', compact('schoolTerm'));
+        $subjectsToTeachers = Teacher::with(['media', 'subjects_to_teacher' => function($query) {
+            $query->with(['level', 'subject']);
+        }])
+        ->where('school_id', Auth::guard('admin')->user()->school_id)
+        ->get()
+        ->each(function($teacher) {
+            // Get unique levels and subjects
+            $levels = $teacher->subjects_to_teacher->pluck('level.level_name')->unique()->implode(', ');
+            $subjects = $teacher->subjects_to_teacher->pluck('subject.subject_name')->unique()->implode(', ');
+
+            // Add the levels and subjects as attributes
+            $teacher->setAttribute('assigned_levels', $levels);
+            $teacher->setAttribute('assigned_subjects', $subjects);
+        });
+            // dd($subjectsToTeachers);
+        return view('admin.dashboard.teacher.assign_level_to_teacher', compact('schoolTerm', 'subjectsToTeachers'));
     }
 
     public function getTeachersBySchool(){
@@ -241,26 +257,62 @@ class TeacherController extends Controller
     }
 
     public function assign_subjects_to_teacher(Request $request){
+        $request->validate([
+            'teacher' => 'required',
+            'level' => 'required',
+            'subject' => 'required|array'
+        ]);
+
         $teacher = $request->teacher;
         $level = $request->level;
-        $data = [];
+        $school_id = Auth::guard('admin')->user()->school_id;
 
         DB::beginTransaction();
 
         try {
+            // Check if any of these subjects are already assigned to this teacher for this level
+            $existingAssignments = SubjectsToTeacher::where([
+                'teacher_id' => $teacher,
+                'level_id' => $level,
+                'school_id' => $school_id
+            ])
+            ->whereIn('subject_id', $request->subject)
+            ->exists();
+
+            if ($existingAssignments) {
+                return response()->json([
+                    'status' => 201,
+                    'msg' => 'Some of these subjects have already been assigned to this teacher for this level'
+                ]);
+            }
+
+            $data = [];
             foreach($request->subject as $subject){
-                $data[] = [
-                    'id' => Str::uuid(),
+                // Skip if this exact assignment already exists
+                $exists = SubjectsToTeacher::where([
                     'teacher_id' => $teacher,
                     'level_id' => $level,
                     'subject_id' => $subject,
-                    'school_id' => Auth::guard('admin')->user()->school_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ];
+                    'school_id' => $school_id
+                ])->exists();
+
+                if (!$exists) {
+                    $data[] = [
+                        'id' => Str::uuid(),
+                        'teacher_id' => $teacher,
+                        'level_id' => $level,
+                        'subject_id' => $subject,
+                        'school_id' => $school_id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    ];
+                }
             }
 
-            DB::table('subjects_to_teachers')->insert($data);
+            if (!empty($data)) {
+                SubjectsToTeacher::insert($data);
+            }
+
             DB::commit();
 
             flash()->addSuccess('Subjects assigned to Teacher Successfully');

@@ -36,17 +36,27 @@
                                 <table id="AssignLevelsToTeachersDataTables" class="display" style="min-width: 845px">
                                     <thead>
                                     <tr>
-                                        <th>Profile</th>
                                         <th>Name</th>
                                         <th>Gender</th>
                                         <th>Contact</th>
                                         <th>Email</th>
                                         <th>Staff ID</th>
                                         <th>Levels/Classes</th>
-                                        <th>Action</th>
+                                        <th>Subjects</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($subjectsToTeachers as $data)
+                                            <tr>
+                                                <td>{{$data->teacher_firstname .' '. $data->teacher_othername.' '.$data->teacher_lastname}}</td>
+                                                <td>{{$data->teacher_gender}}</td>
+                                                <td>{{$data->teacher_contact}}</td>
+                                                <td>{{$data->teacher_email}}</td>
+                                                <td>{{$data->teacher_staff_id}}</td>
+                                                <td>{{$data->assigned_levels}}</td>
+                                                <td>{{$data->assigned_subjects}}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

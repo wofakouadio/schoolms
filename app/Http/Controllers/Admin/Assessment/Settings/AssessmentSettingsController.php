@@ -24,18 +24,18 @@ class AssessmentSettingsController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         // get grading systems list
-        $GradingSystems = GradingSystem::with('school_academic_year', 'school_category')->where([
+        $GradingSystems = GradingSystem::with('school_academic_year', 'school_department')->where([
             'school_id' => Auth::guard('admin')->user()->school_id,
             'academic_year' => $schoolTerm->term_academic_year
         ])->orderBy('created_at', 'desc')
             ->get();
-        // get all categories
-        $SchoolCategories = Department::where([
+        // get all departments
+        $SchoolDepartments = Department::where([
             'school_id' => Auth::guard('admin')->user()->school_id,
             'is_active' => 1
         ])->get();
 
-        return view('admin.dashboard.assessment.settings.index', compact('schoolTerm', 'AssessmentSettings', 'GradingSystems', 'SchoolCategories'));
+        return view('admin.dashboard.assessment.settings.index', compact('schoolTerm', 'AssessmentSettings', 'GradingSystems', 'SchoolDepartments'));
     }
 
     // new assessment
@@ -130,7 +130,6 @@ class AssessmentSettingsController extends Controller
             'score_from' => 'required|numeric|min:0|max:100',
             'score_to' => 'required|numeric|min:0|max:100',
             'grade' => 'required|uppercase|',
-            'category_applicable_to' => 'required',
             'level_of_proficiency' => 'required|string'
         ]);
         DB::beginTransaction();
@@ -140,7 +139,7 @@ class AssessmentSettingsController extends Controller
                 'score_from' => $request->score_from,
                 'score_to' => $request->score_to,
                 'grade' => $request->grade,
-                'category_applicable_to' => $request->category_applicable_to,
+                'department_applicable_to' => $request->department_applicable_to,
                 'is_active' => 1
             ])->first();
             if(!$chkGradingSystem){
@@ -150,7 +149,7 @@ class AssessmentSettingsController extends Controller
                     'score_to' => $request->score_to,
                     'grade' => strtoupper($request->grade),
                     'academic_year' => $request->academic_year,
-                    'category_applicable_to' => $request->category_applicable_to,
+                    'department_applicable_to' => $request->department_applicable_to,
                     'level_of_proficiency' => strtoupper($request->level_of_proficiency)
                 ]);
                 DB::commit();
@@ -175,7 +174,6 @@ class AssessmentSettingsController extends Controller
             'score_from' => 'required|numeric|min:0|max:100',
             'score_to' => 'required|numeric|min:0|max:100',
             'grade' => 'required|uppercase|',
-            'category_applicable_to' => 'required',
             'level_of_proficiency' => 'required|string'
         ]);
         DB::beginTransaction();
@@ -184,7 +182,7 @@ class AssessmentSettingsController extends Controller
                 'score_from' => $request->score_from,
                 'score_to' => $request->score_to,
                 'grade' => strtoupper($request->grade),
-                'category_applicable_to' => $request->category_applicable_to,
+                'department_applicable_to' => $request->department_applicable_to,
                 'level_of_proficiency' => strtoupper($request->level_of_proficiency),
                 'is_active' => $request->grading_system_status
             ]);

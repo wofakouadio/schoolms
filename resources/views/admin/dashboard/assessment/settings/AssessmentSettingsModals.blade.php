@@ -208,12 +208,12 @@
                         </div>
                         <div class="col-xl-12 mb-4">
                         {{-- {{$SchoolCategories}} --}}
-                            <label class="form-label font-w600">Applicable Category<span class="text-danger scale5
+                            <label class="form-label font-w600">Applicable to Department<span class="text-danger scale5
                             ms-2">*</span></label>
-                            <select class="form-control solid" name="category_applicable_to">
-                                <option>Select Category</option>
-                                @foreach($SchoolCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name}}</option>
+                            <select class="form-control solid" name="department_applicable_to">
+                                <option>Select Department</option>
+                                @foreach($SchoolDepartments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -276,12 +276,12 @@
                             <input type="text" class="form-control solid" name="level_of_proficiency">
                         </div>
                         <div class="col-xl-12 mb-4">
-                            <label class="form-label font-w600">Applicable Category<span class="text-danger scale5
-                            ms-2">*</span></label>
-                            <select class="form-control solid" name="category_applicable_to">
-                                <option>Select Category</option>
-                                @foreach($SchoolCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->category_name}}</option>
+                            <label class="form-label font-w600">Applicable to Department<span class="text-danger scale5
+                                ms-2">*</span></label>
+                            <select class="form-control solid" name="department_applicable_to">
+                                <option>Select Department</option>
+                                @foreach($SchoolDepartments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name}}</option>
                                 @endforeach
                             </select>
                         </div>

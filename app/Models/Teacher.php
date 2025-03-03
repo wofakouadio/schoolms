@@ -19,7 +19,7 @@ class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Conce
     use \Spatie\Onboard\Concerns\GetsOnboarded;
     use \OwenIt\Auditing\Auditable;
 
-    
+
     protected $keyType = 'string';  // Ensure Eloquent treats UUIDs as strings
     public $incrementing = false;   // Disable auto-incrementing IDs
 
@@ -67,7 +67,8 @@ class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Conce
     ];
 
     protected $hidden = [
-        'admin_password'
+        'admin_password',
+        'teacher_password'
     ];
 
     protected $guard = 'teacher';
@@ -85,6 +86,10 @@ class Teacher extends Authenticatable implements HasMedia, \Spatie\Onboard\Conce
     public function branch()
     {
         return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
+    public function subjects_to_teacher(){
+        return $this->hasMany(SubjectsToTeacher::class, 'teacher_id', 'id');
     }
 
     public function registerMediaCollections(): void

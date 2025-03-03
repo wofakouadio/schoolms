@@ -328,7 +328,10 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /**Account Permission**/
     Route::get('users/permission', [AccountPermissionController::class, 'index'])->name('admin_user_account_permission');
-    Route::post('/add-new-user', [AccountPermissionController::class, 'store'])->name('add-new-user');
+    Route::post('users/permissions/add-new-teacher-user', [AccountPermissionController::class, 'add_new_teacher_user'])->name('add-new-teacher-user');
+    Route::get('users/permissions/edit-teacher-user', [AccountPermissionController::class, 'edit_teacher_user'])->name('edit-teacher-user');
+    Route::put('users/permissions/update-teacher-user', [AccountPermissionController::class, 'update_teacher_user'])->name('update-teacher-user');
+    Route::delete('users/permissions/delete-teacher-user', [AccountPermissionController::class, 'delete_teacher_user'])->name('delete-teacher-user');
 
     /**Class Assessment Size**/
     Route::get('level-assessment-size', [ClassAssessmentSizeController::class, 'index'])->name('admin_class_assessment_size');

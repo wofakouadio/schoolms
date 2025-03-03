@@ -151,7 +151,7 @@
                                                 <th>Benchmark</th>
                                                 <th>Proficiency</th>
                                                 <th>Grade</th>
-                                                <th>Category</th>
+                                                <th>Department</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -165,7 +165,7 @@
                                                     <td>{{ $value->score_from }} - {{ $value->score_to }}</td>
                                                     <td>{{ $value->level_of_proficiency }}</td>
                                                     <td>{{ $value->grade }}</td>
-                                                    <td>{{ $value->school_category->category_name }}</td>
+                                                    <td>{{ $value->school_department->name }}</td>
                                                     <td>
                                                         @if ($value->is_active == 1)
                                                             <div class="bootstrap-badge">

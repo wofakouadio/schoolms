@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AccountPermission;
 use Flasher\Prime\FlasherInterface;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,7 +21,6 @@ class TeacherAuthController extends Controller
     {
         return view('teacher.auth.forgot-password');
     }
-
     public function teacher_authentication(Request $request)
     {
         $request->validate([
@@ -28,19 +28,27 @@ class TeacherAuthController extends Controller
             'teacher_password' => 'required'
         ]);
 
-        if (Auth::guard('teacher')->attempt(['teacher_email' => $request->teacher_email, 'password' =>
-            $request->teacher_password])) {
-            $teacher = Teacher::where('teacher_email', $request->input('teacher_email'))->first();
-            if ($teacher->is_active == 1) {
-                Auth::guard('teacher')->login($teacher);
-                flash()->addSuccess('Login Successfully');
-                return redirect()->route('teacher_dashboard');
+        $teacher = Teacher::where('teacher_email', $request->input('teacher_email'))->first();
+
+        if ($teacher) {
+            $accountPermission = AccountPermission::where('user_id', $teacher->id)->first(); // Check account permission
+
+            if (Auth::guard('teacher')->attempt(['teacher_email' => $request->teacher_email, 'password' => $request->teacher_password])) {
+                if ($accountPermission && $accountPermission->status == 1) {
+                    Auth::guard('teacher')->login($teacher);
+                    flash()->addSuccess('Login Successfully');
+                    return redirect()->route('teacher_dashboard');
+                } else {
+                    $statusMessage = $accountPermission ? 'The account has been ' . ($accountPermission->status == 2 ? 'locked' : 'disabled') : 'not found';
+                    flash()->addError($statusMessage);
+                    return back();
+                }
             } else {
-                flash()->addError('The account has been disabled');
+                flash()->addError('Login failed');
                 return back();
             }
         } else {
-            flash()->addError('Login failed');
+            flash()->addError('Teacher not found');
             return back();
         }
     }

@@ -16,7 +16,13 @@ class AccountPermission extends Model
         'status',
         'school_id'
     ];
+
     public function teacher(){
         return $this->belongsTo(Teacher::class, 'user_id', 'id');
     }
+
+    public function admin(){
+        return $this->belongsTo(Admin::class, 'user_id', 'id');
+    }
+
 }

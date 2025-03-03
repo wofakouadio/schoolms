@@ -26,30 +26,38 @@ class TeacherLevelController extends Controller
 
         // this variable helps to get the levels/classes taught by the teacher
         $teacherLevels = SubjectsToTeacher::with('level')
-            ->select('level_id')
-            ->where(['teacher_id' => Auth::guard('teacher')->user()->id,
-                     'school_id' => Auth::guard('teacher')->user()->school_id
-                     ])
-            ->distinct()->get();
+            ->where([
+                'teacher_id' => Auth::guard('teacher')->user()->id,
+                'school_id' => Auth::guard('teacher')->user()->school_id
+            ])->distinct()
+            // ->orderBy('level.created_at', 'asc')
+            ->get(['level_id']);
+        $enrolledStudents = [];
+
         // dd($teacherLevels);
 
-        // this iteration helps to get the assigned levels/classes of the teacher
-        // in order to fetch all students from the levels/classes
-        foreach ($teacherLevels as $key => $teacherLevel) {
-            $TeacherLevelsSubjects = SubjectsToTeacher::with('subject')
-                ->where(["teacher_id" => Auth::guard('teacher')->user()->id,
-                         'school_id' => Auth::guard('teacher')->user()->school_id,
-                         "level_id" => $teacherLevel->level_id
-                         ])
+        // Iterate through the levels/classes assigned to the teacher
+        // to retrieve all students associated with each level/class
+        foreach ($teacherLevels as $teacherLevel) {
+            // Fetch subjects assigned to the current level/class
+            $assignedSubjects = SubjectsToTeacher::with('subject')
+                ->where([
+                    'teacher_id' => Auth::guard('teacher')->user()->id,
+                    'school_id' => Auth::guard('teacher')->user()->school_id,
+                    'level_id' => $teacherLevel->level_id
+                ])
                 ->orderBy('created_at', 'DESC')
                 ->get();
-            $teacherStudents = StudentsAdmissions::with('level', 'house', 'category')
-                ->where(['student_level' => $teacherLevel->level_id,
-                        'school_id' => Auth::guard('teacher')->user()->school_id,
-                        'admission_status' => 1
-                         ])
-                ->orderBy('created_at', 'DESC')
-                ->get();
+
+            // Retrieve students enrolled in the current level/class
+            // $enrolledStudents = StudentsAdmissions::with('level', 'house', 'category')
+            //     ->where([
+            //         'student_level' => $teacherLevel->level_id,
+            //         'school_id' => Auth::guard('teacher')->user()->school_id,
+            //         'admission_status' => 1
+            //     ])
+            //     ->orderBy('created_at', 'DESC')
+            //     ->get();
         }
         // dd($teacherStudents);
         // dd($TeacherLevelsSubjects);
@@ -57,8 +65,8 @@ class TeacherLevelController extends Controller
         return view('teacher.dashboard.level.index', [
             'schoolTerm' => $schoolTerm,
             'teacherLevels' => $teacherLevels,
-            'teacherStudents' => $teacherStudents,
-            'subjectsTaught' => $TeacherLevelsSubjects
+            // 'teacherStudents' => $teacherStudents,
+            'subjectsTaught' => $assignedSubjects
         ]);
     }
 

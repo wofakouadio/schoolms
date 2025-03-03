@@ -147,46 +147,76 @@ class SubjectsController extends Controller
         $level = $request->level;
         $teacher = $request->teacher;
         $output = [];
-        $stepOne = Subject::select('id', 'subject_name', 'description')
+
+        // get all subjects for this school
+        // $stepOne = Subject::select('id', 'subject_name', 'description')
+        //     ->where('school_id', Auth::guard('admin')->user()->school_id)
+        //     ->get();
+        $subjects = Subject::select('id', 'subject_name', 'description')
             ->where('school_id', Auth::guard('admin')->user()->school_id)
             ->get();
 
-        foreach($stepOne as $value){
-            $stepTwo = SubjectsToTeacher::with('subject')
-                ->where('level_id', $level)
-                ->where('teacher_id', $teacher)
-                ->where('subject_id', $value->id)
-                ->where('school_id', Auth::guard('admin')->user()->school_id)
-                ->get();
+        // get assigned subjects for this teacher
+        $assignedSubjectsToTeacher = SubjectsToTeacher::with('subject')
+        ->where([
+            'level_id' => $level,
+            'teacher_id' => $teacher,
+            'school_id' => Auth::guard('admin')->user()->school_id
+        ])
+        ->pluck('subject_id')
+        ->toArray();
 
-            if($value->description == null){
-                $value->description = '';
-            }
+        // dd($assignedSubjectsToTeacher);
 
-            if($stepTwo->isEmpty()){
-                $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
-                                <div class="form-check custom-checkbox mb-3">
-                                    <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
-                    .'">
-                                <label class="form-check-label">'.$value->subject_name.' '
-                    .$value->description.'</label>
-                            </div>
-                        </div>';
-            }else{
-                foreach($stepTwo as $valueTwo){
-                    $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
-                                <div class="form-check custom-checkbox mb-3">
-                                    <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
-                        .'" checked>
-                                <label class="form-check-label">'.$valueTwo->subject->subject_name.' '
-                        .$value->description.'</label>
-                            </div>
-                        </div>';
-                }
-            }
-
-
+        // generate checkbox for each subject
+        foreach($subjects as $subject){
+            $isChecked = in_array($subject->id, $assignedSubjectsToTeacher) ? 'checked' : '';
+            $output[] = '<div class="col-xl-3 col-xxl-6 col-6">
+                    <div class="form-check custom-checkbox mb-3">
+                        <input type="checkbox" class="form-check-input" name="subject[]" value="'.$subject->id
+            .'" '.$isChecked.'>
+                        <label class="form-check-label">'.$subject->subject_name.' ('
+            .$subject->description.')</label>
+                </div>
+            </div>';
         }
+
+        // foreach($stepOne as $value){
+        //     $stepTwo = SubjectsToTeacher::with('subject')
+        //         ->where('level_id', $level)
+        //         ->where('teacher_id', $teacher)
+        //         ->where('subject_id', $value->id)
+        //         ->where('school_id', Auth::guard('admin')->user()->school_id)
+        //         ->get();
+
+        //     if($value->description == null){
+        //         $value->description = '';
+        //     }
+
+        //     if($stepTwo->isEmpty()){
+        //         $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
+        //                         <div class="form-check custom-checkbox mb-3">
+        //                             <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
+        //             .'">
+        //                         <label class="form-check-label">'.$value->subject_name.' '
+        //             .$value->description.'</label>
+        //                     </div>
+        //                 </div>';
+        //     }else{
+        //         foreach($stepTwo as $valueTwo){
+        //             $output[] = '<div class="col-xl-4 col-xxl-6 col-6">
+        //                         <div class="form-check custom-checkbox mb-3">
+        //                             <input type="checkbox" class="form-check-input" name="subject[]" value="'.$value->id
+        //                 .'" checked>
+        //                         <label class="form-check-label">'.$valueTwo->subject->subject_name.' '
+        //                 .$value->description.'</label>
+        //                     </div>
+        //                 </div>';
+        //         }
+        //     }
+
+
+        // }
         return $output;
     }
 }

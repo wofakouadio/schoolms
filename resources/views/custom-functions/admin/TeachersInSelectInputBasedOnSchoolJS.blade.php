@@ -15,7 +15,12 @@
                         $("#new-assign-level-teacher-form").find("select[name=teacher]").append(
                             '<option value="'+value['id']+'">'+value['teacher_firstname']+' ' +
                             ''+value['teacher_lastname']+'</option>')
-                        $("#new-user-form").find("select[name=user]").append(
+
+                        $("#new-teacher-user-permission-form").find("select[name=teacher_user]").append(
+                            '<option value="'+value['id']+'">'+value['teacher_firstname']+' ' +
+                            ''+value['teacher_lastname']+'</option>')
+
+                        $("#edit-teacher-user-permission-form").find("select[name=teacher_user]").append(
                             '<option value="'+value['id']+'">'+value['teacher_firstname']+' ' +
                             ''+value['teacher_lastname']+'</option>')
                     })
