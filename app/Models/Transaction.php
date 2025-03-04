@@ -19,6 +19,8 @@ class Transaction extends Model implements Auditable
 
     public $incrementing = false; // Disable auto-increment
     protected $keyType = 'string'; // UUID is stored as string
+
+    protected $auditableEvents = ['created', 'updated', 'deleted','restored'];
     
     public function generateTags(): array
     {
