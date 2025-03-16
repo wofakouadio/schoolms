@@ -122,4 +122,19 @@ class Transaction extends Model implements Auditable
     {
         return Auth::id(); // Automatically gets the UUID of the logged-in user
     }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
+
+    public function total_outstanding_balance($student_id)
+    {
+        return Transaction::where('student_id', $student_id)->where('payment_status','awaiting_payment')->sum('amount_due');
+    }
 }
