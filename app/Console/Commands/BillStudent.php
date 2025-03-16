@@ -5,14 +5,15 @@ namespace App\Console\Commands;
 use App\Models\Bill;
 use App\Models\Term;
 use App\Models\School;
+use App\Models\Currency;
 use App\Models\BillingLog;
 use App\Models\Transaction;
-use App\Services\SMSService;
 use Illuminate\Support\Str;
 use App\Models\AcademicYear;
-use App\Models\Currency;
-use Illuminate\Console\Command;
+use App\Services\SMSService;
 use Illuminate\Bus\Queueable;
+use App\Services\EmailService;
+use Illuminate\Console\Command;
 use App\Models\StudentsAdmissions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\SerializesModels;
@@ -27,14 +28,16 @@ class BillStudent extends Command implements ShouldQueue
     protected $signature = 'bill:students';
     protected $description = 'Bill Students and Notify Parents';
     private $smsService;
+    private $emailService;
     protected $timeout = 3600; // 1 hour timeout
     protected $chunkSize = 50; // Reduced chunk size
     private $originalTimeout;
 
-    public function __construct(SMSService $smsService)
+    public function __construct(SMSService $smsService, EmailService $emailService)
     {
         parent::__construct();
         $this->smsService = $smsService;
+        $this->emailService = $emailService;
     }
 
     public function handle()
@@ -191,31 +194,52 @@ class BillStudent extends Command implements ShouldQueue
 
     private function notifyParent($student, $totalAmount, $activeYear, $activeTerm, $arrears)
     {
-        if (!$student->student_guardian_contact) {
-            return;
-        }
+        // if (!$student->student_guardian_contact) {
+        //     return;
+        // }
 
         $arrears = $arrears ?? $this->getStudentArrears($student);
         $student_fullname = "{$student->student_firstname} {$student->student_lastname}";
-        $currency = Currency::where('school_id',$student->school_id)->where('is_default_currency', 1)->first();
-
+        $currency = Currency::where('school_id', $student->school_id)->where('is_default_currency', 1)->first();
         $symbol = $currency ? $currency->symbol : 'GHS';
 
-        $message = sprintf(
-            "Dear %s,\nBills for %s\n(%s - Term %s) = %s %s\nArrears: %s %s\nTotal Due: %s %s\nKindly settle. Thanks.",
-            $student->student_guardian_name,
-            $student_fullname,
-            $activeYear->academic_year_start . '/' . $activeYear->academic_year_end,
-            $activeTerm->term_name,
-            $symbol,
-            number_format($totalAmount, 2),
-            $symbol,
-            number_format($arrears, 2),
-            $symbol,
-            number_format($totalAmount + $arrears, 2)
-        );
+        // Send SMS if phone number exists
+        if ($student->student_guardian_contact) {
+            $message = sprintf(
+                "Dear %s,\nBills for %s\n(%s - Term %s) = %s %s\nArrears: %s %s\nTotal Due: %s %s\nKindly settle. Thanks.",
+                $student->student_guardian_name,
+                $student_fullname,
+                $activeYear->academic_year_start . '/' . $activeYear->academic_year_end,
+                $activeTerm->term_name,
+                $symbol,
+                number_format($totalAmount, 2),
+                $symbol,
+                number_format($arrears, 2),
+                $symbol,
+                number_format($totalAmount + $arrears, 2)
+            );
 
-        $this->smsService->sendSMS($student->student_guardian_contact, $message);
+            $this->smsService->sendSMS($student->student_guardian_contact, $message);
+        }
+        
+        // Send Email if email exists
+        if ($student->student_guardian_email) {
+            // Format email message
+            $message = "Dear {$student->student_guardian_name},\n\n";
+            $message .= "This is to notify you of the school fees bill for {$student_fullname}.\n\n";
+            $message .= "Academic Year: {$activeYear->academic_year_start}/{$activeYear->academic_year_end}\n";
+            $message .= "Term: {$activeTerm->term_name}\n";
+            $message .= "Current Bill: {$symbol} " . number_format($totalAmount, 2) . "\n";
+            $message .= "Arrears: {$symbol} " . number_format($arrears, 2) . "\n";
+            $message .= "Total Due: {$symbol} " . number_format($totalAmount + $arrears, 2) . "\n\n";
+            $message .= "Kindly settle the outstanding amount. Thank you.";
+
+            $this->emailService->sendMail(
+                $student->student_guardian_email,
+                'School Fees Bill Notification',
+                $message
+            );
+        }
     }
 
     private function getActiveAcademicYear(School $school)
