@@ -50,7 +50,7 @@ Route::post('auth/reset-password', [AdminAuthController::class, 'admin_reset_pas
 Route::post('auth/login', [AdminAuthController::class, 'admin_authentication'])->name('admin_authentication');
 
 //Administrator Controller
-Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->group(function () {
+Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->controller(AdminController::class)->group(function () {
     //admin dash
     Route::get('/', 'index')->name('admin_dashboard');
     Route::get('logout', [AdminAuthController::class, 'admin_logout'])->name('admin_logout');
@@ -219,6 +219,7 @@ Route::middleware(['auth' => 'admin'])->controller(AdminController::class)->grou
 
     /** Finance Fee Report **/
     Route::get("finance/reports", [FinanceReportController::class, 'index'])->name("admin_finance_report");
+    Route::get("finance/general_reports", [FinanceReportController::class, 'general_transactional_report'])->name("admin_finance_general_report");
     Route::post("finance/reports/get_student_data", [FinanceReportController::class, 'get_student_finance_data'])->name("admin_finance_student_report_data");
     Route::post("finance/reports/download_student_financial_report", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
     /** Finance Arrears Report **/

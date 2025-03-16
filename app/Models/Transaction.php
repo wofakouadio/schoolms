@@ -20,8 +20,8 @@ class Transaction extends Model implements Auditable
     public $incrementing = false; // Disable auto-increment
     protected $keyType = 'string'; // UUID is stored as string
 
-    protected $auditableEvents = ['created', 'updated', 'deleted','restored'];
-    
+    protected $auditableEvents = ['created', 'updated', 'deleted', 'restored'];
+
     public function generateTags(): array
     {
         return ['user_id' => Auth::id()];
@@ -74,6 +74,18 @@ class Transaction extends Model implements Auditable
             $model->academic_year_id = $model->academic_year_id ?? $current_academic_year->id;
             // $model->transaction_type = "DR";
         });
+
+        static::updating(function ($model) {
+            $model->audit();
+        });
+
+        static::deleting(function ($model) {
+            $model->audit();
+        });
+
+        static::restoring(function ($model) {
+            $model->audit();
+        });
     }
 
     public static function generate_invoice()
@@ -86,15 +98,23 @@ class Transaction extends Model implements Auditable
         return $invoice_id;
     }
 
-    public function level(){
+    public function level()
+    {
         return $this->belongsTo(Level::class, 'level_id', 'id');
     }
 
-    public function academic_year(){
+    public function student()
+    {
+        return $this->belongsTo(StudentsAdmissions::class, 'id', 'student_id');
+    }
+
+    public function academic_year()
+    {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id', 'id');
     }
 
-    public function term(){
+    public function term()
+    {
         return $this->belongsTo(Term::class, 'term_id', 'id');
     }
 
@@ -102,5 +122,4 @@ class Transaction extends Model implements Auditable
     {
         return Auth::id(); // Automatically gets the UUID of the logged-in user
     }
-
 }

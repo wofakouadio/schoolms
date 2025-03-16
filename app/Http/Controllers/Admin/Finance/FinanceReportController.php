@@ -147,7 +147,7 @@ class FinanceReportController extends Controller
         $arrears_records = Transaction::where([
             "student_id" => $student->id,
             'payment_status' => 'awaiting_payment',
-            'payment_status' => 'partial_payment'
+            // 'payment_status' => 'partial_payment'
             ])->get();
         // get school data
         $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
@@ -157,5 +157,113 @@ class FinanceReportController extends Controller
         $pdf = Pdf::loadView("admin.dashboard.finance.reports.StudentFinanceArrearsReportDownload", compact('schoolTerm', 'schoolCurrency', 'arrears_records', 'student', 'student_photo', 'schoolData', 'schoolPhoto'))
             ->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
         return $pdf->stream($student->student_id . '_' . $student->student_firstname . '_' . $student->student_lastname . '_FinanceArrearsReport.pdf');
+    }
+
+    public function general_transactional_report(Request $request)
+    {
+        // Don't hit this method if the request is not ajax
+        // if (!$request->ajax()) {
+        //     abort(404);
+        // }
+
+        // // If there are no values in the request or filters, return an empty array
+        // if (empty($request->diet) && empty($request->student_id) && empty($request->category) && empty($request->level)) {
+        // //     //get current diet id from examinations table where registration_status is 1
+        //     $current_diet = Examination::where('authority_to_site', 1)->first();
+        //     //assign the current diet id to the request diet
+        //     $request->diet = $current_diet->id;
+        //     // dd($request->diet);
+        //     // $request->merge(['diet' => $current_diet->id]);
+        //     // return response()->json([]);
+        // }
+
+        $query = Transaction::query();
+            // ->whereIn('id', function ($query) {
+            //     $query->select('examination_registration_id')
+            //         ->from('examination_applied_subjects')
+            //         ->whereNull('deferment')
+            //         ->whereNotNull('paid_at');
+            // });
+
+        // // Apply filters
+        // if ($request->has('diet') && !empty($request->input('diet')) ) {
+        //     $query->where('examination_id', $request->input('diet'));
+        //     // dd($query->get());
+        // }
+
+        // if ($request->has('student_id') && !empty($request->input('student_id'))) {
+        //     $query->whereHas('user', function ($q) use ($request) {
+        //         $q->where('student_id', $request->input('student_id'));
+        //     });
+        // }
+
+        // // if ($request->has('category') && !empty($request->input('category'))) {
+        // //     $query->whereHas('examination', function ($q) use ($request) {
+        // //         $q->where('exam_type', $request->input('category'));
+        // //     });
+        // // }
+
+        // if ($request->has('level') && !empty($request->input('level'))) {
+
+        //     $query->whereIn('id', function ($q) {
+        //         $q->select('examination_registration_id')
+        //             ->from('examination_applied_subjects')
+        //             ->whereNull('deferment')
+        //             ->whereNotNull('paid_at');
+        //     });
+
+        //     // $query->where('level', $request->input('level'));
+        //     // ->whereHas('examinationAppliedSubjects', function ($q) {
+        //     //     $q->whereNull('deferment_approval')
+        //     //       ->whereNotNull('paid_at');
+        //     // });
+        //     // $query->whereHas('examinationAppliedSubjects', function ($q) use ($request) {
+        //     //     $q->where('level', $request->input('level'));
+        //     // });
+        // }
+
+        $data = $query->get();
+// dd($data);
+        return Datatables::of($data)
+            ->addColumn('student_id', function ($row) {
+                return $row->student->student_id ?? '...';
+            })
+            ->addColumn('first_name', function ($row) {
+                return $row->student->student_firstname ?? '...';
+            })
+            ->addColumn('surname', function ($row) {
+                return ($row->user->student_othername.' '.$row->user->student_lastname) ?? '...';
+            })
+            ->addColumn('invoice_id', function ($row) {
+                return $row->invoice_id ?? '...';
+            })
+            ->addColumn('amount_due', function ($row) {
+                return $row->amount_due ?? '...';
+            })
+            ->addColumn('amount_paid', function ($row) {
+                return $row->amount_paid ?? '...';
+            })
+            ->addColumn('description', function ($row) {
+                return $row->description ?? '...';
+            })
+            ->addColumn('status', function ($row) {
+                $status = $row->payment_status ?? '...';
+                return $status;
+            })
+            ->addColumn('action', function ($row) {
+                if (auth()->user()->can('admin.reports.update') && $row->status === 'awaiting_payment') {
+                    $action = '<button data-id="' . $row->id . '"  data-toggle="modal" data-target="#default" class=" btn btn-primary btn-sm">Pay</button>';
+                } elseif ($row->status === 'Paid' && $row->documents != null) {
+                    if ($row->documents->extension === 'pdf') {
+                        $action = '<a target="_blank" href="http://docs.google.com/gview?url=' . $row->documents->id . '">View</a> |';
+                    } else {
+                        $action = '<a target="_blank" href="' . $row->documents->url . '">View</a>';
+                    }
+
+                    $action = $action . '<a href="/sms/admin/download/certificate/' . $row->documents->id . '">Download</a>';
+                }
+                return $action ?? '...';
+            })
+            ->make(true);
     }
 }
