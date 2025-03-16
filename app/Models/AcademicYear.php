@@ -29,4 +29,8 @@ class AcademicYear extends Model implements \Spatie\Onboard\Concerns\Onboardable
     {
         return $this->belongsTo(School::class, 'school_id', 'id');
     }
+
+    public function term(){
+        return $this->belongsTo(Term::class, 'academic_year_id', 'id')->where('is_active', 1);
+    }
 }

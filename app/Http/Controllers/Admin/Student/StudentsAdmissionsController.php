@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Student;
 
-use App\Exports\StudentsAdmissionsExport;
 use App\Models\Bill;
 use App\Models\Student;
+use App\Models\BillingLog;
 use App\Models\Department;
 use App\Models\Transaction;
 use App\Models\AcademicYear;
@@ -16,12 +16,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\StudentsHealthRecords;
 use App\Models\AssignLevelToDepartment;
+
+use App\Exports\StudentsAdmissionsExport;
 use App\Imports\StudentsAdmissionsImport;
 
 use App\DataTables\StudentAdmissionDataTable;
-use App\Models\StudentsHealthRecords;
-
 use function App\Helpers\TermAndAcademicYear;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -152,8 +153,9 @@ class StudentsAdmissionsController extends Controller
         }
     }
 
-    public function export_admissions_template(Request $request){
-        return Excel::download(new StudentsAdmissionsExport,'template_admission.xlsx');
+    public function export_admissions_template(Request $request)
+    {
+        return Excel::download(new StudentsAdmissionsExport, 'template_admission.xlsx');
     }
 
     //edit student admission
@@ -374,6 +376,17 @@ class StudentsAdmissionsController extends Controller
                 $newAdmittedStudent->update([
                     'current_bill_amount' => $billbreakdown->bill_amount,
                     'total_bill_amount' => $newAdmittedStudent->previous_arrears + $billbreakdown->bill_amount,
+                ]);
+
+                //log bill in billing log
+                $billing_log = BillingLog::create([
+                    'student_id' => $newAdmittedStudent->id,
+                    'academic_year_id' => $current_academic_year->id,
+                    'term_id' => $current_academic_year->term->id,
+                    'level_id' => $newAdmittedStudent->student_level,
+                    'school_id' => $user->school_id,
+                    'branch_id' => $user->branch_id,
+                    'amount_billed' => $billbreakdown->bill_amount
                 ]);
 
                 DB::commit();
