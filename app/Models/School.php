@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
@@ -22,11 +23,13 @@ class School extends Model implements HasMedia
         'admin_id'
     ];
 
-    public function admin(){
+    public function admin()
+    {
         return $this->belongsTo(Admin::class, 'school_id', 'id');
     }
 
-    public function branches(){
+    public function branches()
+    {
         return $this->hasMany(Branch::class, 'school_id', 'id');
     }
 
@@ -40,5 +43,10 @@ class School extends Model implements HasMedia
     public function billingLogs()
     {
         return $this->hasMany(BillingLog::class, 'student_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class, 'school_id', 'id')->where('is_default_currency', 1);
     }
 }
