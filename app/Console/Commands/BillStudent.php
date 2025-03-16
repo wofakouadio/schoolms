@@ -91,7 +91,7 @@ class BillStudent extends Command implements ShouldQueue
     {
         StudentsAdmissions::query()
             ->where('school_id', $school->id)
-            ->where('student_status', 1)
+            ->where('admission_status', 1)
             ->whereDoesntHave('billingLogs', function ($query) use ($activeYear, $activeTerm) {
                 $query->where('academic_year_id', $activeYear->id)
                     ->where('term_id', $activeTerm->id);
