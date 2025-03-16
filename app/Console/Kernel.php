@@ -14,7 +14,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('bill:students')->everyTenMinutes();
+        $schedule->command('bill:students')
+            ->everyTenMinutes()
+            ->runInBackground()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/bill-students.log'))
+            ->onFailure(function () {
+                \Log::error('Bill students command failed');
+            })
+            ->onSuccess(function () {
+                \Log::info('Bill students completed successfully');
+            });
         // $schedule->job(new BillStudentsJob)->everyTenMinutes();
     }
 

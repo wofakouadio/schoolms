@@ -71,6 +71,10 @@ return [
             'after_commit' => false,
         ],
 
+        // 'default' => [
+        //     'retry_after' => 3600,
+        //     'timeout' => 3600,
+        // ],
     ],
 
     /*
