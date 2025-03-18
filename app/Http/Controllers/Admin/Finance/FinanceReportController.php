@@ -7,6 +7,7 @@ use App\Models\StudentsAdmissions;
 use App\Models\Transaction;
 use App\Models\School;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -21,16 +22,18 @@ class FinanceReportController extends Controller
     public function index(){
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
-        $records = [] ?? null;
-        $arrears_records = [] ?? null;
-        $is_active = '';
-        $studentsList = StudentsAdmissions::with('level', 'house', 'category')
-        ->where([
-            'school_id' => Auth::guard('admin')->user()->school_id,
-            'admission_status' => 1
-            ])->orderBy('student_id', 'asc')
-        ->get()->groupBy('category.category_name');
-        return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', 'records', 'arrears_records', 'studentsList', 'is_active'));
+        // $records = [] ?? null;
+        // $arrears_records = [] ?? null;
+        // $is_active = '';
+        // dd($transaction_types);
+        // $studentsList = StudentsAdmissions::with('level', 'house', 'category')
+        // ->where([
+        //     'school_id' => Auth::guard('admin')->user()->school_id,
+        //     'admission_status' => 1
+        //     ])->orderBy('student_id', 'asc')
+        // ->get()->groupBy('category.category_name');
+        // return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', 'records', 'arrears_records', 'studentsList', 'is_active'));
+        return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', ));
     }
 /**************************************************/
 /************************ Fees ************/
@@ -186,10 +189,46 @@ class FinanceReportController extends Controller
             // });
 
         // // Apply filters
-        // if ($request->has('diet') && !empty($request->input('diet')) ) {
-        //     $query->where('examination_id', $request->input('diet'));
-        //     // dd($query->get());
-        // }
+        if ($request->has('invoice_id') && !empty($request->input('invoice_id')) ) {
+            $query->where('invoice_id', $request->input('invoice_id'));
+        }
+        if ($request->has('level') && !empty($request->input('level')) ) {
+            $query->where('level_id', $request->input('level'));
+        }
+        if ($request->has('term') && !empty($request->input('term')) ) {
+            $query->where('term_id', $request->input('term'));
+        }
+        if ($request->has('academic_year') && !empty($request->input('academic_year')) ) {
+            $query->where('academic_year_id', $request->input('academic_year'));
+        }
+        if ($request->has('transaction_type') && !empty($request->input('transaction_type')) ) {
+            $query->where('transaction_type', $request->input('transaction_type'));
+        }
+        if ($request->has('payment_status') && !empty($request->input('payment_status')) ) {
+            $query->where('payment_status', $request->input('payment_status'));
+        }
+        if ($request->has('reference') && !empty($request->input('reference')) ) {
+            $query->where('reference', $request->input('reference'));
+        }
+        if ($request->has('student_id') && !empty($request->input('student_id')) ) {
+            $query->whereHas('student', function($q) use ($request){
+                $q->where('student_id', $request->input('student_id'));
+            });
+        }
+        if ($request->has('student_name') && !empty($request->input('student_name')) ) {
+            $searchName = $request->input('student_name');
+            $query->whereHas('student', function($q) use ($searchName){
+                $q->where('student_firstname', 'LIKE', "%{$searchName}%")
+                  ->orWhere('student_othername', 'LIKE', "%{$searchName}%")
+                  ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
+            });
+        }
+        if (($request->has('paid_at_to') && !empty($request->input('paid_at_to'))) && ($request->has('paid_at_from') && !empty($request->input('paid_at_from')))) {
+            $query->whereBetween('paid_at', [$request->paid_at_from, $request->paid_at_to]);
+        }
+        if ($request->has('created_at_to') && $request->has('created_at_from')) {
+            $query->whereBetween('created_at', [$request->created_at_from, $request->created_at_to]);
+        }
 
         // if ($request->has('student_id') && !empty($request->input('student_id'))) {
         //     $query->whereHas('user', function ($q) use ($request) {
@@ -222,48 +261,78 @@ class FinanceReportController extends Controller
         //     // });
         // }
 
-        $data = $query->get();
-// dd($data);
+        $data = $query->with('level', 'student', 'academic_year', 'term')
+        ->where('school_id', '=' ,Auth::guard('admin')->user()->school_id)
+        ->get();
+        // dd($data);
         return Datatables::of($data)
+            ->addColumn('invoice_id', function($row){
+                return $row->invoice_id ?? '...';
+            })
             ->addColumn('student_id', function ($row) {
                 return $row->student->student_id ?? '...';
             })
-            ->addColumn('first_name', function ($row) {
-                return $row->student->student_firstname ?? '...';
+            ->addColumn('student_name', function ($row) {
+                return $row->student->student_firstname.' '.$row->student->student_othername.' '.$row->student->student_lastname ?? '...';
             })
-            ->addColumn('surname', function ($row) {
-                return ($row->user->student_othername.' '.$row->user->student_lastname) ?? '...';
+            ->addColumn('level', function ($row) {
+                return $row->level->level_name ?? '...';
             })
-            ->addColumn('invoice_id', function ($row) {
-                return $row->invoice_id ?? '...';
+            ->addColumn('term', function ($row) {
+                return $row->term->term_name ?? '...';
             })
-            ->addColumn('amount_due', function ($row) {
-                return $row->amount_due ?? '...';
+            ->addcolumn('academic_year', function($row){
+                return $row->academic_year->academic_year_start.'/'.$row->academic_year->academic_year_end ?? '...';
             })
-            ->addColumn('amount_paid', function ($row) {
-                return $row->amount_paid ?? '...';
-            })
-            ->addColumn('description', function ($row) {
+            ->addcolumn('description', function($row){
                 return $row->description ?? '...';
             })
+            ->addColumn('amount_due', function ($row) {
+                return $row->currency.' '.$row->amount_due ?? '...';
+            })
+            ->addColumn('amount_paid', function ($row) {
+                return $row->currency.' '.$row->amount_paid ?? '...';
+            })
+            ->addColumn('balance', function ($row) {
+                return $row->currency.' '.$row->balance ?? '...';
+            })
+            ->addColumn('transaction_type', function ($row) {
+                return $row->transaction_type ?? '...';
+            })
             ->addColumn('status', function ($row) {
-                $status = $row->payment_status ?? '...';
-                return $status;
-            })
-            ->addColumn('action', function ($row) {
-                if (auth()->user()->can('admin.reports.update') && $row->status === 'awaiting_payment') {
-                    $action = '<button data-id="' . $row->id . '"  data-toggle="modal" data-target="#default" class=" btn btn-primary btn-sm">Pay</button>';
-                } elseif ($row->status === 'Paid' && $row->documents != null) {
-                    if ($row->documents->extension === 'pdf') {
-                        $action = '<a target="_blank" href="http://docs.google.com/gview?url=' . $row->documents->id . '">View</a> |';
-                    } else {
-                        $action = '<a target="_blank" href="' . $row->documents->url . '">View</a>';
-                    }
-
-                    $action = $action . '<a href="/sms/admin/download/certificate/' . $row->documents->id . '">Download</a>';
+                if($row->transaction_type == 'awaiting_payment'){
+                    $status = 'Unpaid';
+                }elseif($row->transaction_type == 'partial_payment'){
+                    $status = 'Partially Paid';
+                }else{
+                    $status = 'Paid';
                 }
-                return $action ?? '...';
+                return $status ?? '...';
             })
+            ->addColumn('paid_at', function ($row) {
+                return $row->paid_at ?? '...';
+            })
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at ?? '...';
+            })
+            ->addColumn('reference', function ($row) {
+                return $row->reference ?? '...';
+            })
+            // ->addColumn('action', function ($row) {
+            //     // if (auth()->user()->can('admin.reports.update') && $row->status === 'awaiting_payment') {
+            //     //     $action = '<button data-id="' . $row->id . '"  data-toggle="modal" data-target="#default" class=" btn btn-primary btn-sm">Pay</button>';
+            //     // } elseif ($row->status === 'Paid' && $row->documents != null) {
+            //     //     if ($row->documents->extension === 'pdf') {
+            //     //         $action = '<a target="_blank" href="http://docs.google.com/gview?url=' . $row->documents->id . '">View</a> |';
+            //     //     } else {
+            //     //         $action = '<a target="_blank" href="' . $row->documents->url . '">View</a>';
+            //     //     }
+
+            //     //     $action = $action . '<a href="/sms/admin/download/certificate/' . $row->documents->id . '">Download</a>';
+            //     // }
+            //     return '$action' ?? '...';
+            // })
             ->make(true);
+
     }
 }

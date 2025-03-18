@@ -28,7 +28,7 @@
                     $("#new-assign-level-teacher-form").find("select[name=level]").html(Response)
                     $("#new-level-assessment-form").find("select[name=level]").html(Response)
                     $("#feeding_fee_new_collection_form").find("select[name=level_id]").html(Response)
-                    // $("#assign-leveltodepartment-form").find("select[name=level_id]").html(Response)
+                    $(".level").html(Response)
                     // $("#assign-leveltodepartment-form").find("select[name=level_id]").html(Response)
                 }
             })

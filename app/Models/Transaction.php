@@ -105,7 +105,7 @@ class Transaction extends Model implements Auditable
 
     public function student()
     {
-        return $this->belongsTo(StudentsAdmissions::class, 'id', 'student_id');
+        return $this->belongsTo(StudentsAdmissions::class, 'student_id', 'id');
     }
 
     public function academic_year()

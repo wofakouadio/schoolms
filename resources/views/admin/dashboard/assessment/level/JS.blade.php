@@ -57,7 +57,7 @@
              })
          })
 
-         //student mock form
+         //student level assessment form
          $("#new-level-assessment-form").on("submit", (e) => {
              e.preventDefault()
              $.ajaxSetup({

@@ -23,6 +23,7 @@
                     $("#end_of_term_report_form").find("select[name=term]").html(Response)
                     $("#new-cas-modal").find('select[name=term]').html(Response)
                     $("#edit-cas-modal").find('select[name=term]').html(Response)
+                    $(".term").html(Response)
                 }
             })
         }

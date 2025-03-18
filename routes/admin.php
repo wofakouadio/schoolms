@@ -219,9 +219,9 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
 
     /** Finance Fee Report **/
     Route::get("finance/reports", [FinanceReportController::class, 'index'])->name("admin_finance_report");
-    Route::get("finance/general_reports", [FinanceReportController::class, 'general_transactional_report'])->name("admin_finance_general_report");
     Route::post("finance/reports/get_student_data", [FinanceReportController::class, 'get_student_finance_data'])->name("admin_finance_student_report_data");
     Route::post("finance/reports/download_student_financial_report", [FinanceReportController::class, 'download_student_finance_data'])->name('admin_finance_download_student_report');
+    Route::get("finance/general_reports", [FinanceReportController::class, 'general_transactional_report'])->name("admin_finance_general_report");
     /** Finance Arrears Report **/
     Route::post("finance/reports/get_student_arrears_data", [FinanceReportController::class, 'get_student_finance_arrears_data'])->name('admin_finance_student_arrears_report_data');
     Route::post("finance/reports/download_student_arrears_report", [FinanceReportController::class, 'download_student_finance_arrears_data'])->name('admin_finance_download_student_arrears_report');

@@ -19,34 +19,33 @@
                 <x-dash.dash-term :term_name="$schoolTerm['term_name']" :academic_year_start="$schoolTerm['academic_year']['academic_year_start']" :academic_year_end="$schoolTerm['academic_year']['academic_year_end']" />
             @endif
             {{-- putting ui in bootstrap tab for easy management and view --}}
-            <div class="default-tab">
+            {{-- <div class="default-tab">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link @if ($is_active == '') active @elseif($is_active == 'arrears') active @else @endif"
                             data-bs-toggle="tab" href="#arrears_report" aria-selected="true" role="tab">
-                            Arrears Report
+                            Transactions Report
                         </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
+                    </li> --}}
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link @if ($is_active == 'fees') active @endif" data-bs-toggle="tab"
                             href="#fees_report" aria-selected="false" role="tab">
                             Fee Report
                         </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade @if ($is_active == '') active show @elseif($is_active == 'arrears') active show @else @endif"
-                        id="arrears_report" role="tabpanel">
+                    </li> --}}
+                {{-- </ul> --}}
+                {{-- <div class="tab-content"> --}}
+                    {{-- <div class="tab-pane fade @if ($is_active == '') active show @elseif($is_active == 'arrears') active show @else @endif"
+                        id="arrears_report" role="tabpanel"> --}}
                         <div class="row">
                             <div class="col-12">
                                 <div class="card" style="height: auto">
                                     <div class="card-header">
-                                        <h5>Search by Student ID</h5>
+                                        <h5>Transaction Report</h5>
                                     </div>
                                     <div class="card-body">
                                         <form class="form get_student_form" method="post"
-                                            action="{{ route('admin_finance_student_arrears_report_data') }}"
-                                            id="finance_get_student_arrears_data_form">
+                                            action="{{ route('admin_finance_student_arrears_report_data') }}" id="finance_get_student_arrears_data_form">
                                             @csrf
                                             @if ($errors->any())
                                                 <div class="alert menu-alert">
@@ -56,7 +55,78 @@
                                                 </div>
                                             @else
                                             @endif
-                                            <div class="form-group mb-4">
+                                            <div class="row">
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Invoice ID</label>
+                                                    <input type="text" class="form-control" name="invoice_id" id="invoice_id">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Level</label>
+                                                    <select class="form-control dropdown-groups level" name="level" id="level">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Term</label>
+                                                    <select class="form-control dropdown-groups term" name="term" id="term">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Academic Year</label>
+                                                    <select class="form-control dropdown-groups academic_year" name="academic_year" id="academic_year">
+                                                        <option value="">Select Academic Year</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Transaction Type</label>
+                                                    <select class="form-control dropdown-groups" name="transaction_type" id="transaction_type">
+                                                        <option value="">Choose</option>
+                                                        <option value="Cash">Cash</option>
+                                                        <option value="Wallet">Wallet</option>
+                                                        <option value="Mobile Money">Mobile Money</option>
+                                                        <option value="Bank Transfer">Bank Transfer</option>
+                                                        <option value="Credit Card">Credit Card</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Payment Status</label>
+                                                    <select class="form-control dropdown-groups" name="payment_status" id="payment_status">
+                                                        <option value="">Choose</option>
+                                                        <option value="awaiting_payment">Unpaid</option>
+                                                        <option value="partial_payment">Partially Paid</option>
+                                                        <option value="paid">Paid</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Reference</label>
+                                                    <input type="text" class="form-control" name="reference" id="reference">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Student ID</label>
+                                                    <input type="text" class="form-control" name="student_id" id="student_id">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Student Name</label>
+                                                    <input type="text" class="form-control" name="student_name" id="student_name">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Paid At From</label>
+                                                    <input type="date" class="form-control" name="paid_at_from" id="paid_at_from">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Paid At To</label>
+                                                    <input type="date" class="form-control" name="paid_at_to" id="paid_at_to">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Created At From</label>
+                                                    <input type="date" class="form-control" name="created_at_from" id="created_at_from">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
+                                                    <label>Created At To</label>
+                                                    <input type="date" class="form-control" name="created_at_to" id="created_at_to">
+                                                </div>
+                                            </div>
+
+                                            {{-- <div class="form-group mb-4">
                                                 <label>Department</label>
                                                 <select class="dropdown-groups form-control solid department_id" name="department_id"
                                                     id="single-select">
@@ -72,13 +142,37 @@
                                                 <label>Student ID</label>
                                                 <select class="dropdown-groups form-control solid student_uuid" name="student_uuid"
                                                     id="single-select" required></select>
-                                            </div>
-                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div> --}}
+                                            <button class="btn btn-primary" type="button" onclick="filterTransactionTable()">Search</button>
                                         </form>
+                                        <div class="table-responsive mt-5">
+                                            <table class="table table-sm table-hover general-report" id="transaction_report_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Invoice #</th>
+                                                        <th>Student ID</th>
+                                                        <th>Student Name</th>
+                                                        <th>Level</th>
+                                                        <th>Term</th>
+                                                        <th>Acad. Year</th>
+                                                        <th>Description</th>
+                                                        <th>Due</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>Transac. Type</th>
+                                                        <th>Status</th>
+                                                        <th>Paid At</th>
+                                                        <th>Created At</th>
+                                                        <th>Reference</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        <div>
                                     </div>
                                 </div>
                                 {{-- {{ dd($student) }} --}}
-                                @empty($arrears_records)
+                                {{-- @empty($arrears_records)
                                     <div class="alert alert-danger alert-dismissible fade show">
                                         <svg class="alert-icon me-2" viewBox="0 0 24 24" width="24" height="24"
                                             stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
@@ -91,9 +185,8 @@
                                         </svg>
                                         <strong>Error!</strong> No record available.
                                     </div>
-                                @else
-                                    {{-- {{ dd($data['student']['id']) }} --}}
-                                    <div class="card" style="height: auto">
+                                @else --}}
+                                    {{-- <div class="card" style="height: auto">
                                         <div class="card-header">
                                             <h5>Student Arrears Statement</h5>
                                             <form action="{{ route('admin_finance_download_student_arrears_report') }}"
@@ -168,12 +261,12 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </div>
-                                @endempty
+                                    </div> --}}
+                                {{-- @endempty --}}
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade @if ($is_active == 'fees') active show @else @endif" id="fees_report"
+                    {{-- </div> --}}
+                    {{-- <div class="tab-pane fade @if ($is_active == 'fees') active show @else @endif" id="fees_report"
                         role="tabpanel">
                         <div class="row">
                             <div class="col-12">
@@ -310,24 +403,25 @@
                                 @endempty
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </div> --}}
+                {{-- </div> --}}
+            {{-- </div> --}}
+        {{-- </div> --}}
         {{-- Modals --}}
         @push('modals')
-            @include('admin/dashboard/finance/reports/modals')
+            @include('admin.dashboard.finance.reports.modals')
         @endpush
     @endsection
     {{-- page js script --}}
     @push('page-js')
-        {{-- @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
-        @include('custom-functions/admin/TermsInSelectInputBasedOnSchoolJS') --}}
-        @include('custom-functions/admin/DepartmentsInSelectInputBasedOnSchoolJS')
-        @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS')
-        @include('admin/dashboard/finance/reports/js')
+        @include('custom-functions.admin.LevelsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions.admin.TermsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions.admin.AcademicYearsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions.admin.DepartmentsInSelectInputBasedOnSchoolJS')
+        @include('custom-functions.admin.StudentsListBasedOnDepartmentAndLevelJS')
+        @include('admin.dashboard.finance.reports.js')
     @endpush
     {{-- page datatable script --}}
     @push('datatable')
-        @include('admin/dashboard/finance/reports/admissionFeesDataTables')
+        @include('admin.dashboard.finance.reports.general_reports')
     @endpush
