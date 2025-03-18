@@ -101,6 +101,10 @@
                                                     <input type="text" class="form-control" name="reference" id="reference">
                                                 </div>
                                                 <div class="form-group mb-4 col-md-4">
+                                                    <label>Description</label>
+                                                    <input type="text" class="form-control" name="description" id="description">
+                                                </div>
+                                                <div class="form-group mb-4 col-md-4">
                                                     <label>Student ID</label>
                                                     <input type="text" class="form-control" name="student_id" id="student_id">
                                                 </div>

@@ -165,28 +165,13 @@ class FinanceReportController extends Controller
     public function general_transactional_report(Request $request)
     {
         // Don't hit this method if the request is not ajax
-        // if (!$request->ajax()) {
-        //     abort(404);
-        // }
-
-        // // If there are no values in the request or filters, return an empty array
-        // if (empty($request->diet) && empty($request->student_id) && empty($request->category) && empty($request->level)) {
-        // //     //get current diet id from examinations table where registration_status is 1
-        //     $current_diet = Examination::where('authority_to_site', 1)->first();
-        //     //assign the current diet id to the request diet
-        //     $request->diet = $current_diet->id;
-        //     // dd($request->diet);
-        //     // $request->merge(['diet' => $current_diet->id]);
-        //     // return response()->json([]);
-        // }
+        if (!$request->ajax()) {
+            abort(404);
+        }
 
         $query = Transaction::query();
-            // ->whereIn('id', function ($query) {
-            //     $query->select('examination_registration_id')
-            //         ->from('examination_applied_subjects')
-            //         ->whereNull('deferment')
-            //         ->whereNotNull('paid_at');
-            // });
+
+        // dd($query);
 
         // // Apply filters
         if ($request->has('invoice_id') && !empty($request->input('invoice_id')) ) {
@@ -210,6 +195,10 @@ class FinanceReportController extends Controller
         if ($request->has('reference') && !empty($request->input('reference')) ) {
             $query->where('reference', $request->input('reference'));
         }
+        if ($request->has('description') && !empty($request->input('description')) ) {
+            $description = $request->input('description');
+            $query->where('description', 'LIKE', "%{$description}%");
+        }
         if ($request->has('student_id') && !empty($request->input('student_id')) ) {
             $query->whereHas('student', function($q) use ($request){
                 $q->where('student_id', $request->input('student_id'));
@@ -223,45 +212,22 @@ class FinanceReportController extends Controller
                   ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
             });
         }
-        if (($request->has('paid_at_to') && !empty($request->input('paid_at_to'))) && ($request->has('paid_at_from') && !empty($request->input('paid_at_from')))) {
-            $query->whereBetween('paid_at', [$request->paid_at_from, $request->paid_at_to]);
+        if ($request->has('paid_at_from') && $request->filled('paid_at_from') &&
+            $request->has('paid_at_to') && $request->filled('paid_at_to')) {
+            $query->whereBetween('paid_at', [
+                $request->paid_at_from,
+                $request->paid_at_to
+            ]);
         }
-        if ($request->has('created_at_to') && $request->has('created_at_from')) {
-            $query->whereBetween('created_at', [$request->created_at_from, $request->created_at_to]);
+        if ($request->has('created_at_from') && $request->filled('created_at_from') &&
+            $request->has('created_at_to') && $request->filled('created_at_to')) {
+            $query->whereBetween('created_at', [
+                $request->created_at_from,
+                $request->created_at_to
+            ]);
         }
 
-        // if ($request->has('student_id') && !empty($request->input('student_id'))) {
-        //     $query->whereHas('user', function ($q) use ($request) {
-        //         $q->where('student_id', $request->input('student_id'));
-        //     });
-        // }
-
-        // // if ($request->has('category') && !empty($request->input('category'))) {
-        // //     $query->whereHas('examination', function ($q) use ($request) {
-        // //         $q->where('exam_type', $request->input('category'));
-        // //     });
-        // // }
-
-        // if ($request->has('level') && !empty($request->input('level'))) {
-
-        //     $query->whereIn('id', function ($q) {
-        //         $q->select('examination_registration_id')
-        //             ->from('examination_applied_subjects')
-        //             ->whereNull('deferment')
-        //             ->whereNotNull('paid_at');
-        //     });
-
-        //     // $query->where('level', $request->input('level'));
-        //     // ->whereHas('examinationAppliedSubjects', function ($q) {
-        //     //     $q->whereNull('deferment_approval')
-        //     //       ->whereNotNull('paid_at');
-        //     // });
-        //     // $query->whereHas('examinationAppliedSubjects', function ($q) use ($request) {
-        //     //     $q->where('level', $request->input('level'));
-        //     // });
-        // }
-
-        $data = $query->with('level', 'student', 'academic_year', 'term')
+        $data = $query->with('level', 'student', 'academic_year', 'term', 'school')
         ->where('school_id', '=' ,Auth::guard('admin')->user()->school_id)
         ->get();
         // dd($data);
@@ -300,9 +266,9 @@ class FinanceReportController extends Controller
                 return $row->transaction_type ?? '...';
             })
             ->addColumn('status', function ($row) {
-                if($row->transaction_type == 'awaiting_payment'){
+                if($row->payment_status == 'awaiting_payment'){
                     $status = 'Unpaid';
-                }elseif($row->transaction_type == 'partial_payment'){
+                }elseif($row->payment_status == 'partial_payment'){
                     $status = 'Partially Paid';
                 }else{
                     $status = 'Paid';

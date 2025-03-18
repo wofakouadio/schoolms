@@ -39,6 +39,9 @@
                         reference: function(){
                             return $("#reference").val()
                         },
+                        description: function(){
+                            return $("#description").val()
+                        },
                         student_id: function(){
                             return $("#student_id").val()
                         },
@@ -134,17 +137,28 @@
                 scrollCollapse: true,
                 stateSave: true,
                 language: {
-                paginate: {
-                    next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
-                    previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                    paginate: {
+                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                    },
+                    lengthMenu: "Display _MENU_ records per page",
+                    zeroRecords: "Nothing found - sorry",
+                    info: "Showing page _PAGE_ of _PAGES_",
+                    infoEmpty: "No records available",
+                    infoFiltered: "",
+                    pagingType: "full_numbers"
                 },
-                lengthMenu: "Display _MENU_ records per page",
-                zeroRecords: "Nothing found - sorry",
-                info: "Showing page _PAGE_ of _PAGES_",
-                infoEmpty: "No records available",
-                infoFiltered: "",
-                pagingType: "full_numbers"
-            },
+                dom: "lBfrtip",
+                buttons: [{
+                    text: 'Export All',
+                    action: function() {
+                        // let url = '/sms/admin/finance/transactions/export';
+                        let filters = table.ajax.params();
+
+                        // Redirect to export route with filters
+                        window.location.href = url + '?' + $.param(filters);
+                    },
+                }, ],
 
             });
 
