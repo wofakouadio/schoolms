@@ -101,11 +101,11 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::put('update', [SchoolController::class, 'update'])->name('admin_school_update');
 
     /**Currency**/
-    Route::post("currency/new", [CurrencyController::class,"store"])->name("admin_new_currency");
-    Route::get("currency/edit", [CurrencyController::class,"edit"])->name("admin_edit_currency");
-    Route::put("currency/update", [CurrencyController::class,"update"])->name("admin_update_currency");
+    Route::post("currency/new", [CurrencyController::class, "store"])->name("admin_new_currency");
+    Route::get("currency/edit", [CurrencyController::class, "edit"])->name("admin_edit_currency");
+    Route::put("currency/update", [CurrencyController::class, "update"])->name("admin_update_currency");
     Route::put("currency/default", [CurrencyController::class, "set_selected_currency_as_default"])->name("admin_set_selected_currency_as_default");
-    Route::delete("currency/delete", [CurrencyController::class,"delete"])->name("admin_delete_currency");
+    Route::delete("currency/delete", [CurrencyController::class, "delete"])->name("admin_delete_currency");
 
     /**Term**/
     Route::get('term', [TermController::class, 'index'])->name('admin_school_term');
@@ -187,16 +187,16 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::get('finance/expenditure', [FinanceController::class, 'expenditureView'])->name('admin_expenditure');
 
     /**Admission Fee**/
-    Route::get("finance/admission-fees", [AdmissionFeeController::class,"index"])->name("admin_finance_admission_fee");
-    Route::post("finance/new-admission-fee", [AdmissionFeeController::class,"store"])->name("new_admission_fee");
+    Route::get("finance/admission-fees", [AdmissionFeeController::class, "index"])->name("admin_finance_admission_fee");
+    Route::post("finance/new-admission-fee", [AdmissionFeeController::class, "store"])->name("new_admission_fee");
     Route::get("finance/edit-admission-fee", [AdmissionFeeController::class, "edit"])->name("edit_admission_fee");
-    Route::put("finance/update-admission-fee", [AdmissionFeeController::class,"update"])->name("update_admission_fee");
-    Route::delete("finance/delete-admission-fee", [AdmissionFeeController::class,"delete"])->name("delete_admission_fee");
+    Route::put("finance/update-admission-fee", [AdmissionFeeController::class, "update"])->name("update_admission_fee");
+    Route::delete("finance/delete-admission-fee", [AdmissionFeeController::class, "delete"])->name("delete_admission_fee");
 
     /**Fee Collection**/
-    Route::get("finance/fee-collection", [FeesCollectionController::class,"index"])->name("admin_finance_fee_collection");
-    Route::match(['get','post'],"finance/transactions/get-student", [FeesCollectionController::class,"create"])->name("admin_get_student_transaction");
-    Route::match(['get','post'],"finance/fee-collection/store", [FeesCollectionController::class, "store"])->name("admin_student_new_fee_collection");
+    Route::get("finance/fee-collection", [FeesCollectionController::class, "index"])->name("admin_finance_fee_collection");
+    Route::match(['get', 'post'], "finance/transactions/get-student", [FeesCollectionController::class, "create"])->name("admin_get_student_transaction");
+    Route::match(['get', 'post'], "finance/fee-collection/store", [FeesCollectionController::class, "store"])->name("admin_student_new_fee_collection");
 
     /**Bills**/
     Route::get('finance/term/bills/', [FinanceController::class, 'billsView'])->name('admin_term_bill');
@@ -225,6 +225,9 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     /** Finance Arrears Report **/
     Route::post("finance/reports/get_student_arrears_data", [FinanceReportController::class, 'get_student_finance_arrears_data'])->name('admin_finance_student_arrears_report_data');
     Route::post("finance/reports/download_student_arrears_report", [FinanceReportController::class, 'download_student_finance_arrears_data'])->name('admin_finance_download_student_arrears_report');
+    /** Finance Transaction Export **/
+    Route::get('finance/reports/export', [FinanceReportController::class, 'export_transactions'])
+        ->name('admin_finance_export_transactions');
 
     /** Feeding Fee **/
     Route::get("finance/feeding-fee", [FeedingFeeController::class, 'index'])->name('admin_finance_feeding_fee');
@@ -341,5 +344,4 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::put('level-assessment-size/update', [ClassAssessmentSizeController::class, 'update'])->name('update_class_assessment_size');
     Route::put('level-assessment-size/status', [ClassAssessmentSizeController::class, 'update_status'])->name('update_class_assessment_size_status');
     Route::delete('level-assessment-size/delete', [ClassAssessmentSizeController::class, 'delete'])->name('delete_class_assessment_size');
-
 });

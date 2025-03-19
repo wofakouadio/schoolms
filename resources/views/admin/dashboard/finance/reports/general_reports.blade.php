@@ -1,7 +1,6 @@
     {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
     <script>
-
-        function filterTransactionTable(){
+        function filterTransactionTable() {
             $('#transaction_report_table').DataTable().ajax.reload()
         }
 
@@ -16,56 +15,55 @@
                     url: "{{ route('admin_finance_general_report') }}",
                     dataType: 'json',
                     type: 'get',
-                    data:{
-                        _token:"{{ csrf_token() }}",
-                        invoice_id: function(){
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        invoice_id: function() {
                             return $("#invoice_id").val()
                         },
-                        level: function(){
+                        level: function() {
                             return $("#level").val()
                         },
-                        term: function(){
+                        term: function() {
                             return $("#term").val()
                         },
-                        academic_year: function(){
+                        academic_year: function() {
                             return $("#academic_year").val()
                         },
-                        transaction_type: function(){
+                        transaction_type: function() {
                             return $("#transaction_type").val()
                         },
-                        payment_status: function(){
+                        payment_status: function() {
                             return $("#payment_status").val()
                         },
-                        reference: function(){
+                        reference: function() {
                             return $("#reference").val()
                         },
-                        description: function(){
+                        description: function() {
                             return $("#description").val()
                         },
-                        student_id: function(){
+                        student_id: function() {
                             return $("#student_id").val()
                         },
-                        student_name: function(){
+                        student_name: function() {
                             return $("#student_name").val()
                         },
-                        paid_at_from: function(){
+                        paid_at_from: function() {
                             return $("#paid_at_from").val()
                         },
-                        paid_at_to: function(){
+                        paid_at_to: function() {
                             return $("#paid_at_to").val()
                         },
-                        created_at_from: function(){
+                        created_at_from: function() {
                             return $("#created_at_from").val()
                         },
-                        created_at_to: function(){
+                        created_at_to: function() {
                             return $("#created_at_to").val()
                         }
                     },
                 },
                 serverSide: true,
                 processing: true,
-                columns: [
-                    {
+                columns: [{
                         data: null,
                         render: function(data, type, row, meta) {
                             // Add row numbering
@@ -141,24 +139,62 @@
                         next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
                         previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
                     },
-                    lengthMenu: "Display _MENU_ records per page",
-                    zeroRecords: "Nothing found - sorry",
-                    info: "Showing page _PAGE_ of _PAGES_",
-                    infoEmpty: "No records available",
-                    infoFiltered: "",
+                    // lengthMenu: "Display _MENU_ records per page",
+                    // zeroRecords: "Nothing found - sorry",
+                    // info: "Showing page _PAGE_ of _PAGES_",
+                    // infoEmpty: "No records available",
+                    // infoFiltered: "",
                     pagingType: "full_numbers"
                 },
-                dom: "lBfrtip",
+                // dom: "lBfrtip",
+                dom: "Bfrtip",
                 buttons: [{
-                    text: 'Export All',
-                    action: function() {
-                        // let url = '/sms/admin/finance/transactions/export';
-                        let filters = table.ajax.params();
+                    extend: 'collection',
+                    text: 'Export',
+                    buttons: [{
+                            text: 'Export Excel',
+                            action: function(e, dt, node, config) {
+                                // Get all current filter values
+                                var filters = {
+                                    invoice_id: $('#invoice_id').val(),
+                                    level: $('#level').val(),
+                                    term: $('#term').val(),
+                                    academic_year: $('#academic_year').val(),
+                                    transaction_type: $('#transaction_type').val(),
+                                    payment_status: $('#payment_status').val(),
+                                    reference: $('#reference').val(),
+                                    description: $('#description').val(),
+                                    student_id: $('#student_id').val(),
+                                    student_name: $('#student_name').val(),
+                                    paid_at_from: $('#paid_at_from').val(),
+                                    paid_at_to: $('#paid_at_to').val(),
+                                    created_at_from: $('#created_at_from').val(),
+                                    created_at_to: $('#created_at_to').val()
+                                };
 
-                        // Redirect to export route with filters
-                        window.location.href = url + '?' + $.param(filters);
-                    },
-                }, ],
+                                // Build URL with filter parameters
+                                var url =
+                                    "{{ route('admin_finance_export_transactions') }}?" + $
+                                    .param(filters);
+                                window.location = url;
+                            }
+                        },
+                        // {
+                        //     text: 'Export CSV',
+                        //     action: function(e, dt, node, config) {
+                        //         // Similar to Excel but change the format in the URL
+                        //         var filters = {
+                        //             // ... same filters ...
+                        //             format: 'csv'
+                        //         };
+                        //         var url =
+                        //             "{{ route('admin_finance_export_transactions') }}?" + $
+                        //             .param(filters);
+                        //         window.location = url;
+                        //     }
+                        // }
+                    ]
+                }]
 
             });
 
@@ -184,6 +220,4 @@
             // });
 
         })
-
-
     </script>

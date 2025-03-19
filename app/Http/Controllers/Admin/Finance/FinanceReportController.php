@@ -15,11 +15,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\Pdf;
 use function App\Helpers\TermAndAcademicYear;
 use function App\Helpers\SchoolCurrency;
+use App\Exports\TransactionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FinanceReportController extends Controller
 {
     //index
-    public function index(){
+    public function index()
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         // $records = [] ?? null;
@@ -33,18 +36,19 @@ class FinanceReportController extends Controller
         //     ])->orderBy('student_id', 'asc')
         // ->get()->groupBy('category.category_name');
         // return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', 'records', 'arrears_records', 'studentsList', 'is_active'));
-        return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', ));
+        return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency',));
     }
-/**************************************************/
-/************************ Fees ************/
+    /**************************************************/
+    /************************ Fees ************/
     // method to fetch student data
-    public function get_student_finance_data(Request $request){
+    public function get_student_finance_data(Request $request)
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         $records = [] ?? null;
         $student_uuid = $request->student_uuid;
         // gde student data
-        $student = StudentsAdmissions::with('level', 'house', 'category', 'branch')->where("id", '=',$student_uuid)->first();
+        $student = StudentsAdmissions::with('level', 'house', 'category', 'branch')->where("id", '=', $student_uuid)->first();
         // get student photo
         $student_photo = $student->getFirstMediaUrl('student_profile') ?? asset('assets/images/profile/small/pic1.jpg');
         // $student_photo = $student->getMedia('student_profile')->first() ?? asset('assets/images/profile/small/pic1.jpg');
@@ -55,11 +59,11 @@ class FinanceReportController extends Controller
         // school profile
         $schoolPhoto = $schoolData->getFirstMediaUrl('school_logo') ?? asset('assets/images/avatar/1.jpg');
         $studentsList = StudentsAdmissions::with('level', 'house', 'category')
-        ->where([
-            'school_id' => Auth::guard('admin')->user()->school_id,
-            'admission_status' => 1
+            ->where([
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'admission_status' => 1
             ])->orderBy('student_id', 'asc')
-        ->get()->groupBy('category.category_name');
+            ->get()->groupBy('category.category_name');
         $data = [
             'student' => $student,
             'student_photo' => $student_photo,
@@ -72,7 +76,8 @@ class FinanceReportController extends Controller
     }
 
     // method to download student finance report
-    public function download_student_finance_data(Request $request){
+    public function download_student_finance_data(Request $request)
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         $records = [] ?? null;
@@ -92,9 +97,10 @@ class FinanceReportController extends Controller
             ->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
         return $pdf->stream($student->student_id . '_' . $student->student_firstname . '_' . $student->student_lastname . '_FinanceReport.pdf');
     }
-/******************** ARREARS ******************************/
+    /******************** ARREARS ******************************/
 
-    public function get_student_finance_arrears_data(Request $request){
+    public function get_student_finance_arrears_data(Request $request)
+    {
         // dd($request->all());
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
@@ -107,7 +113,7 @@ class FinanceReportController extends Controller
             "student_id" => $student_uuid,
             'payment_status' => 'awaiting_payment',
             'payment_status' => 'partial_payment'
-            ])->orderBy('paid_at', 'desc')->get();
+        ])->orderBy('paid_at', 'desc')->get();
         // dd($arrears_records);
         // gde student data
         $student = StudentsAdmissions::with('level', 'house', 'category', 'branch')->where("id", "=", $student_uuid)->first();
@@ -119,11 +125,11 @@ class FinanceReportController extends Controller
         $schoolPhoto = $schoolData->getFirstMediaUrl('school_logo') ?? asset('assets/images/avatar/1.jpg');
         // student List
         $studentsList = StudentsAdmissions::with('level', 'house', 'category')
-        ->where([
-            'school_id' => Auth::guard('admin')->user()->school_id,
-            'admission_status' => 1
+            ->where([
+                'school_id' => Auth::guard('admin')->user()->school_id,
+                'admission_status' => 1
             ])->orderBy('student_id', 'asc')
-        ->get()->groupBy('category.category_name');
+            ->get()->groupBy('category.category_name');
 
         $data = [
             'student' => $student,
@@ -137,7 +143,8 @@ class FinanceReportController extends Controller
         return view('admin.dashboard.finance.reports.index', compact('schoolTerm', 'schoolCurrency', 'arrears_records', 'data', 'studentsList', 'is_active'));
     }
 
-    public function download_student_finance_arrears_data(Request $request){
+    public function download_student_finance_arrears_data(Request $request)
+    {
         $schoolTerm = TermAndAcademicYear();
         $schoolCurrency = SchoolCurrency();
         $records = [] ?? null;
@@ -151,7 +158,7 @@ class FinanceReportController extends Controller
             "student_id" => $student->id,
             'payment_status' => 'awaiting_payment',
             // 'payment_status' => 'partial_payment'
-            ])->get();
+        ])->get();
         // get school data
         $schoolData = School::where("id", Auth::guard('admin')->user()->school_id)->first();
         // school profile
@@ -169,77 +176,76 @@ class FinanceReportController extends Controller
             abort(404);
         }
 
-        $query = Transaction::query();
+        $query = Transaction::query()
+            ->where('school_id',  Auth::guard('admin')->user()->school_id);
 
         // dd($query);
 
         // // Apply filters
-        if ($request->has('invoice_id') && !empty($request->input('invoice_id')) ) {
+        if ($request->has('invoice_id') && !empty($request->input('invoice_id'))) {
             $query->where('invoice_id', $request->input('invoice_id'));
         }
-        if ($request->has('level') && !empty($request->input('level')) ) {
+        if ($request->has('level') && !empty($request->input('level'))) {
             $query->where('level_id', $request->input('level'));
         }
-        if ($request->has('term') && !empty($request->input('term')) ) {
+        if ($request->has('term') && !empty($request->input('term'))) {
             $query->where('term_id', $request->input('term'));
         }
-        if ($request->has('academic_year') && !empty($request->input('academic_year')) ) {
+        if ($request->has('academic_year') && !empty($request->input('academic_year'))) {
             $query->where('academic_year_id', $request->input('academic_year'));
         }
-        if ($request->has('transaction_type') && !empty($request->input('transaction_type')) ) {
+        if ($request->has('transaction_type') && !empty($request->input('transaction_type'))) {
             $query->where('transaction_type', $request->input('transaction_type'));
         }
-        if ($request->has('payment_status') && !empty($request->input('payment_status')) ) {
+        if ($request->has('payment_status') && !empty($request->input('payment_status'))) {
             $query->where('payment_status', $request->input('payment_status'));
         }
-        if ($request->has('reference') && !empty($request->input('reference')) ) {
+        if ($request->has('reference') && !empty($request->input('reference'))) {
             $query->where('reference', $request->input('reference'));
         }
-        if ($request->has('description') && !empty($request->input('description')) ) {
+        if ($request->has('description') && !empty($request->input('description'))) {
             $description = $request->input('description');
             $query->where('description', 'LIKE', "%{$description}%");
         }
-        if ($request->has('student_id') && !empty($request->input('student_id')) ) {
-            $query->whereHas('student', function($q) use ($request){
+        if ($request->has('student_id') && !empty($request->input('student_id'))) {
+            $query->whereHas('student', function ($q) use ($request) {
                 $q->where('student_id', $request->input('student_id'));
             });
         }
-        if ($request->has('student_name') && !empty($request->input('student_name')) ) {
+        if ($request->has('student_name') && !empty($request->input('student_name'))) {
             $searchName = $request->input('student_name');
-            $query->whereHas('student', function($q) use ($searchName){
+            $query->whereHas('student', function ($q) use ($searchName) {
                 $q->where('student_firstname', 'LIKE', "%{$searchName}%")
-                  ->orWhere('student_othername', 'LIKE', "%{$searchName}%")
-                  ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
+                    ->orWhere('student_othername', 'LIKE', "%{$searchName}%")
+                    ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
             });
         }
-        if ($request->has('paid_at_from') && $request->filled('paid_at_from') &&
-            $request->has('paid_at_to') && $request->filled('paid_at_to')) {
+        if ($request->has('paid_at_from') && $request->filled('paid_at_from') && $request->has('paid_at_to') && $request->filled('paid_at_to')) {
             $query->whereBetween('paid_at', [
                 $request->paid_at_from,
                 $request->paid_at_to
             ]);
         }
-        if ($request->has('created_at_from') && $request->filled('created_at_from') &&
-            $request->has('created_at_to') && $request->filled('created_at_to')) {
+        if (
+            $request->has('created_at_from') && $request->filled('created_at_from') && $request->has('created_at_to') && $request->filled('created_at_to')
+        ) {
             $query->whereBetween('created_at', [
                 $request->created_at_from,
                 $request->created_at_to
             ]);
         }
 
-        $data = $query->with('level', 'student', 'academic_year', 'term', 'school')
-        ->where('school_id', '=' ,Auth::guard('admin')->user()->school_id)
-        ->get();
+        $data = $query->with('level', 'student', 'academic_year', 'term', 'school')->get();
         // dd($data);
         return Datatables::of($data)
-            ->addColumn('invoice_id', function($row){
+            ->addColumn('invoice_id', function ($row) {
                 return $row->invoice_id ?? '...';
             })
             ->addColumn('student_id', function ($row) {
                 return $row->student->student_id ?? '...';
             })
             ->addColumn('student_name', function ($row) {
-                return $row->student->student_firstname.' '.$row->student->student_othername.' '.$row->student->student_lastname ?? '...';
+                return $row->student->student_firstname . ' ' . $row->student->student_othername . ' ' . $row->student->student_lastname ?? '...';
             })
             ->addColumn('level', function ($row) {
                 return $row->level->level_name ?? '...';
@@ -247,30 +253,30 @@ class FinanceReportController extends Controller
             ->addColumn('term', function ($row) {
                 return $row->term->term_name ?? '...';
             })
-            ->addcolumn('academic_year', function($row){
-                return $row->academic_year->academic_year_start.'/'.$row->academic_year->academic_year_end ?? '...';
+            ->addcolumn('academic_year', function ($row) {
+                return $row->academic_year->academic_year_start . '/' . $row->academic_year->academic_year_end ?? '...';
             })
-            ->addcolumn('description', function($row){
+            ->addcolumn('description', function ($row) {
                 return $row->description ?? '...';
             })
             ->addColumn('amount_due', function ($row) {
-                return $row->currency.' '.$row->amount_due ?? '...';
+                return $row->currency . ' ' . $row->amount_due ?? '...';
             })
             ->addColumn('amount_paid', function ($row) {
-                return $row->currency.' '.$row->amount_paid ?? '...';
+                return $row->currency . ' ' . $row->amount_paid ?? '...';
             })
             ->addColumn('balance', function ($row) {
-                return $row->currency.' '.$row->balance ?? '...';
+                return $row->currency . ' ' . $row->balance ?? '...';
             })
             ->addColumn('transaction_type', function ($row) {
                 return $row->transaction_type ?? '...';
             })
             ->addColumn('status', function ($row) {
-                if($row->payment_status == 'awaiting_payment'){
+                if ($row->payment_status == 'awaiting_payment') {
                     $status = 'Unpaid';
-                }elseif($row->payment_status == 'partial_payment'){
+                } elseif ($row->payment_status == 'partial_payment') {
                     $status = 'Partially Paid';
-                }else{
+                } elseif ($row->payment_status == 'paid') {
                     $status = 'Paid';
                 }
                 return $status ?? '...';
@@ -299,6 +305,69 @@ class FinanceReportController extends Controller
             //     return '$action' ?? '...';
             // })
             ->make(true);
+    }
 
+    public function export_transactions(Request $request)
+    {
+        $query = Transaction::query()
+            ->where('school_id', Auth::guard('admin')->user()->school_id);
+
+        // Apply the same filters as in general_transactional_report
+        if ($request->has('invoice_id') && !empty($request->input('invoice_id'))) {
+            $query->where('invoice_id', $request->input('invoice_id'));
+        }
+        if ($request->has('level') && !empty($request->input('level'))) {
+            $query->where('level_id', $request->input('level'));
+        }
+        if ($request->has('term') && !empty($request->input('term'))) {
+            $query->where('term_id', $request->input('term'));
+        }
+        if ($request->has('academic_year') && !empty($request->input('academic_year'))) {
+            $query->where('academic_year_id', $request->input('academic_year'));
+        }
+        if ($request->has('transaction_type') && !empty($request->input('transaction_type'))) {
+            $query->where('transaction_type', $request->input('transaction_type'));
+        }
+        if ($request->has('payment_status') && !empty($request->input('payment_status'))) {
+            $query->where('payment_status', $request->input('payment_status'));
+        }
+        if ($request->has('reference') && !empty($request->input('reference'))) {
+            $query->where('reference', $request->input('reference'));
+        }
+        if ($request->has('description') && !empty($request->input('description'))) {
+            $description = $request->input('description');
+            $query->where('description', 'LIKE', "%{$description}%");
+        }
+        if ($request->has('student_id') && !empty($request->input('student_id'))) {
+            $query->whereHas('student', function ($q) use ($request) {
+                $q->where('student_id', $request->input('student_id'));
+            });
+        }
+        if ($request->has('student_name') && !empty($request->input('student_name'))) {
+            $searchName = $request->input('student_name');
+            $query->whereHas('student', function ($q) use ($searchName) {
+                $q->where('student_firstname', 'LIKE', "%{$searchName}%")
+                    ->orWhere('student_othername', 'LIKE', "%{$searchName}%")
+                    ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
+            });
+        }
+        if ($request->has('paid_at_from') && $request->filled('paid_at_from') && $request->has('paid_at_to') && $request->filled('paid_at_to')) {
+            $query->whereBetween('paid_at', [
+                $request->paid_at_from,
+                $request->paid_at_to
+            ]);
+        }
+        if (
+            $request->has('created_at_from') && $request->filled('created_at_from') && $request->has('created_at_to') && $request->filled('created_at_to')
+        ) {
+            $query->whereBetween('created_at', [
+                $request->created_at_from,
+                $request->created_at_to
+            ]);
+        }
+
+        $transactions = $query->with('level', 'student', 'academic_year', 'term', 'school')->get();
+
+        return Excel::download(new TransactionsExport($transactions), 'transactions_'.date('Y-m-d').'.xlsx');
     }
 }
