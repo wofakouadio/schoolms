@@ -171,7 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-//        Yajra\DataTables\ButtonsServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         KoenHendriks\StrAcronym\StrServiceProvider::class
