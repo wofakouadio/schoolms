@@ -31,6 +31,15 @@
             <main>
                 {{ $slot }}
             </main>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Set zoom level to 80%
+                    document.body.style.zoom = "80%";
+                    // For Firefox
+                    document.body.style.transform = "scale(0.8)";
+                    document.body.style.transformOrigin = "0 0";
+                });
+            </script>
         </div>
     </body>
 </html>
