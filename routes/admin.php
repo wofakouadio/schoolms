@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\Subjects\AssignSubjectToLevel\AssignSubjectToLeve
 use App\Http\Controllers\Admin\Subjects\SubjectController;
 use App\Http\Controllers\Admin\Subjects\SubjectsController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
+use App\Models\StudentsAdmissions;
 use Illuminate\Support\Facades\Route;
 
 Route::get('auth/', [AdminAuthController::class, 'admin_login'])->name('admin_login');
@@ -133,7 +134,8 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::get('branch/edit', [BranchController::class, 'edit'])->name('edit-branch');
     Route::put('branch/update', [BranchController::class, 'update'])->name('update-branch');
     Route::delete('branch/delete', [BranchController::class, 'delete'])->name('delete-branch');
-    Route::get('branchesTables', 'App\Http\Controllers\Admin\Branch\BranchesDatatable')->name('branchesTables');
+    Route::get('branch/branchesTables', [BranchController::class, 'branches_datatables_list'])->name('branches_datatables_list');
+    Route::get('branch/export/branchesTables', [BranchController::class, 'export_branches_datatables_list'])->name('export_branches_datatables_list');
     Route::get('getBranchesBySchoolId', [BranchController::class, 'getBranchesBySchoolId'])->name('getBranchesBySchoolId');
 
     /**Level**/
@@ -142,7 +144,9 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::get('level/edit', [LevelController::class, 'edit'])->name('edit-level');
     Route::put('level/update', [LevelController::class, 'update'])->name('update-level');
     Route::delete('level/delete', [LevelController::class, 'delete'])->name('delete-level');
-    Route::get('levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name('levelsTables');
+    // Route::get('levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name('levelsTables');
+    Route::get('level/levelsTables', [LevelController::class, 'LevelsDatatable'])->name('levelsTables_list');
+    Route::get('level/levelsTables/export', [LevelController::class, 'LevelsDatatable_export'])->name('export_levelsTables_list');
     Route::get('getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
     Route::get('getLevelsBySchoolId', [LevelController::class, 'getLevelsBySchoolId'])->name('getLevelsBySchoolId');
     Route::get('getLevelsInCheckboxBySchoolId', [LevelController::class, 'getLevelsInCheckboxBySchoolId'])->name('getLevelsInCheckboxBySchoolId');
@@ -174,7 +178,9 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::put('admissions/student/update', [StudentsAdmissionsController::class, 'update'])->name('update-student-admission');
     Route::put('admissions/student/update-admission-status', [StudentsAdmissionsController::class, 'updateAdmissionStatus'])->name('update-student-admission-status');
     Route::delete('admissions/student/delete', [StudentsAdmissionsController::class, 'delete'])->name('delete-student-admission');
-    Route::get('studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name('studentsAdmissionsTables');
+    // Route::get('studentsAdmissionsTables', 'App\Http\Controllers\Admin\Student\StudentsAdmissionsDatatable')->name('studentsAdmissionsTables');
+    Route::get('admissions/studentsAdmissionsTables', [StudentsAdmissionsController::class, 'StudentsAdmissionsDatatable'])->name('studentsAdmissionsTables');
+    Route::get('admissions/studentsAdmissionsTables/export', [StudentsAdmissionsController::class, 'export_StudentsAdmissionsDatatable'])->name('export_studentsAdmissionsTables');
     Route::get('admissions/export-template', [StudentsAdmissionsController::class, 'export_admissions_template'])->name('admin_export_template');
     Route::get('getStudentsByLevelId', [StudentsAdmissionsController::class, 'getStudentsByLevelId'])->name('getStudentsByLevelId');
 

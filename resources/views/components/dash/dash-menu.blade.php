@@ -61,8 +61,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{route('admin_student_admission')}}">Admissions</a></li>
-                        <li><a href="{{route('admin_student')}}">Students List</a></li>
-                        <li><a href="#">Activity Log</a></li>
+                        {{-- <li><a href="{{route('admin_student')}}">Students List</a></li>
+                        <li><a href="#">Activity Log</a></li> --}}
                     </ul>
                 </li>
                 <li>

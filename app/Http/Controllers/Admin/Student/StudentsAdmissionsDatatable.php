@@ -5,14 +5,71 @@ namespace App\Http\Controllers\Admin\Student;
 use App\Models\StudentsAdmissions;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class StudentsAdmissionsDatatable extends Controller
 {
-    public function __invoke(){
-        $data = StudentsAdmissions::with('level')
-            ->where('school_id',[Auth::guard('admin')->user()->school_id])
-            ->orderBy('created_at', 'DESC');
+    public function __invoke(Request $request){
+
+        // if (!$request->ajax()) {
+        //     abort(404);
+        // }
+        $query = StudentsAdmissions::query()
+        ->where('school_id', Auth::guard('admin')->user()->school_id)
+        ->orderBy('created_at', 'DESC');
+
+        // // Apply filters
+        if ($request->has('level') && !empty($request->input('level'))) {
+            $query->where('student_level', $request->input('level'));
+        }
+        if ($request->has('branch') && !empty($request->input('branch'))) {
+            $query->where('student_branch', $request->input('branch'));
+        }
+        if ($request->has('category') && !empty($request->input('category'))) {
+            $query->where('student_category', $request->input('category'));
+        }
+        if ($request->has('house') && !empty($request->input('house'))) {
+            $query->where('student_house', $request->input('house'));
+        }
+        if ($request->has('residency_status') && !empty($request->input('residency_status'))) {
+            $query->where('student_residency_status', $request->input('residency_status'));
+        }
+        if ($request->has('admission_status') && !empty($request->input('admission_status'))) {
+            $query->where('admission_status', $request->input('admission_status'));
+        }
+        if ($request->has('gender') && !empty($request->input('gender'))) {
+            $query->where('student_gender', $request->input('gender'));
+        }
+        // if ($request->has('description') && !empty($request->input('description'))) {
+        //     $description = $request->input('description');
+        //     $query->where('description', 'LIKE', "%{$description}%");
+        // }
+        // if ($request->has('student_id') && !empty($request->input('student_id'))) {
+        //     $query->whereHas('student', function ($q) use ($request) {
+        //         $q->where('student_id', $request->input('student_id'));
+        //     });
+        // }
+        if ($request->has('student_name') && !empty($request->input('student_name'))) {
+            $searchName = $request->input('student_name');
+            $query->whereHas('student', function ($q) use ($searchName) {
+                $q->where('student_firstname', 'LIKE', "%{$searchName}%")
+                    ->orWhere('student_othername', 'LIKE', "%{$searchName}%")
+                    ->orWhere('student_lastname', 'LIKE', "%{$searchName}%");
+            });
+        }
+        if ($request->has('date_of_birth') && $request->filled('date_of_birth')) {
+            $query->where('student_dob', $request->input('date_of_birth'));
+        }
+        if ($request->has('registration_date') && $request->filled('registration_date')) {
+            $query->where('created_at', $request->input('registration_date'));
+        }
+
+        $data = $query->with('level', 'school', 'branch', 'house', 'category')->get();
+
+        // $data = StudentsAdmissions::with('level')
+        //     ->where('school_id',[Auth::guard('admin')->user()->school_id])
+        //     ->orderBy('created_at', 'DESC');
 
         return DataTables::of($data)
             ->addColumn('profile', function($row){
@@ -100,7 +157,7 @@ class StudentsAdmissionsDatatable extends Controller
 //                            </a>
 //                         </div>';
             })
-            ->rawColumns(['profile','name','admission_status','action'])
+            // ->rawColumns(['profile','name','admission_status','action'])
             ->make(true);
     }
 }
