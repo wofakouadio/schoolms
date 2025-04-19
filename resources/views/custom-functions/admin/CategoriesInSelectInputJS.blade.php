@@ -16,6 +16,7 @@
                     // console.log(Response)
                     $("#new-student-admission-form").find("select[name=student_category]").html(Response)
                     $("#update-student-admission-form").find("select[name=student_category]").html(Response)
+                    $("#category").html(Response)
                 }
             })
         }

@@ -27,6 +27,11 @@
                             '<option value='+value['id']+'>'+value['academic_year_start']+'/'+value
                                 ['academic_year_end' +
                             '']+'</option>')
+
+                        $("#academic_year").append(
+                            '<option value='+value['id']+'>'+value['academic_year_start']+'/'+value
+                                ['academic_year_end' +
+                            '']+'</option>')
                     })
 
                 }

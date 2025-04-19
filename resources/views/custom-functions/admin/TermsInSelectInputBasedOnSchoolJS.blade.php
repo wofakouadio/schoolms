@@ -24,6 +24,7 @@
                     $("#new-cas-modal").find('select[name=term]').html(Response)
                     $("#edit-cas-modal").find('select[name=term]').html(Response)
                     $(".term").html(Response)
+                    $("#term").html(Response)
                 }
             })
         }

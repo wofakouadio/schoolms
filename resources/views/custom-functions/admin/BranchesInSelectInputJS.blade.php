@@ -24,6 +24,7 @@
                     $("#update-department-form").find("select[name=branch]").html(Response)
                     $("#new-level-form select[name=branch]").html(Response)
                     $("#update-level-form select[name=branch]").html(Response)
+                    $("#branch").html(Response)
                 }
             })
         }
