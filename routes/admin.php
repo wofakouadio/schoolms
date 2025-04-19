@@ -144,7 +144,6 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::get('level/edit', [LevelController::class, 'edit'])->name('edit-level');
     Route::put('level/update', [LevelController::class, 'update'])->name('update-level');
     Route::delete('level/delete', [LevelController::class, 'delete'])->name('delete-level');
-    // Route::get('levelsTables', 'App\Http\Controllers\Admin\Level\LevelsDatatable')->name('levelsTables');
     Route::get('level/levelsTables', [LevelController::class, 'LevelsDatatable'])->name('levelsTables_list');
     Route::get('level/levelsTables/export', [LevelController::class, 'LevelsDatatable_export'])->name('export_levelsTables_list');
     Route::get('getLevelsByBranchId', [LevelController::class, 'getLevelsByBranchId'])->name('getLevelsByBranchId');
@@ -158,7 +157,8 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::get('house/edit', [HouseController::class, 'edit'])->name('edit-house');
     Route::put('house/update', [HouseController::class, 'update'])->name('update-house');
     Route::delete('house/delete', [HouseController::class, 'delete'])->name('delete-house');
-    Route::get('housesTables', 'App\Http\Controllers\Admin\House\HousesDatatable')->name('housesTables');
+    Route::get('house/housesTables', [HouseController::class, 'housesDataTables'])->name('housesTables');
+    Route::get('house/housesTables/export', [HouseController::class, 'HousesDatatableExport'])->name('housesTables_export');
     Route::get('getHousesByBranchId', [HouseController::class, 'getHousesByBranchId'])->name('getHousesByBranchId');
 
     /**Category**/

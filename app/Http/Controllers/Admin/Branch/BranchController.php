@@ -272,7 +272,7 @@ class BranchController extends Controller
             $query->where('branch_email', $request->branch_email);
         }
         if ($request->has('created_at') && $request->filled('created_at')) {
-            $query->where('created_at', $request->input('created_at'));
+            $query->whereDate('created_at', $request->input('created_at'));
         }
 
         // dd($query);

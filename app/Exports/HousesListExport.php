@@ -6,30 +6,28 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class BranchesListDataTableExport implements FromCollection, WithHeadings, WithMapping
+class HousesListExport implements FromCollection, WithHeadings, WithMapping
 {
-    protected $BranchesList;
+    protected $HousesList;
 
-    public function __construct($BranchesList)
+    public function __construct($HousesList)
     {
-        $this->BranchesList = $BranchesList;
+        $this->HousesList = $HousesList;
     }
 
     public function collection()
     {
-        return $this->BranchesList;
+        return $this->HousesList;
     }
 
-    public function headings(): array{
-        return [
+    public function headings(): array
+    {
+        return[
             '#',
             'Name',
-            'Description',
-            'Contact',
-            'Email',
-            'Location',
-            'Status',
+            'Branch',
             'School',
+            'Status',
             'Created At'
         ];
     }
@@ -42,16 +40,12 @@ class BranchesListDataTableExport implements FromCollection, WithHeadings, WithM
         }else{
             $status = 'DISABLED';
         }
-
         return [
             ++$count,
-            $data->branch_name,
-            $data->branch_description,
-            $data->branch_contact,
-            $data-> branch_email,
-            $data->branch_location,
-            $status,
+            $data->house_name,
+            $data->branch->branch_name,
             $data->school->school_name,
+            $status,
             $data->created_at
         ];
     }

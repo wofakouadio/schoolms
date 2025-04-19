@@ -369,7 +369,7 @@
                                     <div class="col-xl-4 mb-4">
                                         <label class="form-label font-w600">Level/Class<span class="text-danger scale5
                                         ms-2">*</span></label>
-                                        <select class="form-control solid" name="student_level"></select>
+                                        <select class="form-control solid level" name="student_level"></select>
                                     </div>
                                     <div class="col-xl-4 mb-4">
                                         <label class="form-label font-w600">House<span class="text-danger scale5
@@ -408,7 +408,8 @@
                                         <input type="hidden" name="student_health_id"/>
                                     </div>
                                     <div class="col-xl-6 mb-4">
-                                        <label class="form-label font-w600">Weight</label>
+                                        <label class="form-label font-w600">Weight<span class="text-danger scale5
+                                        ms-2">*</span></label>
                                         <input type="text" class="form-control solid" aria-label="name" name="student_weight"
                                             value="{{ old('student_weight') }}">
                                     </div>
