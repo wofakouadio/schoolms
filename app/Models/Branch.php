@@ -24,6 +24,6 @@ class Branch extends Model
     protected $table = 'branches';
 
     public function school(){
-        return $this->hasOne(School::class);
+        return $this->belongsTo(School::class, "school_id", "id");
     }
 }

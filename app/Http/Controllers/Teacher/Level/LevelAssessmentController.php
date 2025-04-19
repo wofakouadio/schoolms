@@ -10,6 +10,7 @@ use App\Models\ClassAssessment;
 use App\Models\ClassAssessmentSettings;
 use App\Models\ClassAssessmentTotalScoreRecord;
 use App\Models\Level;
+use App\Models\StudentsAcademicRecordsSummary;
 use App\Models\StudentsAdmissions;
 use App\Models\Subject;
 use App\Models\SubjectsToTeacher;
@@ -29,13 +30,19 @@ class LevelAssessmentController extends Controller
         $schoolTerm = TermAndAcademicYear();
         $schoolAssessmentSettings = SchoolAssessmentPercentageSettings();
         $classAssessmentPercentage = $schoolAssessmentSettings->getData()->class_percentage;
-        $AssessmentRecords = ClassAssessmentTotalScoreRecord::with('student', 'level', 'term', 'academicYear', 'subject')
-            ->where('school_id', Auth::guard('teacher')->user()->school_id)->orderBy('created_at', 'desc')->get();
-        $TeacherAssignedLevels = SubjectsToTeacher::with('level')->where([
-            'school_id' => Auth::guard('teacher')->user()->school_id,
-            'teacher_id' => Auth::guard('teacher')->user()->id,
-            ])->distinct()->get('level_id');
-        return view("teacher.dashboard.assessment.level.index", compact('schoolTerm', 'classAssessmentPercentage', 'AssessmentRecords', 'TeacherAssignedLevels'));
+        // $AssessmentRecords = ClassAssessmentTotalScoreRecord::with('student', 'level', 'term', 'academicYear', 'subject')
+        //     ->where('school_id', Auth::guard('teacher')->user()->school_id)->orderBy('created_at', 'desc')->get();
+        // $TeacherAssignedLevels = SubjectsToTeacher::with('level')->where([
+        //     'school_id' => Auth::guard('teacher')->user()->school_id,
+        //     'teacher_id' => Auth::guard('teacher')->user()->id,
+        //     ])->distinct()->get('level_id');
+        $AssessmentRecords = StudentsAcademicRecordsSummary::with('student', 'level', 'term', 'academic_year')
+            ->where([
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+                'term_id' => $schoolTerm->id,
+                'academic_year_id' => $schoolTerm->term_academic_year
+            ])->orderBy('created_at', 'desc')->get();
+        return view("teacher.dashboard.assessment.level.index", compact('schoolTerm', 'classAssessmentPercentage', 'AssessmentRecords'));
     }
 
     public function getSubjectsBasedOnLevel(Request $request)

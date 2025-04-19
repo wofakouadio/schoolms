@@ -10,7 +10,11 @@
             // alert({!! json_encode(url('/')) !!})
             // $.noConflict();
 
-            $('#transaction_report_table').DataTable({
+            // $("#btn_search_filter").on("click", (e)=>{
+
+            // })
+
+            let table = $('#transaction_report_table').DataTable({
                 ajax: {
                     url: "{{ route('admin_finance_general_report') }}",
                     dataType: 'json',
@@ -179,20 +183,7 @@
                                 window.location = url;
                             }
                         },
-                        // {
-                        //     text: 'Export CSV',
-                        //     action: function(e, dt, node, config) {
-                        //         // Similar to Excel but change the format in the URL
-                        //         var filters = {
-                        //             // ... same filters ...
-                        //             format: 'csv'
-                        //         };
-                        //         var url =
-                        //             "{{ route('admin_finance_export_transactions') }}?" + $
-                        //             .param(filters);
-                        //         window.location = url;
-                        //     }
-                        // }
+
                     ]
                 }]
 

@@ -129,25 +129,7 @@
                                                     <input type="date" class="form-control" name="created_at_to" id="created_at_to">
                                                 </div>
                                             </div>
-
-                                            {{-- <div class="form-group mb-4">
-                                                <label>Department</label>
-                                                <select class="dropdown-groups form-control solid department_id" name="department_id"
-                                                    id="single-select">
-                                                    <option>Choose</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label>Level / Class</label>
-                                                <select class="dropdown-groups form-control solid level_id" name="level_id"
-                                                    id="single-select"></select>
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label>Student ID</label>
-                                                <select class="dropdown-groups form-control solid student_uuid" name="student_uuid"
-                                                    id="single-select" required></select>
-                                            </div> --}}
-                                            <button class="btn btn-primary" type="button" onclick="filterTransactionTable()">Search</button>
+                                            <button class="btn btn-primary" type="button" onclick="filterTransactionTable()" id="btn_search_filter">Search</button>
                                         </form>
                                         <div class="table-responsive mt-5">
                                             <table class="table table-sm table-hover general-report" id="transaction_report_table">
