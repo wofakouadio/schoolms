@@ -32,16 +32,61 @@
                             </a>
                         </div>
                         <div class="card-body">
+                            <form class="form mb-4" method="post">
+                                @csrf
+                                @if ($errors->any())
+                                    <div class="alert menu-alert">
+                                        @foreach ($errors->all() as $error)
+                                            <ul>{{ $error }}</ul>
+                                        @endforeach
+                                    </div>
+                                @else
+                                @endif
+                                <div class="row">
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Status</label>
+                                        <select class="form-control" name="branch_is_active" id="#branch_is_active">
+                                            <option value="">Choose</option>
+                                            <option value="1">ACTIVE</option>
+                                            <option value="0">DISABLED</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" name="branch_name" id="branch_name">
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Contact</label>
+                                        <input type="text" class="form-control" name="branch_contact" id="branch_contact">
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Location</label>
+                                        <input type="text" class="form-control" name="branch_location" id="branch_location">
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" name="branch_email" id="branch_email">
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label>Created At</label>
+                                        <input type="date" class="form-control" name="created_at" id="created_at">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="filterBranch()" id="btn_search_filter">Search</button>
+                            </form>
                             <div class="table-responsive">
                                 <table id="BranchesDataTables" class="display" style="min-width: 845px">
                                     <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Contact</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Contact</th>
+                                            <th>Email</th>
+                                            <th>Location</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -54,14 +99,14 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/branch/BranchesModals')
+        @include('admin.dashboard.branch.BranchesModals')
     @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('admin/dashboard/branch/branchesJS')
+    @include('admin.dashboard.branch.branchesJS')
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/branch/branchesDataTables')
+    @include('admin.dashboard.branch.branchesDataTables')
 @endpush

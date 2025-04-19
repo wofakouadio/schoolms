@@ -15,7 +15,9 @@ class BranchesDatatable extends Controller
 {
     public function __invoke()
     {
-        // dd();
+        $query = Branch::query();
+
+        // dd($query);
         $data = Branch::where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
         // $data = DB::select('select * FROM branches WHERE school_id = ?', [Auth::guard('admin')
         //     ->user()->school_id]);

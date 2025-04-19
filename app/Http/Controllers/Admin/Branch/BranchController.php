@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Branch;
 
+use App\Exports\BranchesListDataTableExport;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 use function App\Helpers\TermAndAcademicYear;
 
 class BranchController extends Controller
@@ -127,5 +130,157 @@ class BranchController extends Controller
             $output[] = "<option value='" . $branch->id . "'>" . $branch->branch_name . "</option>";
         }
         return $output;
+    }
+
+    // branch DataTable
+    public function branches_datatables_list(Request $request){
+        $query = Branch::query()
+            ->where([
+                'school_id' => Auth::guard('admin')->user()->school_id
+            ])->orderBy('created_at', 'DESC');
+
+        // apply filters
+        if($request->has('branch_is_active') && !empty($request->input('branch_is_active'))){
+            $query->where('is_active', $request->branch_is_active);
+        }
+        if($request->has('branch_name') && !empty($request->input('branch_name'))){
+            $searchName = $request->input('branch_name');
+            $query->where(function ($q) use ($searchName){
+                $q->where('branch_name', 'LIKE', "%{$searchName}%");
+            });
+        }
+        if($request->has('branch_contact') && !empty($request->input('branch_contact'))){
+            $query->where('branch_contact', $request->branch_contact);
+        }
+        if($request->has('branch_location') && !empty($request->input('branch_location'))){
+            $searchName = $request->input('branch_location');
+            $query->where(function ($q) use ($searchName){
+                $q->where('branch_location', 'LIKE', "%{$searchName}%");
+            });
+            // $query->where('branch_location', $request->branch_location);
+        }
+        if($request->has('branch_email') && !empty($request->input('branch_email'))){
+            $query->where('branch_email', $request->branch_email);
+        }
+        if ($request->has('created_at') && $request->filled('created_at')) {
+            $query->where('created_at', $request->input('created_at'));
+        }
+
+        // dd($query);
+        // $data = Branch::where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
+        // $data = DB::select('select * FROM branches WHERE school_id = ?', [Auth::guard('admin')
+        //     ->user()->school_id]);
+        $data = $query->with('school')->get();
+
+        return DataTables::of($data)
+
+            ->addColumn('name', function ($row) {
+                $name = $row->branch_name;
+                return $name ?? '...';
+            })
+            ->addColumn('contact', function ($row) {
+                $contact = $row->branch_contact;
+                return $contact ?? '...';
+            })
+            ->addColumn('email', function ($row) {
+                $email = $row->branch_email;
+                return $email ?? '...';
+            })
+            ->addColumn('location', function ($row) {
+                $location = $row->branch_location;
+                return $location ?? '...';
+            })
+            ->addColumn('created_at', function ($row) {
+                $created_at = $row->created_at;
+                return $created_at ?? '...';
+            })
+            ->addColumn('is_active', function ($row) {
+                //                $department_status =;
+                if ($row->is_active === 1) {
+                    return '<div class="bootstrap-badge">
+                                <span class="badge badge-xl light badge-success text-uppercase">active</span>
+                           </div>';
+                } else {
+                    return '<span class="badge badge-xl light badge-danger text-uppercase">disabled</span>';
+                }
+                //                return $remodelledStatus ?? '...';
+            })
+            ->addColumn('action', function ($row) {
+                $branch_id = $row->id;
+                return '
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                        <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                        <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                    </g>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu" style="">
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-branch-modal" data-id="' . $branch_id . '">Edit Branch</a>
+                                <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete-branch-modal" data-id="' . $branch_id. '">Delete Branch</a>
+                            </div>
+                        </div>
+                    ';
+//                return '<div class="d-flex">
+//                            <a data-bs-toggle="modal" data-bs-target="#edit-branch-modal" data-id="' . $branch_id . '"
+//                            class="btn btn-primary shadow btn-xs sharp me-1">
+//                                <i class="fas fa-pencil-alt"></i>
+//                            </a>
+//                            <a data-bs-toggle="modal" data-bs-target="#delete-branch-modal" data-id="' . $branch_id
+//                    . '" class="btn btn-danger shadow btn-xs sharp">
+//                                <i class="fa fa-trash"></i>
+//                            </a>
+//                         </div>
+//                ';
+            })
+            ->rawColumns(['is_active', 'action'])
+            ->make(true);
+    }
+
+
+    public function export_branches_datatables_list(Request $request){
+        $query = Branch::query()
+            ->where([
+                'school_id' => Auth::guard('admin')->user()->school_id
+            ])->orderBy('created_at', 'DESC');
+
+        // apply filters
+        if($request->has('branch_is_active') && !empty($request->input('branch_is_active'))){
+            $query->where('is_active', $request->branch_is_active);
+        }
+        if($request->has('branch_name') && !empty($request->input('branch_name'))){
+            $searchName = $request->input('branch_name');
+            $query->where(function ($q) use ($searchName){
+                $q->where('branch_name', 'LIKE', "%{$searchName}%");
+            });
+        }
+        if($request->has('branch_contact') && !empty($request->input('branch_contact'))){
+            $query->where('branch_contact', $request->branch_contact);
+        }
+        if($request->has('branch_location') && !empty($request->input('branch_location'))){
+            $searchName = $request->input('branch_location');
+            $query->where(function ($q) use ($searchName){
+                $q->where('branch_location', 'LIKE', "%{$searchName}%");
+            });
+            // $query->where('branch_location', $request->branch_location);
+        }
+        if($request->has('branch_email') && !empty($request->input('branch_email'))){
+            $query->where('branch_email', $request->branch_email);
+        }
+        if ($request->has('created_at') && $request->filled('created_at')) {
+            $query->where('created_at', $request->input('created_at'));
+        }
+
+        // dd($query);
+        // $data = Branch::where('school_id', Auth::guard('admin')->user()->school_id)->orderBy('created_at', 'DESC');
+        // $data = DB::select('select * FROM branches WHERE school_id = ?', [Auth::guard('admin')
+        //     ->user()->school_id]);
+        $data = $query->with('school')->get();
+
+        return Excel::download(new BranchesListDataTableExport($data), 'Branches_List_'.date('Y-m-d H:i:s').'.xlsx');
     }
 }
