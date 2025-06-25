@@ -63,7 +63,7 @@ Route::middleware(['auth' => 'admin'])->middleware('user_actions:admin')->contro
     Route::put('department/update', [DepartmentsController::class, 'update'])->name('update-department');
     Route::delete('department/delete', [DepartmentsController::class, 'delete'])->name('delete-department');
     Route::get('getDepartmentsBySchoolId', [DepartmentsController::class, 'getDepartmentsBySchoolId'])->name('getDepartmentsBySchoolId');
-    Route::get('departmentsTables', 'App\Http\Controllers\Admin\Departments\DepartmentsDatatable')->name('departmentsTables');
+    Route::get('departmentsTables', [DepartmentsController::class, 'departments_list'])->name('departmentsTables');
     route::get('getLevelsBasedOnDepartmentAndBranch', [DepartmentsController::class, 'getLevelsBasedOnDepartmentAndBranch'])->name('getLevelsBasedOnDepartmentAndBranch');
     Route::post('department/new-assign-department-to-level', [DepartmentsController::class, 'newassignleveltodepartment'])->name('new-assign-department-to-level');
     Route::get('get-department-levels', [AssignLevelToDepartmentController::class, 'get_department_levels'])->name('get_department_levels');

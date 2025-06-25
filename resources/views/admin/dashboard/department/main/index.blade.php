@@ -37,12 +37,13 @@
                             <div class="table-responsive">
                                 <table id="DepartmentsDataTables" class="display" style="min-width: 845px">
                                     <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Branch</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Branch</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -54,17 +55,17 @@
         </div>
     {{--Modals--}}
     @push('modals')
-        @include('admin/dashboard/department/main/DepartmentsModals')
+        @include('admin.dashboard.department.main.DepartmentsModals')
     @endpush
 @endsection
 {{--page js script--}}
 @push('page-js')
-    @include('admin/dashboard/department/main/departmentsJS')
-    @include('custom-functions/admin/BranchesInSelectInputJS')
-    @include('custom-functions/admin/LevelsInSelectInputBasedOnSchoolJS')
-    {{-- @include('custom-functions/admin/StudentsListBasedOnDepartmentAndLevelJS') --}}
+    @include('admin.dashboard.department.main.departmentsJS')
+    @include('custom-functions.admin.BranchesInSelectInputJS')
+    @include('custom-functions.admin.LevelsInSelectInputBasedOnSchoolJS')
+    {{-- @include('custom-functions.admin.StudentsListBasedOnDepartmentAndLevelJS') --}}
 @endpush
 {{--page datatable script--}}
 @push('datatable')
-    @include('admin/dashboard/department/main/departmentsDataTables')
+    @include('admin.dashboard.department.main.departmentsDataTables')
 @endpush

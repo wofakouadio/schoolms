@@ -44,14 +44,14 @@
                                             <th>Student ID</th>
                                             <th>Name</th>
                                             <th>Level</th>
-                                            <th>Subject</th>
+                                            {{-- <th>Subject</th> --}}
                                             <th>Score</th>
                                             <th>Percentage({{ $classAssessmentPercentage }}%)</th>
-                                            <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- {{ dd($AssessmentRecords) }} --}}
+                                        {{ dd($AssessmentRecords) }}
                                         {{-- {{ $x = 1 }} --}}
                                         @foreach ($AssessmentRecords as $record)
                                             <tr>
@@ -70,9 +70,9 @@
                                                     $record->student->student_lastname }}
                                                 </td>
                                                 <td>{{ $record->level->level_name }}</td>
-                                                <td>{{ $record->subject->subject_name }}</td>
-                                                <td>{{ $record->score }}</td>
-                                                <td>{{ $record->percentage }}</td>
+                                                {{-- <td>{{ $record->subject->subject_name }}</td> --}}
+                                                <td>{{ $record->class_total_score }}</td>
+                                                <td>{{ $record->class_total_score_percentage }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn btn-primary light sharp"
@@ -96,9 +96,9 @@
                                                             {{-- <a class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#edit-level-assessment-modal"
                                                                 data-id="{{ $record->id }}">Edit Class Score</a> --}}
-                                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                            {{-- <a class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#delete-level-assessment-modal"
-                                                                data-id="{{ $record->id }}">Delete Class Score</a>
+                                                                data-id="{{ $record->id }}">Delete Class Score</a> --}}
                                                         </div>
                                                     </div>
                                                 </td>

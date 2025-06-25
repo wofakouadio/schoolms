@@ -22,7 +22,12 @@ class AdminController extends Controller
     public function index()
     {
         $schoolTerm = TermAndAcademicYear();
-        $schoolData = School::where('id', Auth::guard('admin')->user()->school_id)->first();
+        $adminUser = Auth::guard('admin')->user();
+        if (!$adminUser) {
+            // If admin is not authenticated (session expired), redirect to homepage
+            return redirect('/');
+        }
+        $schoolData = School::where('id', $adminUser->school_id)->first();
         $schoolData->getMedia("school_logo")->first();
         // students
         $studentsCount = StudentsAdmissions::where('school_id', Auth::guard('admin')->user()->school_id)->count();

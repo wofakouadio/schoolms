@@ -27,13 +27,10 @@ class TeacherMockController extends Controller
     public function index()
     {
         $schoolTerm = TermAndAcademicYear();
-        $data = StudentMock::with('teacher_level')
-            ->with('student')
-            ->with('mock')
-            ->with('branch')
-            ->with('term')
-            ->where('school_id', Auth::guard('teacher')->user()->school_id)
-            ->orderBy('created_at', 'DESC')
+        $data = StudentMock::with('teacher_level', 'student', 'mock', 'branch', 'term')
+            ->where([
+                'school_id' => Auth::guard('teacher')->user()->school_id
+            ])->orderBy('created_at', 'DESC')
             ->get();
         return view('teacher.dashboard.assessment.mock.index', compact('schoolTerm', 'data'));
     }
@@ -53,10 +50,11 @@ class TeacherMockController extends Controller
     {
         $level_id = $request->level_id;
         $output = [];
-        $students = StudentsAdmissions::where('student_level', $level_id)
-            ->where("school_id", Auth::guard('teacher')->user()->school_id)
-            ->where('admission_status', 1)
-            ->orderBy('student_firstname', 'ASC')
+        $students = StudentsAdmissions::where([
+            'student_level' => $level_id,
+            'school_id' => Auth::guard('teacher')->user()->school_id,
+            'admission_status' => 1
+            ])->orderBy('student_firstname', 'ASC')
             ->get();
         $output[] = '<option value="">Choose</option>';
         foreach ($students as $student) {
@@ -78,28 +76,32 @@ class TeacherMockController extends Controller
 
         //let get student data
         $studentData = StudentsAdmissions::with('level')
-            ->where('id', $request->student)
-            ->where("school_id", Auth::guard('teacher')->user()->school_id)
-            ->where('admission_status', 1)
-            ->first();
+            ->where([
+                'id' => $request->student,
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+                'admission_status' => 1
+            ])->first();
 
         //let get mock data
-        $mockData = Mock::where('id', $request->mock)
-            ->where("school_id", Auth::guard('teacher')->user()->school_id)
-            ->first();
+        $mockData = Mock::where([
+                'id' => $request->mock,
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+            ])->first();
 
         //let get student subjects level assigned to mock
         $studentSubjectsLevel = AssignSubjectsToMock::with('AssignSubject')
-            ->where('mock_id', $request->mock)
-            ->where('level_id', $request->level)
-            ->where("school_id", Auth::guard('teacher')->user()->school_id)
-            ->get();
+            ->where([
+                'mock_id' => $request->mock,
+                'level_id' => $request->level,
+                'school_id' => Auth::guard('teacher')->user()->school_id,
+            ])->get();
 
         //let get academic year
-        $academicYearSession = Term::with('academic_year')->where("school_id", Auth::guard('teacher')->user()
-            ->school_id)
-            ->where("is_active", 1)
-            ->first();
+        $academicYearSession = Term::with('academic_year')
+            ->where([
+                "school_id" => Auth::guard('teacher')->user()->school_id,
+                "is_active" => 1
+            ])->first();
 
         $data = [
             'StudentData' => $studentData,
@@ -122,7 +124,7 @@ class TeacherMockController extends Controller
                 $mockScore += $value['score'];
                 $mockEntry[] = [
                     'subject_id' => $value['subject_id'],
-                    'score' => $value['score'],
+                    'score' => $value['score']
                 ];
             }
 
@@ -153,23 +155,14 @@ class TeacherMockController extends Controller
                 ]);
             }
 
-//            dd($mockEntry);
-
             DB::commit();
-            Alert::success('Notification', 'Student Mock saved successfully');
+            flash()->addSuccess('Student Mock saved successfully', 'Notification');
             return redirect()->route('teacher_mock_assessment');
-//            return response()->json([
-//                'status' => 200,
-//                'msg' => 'Student Mock saved successfully'
-//            ]);
+
         }catch(\Exception $th){
             DB::rollBack();
-            Alert::error('Notification', 'Error: something went wrong. More Details : ' . $th->getMessage());
+            flash()->addError('Error: something went wrong. More Details : ' . $th->getMessage());
             return back();
-//            return response()->json([
-//                'status' => 201,
-//                'msg' => 'Error: something went wrong. More Details : ' . $th->getMessage()
-//            ]);
         }
 
     }

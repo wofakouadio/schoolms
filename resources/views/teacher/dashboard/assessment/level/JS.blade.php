@@ -37,7 +37,7 @@
                  }
              });
              $.ajax({
-                 url: '{{ route('getTeacherStudentsBasedOnLevel') }}',
+                 url: "{{ route('getTeacherStudentsBasedOnLevel') }}",
                  method: 'GET',
                  cache: false,
                  data: {
@@ -60,7 +60,7 @@
                  }
              });
              $.ajax({
-                 url: '{{ route('teacher_getSubjectsBasedOnLevel') }}',
+                 url: "{{ route('teacher_getSubjectsBasedOnLevel') }}",
                  method: 'GET',
                  cache: false,
                  data: {
@@ -90,7 +90,7 @@
              });
              let form = $("#new-level-assessment-form").serialize()
              $.ajax({
-                 url: '{{ route('teacher-get-student-for-level-assessment') }}',
+                 url: "{{ route('teacher-get-student-for-level-assessment') }}",
                  method: 'GET',
                  cache: false,
                  data: form,

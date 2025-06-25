@@ -74,7 +74,7 @@ class TeacherLevelController extends Controller
     {
         $output = [];
 
-        $output[] = "<option>Choose</option>";
+        $output[] = "<option value=''>Choose</option>";
         $teacherLevels = SubjectsToTeacher::with('level')
         ->select('level_id')
         ->where(['teacher_id' => Auth::guard('teacher')->user()->id,

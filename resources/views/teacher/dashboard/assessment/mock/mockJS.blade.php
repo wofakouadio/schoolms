@@ -13,7 +13,7 @@
                 }
             });
             $.ajax({
-                url:'{{route('getTeacherStudentsBasedOnLevel')}}',
+                url:'{{route("getTeacherStudentsBasedOnLevel")}}',
                 method:'GET',
                 cache:false,
                 data: {level_id:level_id},
@@ -33,7 +33,7 @@
             });
             let form = $("#new-student-mock-form").serialize()
             $.ajax({
-                url:'{{route('get-teacher-student-to-mock')}}',
+                url:'{{route("get-teacher-student-to-mock")}}',
                 method:'GET',
                 cache: false,
                 data: form,
@@ -83,7 +83,15 @@
                     })
                 },
                 error:(Response) => {
-                    console.log(Response)
+                    $("#new-student-mock-modal .menu-alert").addClass('alert-danger').show()
+                    // let errorMessage = Response.responseJSON ? Response.responseJSON.errors : 'An unexpected error occurred.';
+                    let errorMessages = '';
+                    $.each(Response.responseJSON.errors, function (key, value) {
+                        errorMessages += '<li>' + value[0] + '</li>';
+                    });
+                    $("#new-student-mock-modal .menu-alert ul").html(errorMessages);
+                    // $("#new-student-mock-modal .menu-alert").removeClass('alert-success').addClass('alert-danger').show().html(errorMessage);
+                    console.log(errorMessages)
                 }
             })
         })

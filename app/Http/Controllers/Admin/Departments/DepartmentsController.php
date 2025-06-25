@@ -235,4 +235,8 @@ class DepartmentsController extends Controller
         }
     }
 
+    public function departments_list(Request $request){
+        
+    }
+
 }

@@ -27,10 +27,10 @@
                             <label  class="form-label font-w600">Level<span class="text-danger scale5
                             ms-2">*</span></label>
                             <select class="form-control solid" name="teacher_level">
-                                <option>Choose</option>
+                                {{-- <option>Choose</option>
                                 @foreach($TeacherAssignedLevels as $key => $level)
                                     <option value={{ $level->level_id }}>{{ $level->level->level_name }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                         <div class="col-xl-12 mb-4">
